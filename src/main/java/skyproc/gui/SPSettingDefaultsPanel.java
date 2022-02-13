@@ -5,8 +5,6 @@
 package skyproc.gui;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import lev.gui.LButton;
@@ -51,17 +49,13 @@ public class SPSettingDefaultsPanel extends SPSettingPanel {
 	super.initialize();
 
 	defaults.setLocation(getSpacing(defaults, save, true));
-	defaults.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent event) {
-		if (saveFile != null) {
-		    for (LUserSetting s : settings) {
-			saveFile.revertToDefault(s);
-		    }
-		    update();
+	defaults.addActionListener(event -> {
+	if (saveFile != null) {
+		for (LUserSetting s : settings) {
+		saveFile.revertToDefault(s);
 		}
-	    }
+		update();
+	}
 	});
 	defaults.addMouseListener(new MouseListener() {
 
@@ -125,17 +119,13 @@ public class SPSettingDefaultsPanel extends SPSettingPanel {
 	    public void mouseClicked(MouseEvent e) {
 	    }
 	});
-	save.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent event) {
-		if (saveFile != null) {
-		    for (LUserSetting s : settings) {
-			saveFile.revertToSaved(s);
-		    }
-		    update();
+	save.addActionListener(event -> {
+	if (saveFile != null) {
+		for (LUserSetting s : settings) {
+		saveFile.revertToSaved(s);
 		}
-	    }
+		update();
+	}
 	});
 
 	settingsPanel.add(defaults);

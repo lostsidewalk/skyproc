@@ -20,5 +20,5 @@ public enum WardState {
     /**
      *
      */
-    Break;
+    Break
 }

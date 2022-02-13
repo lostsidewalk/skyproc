@@ -170,17 +170,13 @@ public class SUMGUI extends JFrame {
 
 	    startPatch = new LButton("Patch");
 	    startPatch.setLocation(backgroundPanel.getWidth() - startPatch.getWidth() - 5, 5);
-	    startPatch.addActionListener(new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		    if (SPGlobal.logging()) {
+	    startPatch.addActionListener(e -> {
+			if (SPGlobal.logging()) {
 			SPGlobal.logMain(header, "Starting patch because user pressed patch.");
-		    }
-                    patchrequested = true;
-		    closeWindow();
-		}
-	    });
+			}
+patchrequested = true;
+			closeWindow();
+		});
 	    startPatch.addMouseListener(new MouseListener() {
 
 		@Override
@@ -244,16 +240,12 @@ public class SUMGUI extends JFrame {
 		public void mouseExited(MouseEvent e) {
 		}
 	    });
-	    cancelPatch.addActionListener(new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		    if (SPGlobal.logging()) {
+	    cancelPatch.addActionListener(e -> {
+			if (SPGlobal.logging()) {
 			SPGlobal.logMain(header, "Closing program early because user cancelled.");
-		    }
-		    exitProgram(false, true);
-		}
-	    });
+			}
+			exitProgram(false, true);
+		});
 	    backgroundPanel.add(cancelPatch);
 
 	    forcePatch = new LCheckBox("Force Patch on Exit", SUMSmallFont, Color.GRAY);
@@ -377,65 +369,61 @@ public class SUMGUI extends JFrame {
 	clean();
 
 	SUMGUI.hook = hook;
-	SwingUtilities.invokeLater(new Runnable() {
-
-	    @Override
-	    public void run() {
-		if (singleton == null) {
-		    try {
-			if (hook.hasSave()) {
-			    hook.getSave().init();
-			}
-
-			// SUM save
-			save.init();
-
-			logStatus();
-			SPGlobal.setGlobalPatch(hook.getExportPatch());
-
-			try {
-			    hook.onStart();
-			} catch (Exception ex) {
-			    SPGlobal.logException(ex);
-			}
-
-			if (hook.hasCustomMenu()) {
-			    singleton = hook.openCustomMenu();
-			} else {
-			    singleton = new SUMGUI();
-			}
-			if (hook.hasStandardMenu()) {
-			    SPMainMenuPanel menu = hook.getStandardMenu();
-			    if (!menu.hasVersion()) {
-				menu.setVersion(hook.getVersion());
-			    }
-			    singleton.add(menu);
-			    if (justSettings) {
-				switchToSettingsMode();
-			    }
-			}
-
-			progress.moveToCorrectLocation();
-			if (!justPatching) {
-			    progress.setGUIref(singleton);
-			}
-
-			if (justPatching && needsImporting()) {
-			    exitRequested = true;
-			    progress.open();
-			    runThread();
-			} else if (!justPatching && hook.importAtStart()) {
-			    runThread();
-			} else if (testNeedsPatching(false)) {
-			    setPatchNeeded(true);
-			}
-		    } catch (Exception e) {
-			SPGlobal.logException(e);
-			JOptionPane.showMessageDialog(null, "<html>There was an error running the program.<br>"
-				+ "Refer to the debug logs.</html>");
-		    }
+	SwingUtilities.invokeLater(() -> {
+	if (singleton == null) {
+		try {
+		if (hook.hasSave()) {
+			hook.getSave().init();
 		}
-	    }
+
+		// SUM save
+		save.init();
+
+		logStatus();
+		SPGlobal.setGlobalPatch(hook.getExportPatch());
+
+		try {
+			hook.onStart();
+		} catch (Exception ex) {
+			SPGlobal.logException(ex);
+		}
+
+		if (hook.hasCustomMenu()) {
+			singleton = hook.openCustomMenu();
+		} else {
+			singleton = new SUMGUI();
+		}
+		if (hook.hasStandardMenu()) {
+			SPMainMenuPanel menu = hook.getStandardMenu();
+			if (!menu.hasVersion()) {
+			menu.setVersion(hook.getVersion());
+			}
+			singleton.add(menu);
+			if (justSettings) {
+			switchToSettingsMode();
+			}
+		}
+
+		progress.moveToCorrectLocation();
+		if (!justPatching) {
+			progress.setGUIref(singleton);
+		}
+
+		if (justPatching && needsImporting()) {
+			exitRequested = true;
+			progress.open();
+			runThread();
+		} else if (!justPatching && hook.importAtStart()) {
+			runThread();
+		} else if (testNeedsPatching(false)) {
+			setPatchNeeded(true);
+		}
+		} catch (Exception e) {
+		SPGlobal.logException(e);
+		JOptionPane.showMessageDialog(null, "<html>There was an error running the program.<br>"
+			+ "Refer to the debug logs.</html>");
+		}
+	}
 	});
     }
 
@@ -506,8 +494,8 @@ public class SUMGUI extends JFrame {
 	// Progress Bar Location
 	int index = arguments.indexOf("-PROGRESSLOCATION");
 	if (index != -1) {
-	    Dimension progressLoc = new Dimension(Integer.valueOf(arguments.get(index + 1)),
-		    Integer.valueOf(arguments.get(index + 2)));
+	    Dimension progressLoc = new Dimension(Integer.parseInt(arguments.get(index + 1)),
+		    Integer.parseInt(arguments.get(index + 2)));
 	    SUMGUI.progress.setCorrectLocation(progressLoc.width, progressLoc.height);
 	}
 
@@ -977,13 +965,13 @@ public class SUMGUI extends JFrame {
 		    exitProgram(true, false);
 		}
 	    } catch (MissingMaster m) {
-		System.err.println(m.toString());
+		System.err.println(m);
 		SPGlobal.logException(m);
-		JOptionPane.showMessageDialog(null, m.toString() + "\n\n Please activate and try again.");
+		JOptionPane.showMessageDialog(null, m + "\n\n Please activate and try again.");
 		exitProgram(false, true);
 
 	    } catch (Throwable e) {
-		System.err.println(e.toString());
+		System.err.println(e);
 		SPGlobal.logException(e);
 		JOptionPane.showMessageDialog(null, "There was an exception thrown during program execution: '" + e + "'\n\n" + errorMessage);
 
@@ -995,7 +983,7 @@ public class SUMGUI extends JFrame {
 	    }
 	}
 
-	public void main(String args[]) {
+	public void main(String[] args) {
 	    (new Thread(new ProcessingThread())).start();
 	}
     }
@@ -1092,7 +1080,7 @@ public class SUMGUI extends JFrame {
      * Interface that hooks SkyProc's progress bar output to the SUM GUI's
      * progress bar display.
      */
-    public class SUMProgress implements LProgressBarInterface {
+    public static class SUMProgress implements LProgressBarInterface {
 
 	@Override
 	public void setMax(int in) {
@@ -1208,8 +1196,8 @@ public class SUMGUI extends JFrame {
 	PrevVersion,
 	CrashState,
 	BOSSWarning,
-        LOOTWarning;
-    }
+        LOOTWarning
+	}
 
     static class SUMGUISave extends LSaveFile {
 
@@ -1220,8 +1208,8 @@ public class SUMGUI extends JFrame {
 	@Override
 	protected void initSettings() {
 	    Add(SUMGUISettings.PrevVersion, 0, true);
-	    Add(SUMGUISettings.LastMasterlist, new ArrayList<String>(), false);
-	    Add(SUMGUISettings.LastModlist, new ArrayList<String>(), false);
+	    Add(SUMGUISettings.LastMasterlist, new ArrayList<>(), false);
+	    Add(SUMGUISettings.LastModlist, new ArrayList<>(), false);
 	    Add(SUMGUISettings.CrashState, false, false);
 	    Add(SUMGUISettings.BOSSWarning, true, false);
             Add(SUMGUISettings.LOOTWarning, true, false);

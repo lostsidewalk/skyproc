@@ -6,8 +6,7 @@ package skyproc;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import lev.LOutFile;
+import java.util.Objects;
 
 /**
  *
@@ -96,7 +95,7 @@ class StringNonNull extends Record {
             return false;
         }
         final StringNonNull other = (StringNonNull) obj;
-        if ((this.data == null) ? (other.data != null) : !this.data.equals(other.data)) {
+        if (!Objects.equals(this.data, other.data)) {
             return false;
         }
         return true;

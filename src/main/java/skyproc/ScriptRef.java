@@ -6,11 +6,10 @@ package skyproc;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -139,7 +138,7 @@ public class ScriptRef extends Record implements Iterable<String> {
 	    return false;
 	}
 	final ScriptRef other = (ScriptRef) obj;
-	if (this.name != other.name && (this.name == null || !this.name.equals(other.name))) {
+	if (!Objects.equals(this.name, other.name)) {
 	    return false;
 	}
 	return true;

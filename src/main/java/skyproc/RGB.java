@@ -20,5 +20,5 @@ public enum RGB {
     /**
      *
      */
-    Blue;
+    Blue
 }

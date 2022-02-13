@@ -40,5 +40,5 @@ public enum EmotionType {
     /**
      *
      */
-    Puzzled;
+    Puzzled
 }

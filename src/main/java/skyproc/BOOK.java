@@ -125,8 +125,8 @@ public class BOOK extends MajorRecordDescription {
 	/**
 	 *
 	 */
-	Read;
-    }
+	Read
+	}
 
     // Common Functions
     BOOK() {

@@ -516,8 +516,8 @@ public class Condition extends SubShell {
 	/**
 	 *
 	 */
-	EventData;
-    }
+	EventData
+	}
 
     /**
      *
@@ -547,8 +547,8 @@ public class Condition extends SubShell {
 	/**
 	 *
 	 */
-	LessThanOrEqual;
-    }
+	LessThanOrEqual
+	}
 
     /**
      *
@@ -566,8 +566,8 @@ public class Condition extends SubShell {
 	/**
 	 *
 	 */
-	Third;
-    }
+	Third
+	}
 
     /**
      *

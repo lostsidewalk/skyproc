@@ -52,10 +52,9 @@ public class SUMprogram implements SUM {
      * Main function that starts the program and GUI.
      *
      * @param args "-test" Opens up the SkyProc tester program instead of SUM
-     * @throws Exception
-     */
+	 */
     @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch", "UseSpecificCatch"})
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 	try {
 	    if (handleArgs(args)) {
 		SUMprogram sum = new SUMprogram();
@@ -63,7 +62,7 @@ public class SUMprogram implements SUM {
 	    }
 	} catch (Exception e) {
 	    // If a major error happens, print it everywhere and display a message box.
-	    System.err.println(e.toString());
+	    System.err.println(e);
 	    SPGlobal.logException(e);
 	    JOptionPane.showMessageDialog(null, "There was an exception thrown during program execution: '" + e + "'  Check the debug logs.");
 	    SPGlobal.closeDebug();
@@ -102,7 +101,7 @@ public class SUMprogram implements SUM {
 	return true;
     }
 
-    void runProgram() throws InstantiationException, IllegalAccessException {
+    void runProgram() {
 	compileExcludes();
 
 	openDebug();
@@ -121,7 +120,7 @@ public class SUMprogram implements SUM {
 	    String read;
 	    while (in.ready()) {
 		read = in.readLine();
-		if (read.indexOf("//") != -1) {
+		if (read.contains("//")) {
 		    read = read.substring(0, read.indexOf("//"));
 		}
 		read = read.trim().toUpperCase();
@@ -163,44 +162,41 @@ public class SUMprogram implements SUM {
 	}
 
 	SUMGUI.open(this, new String[0]);
-	SwingUtilities.invokeLater(new Runnable() {
-	    @Override
-	    public void run() {
-		SUMGUI.patchNeededLabel.setText("");
-		SUMGUI.patchNeededLabel.setLocation(-1000, -1000);
-		SUMGUI.forcePatch.setLocation(-1000, -1000);
-		forceAllPatches = new LCheckBox("Force All Patches", SUMGUI.SUMSmallFont, Color.GRAY);
-		forceAllPatches.setLocation(SUMGUI.rightDimensions.x + 10, SUMGUI.cancelPatch.getY() + SUMGUI.cancelPatch.getHeight() / 2 - forceAllPatches.getHeight() / 2);
-		forceAllPatches.setOffset(-4);
-		forceAllPatches.addMouseListener(new MouseListener() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		    }
+	SwingUtilities.invokeLater(() -> {
+	SUMGUI.patchNeededLabel.setText("");
+	SUMGUI.patchNeededLabel.setLocation(-1000, -1000);
+	SUMGUI.forcePatch.setLocation(-1000, -1000);
+	forceAllPatches = new LCheckBox("Force All Patches", SUMGUI.SUMSmallFont, Color.GRAY);
+	forceAllPatches.setLocation(SUMGUI.rightDimensions.x + 10, SUMGUI.cancelPatch.getY() + SUMGUI.cancelPatch.getHeight() / 2 - forceAllPatches.getHeight() / 2);
+	forceAllPatches.setOffset(-4);
+	forceAllPatches.addMouseListener(new MouseListener() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		}
 
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		    }
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
 
-		    @Override
-		    public void mouseReleased(MouseEvent e) {
-		    }
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
 
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-			SUMGUI.helpPanel.setContent("This will force each patcher to create a patch, even if "
-				+ "it doesn't think it needs to.  Use this if you want to forcibly "
-				+ "remake all patches for any reason.");
-			SUMGUI.helpPanel.setTitle("Force All Patches");
-			SUMGUI.helpPanel.hideArrow();
-			SUMGUI.helpPanel.setDefaultPos();
-		    }
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		SUMGUI.helpPanel.setContent("This will force each patcher to create a patch, even if "
+			+ "it doesn't think it needs to.  Use this if you want to forcibly "
+			+ "remake all patches for any reason.");
+		SUMGUI.helpPanel.setTitle("Force All Patches");
+		SUMGUI.helpPanel.hideArrow();
+		SUMGUI.helpPanel.setDefaultPos();
+		}
 
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		    }
-		});
-		SUMGUI.singleton.add(forceAllPatches);
-	    }
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+	});
+	SUMGUI.singleton.add(forceAllPatches);
 	});
     }
 
@@ -633,12 +629,12 @@ public class SUMprogram implements SUM {
 	}
     }
 
-    class SUMsave extends SkyProcSave {
+    static class SUMsave extends SkyProcSave {
 
 	@Override
 	protected void initSettings() {
 	    Add(SUMSettings.MERGE_PATCH, false, true);
-	    Add(SUMSettings.DISABLED, new ArrayList<String>(0), true);
+	    Add(SUMSettings.DISABLED, new ArrayList<>(0), true);
 	    Add(SUMSettings.RUN_BOSS, false, false);
             Add(SUMSettings.RUN_LOOT, true, false);
             Add(SUMSettings.ALL_AS_MASTERS, false, false);
@@ -688,13 +684,13 @@ public class SUMprogram implements SUM {
 	RUN_BOSS,
         RUN_LOOT,
         ALL_AS_MASTERS,
-	LANGUAGE;
-    }
+	LANGUAGE
+	}
 
     enum SUMlogs {
 
-	JarHook;
-    }
+	JarHook
+	}
 
     // SUM methods
     /**
@@ -938,7 +934,7 @@ public class SUMprogram implements SUM {
 	return activeLinks;
     }
 
-    void setupLinksForBOSS(ArrayList<PatcherLink> activeLinks) throws IOException, BadRecord {
+    void setupLinksForBOSS(ArrayList<PatcherLink> activeLinks) throws IOException {
 	ArrayList<Mod> active = new ArrayList<>();
 	for (PatcherLink link : activeLinks) {
 	    active.add(link.hook.getExportPatch());
@@ -1008,22 +1004,21 @@ public class SUMprogram implements SUM {
 
     void runEachPatcher(ArrayList<PatcherLink> activeLinks) {
 	SUMGUI.progress.setStatus("Running Patchers");
-	for (int i = 0; i < activeLinks.size(); i++) {
-	    PatcherLink link = activeLinks.get(i);
-	    SUMGUI.progress.setStatusNumbered("Running " + link.getName());
-	    SPGlobal.logMain("Run Changes", "Running jar: " + link.path);
-	    if (!link.isActive()) {
-		SPGlobal.logMain("Run Changes", "Skipped jar because it was not selected: " + link.path);
-	    } else if (runJarPatcher(link)) {
-		SPGlobal.logMain("Run Changes", "Successfully ran jar: " + link.path);
-	    } else {
-		int response = JOptionPane.showConfirmDialog(null, "Failed to properly run " + link.getName() + ".  Continue patching?", "Error", JOptionPane.YES_NO_OPTION);
-		if (response == JOptionPane.NO_OPTION) {
-		    SUMGUI.exitProgram(false, true);
+		for (PatcherLink link : activeLinks) {
+			SUMGUI.progress.setStatusNumbered("Running " + link.getName());
+			SPGlobal.logMain("Run Changes", "Running jar: " + link.path);
+			if (!link.isActive()) {
+				SPGlobal.logMain("Run Changes", "Skipped jar because it was not selected: " + link.path);
+			} else if (runJarPatcher(link)) {
+				SPGlobal.logMain("Run Changes", "Successfully ran jar: " + link.path);
+			} else {
+				int response = JOptionPane.showConfirmDialog(null, "Failed to properly run " + link.getName() + ".  Continue patching?", "Error", JOptionPane.YES_NO_OPTION);
+				if (response == JOptionPane.NO_OPTION) {
+					SUMGUI.exitProgram(false, true);
+				}
+				SPGlobal.logMain("Run Changes", "UNsuccessfully ran jar: " + link.path);
+			}
 		}
-		SPGlobal.logMain("Run Changes", "UNsuccessfully ran jar: " + link.path);
-	    }
-	}
     }
 
     boolean runJarPatcher(PatcherLink link) {

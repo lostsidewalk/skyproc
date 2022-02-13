@@ -1074,7 +1074,7 @@ public enum ActorValue {
     // http://www.uesp.net/wiki/Tes5Mod:Actor_Value_Indices#Actor_Value_Codes as an easier way to generate
     // code, rather than typing it all by hand.
     // Shouldn't need to be used by you or any users.
-    static void parseData() throws FileNotFoundException, IOException {
+    static void parseData() throws IOException {
 
 	String dir = "Validation Files/";
 	BufferedReader in = new BufferedReader(new FileReader(dir + "ActorValueSource.txt"));
@@ -1089,7 +1089,7 @@ public enum ActorValue {
 	    log.write("Read Line: " + line);
 	    Scanner tokenizer = new Scanner(line);
 	    try {
-		int index = Integer.valueOf(tokenizer.next());
+		int index = Integer.parseInt(tokenizer.next());
 		log.write("  Index: " + index);
 		String name = tokenizer.next();
 		log.write("  Ref: " + name);

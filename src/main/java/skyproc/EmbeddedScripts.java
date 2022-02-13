@@ -20,7 +20,7 @@ public class EmbeddedScripts {
     // mod.gib.me/skyrim/functions.html as an easier way to generate
     // script objects, rather than typing it all by hand.
     // Shouldn't need to be used by you or any users.
-    static void parseScriptDataGibMe() throws FileNotFoundException, IOException {
+    static void parseScriptDataGibMe() throws IOException {
 
 	String dir = "Validation Files/";
 	BufferedReader in = new BufferedReader(new FileReader(dir + "EmbeddedScriptSourceGib.txt"));
@@ -33,7 +33,7 @@ public class EmbeddedScripts {
 	    log.write("Read Line: " + line + "\n");
 	    Scanner tokenizer = new Scanner(line);
 	    try {
-		int index = Integer.valueOf(tokenizer.next());
+		int index = Integer.parseInt(tokenizer.next());
 		log.write("  Index: " + index + "\n");
 		if (index < 4096) {
 		    log.write("  Skipped.\n");
@@ -116,7 +116,7 @@ public class EmbeddedScripts {
 	    Scanner tokenizer = new Scanner(line);
 	    tokenizer.useDelimiter(",");
 	    try {
-		int index = Integer.valueOf(tokenizer.next().trim());
+		int index = Integer.parseInt(tokenizer.next().trim());
 		log.write("  Index: " + index + "\n");
 		String name = tokenizer.next().trim();
 		log.write("  Ref: " + name + "\n");
@@ -324,8 +324,8 @@ public class EmbeddedScripts {
 	/**
 	 *
 	 */
-	NULL;
-    }
+	NULL
+	}
 
     /**
      *
@@ -343,8 +343,8 @@ public class EmbeddedScripts {
 	/**
 	 *
 	 */
-	Three;
-    }
+	Three
+	}
 
     static class ScriptDef {
 

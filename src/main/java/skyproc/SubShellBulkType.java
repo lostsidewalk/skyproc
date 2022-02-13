@@ -36,16 +36,11 @@ class SubShellBulkType extends SubShell {
 	String nextType;
 	Set<String> targets = new HashSet<>(subRecords.getTypes());
 	while (!in.isDone()) {
-	    try {
-		nextType = getNextType(in);
-		if (!targets.contains(nextType) || (!includeFirst && nextType.equals(first))) {
-		    break;
-		}
-	    } catch (BadRecord ex) {
-		SPGlobal.logException(ex);
-		break;
-	    }
-	    int newSize = super.getRecordLength(in);
+        nextType = getNextType(in);
+        if (!targets.contains(nextType) || (!includeFirst && nextType.equals(first))) {
+            break;
+        }
+        int newSize = super.getRecordLength(in);
 	    size += newSize;
 	    in.skip(newSize);
 	}

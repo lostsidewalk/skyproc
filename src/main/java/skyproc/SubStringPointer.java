@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.Ln;
 import skyproc.Mod.Mod_Flags;
 import skyproc.exceptions.BadParameter;
@@ -68,7 +67,7 @@ class SubStringPointer extends SubRecordTyped {
 	data.parseData(in, srcMod);
 	fetchStringPointers(srcMod);
 	if (SPGlobal.logMods){
-	    logMod(srcMod, getType(), "Setting " + toString() + " to : " + Ln.arrayToString(data.getData()) + " - " + toString());
+	    logMod(srcMod, getType(), "Setting " + this + " to : " + Ln.arrayToString(data.getData()) + " - " + this);
 	}
     }
 
@@ -160,8 +159,8 @@ class SubStringPointer extends SubRecordTyped {
 
     enum Files {
 
-	STRINGS, ILSTRINGS, DLSTRINGS;
-    }
+	STRINGS, ILSTRINGS, DLSTRINGS
+	}
 
     @Override
     public int hashCode() {

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.LFlags;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -682,7 +681,7 @@ public class RACE extends MajorRecordDescription {
     /**
      *
      */
-    public static enum RACEFlags {
+    public enum RACEFlags {
 
 	/**
 	 *
@@ -811,8 +810,8 @@ public class RACE extends MajorRecordDescription {
 	/**
 	 *
 	 */
-	AvoidsRoads;
-    }
+	AvoidsRoads
+	}
 
     /**
      *
@@ -858,8 +857,8 @@ public class RACE extends MajorRecordDescription {
 	/**
 	 *
 	 */
-	EXTRALARGE;
-    }
+	EXTRALARGE
+	}
 
     // Common Functions
     /**

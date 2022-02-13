@@ -7,8 +7,6 @@ package skyproc.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import lev.gui.LButton;
 import lev.gui.LTextPane;
@@ -76,47 +74,35 @@ public abstract class SPQuestionPanel extends SPSettingPanel {
 
 	cancelButton = new LButton("Cancel");
 	cancelButton.setLocation(15, settingsPanel.getHeight() - cancelButton.getHeight() - 10);
-	cancelButton.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		if (testCancel()) {
-		    int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel?", "Confirm Cancel",
-			    JOptionPane.YES_NO_OPTION);
-		    if (answer == JOptionPane.YES_OPTION) {
-			onCancel();
-			cancelPanel.open();
-		    }
+	cancelButton.addActionListener(e -> {
+	if (testCancel()) {
+		int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel?", "Confirm Cancel",
+			JOptionPane.YES_NO_OPTION);
+		if (answer == JOptionPane.YES_OPTION) {
+		onCancel();
+		cancelPanel.open();
 		}
-	    }
+	}
 	});
 	settingsPanel.add(cancelButton);
 
 	backButton = new LButton("Back");
 	backButton.setLocation(settingsPanel.getWidth() / 2 - backButton.getWidth() / 2, settingsPanel.getHeight() - backButton.getHeight() - 10);
-	backButton.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		if (testBack()) {
-		    onBack();
-		    backPanel.open();
-		}
-	    }
+	backButton.addActionListener(e -> {
+	if (testBack()) {
+		onBack();
+		backPanel.open();
+	}
 	});
 	settingsPanel.add(backButton);
 
 	nextButton = new LButton("Next");
 	nextButton.setLocation(settingsPanel.getWidth() - nextButton.getWidth() - 15, settingsPanel.getHeight() - cancelButton.getHeight() - 10);
-	nextButton.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		if (testNext()) {
-		    onNext();
-		    nextPanel.open();
-		}
-	    }
+	nextButton.addActionListener(e -> {
+	if (testNext()) {
+		onNext();
+		nextPanel.open();
+	}
 	});
 	settingsPanel.add(nextButton);
 

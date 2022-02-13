@@ -22,7 +22,7 @@ public interface SUM {
      *
      * @return Name of the project/mod.
      */
-    public String getName();
+    String getName();
     /**
      * One of the major "danger zones" of SkyProc is the potential for compounding record duplications.<br><br>
      *
@@ -35,22 +35,22 @@ public interface SUM {
      * that duplicates weapons exponentially as well, then an absurdly large number of records could be created.
      * @return Array of the types that this patcher will be creating a large amount of new records of.
      */
-    public GRUP_TYPE[] dangerousRecordReport();
+    GRUP_TYPE[] dangerousRecordReport();
     /**
      *
      * @return An array of the types of records that this patcher would like to import and have access to.
      */
-    public GRUP_TYPE[] importRequests();
+    GRUP_TYPE[] importRequests();
     /**
      *
      * @return Whether the standard GUI should start importing the mods as soon as it opens.
      */
-    public boolean importAtStart();
+    boolean importAtStart();
     /**
      *
      * @return True if your patcher has a SPMainMenuPanel for a SUMGUI
      */
-    public boolean hasStandardMenu();
+    boolean hasStandardMenu();
     /**
      * Return a SPMainMenuPanel that has been customized with your patcher's contents.<br>
      * Customizing constitutes first creating your own SPSettingPanels extending classes in your project.<br>
@@ -59,25 +59,25 @@ public interface SUM {
      * @see SPMainMenuPanel
      * @return A SPMainMenuPanel customized with your patcher's contents.
      */
-    public SPMainMenuPanel getStandardMenu();
+    SPMainMenuPanel getStandardMenu();
     /**
      * True if you have a custom made GUI.<br>
      * NOTE: The SPDefaultGUI counts as a custom GUI.
      * @return True if you have a custom made GUI.
      */
-    public boolean hasCustomMenu();
+    boolean hasCustomMenu();
     /**
      * Opens and displays the custom menu of your patcher and returns it.<br>
      * If you do not have a custom menu, simply put this line (after making sure hasCustomMenu() returns false):<br>
      * <i>throw new UnsupportedOperationException("Not supported yet.");</i>
      * @return
      */
-    public JFrame openCustomMenu();
+    JFrame openCustomMenu();
     /**
      *
      * @return True if you have a logo for your patcher.
      */
-    public boolean hasLogo();
+    boolean hasLogo();
     /**
      * Returns a URL to the patcher's logo image.  <br><br>
      * An example line from Automatic Variants is:<br>
@@ -89,7 +89,7 @@ public interface SUM {
      *
      * @return URL to your patcher's logo.
      */
-    public URL getLogo();
+    URL getLogo();
     /**
      * True if you have a savefile.<br>
      * You can create your own savefile and specify the settings in it by extending
@@ -97,60 +97,58 @@ public interface SUM {
      * @see LSaveFile
      * @return
      */
-    public boolean hasSave();
+    boolean hasSave();
     /**
      *
      * @return The singleton instance of your custom LSaveFile.
      */
-    public LSaveFile getSave();
+    LSaveFile getSave();
     /**
      *
      * @return The string representation of the current version of your patcher.
      */
-    public String getVersion();
+    String getVersion();
     /**
      *
      * @return The modlisting used for your export patch.
      */
-    public ModListing getListing();
+    ModListing getListing();
     /**
      * Create a new mod that will be your export patch and return it.  This includes
      * customizing the header flags as desired.
      * @return
      */
-    public Mod getExportPatch();
+    Mod getExportPatch();
     /**
      *
      * @return The preferred header color for your mod.
      */
-    public Color getHeaderColor();
+    Color getHeaderColor();
     /**
      * Custom code to determine if a patch is needed (in addition to the normal SUM patch needed rules).
      * @return Whether or not your program requires a patch.
      */
-    public boolean needsPatching();
+    boolean needsPatching();
     /**
      *
      * @return A description of your patcher for display in SUM.
      */
-    public String description();
+    String description();
     /**
      *
      * @return A list of ModListings of mods required to be present in order to
      * patch.  Program will stop and display error if any are missing.
      */
-    public ArrayList<ModListing> requiredMods();
+    ArrayList<ModListing> requiredMods();
     /**
      * Code to run before GUI displays.  This code runs AFTER your save is loaded.
-     * @throws Exception
      */
-    public void onStart () throws Exception;
+    void onStart();
     /**
      * Code to run before program closes.
      * @param patchWasGenerated True if a patch was generated before calling this function.
-     * @throws Exception
      */
-    public void onExit(boolean patchWasGenerated) throws Exception;
+    void onExit(boolean patchWasGenerated);
     /**
      * This function should start the processing code of your patcher.<br>
      * Assume:<br>
@@ -168,5 +166,5 @@ public interface SUM {
      *
      * @throws Exception
      */
-    public void runChangesToPatch() throws Exception ;
+    void runChangesToPatch() throws Exception ;
 }

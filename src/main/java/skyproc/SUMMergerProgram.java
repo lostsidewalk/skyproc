@@ -126,13 +126,13 @@ public class SUMMergerProgram implements SUM {
     }
 
     @Override
-    public void onStart() throws Exception {
+    public void onStart() {
 	SPGlobal.streamMode = false;
 	SPGlobal.mergeMode = true;
     }
 
     @Override
-    public void onExit(boolean patchWasGenerated) throws Exception {
+    public void onExit(boolean patchWasGenerated) {
     }
 
     @Override

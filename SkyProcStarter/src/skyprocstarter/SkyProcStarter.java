@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import lev.gui.LSaveFile;
-import skyproc.*;
 import skyproc.gui.SPMainMenuPanel;
 import skyproc.gui.SUM;
 import skyproc.gui.SUMGUI;
@@ -53,7 +52,7 @@ public class SkyProcStarter implements SUM {
 	    SUMGUI.open(new SkyProcStarter(), args);
 	} catch (Exception e) {
 	    // If a major error happens, print it everywhere and display a message box.
-	    System.err.println(e.toString());
+	    System.err.println(e);
 	    SPGlobal.logException(e);
 	    JOptionPane.showMessageDialog(null, "There was an exception thrown during program execution: '" + e + "'  Check the debug logs or contact the author.");
 	    SPGlobal.closeDebug();
@@ -168,12 +167,12 @@ public class SkyProcStarter implements SUM {
     // This function runs when the program opens to "set things up"
     // It runs right after the save file is loaded, and before the GUI is displayed
     @Override
-    public void onStart() throws Exception {
+    public void onStart() {
     }
 
     // This function runs right as the program is about to close.
     @Override
-    public void onExit(boolean patchWasGenerated) throws Exception {
+    public void onExit(boolean patchWasGenerated) {
     }
 
     // Add any mods that you REQUIRE to be present in order to patch.
@@ -191,7 +190,7 @@ public class SkyProcStarter implements SUM {
     // Write the changes you would like to make to the patch,
     // but DO NOT export it.  Exporting is handled internally.
     @Override
-    public void runChangesToPatch() throws Exception {
+    public void runChangesToPatch() {
 
 	Mod patch = SPGlobal.getGlobalPatch();
 

@@ -8,12 +8,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.zip.DataFormatException;
+import java.util.Objects;
+
 import lev.LImport;
-import lev.LOutFile;
 import lev.Ln;
-import skyproc.exceptions.BadParameter;
-import skyproc.exceptions.BadRecord;
 
 /**
  * This class represents a FormID that distinguishes one record from another.
@@ -287,7 +285,7 @@ public class FormID implements Comparable, Serializable {
 		return false;
 	    }
 	}
-	if ((this.master == null) ? (other.master != null) : !this.master.equals(other.master)) {
+	if (!Objects.equals(this.master, other.master)) {
 	    return false;
 	}
 	return true;

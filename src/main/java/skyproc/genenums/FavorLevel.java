@@ -24,5 +24,5 @@ public enum FavorLevel {
     /**
      *
      */
-    Large;
+    Large
 }

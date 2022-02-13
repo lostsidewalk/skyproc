@@ -174,21 +174,21 @@ public class AVIF extends MajorRecordDescription {
 	    subRecords.getSubList("CNAM").clear();
 	}
 
-	/**
-	 * @deprecated modifying the ArrayList will now directly
-	 * affect the record.
-	 * @param index
-	 */
-	public void addPointer(int index) {
-	    subRecords.getSubList("CNAM").add(index);
-	}
+//	/**
+//	 * @deprecated modifying the ArrayList will now directly
+//	 * affect the record.
+//	 * @param index
+//	 */
+//	public void addPointer(int index) {
+//	    subRecords.getSubList("CNAM").add(index);
+//	}
 
-	/**
-	 * @param ref
-	 */
-	public void addPointer(PerkReference ref) {
-	    addPointer(ref.getIndex());
-	}
+//	/**
+//	 * @param ref
+//	 */
+//	public void addPointer(PerkReference ref) {
+//	    addPointer(ref.getIndex());
+//	}
 
 	/**
 	 *

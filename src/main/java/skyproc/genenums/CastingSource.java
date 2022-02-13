@@ -25,5 +25,5 @@ public enum CastingSource {
     /**
      *
      */
-    Instant;
+    Instant
 }

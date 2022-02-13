@@ -9,9 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.LFlags;
-import lev.LShrinkArray;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -49,7 +47,7 @@ public class ECZN extends MajorRecord {
 	}
 
 	@Override
-	final void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+	void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
 	    super.parseData(in, srcMod);
 
 	    owner.parseData(in, srcMod);

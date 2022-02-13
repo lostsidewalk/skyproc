@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -188,7 +187,7 @@ public class PERK extends MajorRecordDescription {
 	StringNonNull scriptName = new StringNonNull();
 	StringNonNull fragmentName = new StringNonNull();
 
-	void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+	void parseData(LImport in, Mod srcMod) {
 	    index = in.extractInt(2);
 	    unknown = in.extract(3);
 	    scriptName.set(in.extractString(in.extractInt(2)));
@@ -211,8 +210,8 @@ public class PERK extends MajorRecordDescription {
     // Enums
     enum PerkType {
 
-	QUEST, ABILITY, COMPLEX;
-    }
+	QUEST, ABILITY, COMPLEX
+	}
 
     // Common Functions
     PERK() {

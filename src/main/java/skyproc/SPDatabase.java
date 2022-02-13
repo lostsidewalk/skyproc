@@ -163,7 +163,7 @@ public class SPDatabase implements Iterable<Mod> {
 	try {
 	    for (ModListing m : SPImporter.getActiveModList()) {
 		File modFile = new File(SPGlobal.pathToDataFixed + m.toString());
-		out.add(m.toString() + dateDelim + modFile.lastModified());
+		out.add(m + dateDelim + modFile.lastModified());
 	    }
 	} catch (IOException e) {
 	}

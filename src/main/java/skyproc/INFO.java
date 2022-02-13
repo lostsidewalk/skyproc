@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.LFlags;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -208,7 +207,7 @@ public class INFO extends MajorRecord {
 	StringNonNull scriptName = new StringNonNull();
 	StringNonNull fragmentName = new StringNonNull();
 
-	void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+	void parseData(LImport in, Mod srcMod) {
 	    unknown = in.extract(1)[0];
 	    scriptName.set(in.extractString(in.extractInt(2)));
 	    fragmentName.set(in.extractString(in.extractInt(2)));
@@ -229,7 +228,7 @@ public class INFO extends MajorRecord {
     /**
      *
      */
-    public class Response extends SubShell {
+    public static class Response extends SubShell {
 
 	Response() {
 	    super(responseProto);

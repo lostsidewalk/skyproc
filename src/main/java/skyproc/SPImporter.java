@@ -48,7 +48,7 @@ public class SPImporter {
         public void run() {
         }
 
-        public void main(String args[]) {
+        public void main(String[] args) {
             (new Thread(new StartImportThread())).start();
         }
     }
@@ -97,7 +97,7 @@ public class SPImporter {
                 }
 
                 while (line != null) {
-                    if (line.indexOf("#") >= 0) {
+                    if (line.contains("#")) {
                         line = line.substring(0, line.indexOf("#"));
                     }
                     line = line.trim();
@@ -478,7 +478,7 @@ public class SPImporter {
                         SPGlobal.logError(header, "  " + s.toString());
                     }
                     SPGlobal.logError(header, "Skipping a bad mod: " + mod);
-                    SPGlobal.logError(header, "  " + ex.toString());
+                    SPGlobal.logError(header, "  " + ex);
                 } //catch (Exception e) {
 //                    SPGlobal.logError(header, "Exception occured while importing mod : " + mod);
 //                    SPGlobal.logError(header, "  Message: " + e);
@@ -634,7 +634,7 @@ public class SPImporter {
             }
         }
         if (!missingMasters.isEmpty()) {
-            String error = "\n" + plugin.toString() + " has some missing masters:";
+            String error = "\n" + plugin + " has some missing masters:";
             for (ModListing m : missingMasters) {
                 error += "\n  - " + m.toString();
             }
@@ -682,11 +682,7 @@ public class SPImporter {
 
         GRUPIterator(GRUP_TYPE[] grup_targets, LInChannel input) {
             ArrayList<GRUP_TYPE> tmp = new ArrayList<>(Arrays.asList(grup_targets));
-            for (GRUP_TYPE g : new ArrayList<>(tmp)) {
-                if (GRUP_TYPE.unfinished(g) && !GRUP_TYPE.internal(g)) {
-                    tmp.remove(g);
-                }
-            }
+            tmp.removeIf(g -> GRUP_TYPE.unfinished(g) && !GRUP_TYPE.internal(g));
             targets = new ArrayList<>(tmp.size());
             for (GRUP_TYPE g : tmp) {
                 targets.add(g.toString());
@@ -699,25 +695,15 @@ public class SPImporter {
             if (targets.isEmpty()) {
                 return false;
             }
-            try {
-                loading = scanToGRUPStart(input, targets);
-                targets.remove(loading);
-                return !"NULL".equals(loading);
-            } catch (IOException ex) {
-                SPGlobal.logException(ex);
-                return false;
-            }
+            loading = scanToGRUPStart(input, targets);
+            targets.remove(loading);
+            return !"NULL".equals(loading);
         }
 
         @Override
         public RecordShrinkArray next() {
             RecordShrinkArray out;
-            try {
-                out = extractGRUPData(input);
-            } catch (IOException ex) {
-                SPGlobal.logException(ex);
-                out = new RecordShrinkArray();
-            }
+            out = extractGRUPData(input);
             return out;
         }
 
@@ -916,7 +902,7 @@ public class SPImporter {
         }
     }
 
-    static void importStringLocations(Mod plugin, SubStringPointer.Files file) throws FileNotFoundException, IOException, DataFormatException {
+    static void importStringLocations(Mod plugin, SubStringPointer.Files file) throws IOException, DataFormatException {
         ArrayList<Language> languageList = new ArrayList<>();
         languageList.add(SPGlobal.language);
         languageList.addAll(Arrays.asList(Language.values()));
@@ -992,7 +978,7 @@ public class SPImporter {
         }
 
         if (in == null) {
-            SPGlobal.logError(header, plugin.toString() + " did not have Strings files (loose or in BSA).");
+            SPGlobal.logError(header, plugin + " did not have Strings files (loose or in BSA).");
         } else if (SPGlobal.logMods) {
             SPGlobal.logMod(plugin, header, "Loaded " + file + " from language: " + plugin.language);
         }
@@ -1002,7 +988,7 @@ public class SPImporter {
         return "Strings\\" + plugin.getName().substring(0, plugin.getName().indexOf(".es")) + "_" + l + "." + file;
     }
 
-    static String scanToGRUPStart(LInChannel in, ArrayList<String> target) throws java.io.IOException {
+    static String scanToGRUPStart(LInChannel in, ArrayList<String> target) {
         String type;
         String intro;
         int size;
@@ -1027,7 +1013,7 @@ public class SPImporter {
         return "NULL";
     }
 
-    static RecordShrinkArray extractGRUPData(LInChannel in) throws IOException {
+    static RecordShrinkArray extractGRUPData(LInChannel in) {
         return new RecordShrinkArray(in, getGRUPsize(in));
     }
 

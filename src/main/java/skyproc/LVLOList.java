@@ -20,12 +20,12 @@ public class LVLOList {
     }
 
     LVLOList(ArrayList<LeveledEntry> in) {
-        for (int i = 0; i < in.size(); i++) {
-            if (!listLVLO.contains(in.get(i))) {
-                listLVLO.add(in.get(i));
-                list.put(in.get(i), new LVLOCount(in.get(i)));
+        for (LeveledEntry leveledEntry : in) {
+            if (!listLVLO.contains(leveledEntry)) {
+                listLVLO.add(leveledEntry);
+                list.put(leveledEntry, new LVLOCount(leveledEntry));
             } else {
-                list.get(in.get(i)).add();
+                list.get(leveledEntry).add();
             }
         }
     }

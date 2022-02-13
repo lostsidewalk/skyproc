@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -116,7 +116,7 @@ class ScriptProperty extends Record implements Serializable {
     }
 
     @Override
-    final void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+    final void parseData(LImport in, Mod srcMod) {
 	name.set(in.extractString(in.extractInt(2)));
 	ScriptPropertyType type = ScriptPropertyType.value(in.extractInt(1));
 	unknown = in.extractInt(1);
@@ -234,7 +234,7 @@ class ScriptProperty extends Record implements Serializable {
 	    return false;
 	}
 	final ScriptProperty other = (ScriptProperty) obj;
-	if (this.name != other.name && (this.name == null || !this.name.equals(other.name))) {
+	if (!Objects.equals(this.name, other.name)) {
 	    return false;
 	}
 	return true;
@@ -290,7 +290,7 @@ class ScriptProperty extends Record implements Serializable {
 	String print();
     }
 
-    class StringData implements ScriptData, Serializable {
+    static class StringData implements ScriptData, Serializable {
 
 	String data;
 
@@ -321,7 +321,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class IntData implements ScriptData, Serializable {
+    static class IntData implements ScriptData, Serializable {
 
 	int data;
 
@@ -351,7 +351,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class BooleanData implements ScriptData, Serializable {
+    static class BooleanData implements ScriptData, Serializable {
 
 	boolean data;
 
@@ -385,7 +385,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class FormIDData implements ScriptData, Serializable {
+    static class FormIDData implements ScriptData, Serializable {
 
 	byte[] data;
 	FormID id;
@@ -430,7 +430,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class FloatData implements ScriptData, Serializable {
+    static class FloatData implements ScriptData, Serializable {
 
 	float data;
 
@@ -460,7 +460,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class IntegerArrayData implements ScriptData, Serializable {
+    static class IntegerArrayData implements ScriptData, Serializable {
 
 	ArrayList<Integer> data;
 
@@ -501,7 +501,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class StringArrayData implements ScriptData, Serializable {
+    static class StringArrayData implements ScriptData, Serializable {
 
 	ArrayList<String> data;
 
@@ -548,7 +548,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class FormArrayData implements ScriptData, Serializable {
+    static class FormArrayData implements ScriptData, Serializable {
 
 	ArrayList<FormIDData> data;
 
@@ -591,7 +591,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class BoolArrayData implements ScriptData, Serializable {
+    static class BoolArrayData implements ScriptData, Serializable {
 
 	ArrayList<Boolean> data;
 
@@ -636,7 +636,7 @@ class ScriptProperty extends Record implements Serializable {
 	}
     }
 
-    class FloatArrayData implements ScriptData, Serializable {
+    static class FloatArrayData implements ScriptData, Serializable {
 
 	ArrayList<Float> data;
 

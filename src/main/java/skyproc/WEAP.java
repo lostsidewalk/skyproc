@@ -6,8 +6,6 @@ package skyproc;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.zip.DataFormatException;
 import lev.LImport;
 import lev.LFlags;
@@ -496,8 +494,8 @@ public class WEAP extends MajorRecordDescription {
 	/**
 	 *
 	 */
-	Crossbow;
-    }
+	Crossbow
+	}
 
     /**
      *

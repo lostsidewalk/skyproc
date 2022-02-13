@@ -151,7 +151,7 @@ public class GLOB extends MajorRecord {
      * @param value
      */
     final public void setValue (Boolean value) {
-	setValue((float)Integer.valueOf(Ln.convertBoolTo1(value)));
+	setValue((float)Integer.parseInt(Ln.convertBoolTo1(value)));
     }
 
     /**

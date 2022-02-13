@@ -6,12 +6,9 @@ package skyproc.gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
 import javax.swing.*;
 import lev.gui.LButton;
@@ -47,28 +44,20 @@ public class LFormIDPicker extends LUserSetting<FormID[]> {
 	add(addPicker);
 	add = new LButton("Add FormID  /\\");
 	add.setLocation(0, addPicker.getY() + addPicker.getHeight() + 5);
-	add.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent arg0) {
-		for (Object o : addPicker.getSelectedObjects()) {
-		    if (!model.contains(o)) {
-			model.addElement((FormID) o);
-		    }
+	add.addActionListener(arg0 -> {
+	for (Object o : addPicker.getSelectedObjects()) {
+		if (!model.contains(o)) {
+		model.addElement((FormID) o);
 		}
-	    }
+	}
 	});
 	add(add);
 	remove = new LButton("\\/  Remove FormID");
 	remove.setLocation(add.getWidth() + 5, add.getY());
-	remove.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent arg0) {
-		for (Object o : addedList.getSelectedValuesList()) {
-		    model.removeElement(o);
-		}
-	    }
+	remove.addActionListener(arg0 -> {
+	for (Object o : addedList.getSelectedValuesList()) {
+		model.removeElement(o);
+	}
 	});
 	add(remove);
 	model = new DefaultListModel();
@@ -180,7 +169,7 @@ public class LFormIDPicker extends LUserSetting<FormID[]> {
      * @param ids
      */
     public void load(String[][] ids) {
-	ArrayList<FormID> out = new ArrayList<FormID>(ids.length);
+	ArrayList<FormID> out = new ArrayList<>(ids.length);
 	for (String[] id : ids) {
 	    out.add(new FormID(id[0],id[1]));
 	}
@@ -192,7 +181,7 @@ public class LFormIDPicker extends LUserSetting<FormID[]> {
      * @return
      */
     public ArrayList<FormID> getPickedIDs () {
-	ArrayList<FormID> out = new ArrayList<FormID>(model.getSize());
+	ArrayList<FormID> out = new ArrayList<>(model.getSize());
 	for (int i = 0 ; i < model.getSize() ; i++) {
 	    out.add((FormID)model.getElementAt(i));
 	}

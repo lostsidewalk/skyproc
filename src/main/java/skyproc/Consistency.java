@@ -87,7 +87,7 @@ class Consistency {
 	return edid;
     }
 
-    static void getConsistencyFile() throws FileNotFoundException, IOException {
+    static void getConsistencyFile() throws IOException {
 	consistency.getConsistencyFile();
     }
 
@@ -125,11 +125,11 @@ class Consistency {
 	return imported;
     }
 
-    static enum LogTypes {
+    enum LogTypes {
 
 	CONSISTENCY,
-	CONSISTENCY_IMPORT,;
-    }
+	CONSISTENCY_IMPORT,
+	}
 
     abstract static class ConsistencyVersion {
 
@@ -240,7 +240,7 @@ class Consistency {
 	}
 
 	@Override
-	String getConsistencyFile() throws FileNotFoundException, IOException {
+	String getConsistencyFile() throws IOException {
 	    File myDocs = SPGlobal.getSkyProcDocuments();
 	    return myDocs.getPath() + "\\Consistency";
 	}
@@ -253,12 +253,8 @@ class Consistency {
 
 	@Override
 	boolean insert(String EDID, FormID id) {
-	    Map<String, FormID> modEDIDlist = storage.get(id.master);
-	    if (modEDIDlist == null) {
-		modEDIDlist = new HashMap<>();
-		storage.put(id.master, modEDIDlist);
-	    }
-	    return insert(EDID, id, modEDIDlist);
+		Map<String, FormID> modEDIDlist = storage.computeIfAbsent(id.master, k -> new HashMap<>());
+		return insert(EDID, id, modEDIDlist);
 	}
 
 	@Override
@@ -319,7 +315,7 @@ class Consistency {
 	@Override
 	boolean importConsistency(boolean globalOnly) throws IOException {
 	    if (!imported) {
-		storage.put(SPGlobal.getGlobalPatch().getInfo(), new HashMap<String, FormID>());
+		storage.put(SPGlobal.getGlobalPatch().getInfo(), new HashMap<>());
 	    }
 	    File f = new File(getConsistencyFile() + "V2");
 	    if (!f.isFile()) {
@@ -457,7 +453,7 @@ class Consistency {
 	}
 
 	@Override
-	void export() throws IOException {
+	void export() {
 	    if (SPGlobal.logging()) {
 		SPGlobal.logMain(header, "Exporting Consistency file.");
 	    }

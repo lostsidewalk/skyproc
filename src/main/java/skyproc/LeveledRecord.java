@@ -4,7 +4,6 @@
  */
 package skyproc;
 
-import java.io.IOException;
 import java.util.*;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
@@ -76,8 +75,8 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
         /**
          * 
          */
-        SpecialLoot;
-    }
+        SpecialLoot
+	}
 
     /**
      *

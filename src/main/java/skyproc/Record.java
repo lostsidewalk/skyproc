@@ -56,12 +56,8 @@ public abstract class Record implements Serializable {
     abstract ArrayList<String> getTypes();
 
     static ArrayList<String> getTypeList(String t) {
-	ArrayList<String> out = typeLists.get(t);
-	if (out == null) {
-	    out = new ArrayList<>(Arrays.asList(new String[]{t}));
-	    typeLists.put(t, out);
-	}
-	return out;
+        ArrayList<String> out = typeLists.computeIfAbsent(t, t1 -> new ArrayList<>(Arrays.asList(new String[]{t1})));
+        return out;
     }
 
     /**
@@ -86,9 +82,8 @@ public abstract class Record implements Serializable {
      * @param in the input buffer to read from
      * @return the record type of the next real record (XXXX records are not
      * explicitly returned)
-     * @throws BadRecord
      */
-    static String getNextType(LImport in) throws BadRecord {
+    static String getNextType(LImport in) {
         datasize = -1;
         String type = Ln.arrayToString(in.getInts(0, 4));
         if (type.equals("XXXX")) {

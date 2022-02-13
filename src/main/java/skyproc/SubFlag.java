@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.LFlags;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -32,7 +31,7 @@ class SubFlag extends SubRecordTyped {
 	super.parseData(in, srcMod);
 	flags.set(in.getAllBytes());
 	if (SPGlobal.logMods){
-	    logMod(srcMod, toString(), "Setting " + toString() + " to : " + print());
+	    logMod(srcMod, toString(), "Setting " + this + " to : " + print());
 	}
     }
 

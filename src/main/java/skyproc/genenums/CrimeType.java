@@ -36,5 +36,5 @@ public enum CrimeType {
     /**
      *
      */
-    WerewolfTransformation;
+    WerewolfTransformation
 }

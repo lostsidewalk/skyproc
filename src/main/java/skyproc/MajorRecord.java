@@ -179,12 +179,8 @@ public abstract class MajorRecord extends Record implements Serializable {
         }
 
         importSubRecords(in);
-        
-        ArrayList<MajorRecord> versions = recordHistory.get(ID);
-        if(versions == null){
-            versions = new ArrayList<>();
-            recordHistory.put(ID, versions);
-        }
+
+        ArrayList<MajorRecord> versions = recordHistory.computeIfAbsent(ID, k -> new ArrayList<>());
         versions.add(this);
     }
 

@@ -7,15 +7,11 @@ package skyproc.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import lev.gui.*;
-import lev.gui.resources.LFonts;
 
 /**
  *
@@ -170,20 +166,8 @@ public abstract class SPSettingPanel extends LPanel {
      */
     public ActionListener getOpenHandler() {
 
-	return new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent event) {
-		SwingUtilities.invokeLater(
-			new Runnable() {
-
-			    @Override
-			    public void run() {
-				open();
-			    }
-			});
-	    }
-	};
+	return event -> SwingUtilities.invokeLater(
+			this::open);
     }
 
     /**

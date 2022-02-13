@@ -9,7 +9,6 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -107,8 +106,8 @@ public class GMST extends MajorRecord {
 	/**
 	 *
 	 */
-	Unknown;
-    }
+	Unknown
+	}
 
     /**
      *
@@ -186,8 +185,8 @@ public class GMST extends MajorRecord {
 	/**
 	 *
 	 */
-	bWantCastVoice;
-    }
+	bWantCastVoice
+	}
 
     /**
      *
@@ -8369,8 +8368,8 @@ public class GMST extends MajorRecord {
 	/**
 	 *
 	 */
-	fmodifiedTargetAttackRange;
-    }
+	fmodifiedTargetAttackRange
+	}
 
     /**
      *
@@ -9572,8 +9571,8 @@ public class GMST extends MajorRecord {
 	/**
 	 *
 	 */
-	iMaxAttachedArrows;
-    }
+	iMaxAttachedArrows
+	}
 
     /**
      *
@@ -12171,8 +12170,8 @@ public class GMST extends MajorRecord {
 	/**
 	 *
 	 */
-	sYour;
-    }
+	sYour
+	}
 
 //    public enum USetting {
 //	uVideoDeviceIdentifierPart,

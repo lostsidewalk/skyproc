@@ -42,6 +42,6 @@ public class YourSaveFile extends SkyProcSave {
     // initSettings().
     public enum Settings {
 	IMPORT_AT_START,
-	OTHER_SETTINGS;
+	OTHER_SETTINGS
     }
 }

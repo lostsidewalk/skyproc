@@ -40,11 +40,11 @@ class SPLogger extends LLogger {
      * List of special types offered by SPLogger.  To log to one of them, use
      * logSpecial from LLogger.
      */
-    public static enum SpecialTypes {
+    public enum SpecialTypes {
 	/**
 	 * A logstream used for logging which records have been skipped/blockec.
 	 */
-	BLOCKED;
+	BLOCKED
     }
 
     public void logMod(Mod srcMod, String header, String ... data) {

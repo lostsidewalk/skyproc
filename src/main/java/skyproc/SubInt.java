@@ -7,8 +7,7 @@ package skyproc;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.zip.DataFormatException;
-import lev.LOutFile;
-import lev.LShrinkArray;
+
 import lev.LImport;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -57,7 +56,7 @@ class SubInt extends SubRecordTyped<Integer> {
 	super.parseData(in, srcMod);
 	data = in.extractInt(length);
 	if (SPGlobal.logMods){
-	    logMod(srcMod, toString(), "Setting " + toString() + " to : " + print());
+	    logMod(srcMod, toString(), "Setting " + this + " to : " + print());
 	}
     }
 

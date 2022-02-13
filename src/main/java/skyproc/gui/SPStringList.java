@@ -6,8 +6,7 @@ package skyproc.gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import lev.gui.LTextField;
 
 /**
@@ -28,13 +27,9 @@ public class SPStringList extends SPList<String> {
 	super(title, font, color);
 
 	adder = new LTextField("Adder");
-	adder.addEnterButton("Add", new ActionListener(){
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		addElement(adder.getText());
-		adder.setText("");
-	    }
+	adder.addEnterButton("Add", e -> {
+	addElement(adder.getText());
+	adder.setText("");
 	});
 	adder.setLocation(0, this.titleLabel.getY() + this.titleLabel.getHeight() + 10);
 	Add(adder);

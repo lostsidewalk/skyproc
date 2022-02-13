@@ -15,5 +15,5 @@ package skyproc.genenums;
  */
 public enum HeadPartFlags {
 
-    Playable, Male, Female, Is_Extra_Part, Use_Solid_Tint;
-};
+    Playable, Male, Female, Is_Extra_Part, Use_Solid_Tint
+}

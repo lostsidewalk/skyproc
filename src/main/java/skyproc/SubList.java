@@ -114,8 +114,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
     }
 
     public void sort() {
-	TreeSet<T> sorter = new TreeSet<>();
-	sorter.addAll(collection);
+		TreeSet<T> sorter = new TreeSet<>(collection);
 	collection.clear();
 	collection.addAll(sorter);
     }
@@ -153,9 +152,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
 	 * @param in ArrayList of records to add in.
 	 */
 	public void addRecordsTo(ArrayList<T> in) {
-		for (T t : collection) {
-			collection.add(t);
-		}
+		collection.addAll(collection);
 	}
 
     void parseData(LImport in, Mod srcMod, String nextType) throws BadRecord, DataFormatException, BadParameter {
@@ -306,10 +303,10 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
 		if (!tempList.equals(tempListNew)) {
 			if (!tempListBase.equals(tempListNew)) {
 				tempList.clear();
-				for (int i = 0; i < tempListNew.size(); i++) {
-					tempList.add(tempListNew.get(i));
+				for (T t : tempListNew) {
+					tempList.add(t);
 					if (Merger.fullLogging) {
-						SPGlobal.log((String)(getTypes().get(0)).toString() + ": ", "Replaced list for " + (String)(getTypes().get(0)).toString() + " from "
+						SPGlobal.log((String) (getTypes().get(0)).toString() + ": ", "Replaced list for " + (String) (getTypes().get(0)).toString() + " from "
 								+ Merger.currentRecord + " from Mod " + Merger.currentMod);
 					}
 				}
@@ -576,7 +573,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
 	 * A specialized class that stores information for the above mergers,
 	 * involving a sublist of SubFormInts.
 	 */
-	class SubFormIntStorage {
+	static class SubFormIntStorage {
 
 		ArrayList<SubFormInt> sfi = new ArrayList<>();
 		ArrayList<FormID> id = new ArrayList<>();

@@ -6,14 +6,9 @@ package skyproc;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.LShrinkArray;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
@@ -237,7 +232,7 @@ public class AltTextures extends SubRecordTyped {
 		return false;
 	    }
 	    final AltTexture other = (AltTexture) obj;
-	    if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+	    if (!Objects.equals(this.name, other.name)) {
 		return false;
 	    }
 	    if (this.index != other.index) {

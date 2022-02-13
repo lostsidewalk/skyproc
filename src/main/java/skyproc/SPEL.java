@@ -7,7 +7,6 @@ package skyproc;
 import skyproc.genenums.DeliveryType;
 import skyproc.genenums.CastType;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Spell Records

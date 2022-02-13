@@ -3,7 +3,6 @@ package skyproc;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -23,11 +22,11 @@ public class SubStringNonNull extends SubString {
     }
 
     @Override
-    void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+    void parseData(LImport in, Mod srcMod) {
 	in.skip(getIdentifierLength() + getSizeLength());
 	string = Ln.arrayToString(in.extractInts(in.available()));
 	if (SPGlobal.logMods){
-	    logMod(srcMod, getType().toString(), "Setting " + toString() + " to " + print());
+	    logMod(srcMod, getType().toString(), "Setting " + this + " to " + print());
 	}
     }
 

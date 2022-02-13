@@ -6,7 +6,6 @@ package skyproc.gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import lev.gui.LButton;
@@ -18,7 +17,7 @@ import lev.gui.LList;
  * @param <T>
  * @author Justin Swanson
  */
-public class SPList<T extends Object> extends LList<T> {
+public class SPList<T> extends LList<T> {
 
     LLabel titleLabel;
     LButton remove;
@@ -39,13 +38,7 @@ public class SPList<T extends Object> extends LList<T> {
 	scroll.setLocation(0, this.titleLabel.getY() + this.titleLabel.getHeight() + 10);
 
 	remove = new LButton("Remove Selected");
-	remove.addActionListener(new ActionListener() {
-
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		removeSelected();
-	    }
-	});
+	remove.addActionListener(e -> removeSelected());
 	Add(remove);
 
     }

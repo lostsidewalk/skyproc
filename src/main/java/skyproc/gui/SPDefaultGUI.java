@@ -38,13 +38,7 @@ public class SPDefaultGUI extends JFrame {
 	super(yourPatcherName);
 	pbar = new LProgressBar(250, 15, new Font("SansSerif", Font.PLAIN, 11), new Color(180, 180, 180));
 	SPProgressBarPlug.addProgressBar(pbar);
-	SwingUtilities.invokeLater(new Runnable() {
-
-	    @Override
-	    public void run() {
-		init(yourPatcherName, yourDescription);
-	    }
-	});
+	SwingUtilities.invokeLater(() -> init(yourPatcherName, yourDescription));
 
     }
 
@@ -121,13 +115,7 @@ public class SPDefaultGUI extends JFrame {
      */
     @Override
     public Component add(final Component c) {
-	SwingUtilities.invokeLater(new Runnable() {
-
-	    @Override
-	    public void run() {
-		backgroundPanel.add(c, 0);
-	    }
-	});
+	SwingUtilities.invokeLater(() -> backgroundPanel.add(c, 0));
 	return c;
     }
 
@@ -143,33 +131,25 @@ public class SPDefaultGUI extends JFrame {
      */
     public void replaceHeader(final URL logo, final int descriptionOffset) throws IOException {
 	patcherLogo = new LImagePane(logo);
-	SwingUtilities.invokeLater(new Runnable() {
-
-	    @Override
-	    public void run() {
-		description.setVisible(false);
-		patcherLogo.setLocation(getWidth() / 2 - patcherLogo.getWidth() / 2,
-			0);
-		pluginLabel.setVisible(false);
-		backgroundPanel.add(patcherLogo, 0);
-		fitDesc(patcherLogo, descriptionOffset);
-	    }
+	SwingUtilities.invokeLater(() -> {
+	description.setVisible(false);
+	patcherLogo.setLocation(getWidth() / 2 - patcherLogo.getWidth() / 2,
+		0);
+	pluginLabel.setVisible(false);
+	backgroundPanel.add(patcherLogo, 0);
+	fitDesc(patcherLogo, descriptionOffset);
 	});
     }
 
     void fitDesc(final Component descAnchor, final int offset) {
-	SwingUtilities.invokeLater(new Runnable() {
-
-	    @Override
-	    public void run() {
-		description.setVisible(false);
-		int descY = descAnchor.getY() + descAnchor.getHeight() + 20;
-		Dimension descSize = new Dimension(getWidth() - 100, getHeight()
-			- descY - (getHeight() - patching.getY()) - 15 - offset);
-		description.setLocation(description.getX(), descY + offset);
-		description.setSize(descSize);
-		description.setVisible(true);
-	    }
+	SwingUtilities.invokeLater(() -> {
+	description.setVisible(false);
+	int descY = descAnchor.getY() + descAnchor.getHeight() + 20;
+	Dimension descSize = new Dimension(getWidth() - 100, getHeight()
+		- descY - (getHeight() - patching.getY()) - 15 - offset);
+	description.setLocation(description.getX(), descY + offset);
+	description.setSize(descSize);
+	description.setVisible(true);
 	});
     }
 
@@ -179,13 +159,7 @@ public class SPDefaultGUI extends JFrame {
      * @param c Color to set the title to.
      */
     public void setHeaderColor(final Color c) {
-	SwingUtilities.invokeLater(new Runnable() {
-
-	    @Override
-	    public void run() {
-		pluginLabel.setFontColor(c);
-	    }
-	});
+	SwingUtilities.invokeLater(() -> pluginLabel.setFontColor(c));
     }
 
     /**
@@ -193,12 +167,6 @@ public class SPDefaultGUI extends JFrame {
      * complete.
      */
     public void finished() {
-	SwingUtilities.invokeLater(new Runnable() {
-
-	    @Override
-	    public void run() {
-		finishRun();
-	    }
-	});
+	SwingUtilities.invokeLater(this::finishRun);
     }
 }

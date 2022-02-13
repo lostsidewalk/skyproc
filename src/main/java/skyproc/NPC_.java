@@ -1056,7 +1056,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         /**
          *
          */
-        ConsciousLoop;
+        ConsciousLoop
     }
 
     /**
@@ -1284,7 +1284,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         /**
          *
          */
-        Frenzied;
+        Frenzied
     }
 
     /**
@@ -1303,7 +1303,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         /**
          *
          */
-        HelpsFriends;
+        HelpsFriends
     }
 
     /**
@@ -1326,7 +1326,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         /**
          *
          */
-        NoCrime;
+        NoCrime
     }
 
     /**
@@ -1353,7 +1353,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         /**
          *
          */
-        Foolhardy;
+        Foolhardy
     }
 
     /**
@@ -1392,7 +1392,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         /**
          *
          */
-        Disgusted,;
+        Disgusted,
     }
 
     /**
@@ -1471,7 +1471,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         /**
          *
          */
-        EyesForwardBack;
+        EyesForwardBack
     }
 
     // Special functions

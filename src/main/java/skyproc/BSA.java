@@ -45,11 +45,11 @@ public class BSA {
     Map<String, BSAFolder> folders;
     LInChannel in = new LInChannel();
 
-    BSA(File file, boolean load) throws FileNotFoundException, IOException, BadParameter {
+    BSA(File file, boolean load) throws IOException, BadParameter {
         this(file.getPath(), load);
     }
 
-    BSA(String filePath, boolean load) throws FileNotFoundException, IOException, BadParameter {
+    BSA(String filePath, boolean load) throws BadParameter {
         this.filePath = filePath;
         in.openFile(filePath);
         //if (!in.extractString(0, 3).equals("BSA") || in.extractInt(1, 4) != 104) {
@@ -197,10 +197,8 @@ public class BSA {
      * @return ShrinkArray of the raw data from the BSA of the file specified,
      * already decompressed if applicable; Empty ShrinkArray if the file did not
      * exist.
-     * @throws IOException
-     * @throws DataFormatException
      */
-    public LShrinkArray getFile(String filePath1) throws IOException, DataFormatException {
+    public LShrinkArray getFile(String filePath1) {
         BSAFileRef ref;
         if ((ref = getFileRef(filePath1)) != null) {
             in.pos(ref.dataOffset);
@@ -280,7 +278,7 @@ public class BSA {
         return getFile(f.getPath());
     }
 
-    String getFilename(String filePath) throws IOException {
+    String getFilename(String filePath) {
         BSAFileRef ref;
         if ((ref = getFileRef(filePath)) != null) {
             in.pos(ref.nameOffset);
@@ -566,7 +564,7 @@ public class BSA {
     BSAFileRef getFileRef(String filePath) {
         filePath = filePath.toUpperCase();
         int index = filePath.lastIndexOf('\\');
-        String folderPath = filePath.substring(0, index + 0);
+        String folderPath = filePath.substring(0, index);
         BSAFolder folder = folders.get(folderPath);
         if (folder != null) {
             String file = filePath.substring(index + 1);
@@ -953,12 +951,12 @@ public class BSA {
     /**
      *
      */
-    public static enum LogTypes {
+    public enum LogTypes {
 
         /**
          * A logstream used for logging which records have been skipped/blockec.
          */
-        BSA;
+        BSA
     }
 
     /**

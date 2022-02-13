@@ -7,7 +7,6 @@ package skyproc;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -49,7 +48,7 @@ class SubRGB extends SubRecordTyped {
 	g = in.extractFloat();
 	b = in.extractFloat();
 	if (SPGlobal.logMods){
-	    logMod(srcMod, toString(), "Setting " + toString() + " to : " + print());
+	    logMod(srcMod, toString(), "Setting " + this + " to : " + print());
 	}
     }
 

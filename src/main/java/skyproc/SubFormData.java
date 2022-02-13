@@ -7,6 +7,7 @@ package skyproc;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
 import skyproc.exceptions.BadParameter;
@@ -127,7 +128,7 @@ class SubFormData extends SubRecordTyped {
 	    return false;
 	}
 	final SubFormData other = (SubFormData) obj;
-	if (this.ID != other.ID && (this.ID == null || !this.ID.equals(other.ID))) {
+	if (!Objects.equals(this.ID, other.ID)) {
 	    return false;
 	}
 	return true;

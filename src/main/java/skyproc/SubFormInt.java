@@ -2,11 +2,9 @@ package skyproc;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.zip.DataFormatException;
-import lev.LOutFile;
-import lev.Ln;
-import lev.LShrinkArray;
+
 import lev.LImport;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -139,7 +137,7 @@ public class SubFormInt extends SubRecordTyped {
 	    return false;
 	}
 	final SubFormInt other = (SubFormInt) obj;
-	if (this.ID != other.ID && (this.ID == null || !this.ID.equals(other.ID))) {
+	if (!Objects.equals(this.ID, other.ID)) {
 	    return false;
 	}
 	return true;

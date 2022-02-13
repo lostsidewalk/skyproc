@@ -127,7 +127,7 @@ public class SkyProcTester {
 	return exportPass && idPass;
     }
 
-    private static boolean test(GRUP_TYPE type, ModTestPackage p) throws IOException, BadRecord, BadMod {
+    private static boolean test(GRUP_TYPE type, ModTestPackage p) throws IOException {
 	System.out.println("Testing " + type + " in " + p.main);
 	SPProgressBarPlug.setStatus("Validating " + type);
 	SPProgressBarPlug.pause(true);

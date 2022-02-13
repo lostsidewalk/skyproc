@@ -103,9 +103,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
         this.modInfo = info;
         this.setFlag(Mod_Flags.MASTER, info.getMasterTag());
         this.setFlag(Mod_Flags.STRING_TABLED, false);
-        stringLocations.put(SubStringPointer.Files.STRINGS, new TreeMap<Integer, Integer>());
-        stringLocations.put(SubStringPointer.Files.DLSTRINGS, new TreeMap<Integer, Integer>());
-        stringLocations.put(SubStringPointer.Files.ILSTRINGS, new TreeMap<Integer, Integer>());
+        stringLocations.put(SubStringPointer.Files.STRINGS, new TreeMap<>());
+        stringLocations.put(SubStringPointer.Files.DLSTRINGS, new TreeMap<>());
+        stringLocations.put(SubStringPointer.Files.ILSTRINGS, new TreeMap<>());
         addGRUP(new GMST());
         addGRUP(new KYWD());
         addGRUP(new TXST());
@@ -415,53 +415,49 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     void addStream(Map<SubStringPointer.Files, LImport> streams, SubStringPointer.Files file) {
-        try {
-            String stringPath = SPImporter.getStringFilePath(this, language, file);
-            File stringFile = new File(SPGlobal.pathToDataFixed + stringPath);
-            if (stringFile.isFile()) {
-                streams.put(file, new LInChannel(stringFile));
-                return;
-            } else if (BSA.hasBSA(getInfo())) {
-                BSA bsa = BSA.getBSA(getInfo());
-                if (bsa.hasFile(stringPath)) {
-                    LByteChannel stream = new LByteChannel();
-                    stream.openStream(bsa.getFile(stringPath));
-                    streams.put(file, stream);
-                }
-                return;
+        String stringPath = SPImporter.getStringFilePath(this, language, file);
+        File stringFile = new File(SPGlobal.pathToDataFixed + stringPath);
+        if (stringFile.isFile()) {
+            streams.put(file, new LInChannel(stringFile));
+            return;
+        } else if (BSA.hasBSA(getInfo())) {
+            BSA bsa = BSA.getBSA(getInfo());
+            if (bsa.hasFile(stringPath)) {
+                LByteChannel stream = new LByteChannel();
+                stream.openStream(bsa.getFile(stringPath));
+                streams.put(file, stream);
             }
-            else
+            return;
+        }
+        else
+        {
+            //check for plugin loaded BSA has strings file
+            for (BSA theBSA : BSA.getPluginBSAs())
             {
-                //check for plugin loaded BSA has strings file
-                for (BSA theBSA : BSA.getPluginBSAs()) 
-                {
-                    theBSA.loadFolders();
-                    if (!theBSA.hasFile(stringPath)) {
-                        continue;
-                    }
-                    LByteChannel stream = new LByteChannel();
-                    stream.openStream(theBSA.getFile(stringPath));
-                    streams.put(file, stream);
-                    return;
+                theBSA.loadFolders();
+                if (!theBSA.hasFile(stringPath)) {
+                    continue;
                 }
-                // check for resource loaded BSA with strings file
-                for (BSA theBSA : BSA.getResourceBSAa()) {
-                    theBSA.loadFolders();
-                    if (!theBSA.hasFile(stringPath)) {
-                        continue;
-                    }
-                    LByteChannel stream = new LByteChannel();
-                    stream.openStream(theBSA.getFile(stringPath));
-                    streams.put(file, stream);
-                    return;
-                }
+                LByteChannel stream = new LByteChannel();
+                stream.openStream(theBSA.getFile(stringPath));
+                streams.put(file, stream);
+                return;
             }
+            // check for resource loaded BSA with strings file
+            for (BSA theBSA : BSA.getResourceBSAa()) {
+                theBSA.loadFolders();
+                if (!theBSA.hasFile(stringPath)) {
+                    continue;
+                }
+                LByteChannel stream = new LByteChannel();
+                stream.openStream(theBSA.getFile(stringPath));
+                streams.put(file, stream);
+                return;
+            }
+        }
 
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(this, getName(), "No strings file for " + file);
-            }
-        } catch (IOException | DataFormatException ex) {
-            SPGlobal.log(getName(), "Could not open a strings stream for mod " + getName() + " to type: " + file);
+        if (SPGlobal.logMods) {
+            SPGlobal.logMod(this, getName(), "No strings file for " + file);
         }
     }
 
@@ -508,8 +504,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * @param grup_type Any amount of GRUPs to keep, separated by commas
      */
     public void keep(GRUP_TYPE... grup_type) {
-        ArrayList<GRUP_TYPE> grups = new ArrayList<>();
-        grups.addAll(Arrays.asList(grup_type));
+        ArrayList<GRUP_TYPE> grups = new ArrayList<>(Arrays.asList(grup_type));
         for (GRUP g : GRUPs.values()) {
             if (!grups.contains(g.getContainedType())) {
                 g.clear();
@@ -902,7 +897,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
         sublist.sort();
     }
 
-    void exportStringsFile(ArrayList<String> list, SubStringPointer.Files file) throws FileNotFoundException, IOException {
+    void exportStringsFile(ArrayList<String> list, SubStringPointer.Files file) throws IOException {
         int stringLength = 0;
         for (String s : list) {
             stringLength += s.length() + 1;
@@ -1692,8 +1687,8 @@ public class Mod implements Comparable, Iterable<GRUP> {
         STRING_TABLED(7);
         int value;
 
-        private Mod_Flags(int in) {
+        Mod_Flags(int in) {
             value = in;
         }
-    };
+    }
 }

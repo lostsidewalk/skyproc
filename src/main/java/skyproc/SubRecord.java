@@ -6,7 +6,6 @@ package skyproc;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import lev.LOutFile;
 
 /**
  * An abstract class outlining the functionality of subrecords, which are

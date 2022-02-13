@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LByteChannel;
 import lev.LImport;
-import lev.LOutFile;
 import lev.LFlags;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -872,7 +871,7 @@ public class QUST extends MajorRecordNamed {
 	StringNonNull scriptName = new StringNonNull();
 	StringNonNull fragmentName = new StringNonNull();
 
-	void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+	void parseData(LImport in, Mod srcMod) {
 	    questStage = in.extractInt(2);
             unknown1 = in.extractInt(2);
             questStageIndex = in.extractInt(4);
@@ -976,8 +975,8 @@ public class QUST extends MajorRecordNamed {
 	/**
 	 *
 	 */
-	KeepInstanceDataFromHereOn;
-    }
+	KeepInstanceDataFromHereOn
+	}
 
     /**
      *
@@ -991,8 +990,8 @@ public class QUST extends MajorRecordNamed {
 	/**
 	 *
 	 */
-	FailQuest;
-    }
+	FailQuest
+	}
 
     /**
      *

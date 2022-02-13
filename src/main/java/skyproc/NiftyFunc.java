@@ -181,9 +181,7 @@ public class NiftyFunc {
         argsInternal[2] = "-Xms" + startingMem;
         argsInternal[3] = "-Xmx" + maxMem;
         argsInternal[4] = jarPath;
-        for (int i = 5; i < args.length + 5; i++) {
-            argsInternal[i] = args[i - 5];
-        }
+        System.arraycopy(args, 0, argsInternal, 5, args.length + 5 - 5);
         ProcessBuilder proc = new ProcessBuilder(argsInternal);
         Process start = proc.start();
         InputStream shellIn = start.getInputStream();
@@ -233,7 +231,7 @@ public class NiftyFunc {
         String[] split = version.split("\\.");
         int out = 0;
         for (int i = 0; i < split.length && i < 4; i++) {
-            int next = Integer.valueOf(split[i]) * 1000000;
+            int next = Integer.parseInt(split[i]) * 1000000;
             if (i != 0) {
                 next /= Math.pow(100, i);
             }
@@ -322,7 +320,7 @@ public class NiftyFunc {
                     length = input.extractInt(0, 4);
                     input.skip(4);
                     int formID = input.extractInt(4);
-                    input.skip(8); 
+                    input.skip(8);
                     String subRecordType = input.extractString(0, 4);
                     if (subRecordType.equalsIgnoreCase("EDID")) {
                         int edidLength = input.extractInt(0, 2);
@@ -505,7 +503,7 @@ public class NiftyFunc {
     static public Map<FormID, Integer> replaceMajors(ArrayList<FormID> src, Map<FormID, MajorRecord> replacements) {
         Map<FormID, Integer> out = new HashMap<>(replacements.size());
         for (FormID id : replacements.keySet()) {
-            out.put(id, new Integer(0));
+            out.put(id, 0);
         }
         for (FormID id : src) {
             MajorRecord replace = replacements.get(id);
@@ -602,13 +600,7 @@ public class NiftyFunc {
      * @param errorMessages
      */
     public static void runBOSS(boolean errorMessages) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                SUMGUI.progress.setStatusNumbered("Running BOSS");
-            }
-        });
+        SwingUtilities.invokeLater(() -> SUMGUI.progress.setStatusNumbered("Running BOSS"));
         // Find BOSS
         SPGlobal.logMain("BOSS", "Looking for BOSS.");
         int response = JOptionPane.YES_OPTION;
@@ -654,13 +646,7 @@ public class NiftyFunc {
      * @param errorMessages
      */
     public static void runLOOT(boolean errorMessages) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                SUMGUI.progress.setStatusNumbered("Running LOOT");
-            }
-        });
+        SwingUtilities.invokeLater(() -> SUMGUI.progress.setStatusNumbered("Running LOOT"));
         // Find LOOT
         SPGlobal.logMain("LOOT", "Looking for LOOT.");
         int response = JOptionPane.YES_OPTION;

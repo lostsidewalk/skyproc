@@ -5,9 +5,9 @@
 package skyproc;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -41,7 +41,7 @@ class SubString extends SubRecordTyped<String> {
 	super.parseData(in, srcMod);
 	string = Ln.arrayToString(in.extractInts(in.available() - 1));
 	if (SPGlobal.logMods){
-	    logMod(srcMod, getType().toString(), "Setting " + toString() + " to " + print());
+	    logMod(srcMod, getType().toString(), "Setting " + this + " to " + print());
 	}
     }
 
@@ -89,7 +89,7 @@ class SubString extends SubRecordTyped<String> {
 	    return false;
 	}
 	final SubString other = (SubString) obj;
-	if ((this.string == null) ? (other.string != null) : !this.string.equals(other.string)) {
+	if (!Objects.equals(this.string, other.string)) {
 	    return false;
 	}
 	return true;

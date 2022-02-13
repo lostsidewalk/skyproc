@@ -7,6 +7,7 @@ package skyproc;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
 import skyproc.exceptions.BadParameter;
@@ -147,7 +148,7 @@ public class KeywordSet extends SubRecord {
             return false;
         }
         final KeywordSet other = (KeywordSet) obj;
-        if (this.keywords != other.keywords && (this.keywords == null || !this.keywords.equals(other.keywords))) {
+        if (!Objects.equals(this.keywords, other.keywords)) {
             return false;
         }
         return true;

@@ -62,7 +62,7 @@ public class SPGlobal {
     /**
      *
      */
-    public static enum Language {
+    public enum Language {
 
         /**
          *
@@ -99,7 +99,7 @@ public class SPGlobal {
         /**
          *
          */
-        Japanes;
+        Japanes
     }
     /**
      * The path from the .jar location to create/look for the file used to
@@ -680,23 +680,21 @@ public class SPGlobal {
     /**
      * Redirects System.out to the asynchronous log stream.
      *
-     * @throws FileNotFoundException
-     * @throws IOException
      */
-    public static void redirectSystemOutStream() throws FileNotFoundException, IOException {
+    public static void redirectSystemOutStream() {
         if (log == null) {
             createGlobalLog();
         }
         OutputStream outToDebug = new OutputStream() {
             @Override
-            public void write(final int b) throws IOException {
+            public void write(final int b) {
                 if (b != 116) {
                     log("", String.valueOf((char) b));
                 }
             }
 
             @Override
-            public void write(byte[] b, int off, int len) throws IOException {
+            public void write(byte[] b, int off, int len) {
                 String output = new String(b, off, len);
                 if (output.length() > 2) {
                     log("", output);

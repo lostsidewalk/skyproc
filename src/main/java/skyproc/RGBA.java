@@ -25,5 +25,5 @@ public enum RGBA {
     /**
      *
      */
-    Alpha;
+    Alpha
 }

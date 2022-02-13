@@ -73,7 +73,7 @@ public class HDPT extends MajorRecordNamed {
         int getContentLength(ModExporter out) {
             return 1;
         }
-    };
+    }
 
     // Common Functions
     HDPT() {
@@ -215,7 +215,7 @@ public class HDPT extends MajorRecordNamed {
         Hair,
         Facial_Hair,
         Scar,
-        Eyebrows;
+        Eyebrows
     }
     
     /**

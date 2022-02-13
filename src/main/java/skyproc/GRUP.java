@@ -103,7 +103,7 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
 	    if (item.isValid()) {
 		addRecord(item);
 	    } else if (SPGlobal.logMods){
-		logMod(srcMod, toString(), "Did not add " + getContainedType().toString() + " " + item.toString() + " because it was not valid.");
+		logMod(srcMod, toString(), "Did not add " + getContainedType().toString() + " " + item + " because it was not valid.");
 	    }
 
 	    return item;
@@ -312,9 +312,9 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
 	for (MajorRecord item : rhs) {
 	    if (logging() && SPGlobal.debugModMerge) {
 		if (contains(item.getForm())) {
-		    log(toString(), "Replacing record " + item.toString() + " with one from " + rhs.toString());
+		    log(toString(), "Replacing record " + item + " with one from " + rhs);
 		} else {
-		    log(toString(), "Adding record " + item.toString());
+		    log(toString(), "Adding record " + item);
 		}
 	    }
 	    addRecord(item);
@@ -352,8 +352,7 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
      */
     @Override
     public Iterator<T> iterator() {
-	ArrayList<T> temp = new ArrayList<>();
-	temp.addAll(listRecords);
+		ArrayList<T> temp = new ArrayList<>(listRecords);
 	return temp.iterator();
     }
 

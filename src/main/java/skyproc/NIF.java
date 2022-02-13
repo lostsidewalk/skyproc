@@ -37,12 +37,10 @@ public class NIF {
      * the file specified is not a nif file, or malformed.
      *
      * @param f File/path to load nif from.
-     * @throws FileNotFoundException
-     * @throws IOException
      * @throws BadParameter If the nif file is malformed (by SkyProc's
      * standards)
      */
-    public NIF(File f) throws FileNotFoundException, IOException, BadParameter {
+    public NIF(File f) throws BadParameter {
 	LInChannel in = new LInChannel(f);
 	fileName = f.getPath();
 	parseData(new LShrinkArray(in.extractByteBuffer(0, in.available())));
@@ -167,7 +165,7 @@ public class NIF {
     /**
      * A single Node and its data in the nif file.
      */
-    public class Node {
+    public static class Node {
 
 	/**
 	 * Title assigned to the node.
@@ -277,9 +275,9 @@ public class NIF {
      */
     public ArrayList<NodeType> getNodeTypes() {
 	ArrayList<NodeType> out = new ArrayList<>(nodes.size());
-	for (int i = 0; i < nodes.size(); i++) {
-	    out.add(nodes.get(i).type);
-	}
+		for (Node node : nodes) {
+			out.add(node.type);
+		}
 	return out;
     }
 

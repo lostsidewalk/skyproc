@@ -4,8 +4,6 @@
  */
 package skyproc;
 
-import java.io.IOException;
-import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
 import skyproc.exceptions.BadParameter;
@@ -70,7 +68,7 @@ class SubIntSigned extends SubInt {
             }
         }
 	if (SPGlobal.logMods){
-	    logMod(srcMod, toString(), "Setting " + toString() + " to : " + print());
+	    logMod(srcMod, toString(), "Setting " + this + " to : " + print());
 	}
     }
 /*
