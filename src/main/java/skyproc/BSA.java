@@ -193,7 +193,7 @@ public class BSA {
 
     /**
      *
-     * @param filePath filepath to query for and retrieve.
+     * @param filePath1 filepath to query for and retrieve.
      * @return ShrinkArray of the raw data from the BSA of the file specified,
      * already decompressed if applicable; Empty ShrinkArray if the file did not
      * exist.

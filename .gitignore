@@ -34,3 +34,8 @@ nbdist/
 .nb-gradle/
 
 # End of https://www.gitignore.io/api/java,netbeans
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build

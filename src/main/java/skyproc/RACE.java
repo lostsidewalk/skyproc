@@ -255,7 +255,7 @@ public class RACE extends MajorRecordDescription {
 	    super.parseData(in, srcMod);
 	    for (int i = 0; i < 7; i++) {
 		skillBoosts.add(ActorValue.value(in.extractInt(1)));
-		skillBoostValues.add(in.extractIntSigned(1));
+		skillBoostValues.add(in.extractInt(1));
 	    }
 	    in.skip(2);
 	    maleHeight = in.extractFloat();

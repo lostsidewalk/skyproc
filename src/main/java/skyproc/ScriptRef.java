@@ -213,7 +213,6 @@ public class ScriptRef extends Record implements Iterable<String> {
     /**
      * Adds a boolean property to the script, does not check for duplicates.
      *
-     * @param scriptName Script name to add property to
      * @param propertyName Name of the boolean property to add
      * @param booleanProperty What to set the boolean property to.
      */
@@ -224,7 +223,6 @@ public class ScriptRef extends Record implements Iterable<String> {
     /**
      * Adds an integer property to the script, does not check for duplicates.
      *
-     * @param scriptName Script name to add property to
      * @param propertyName Name of the integer property to add
      * @param integerProperty What to set the integer property to.
      */
@@ -235,7 +233,6 @@ public class ScriptRef extends Record implements Iterable<String> {
     /**
      * Adds a FormID property to the script, does not check for duplicates.
      *
-     * @param scriptName Script name to add property to
      * @param propertyName Name of the FormID property to add
      * @param idProperty What to set the FormID property to.
      */
@@ -246,7 +243,6 @@ public class ScriptRef extends Record implements Iterable<String> {
     /**
      * Adds a float property to the script, does not check for duplicates.
      *
-     * @param scriptName Script name to add property to (must already exist)
      * @param propertyName Property name to add
      * @param floatProperty Float value to assign to property
      */

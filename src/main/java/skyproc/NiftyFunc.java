@@ -612,7 +612,7 @@ public class NiftyFunc {
         // Find BOSS
         SPGlobal.logMain("BOSS", "Looking for BOSS.");
         int response = JOptionPane.YES_OPTION;
-        String bossPath = WinRegistry.WinRegistry.getRegistryEntry("BOSS", "Installed Path");
+        String bossPath = "boss"; // WinRegistry.WinRegistry.getRegistryEntry("BOSS", "Installed Path");
         File bossExe = new File(".");
         if (bossPath != null) {
             bossExe = new File(bossPath + "\\BOSS.exe");
@@ -664,7 +664,7 @@ public class NiftyFunc {
         // Find LOOT
         SPGlobal.logMain("LOOT", "Looking for LOOT.");
         int response = JOptionPane.YES_OPTION;
-        String lootPath = WinRegistry.WinRegistry.getRegistryEntry("LOOT", "Installed Path");
+        String lootPath = "loot"; // WinRegistry.WinRegistry.getRegistryEntry("LOOT", "Installed Path");
         File lootExe = new File(".");
         if (lootPath != null) {
             lootExe = new File(lootPath + "\\LOOT.exe");
