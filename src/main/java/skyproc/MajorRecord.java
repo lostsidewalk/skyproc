@@ -1,5 +1,10 @@
 package skyproc;
 
+import lev.LFlags;
+import lev.LImport;
+import skyproc.exceptions.BadParameter;
+import skyproc.exceptions.BadRecord;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,10 +12,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.zip.DataFormatException;
-import lev.LFlags;
-import lev.LImport;
-import skyproc.exceptions.BadParameter;
-import skyproc.exceptions.BadRecord;
 
 /**
  * A record contained in a GRUP. These are top level records that all have
@@ -21,7 +22,7 @@ import skyproc.exceptions.BadRecord;
 public abstract class MajorRecord extends Record implements Serializable {
 
     static final HashMap<FormID, ArrayList<MajorRecord>> recordHistory = new HashMap<>();
-    
+
     static final SubPrototype majorProto = new SubPrototype() {
 
         @Override
@@ -30,12 +31,12 @@ public abstract class MajorRecord extends Record implements Serializable {
         }
     };
     SubRecords subRecords = new SubRecordsStream(majorProto);
-    private FormID ID = new FormID();
     LFlags majorFlags = new LFlags(4);
     byte[] revision = new byte[4];
     int formVersion = 0x2C; //Form Version = 44
     byte[] version = new byte[2];
     Mod srcMod;
+    private FormID ID = new FormID();
 
     MajorRecord() {
     }
@@ -48,7 +49,6 @@ public abstract class MajorRecord extends Record implements Serializable {
     }
 
     /**
-     *
      * @param obj
      * @return
      */
@@ -88,7 +88,6 @@ public abstract class MajorRecord extends Record implements Serializable {
     }
 
     /**
-     *
      * @return
      */
     @Override
@@ -99,7 +98,6 @@ public abstract class MajorRecord extends Record implements Serializable {
     }
 
     /**
-     *
      * @return The FormID string of the Major Record.
      */
     @Override
@@ -168,7 +166,7 @@ public abstract class MajorRecord extends Record implements Serializable {
         if (get(MajorFlags.Compressed)) {
             set(MajorFlags.Compressed, false);
             in = in.correctForCompression();
-            if (SPGlobal.logMods){
+            if (SPGlobal.logMods) {
                 logMod(srcMod, getTypes().toString(), "Decompressed");
             }
         }
@@ -263,10 +261,18 @@ public abstract class MajorRecord extends Record implements Serializable {
     }
 
     // Get/set methods
+
+    /**
+     * @return The current EDID string.
+     */
+    final public String getEDID() {
+        return subRecords.getSubString("EDID").print();
+    }
+
     /**
      * Sets the EDID of the Major Record<br><br> ONLY works on new records
      * you've created originating from the global patch. <br>
-     *
+     * <p>
      * NOTE: This will reassign the records formID if the new EDID matches an
      * EDID from the previous patch.
      *
@@ -281,11 +287,13 @@ public abstract class MajorRecord extends Record implements Serializable {
     }
 
     /**
+     * Returns the FormID object of the Major Record. Note that any changes made
+     * to this FormID will be reflected in the Major Record also.
      *
-     * @return The current EDID string.
+     * @return The FormID object of the Major Record.
      */
-    final public String getEDID() {
-        return subRecords.getSubString("EDID").print();
+    public FormID getForm() {
+        return ID;
     }
 
     /**
@@ -299,17 +307,6 @@ public abstract class MajorRecord extends Record implements Serializable {
     }
 
     /**
-     * Returns the FormID object of the Major Record. Note that any changes made
-     * to this FormID will be reflected in the Major Record also.
-     *
-     * @return The FormID object of the Major Record.
-     */
-    public FormID getForm() {
-        return ID;
-    }
-
-    /**
-     *
      * @return The FormID string of the Major Record.
      */
     public String getFormStr() {
@@ -321,20 +318,69 @@ public abstract class MajorRecord extends Record implements Serializable {
     }
 
     /**
-     *
      * @return The name of the mod from which this Major Record originates.
      */
     public ModListing getFormMaster() {
         return ID.getMaster();
     }
-    
+
     /**
-     * 
-     * @return The mod (file) this Major Record was imported from. Does not need 
+     * @return The mod (file) this Major Record was imported from. Does not need
      * to be the same mod that this Major Record originates from.
      */
-    public ModListing getModImportedFrom(){
+    public ModListing getModImportedFrom() {
         return srcMod.getInfo();
+    }
+
+    /**
+     * @param flag
+     * @param on
+     */
+    public void set(MajorFlags flag, Boolean on) {
+        majorFlags.set(flag.value, on);
+    }
+
+    /**
+     * @param flag
+     * @return
+     */
+    public boolean get(MajorFlags flag) {
+        return majorFlags.get(flag.value);
+    }
+
+    GRUP getGRUPAppend() {
+        return null;
+    }
+
+    boolean shouldExportGRUP() {
+        return false;
+    }
+
+    /**
+     * @return A copy of a list of this Major Record as it appears in all imported plugins.
+     */
+    public ArrayList<MajorRecord> getRecordHistory() {
+        return new ArrayList<>(recordHistory.get(ID));
+    }
+
+    SubString getEDIDraw() {
+        return subRecords.getSubString("EDID");
+    }
+
+    /**
+     * Merges Major Records.
+     *
+     * @param no The new MajorRecord to be merged.
+     * @param bo The base MajorRecord, to prevent base data from being
+     *           re-merged.
+     * @return The modified MajorRecord.
+     */
+    public MajorRecord merge(MajorRecord no, MajorRecord bo) {
+        MajorRecord m = this;
+        m.ID.merge(no.ID, bo.ID);
+        m.getEDIDraw().merge(no.getEDIDraw(), bo.getEDIDraw());
+        m.majorFlags = Merger.merge(m.majorFlags, no.majorFlags, bo.majorFlags);
+        return m;
     }
 
     /**
@@ -367,9 +413,9 @@ public abstract class MajorRecord extends Record implements Serializable {
          */
         Deleted(5),
         /**
-         * ACTI: Has Tree LOD 
-         * REGN: Border Region 
-         * STAT: Has Tree LOD 
+         * ACTI: Has Tree LOD
+         * REGN: Border Region
+         * STAT: Has Tree LOD
          * REFR: Hidden From Local Map
          */
         RelatedToShields(6),
@@ -436,15 +482,15 @@ public abstract class MajorRecord extends Record implements Serializable {
          */
         CantWait(19),
         /**
-        * ACTI: Ignore Object Interaction
-        */
+         * ACTI: Ignore Object Interaction
+         */
         IgnoreObjectInteraction(20),
         /**
-         * 
+         *
          */
         UsedinMemoryChangedForm(21),
         /**
-         * 
+         *
          */
         Unknown23(22),
         /**
@@ -452,7 +498,7 @@ public abstract class MajorRecord extends Record implements Serializable {
          */
         IsMarker(23),
         /*
-         * 
+         *
          */
         Unknown25(24),
         /**
@@ -469,7 +515,7 @@ public abstract class MajorRecord extends Record implements Serializable {
          */
         NavMeshBoundingBox(27),
         /**
-         * STAT: Show in World Map 
+         * STAT: Show in World Map
          */
         MustExitToTalk(28),
         /**
@@ -491,56 +537,5 @@ public abstract class MajorRecord extends Record implements Serializable {
         MajorFlags(int value) {
             this.value = value;
         }
-    }
-
-    /**
-     *
-     * @param flag
-     * @param on
-     */
-    public void set(MajorFlags flag, Boolean on) {
-        majorFlags.set(flag.value, on);
-    }
-
-    /**
-     *
-     * @param flag
-     * @return
-     */
-    public boolean get(MajorFlags flag) {
-        return majorFlags.get(flag.value);
-    }
-
-    GRUP getGRUPAppend() {
-        return null;
-    }
-
-    boolean shouldExportGRUP() {
-        return false;
-    }
-    
-    /**
-     * 
-     * @return A copy of a list of this Major Record as it appears in all imported plugins.
-     */
-    public ArrayList<MajorRecord> getRecordHistory(){
-        return new ArrayList<>(recordHistory.get(ID));
-    }
-
-    SubString getEDIDraw() {return subRecords.getSubString("EDID");}
-    /**
-     * Merges Major Records.
-     *
-     * @param no The new MajorRecord to be merged.
-     * @param bo The base MajorRecord, to prevent base data from being
-     * re-merged.
-     * @return The modified MajorRecord.
-     */
-    public MajorRecord merge(MajorRecord no, MajorRecord bo) {
-        MajorRecord m = this;
-        m.ID.merge(no.ID, bo.ID);
-        m.getEDIDraw().merge(no.getEDIDraw(), bo.getEDIDraw());
-        m.majorFlags = Merger.merge(m.majorFlags, no.majorFlags, bo.majorFlags);
-        return m;
     }
 }

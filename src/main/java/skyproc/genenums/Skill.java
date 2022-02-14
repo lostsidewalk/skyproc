@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc.genenums;
 
 /**
@@ -92,60 +88,56 @@ public enum Skill {
      * None placeholder.
      */
     NONE;
-    
+
     /**
-     *
      * @param in
      * @return
      */
     static public int value(Skill in) {
-	if (in == NONE) {
-	    return -1;
-	} else {
-	    return in.ordinal();
-	}
+        if (in == NONE) {
+            return -1;
+        } else {
+            return in.ordinal();
+        }
     }
-    
+
     /**
-     *
      * @param in
      * @return
      */
     static public Skill value(int in) {
-	if (in < Skill.NONE.ordinal() && in >= 0) {
-	    return Skill.values()[in];
-	} else {
-	    return NONE;
-	}
+        if (in < Skill.NONE.ordinal() && in >= 0) {
+            return Skill.values()[in];
+        } else {
+            return NONE;
+        }
     }
-    
+
     /**
-     *
      * @param in
      * @return
      */
     static public int NPC_Value(Skill in) {
-	if ((in.ordinal() > Skill.Unknown6.ordinal()) && (in.ordinal() < Skill.NONE.ordinal())) {
-	    return in.ordinal() - Skill.ONEHANDED.ordinal();
-	} else {
-	    throw new IndexOutOfBoundsException("Skill " + in.name() + " is not an NPC_ DNAM entry");
-	}
+        if ((in.ordinal() > Skill.Unknown6.ordinal()) && (in.ordinal() < Skill.NONE.ordinal())) {
+            return in.ordinal() - Skill.ONEHANDED.ordinal();
+        } else {
+            throw new IndexOutOfBoundsException("Skill " + in.name() + " is not an NPC_ DNAM entry");
+        }
     }
-    
+
     /**
-     *
      * @param in
      * @return
      */
     static public Skill NPC_Value(int in) {
-	if ((in >= 0) && (in < 18)) {
-	    return Skill.values()[in+Skill.ONEHANDED.ordinal()];
-	} else {
-	    throw new IndexOutOfBoundsException(in + " is not an index of a skill in NPC_ DNAM");
-	}
+        if ((in >= 0) && (in < 18)) {
+            return Skill.values()[in + Skill.ONEHANDED.ordinal()];
+        } else {
+            throw new IndexOutOfBoundsException(in + " is not an index of a skill in NPC_ DNAM");
+        }
     }
-    
-    static public Skill[] NPC_Skills(){
+
+    static public Skill[] NPC_Skills() {
         Skill[] values = Skill.values();
         int len = Skill.NONE.ordinal() - Skill.ONEHANDED.ordinal();
         Skill[] ret = new Skill[(len)];

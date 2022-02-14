@@ -1,17 +1,22 @@
 package skyproc;
 
-import java.io.*;
-import java.nio.ByteBuffer;
-import java.util.*;
-import java.util.zip.DataFormatException;
 import lev.*;
 import skyproc.SPGlobal.Language;
-import static skyproc.SPImporter.extractHeaderInfo;
 import skyproc.SubStringPointer.Files;
 import skyproc.exceptions.BadMod;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 import skyproc.gui.SPProgressBarPlug;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.*;
+import java.util.zip.DataFormatException;
+
+import static skyproc.SPImporter.extractHeaderInfo;
 
 /**
  * A mod is a collection of GRUPs which contain records. Mods are used to create
@@ -37,8 +42,8 @@ public class Mod implements Comparable, Iterable<GRUP> {
     /**
      * Creates an empty Mod with the name and master flag set to match info.
      *
-     * @see ModListing
      * @param info ModListing object containing name and master flag.
+     * @see ModListing
      */
     @SuppressWarnings("LeakingThisInConstructor")
     public Mod(ModListing info) {
@@ -49,9 +54,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
     /**
      * Creates an empty Mod with the name and master flag set to parameters.
      *
-     * @param name String to set the Mod name to.
+     * @param name   String to set the Mod name to.
      * @param master Sets the Mod's master flag (which appends ".esp" and ".esm"
-     * to the modname as appropriate)
+     *               to the modname as appropriate)
      */
     public Mod(String name, Boolean master) {
         this(new ModListing(name, master));
@@ -164,7 +169,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @return The number of masters in the mod.
      */
     public int numMasters() {
@@ -172,7 +176,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @return True if no GRUP in the mod has any records.
      */
     public boolean isEmpty() {
@@ -185,7 +188,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @return True if the esp file exists for this mod in the data folder.
      */
     public boolean exists() {
@@ -216,10 +218,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
-     * @param query FormID to look in the mod for.
+     * @param query      FormID to look in the mod for.
      * @param grup_types Types of GRUPs to look in. (Optional - searches all if
-     * left blank)
+     *                   left blank)
      * @return The Major Record with the query FormID, or null if not found.
      */
     public MajorRecord getMajor(FormID query, GRUP_TYPE... grup_types) {
@@ -243,10 +244,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
-     * @param edid EDID to look in the mod for.
+     * @param edid       EDID to look in the mod for.
      * @param grup_types Types of GRUPs to look in. (Optional - searches all if
-     * left blank)
+     *                   left blank)
      * @return The Major Record with the query FormID, or null if not found.
      */
     public MajorRecord getMajor(String edid, GRUP_TYPE... grup_types) {
@@ -272,13 +272,13 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * Major Record a FormID originating from the mod. This function also
      * automatically adds the new copied record to the mod. This makes two
      * separate records independent of each other.<br><br>
-     *
+     * <p>
      * CONSISTENCY NOTE: This functions appends "_DUP" to the end of the EDID,
      * and then a random number if that EDID already exists. It is suggested you
      * only use this function if you are only making one duplicate of the
      * record. For multiple duplicates, use the version with a specified EDID,
      * for better consistencyFile results<br><br>
-     *
+     * <p>
      * COMPILER NOTE: The record returned can only be determined by the compiler
      * to be a Major Record. You must cast it yourself to be the correct type of
      * major record.<br> ex. NPC_ newNPC = (NPC_) myPatch.makeCopy(otherNPC);
@@ -297,12 +297,12 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * Major Record a FormID originating from the mod. This function also
      * automatically adds the new copied record to the mod. This makes two
      * separate records independent of each other.<br><br>
-     *
+     * <p>
      * COMPILER NOTE: The record returned can only be determined by the compiler
      * to be a Major Record. You must cast it yourself to be the correct type of
      * major record.<br> ex. NPC_ newNPC = (NPC_) myPatch.makeCopy(otherNPC);
      *
-     * @param m Major Record to make a copy of and add to the mod.
+     * @param m       Major Record to make a copy of and add to the mod.
      * @param newEDID EDID to assign to the new record. Make sure it's unique.
      * @return The copied record, or null if either parameter is null.
      */
@@ -332,7 +332,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @return An arraylist containing the GRUP_TYPEs of non-empty GRUPs.
      */
     public ArrayList<GRUP_TYPE> getContainedTypes() {
@@ -346,7 +345,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * This function requires there to be a GlobalDB set, as it adds the
      * necessary masters from it.
      *
@@ -382,7 +380,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @return
      */
     @Override
@@ -428,12 +425,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
                 streams.put(file, stream);
             }
             return;
-        }
-        else
-        {
+        } else {
             //check for plugin loaded BSA has strings file
-            for (BSA theBSA : BSA.getPluginBSAs())
-            {
+            for (BSA theBSA : BSA.getPluginBSAs()) {
                 theBSA.loadFolders();
                 if (!theBSA.hasFile(stringPath)) {
                     continue;
@@ -462,9 +456,8 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
-     * @see ModListing
      * @return The names of all the masters of the mod.
+     * @see ModListing
      */
     public ArrayList<String> getMastersStrings() {
         ArrayList<String> out = new ArrayList<>();
@@ -478,8 +471,8 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * Returns the ModListings of all the masters of the mod. Note that changing
      * any ModListings will have an effect on their associated mods.
      *
-     * @see ModListing
      * @return The ModListings of all the masters of the mod.
+     * @see ModListing
      */
     public ArrayList<ModListing> getMasters() {
         ArrayList<ModListing> out = new ArrayList<>();
@@ -490,7 +483,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @return the Map of GRUPs contained in the record.
      */
     public Map<GRUP_TYPE, GRUP> getGRUPs() {
@@ -519,9 +511,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * with a matching ModListing. This is to prevent patches taking in
      * information from old versions of themselves.
      *
-     * @param rhs Mod whose GRUPs to add in.
+     * @param rhs        Mod whose GRUPs to add in.
      * @param grup_types Any amount of GRUPs to merge in, separated by commas.
-     * Leave this empty if you want all GRUPs merged.
+     *                   Leave this empty if you want all GRUPs merged.
      */
     public void addAsOverrides(Mod rhs, GRUP_TYPE... grup_types) {
         if (!this.equals(rhs)) {
@@ -545,9 +537,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * records from a mod with a matching ModListing. This is to prevent patches
      * taking in information from old versions of themselves.
      *
-     * @param in ArrayList of mods to merge in.
+     * @param in         ArrayList of mods to merge in.
      * @param grup_types Any amount of GRUPs to merge in, separated by commas.
-     * Leave this empty if you want all GRUPs merged.
+     *                   Leave this empty if you want all GRUPs merged.
      */
     public void addAsOverrides(ArrayList<Mod> in, GRUP_TYPE... grup_types) {
         for (Mod m : in) {
@@ -563,9 +555,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * matching ModListing. This is to prevent patches taking in information
      * from old versions of themselves.
      *
-     * @param in Set of mods to merge in.
+     * @param in         Set of mods to merge in.
      * @param grup_types Any amount of GRUPs to merge in, separated by commas.
-     * Leave this empty if you want all GRUPs merged.
+     *                   Leave this empty if you want all GRUPs merged.
      */
     public void addAsOverrides(Collection<Mod> in, GRUP_TYPE... grup_types) {
         for (Mod m : in) {
@@ -580,16 +572,15 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * will NOT add records from a mod with a matching ModListing. This is to
      * prevent patches taking in information from old versions of themselves.
      *
-     * @param db The SPDatabase to merge in.
+     * @param db         The SPDatabase to merge in.
      * @param grup_types Any amount of GRUPs to merge in, separated by commas.
-     * Leave this empty if you want all GRUPs merged.
+     *                   Leave this empty if you want all GRUPs merged.
      */
     public void addAsOverrides(SPDatabase db, GRUP_TYPE... grup_types) {
         addAsOverrides(SPDatabase.modLookup.values(), grup_types);
     }
 
     /**
-     *
      * @return The number of records contained in all the GRUPs in the mod.
      */
     public int numRecords() {
@@ -603,7 +594,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @return All Major Records from the mod.
      */
     public ArrayList<MajorRecord> getRecords() {
@@ -615,7 +605,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @param id FormID to look for.
      * @return True if mod contains parameter id.
      */
@@ -648,12 +637,12 @@ public class Mod implements Comparable, Iterable<GRUP> {
     /**
      * Exports the mod to the path designated by SPGlobal.pathToDataFixed.
      *
-     * @see SPGlobal
      * @throws IOException If there are any unforseen disk errors exporting the
-     * data.
-     * @throws BadRecord If duplicate EDIDs are found in the mod. This has been
-     * deemed an unacceptable mod format, and is thrown to promote the
-     * investigation and elimination of duplicate EDIDs.
+     *                     data.
+     * @throws BadRecord   If duplicate EDIDs are found in the mod. This has been
+     *                     deemed an unacceptable mod format, and is thrown to promote the
+     *                     investigation and elimination of duplicate EDIDs.
+     * @see SPGlobal
      */
     public void export() throws IOException, BadRecord {
         export(SPGlobal.pathToDataFixed);
@@ -665,9 +654,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
      *
      * @param path
      * @throws IOException
-     * @throws BadRecord If duplicate EDIDs are found in the mod. This has been
-     * deemed an unacceptable mod format, and is thrown to promote the
-     * investigation and elimination of duplicate EDIDs.
+     * @throws BadRecord   If duplicate EDIDs are found in the mod. This has been
+     *                     deemed an unacceptable mod format, and is thrown to promote the
+     *                     investigation and elimination of duplicate EDIDs.
      */
     public void export(String path) throws IOException, BadRecord {
         File tmp = new File(SPGlobal.pathToInternalFiles + "tmp.esp");
@@ -941,15 +930,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     /**
      * Sets the author name of the mod.
      *
-     * @param in Your name here.
-     */
-    public void setAuthor(String in) {
-        tes.setAuthor(in);
-    }
-
-    /**
-     * Sets the author name of the mod.
-     *
      * @return The author of the mod
      */
     public String getAuthor() {
@@ -957,12 +937,12 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     * Sets the description of the mod.
+     * Sets the author name of the mod.
      *
-     * @param in the description.
+     * @param in Your name here.
      */
-    public void setDescription(String in) {
-        tes.setDescription(in);
+    public void setAuthor(String in) {
+        tes.setAuthor(in);
     }
 
     /**
@@ -974,6 +954,15 @@ public class Mod implements Comparable, Iterable<GRUP> {
         return tes.getDescription();
     }
 
+    /**
+     * Sets the description of the mod.
+     *
+     * @param in the description.
+     */
+    public void setDescription(String in) {
+        tes.setDescription(in);
+    }
+
     void parseData(String type, LImport data) throws Exception {
         GRUPs.get(GRUP_TYPE.valueOf(type)).parseData(data, this);
     }
@@ -983,9 +972,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * this function is as follows: <br> boolean isaMasterMod =
      * myMod.isFlag(Mod_Flags.MASTER);
      *
-     * @see Mod_Flags
      * @param flag Mod_Flags enum to check.
      * @return True if the given flag is on in the mod.
+     * @see Mod_Flags
      */
     public boolean isFlag(Mod_Flags flag) {
         return tes.flags.get(flag.value);
@@ -996,9 +985,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
      * function to set its master flag is as follows: <br>
      * myMod.setFlag(Mod_Flags.MASTER, true);
      *
-     * @see Mod_Flags
      * @param flag Mod_Flags enum to set.
-     * @param on What to set the flag to.
+     * @param on   What to set the flag to.
+     * @see Mod_Flags
      */
     public final void setFlag(Mod_Flags flag, boolean on) {
         tes.flags.set(flag.value, on);
@@ -1008,359 +997,320 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     // Get Set
+
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Leveled List records.
+     * @see GRUP
      */
     public GRUP<LVLN> getLeveledCreatures() {
         return GRUPs.get(GRUP_TYPE.LVLN);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing NPC records.
+     * @see GRUP
      */
     public GRUP<NPC_> getNPCs() {
         return GRUPs.get(GRUP_TYPE.NPC_);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Quest records.
+     * @see GRUP
      */
     public GRUP<QUST> getQuests() {
         return GRUPs.get(GRUP_TYPE.QUST);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Image Space records.
+     * @see GRUP
      */
     public GRUP<IMGS> getImageSpaces() {
         return GRUPs.get(GRUP_TYPE.IMGS);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Perk records.
+     * @see GRUP
      */
     public GRUP<PERK> getPerks() {
         return GRUPs.get(GRUP_TYPE.PERK);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Spell records.
+     * @see GRUP
      */
     public GRUP<SPEL> getSpells() {
         return GRUPs.get(GRUP_TYPE.SPEL);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Race records
+     * @see GRUP
      */
     public GRUP<RACE> getRaces() {
         return GRUPs.get(GRUP_TYPE.RACE);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Armor records
+     * @see GRUP
      */
     public GRUP<ARMO> getArmors() {
         return GRUPs.get(GRUP_TYPE.ARMO);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Armature records
+     * @see GRUP
      */
     public GRUP<ARMA> getArmatures() {
         return GRUPs.get(GRUP_TYPE.ARMA);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Texture records
+     * @see GRUP
      */
     public GRUP<TXST> getTextureSets() {
         return GRUPs.get(GRUP_TYPE.TXST);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Weapon records
+     * @see GRUP
      */
     public GRUP<WEAP> getWeapons() {
         return GRUPs.get(GRUP_TYPE.WEAP);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Keyword records
+     * @see GRUP
      */
     public GRUP<KYWD> getKeywords() {
         return GRUPs.get(GRUP_TYPE.KYWD);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Keyword records
+     * @see GRUP
      */
     public GRUP<FLST> getFormLists() {
         return GRUPs.get(GRUP_TYPE.FLST);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Magic Effect records
+     * @see GRUP
      */
     public GRUP<MGEF> getMagicEffects() {
         return GRUPs.get(GRUP_TYPE.MGEF);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Alchemy records
+     * @see GRUP
      */
     public GRUP<ALCH> getAlchemy() {
         return GRUPs.get(GRUP_TYPE.ALCH);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Ingredient records
+     * @see GRUP
      */
     public GRUP<INGR> getIngredients() {
         return GRUPs.get(GRUP_TYPE.INGR);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Ammo records
+     * @see GRUP
      */
     public GRUP<AMMO> getAmmo() {
         return GRUPs.get(GRUP_TYPE.AMMO);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Faction records
+     * @see GRUP
      */
     public GRUP<FACT> getFactions() {
         return GRUPs.get(GRUP_TYPE.FACT);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Game Setting records
+     * @see GRUP
      */
     public GRUP<GMST> getGameSettings() {
         return GRUPs.get(GRUP_TYPE.GMST);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Enchantments records
+     * @see GRUP
      */
     public GRUP<ENCH> getEnchantments() {
         return GRUPs.get(GRUP_TYPE.ENCH);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Leveled Items records
+     * @see GRUP
      */
     public GRUP<LVLI> getLeveledItems() {
         return GRUPs.get(GRUP_TYPE.LVLI);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing ActorValue records
+     * @see GRUP
      */
     public GRUP<AVIF> getActorValues() {
         return GRUPs.get(GRUP_TYPE.AVIF);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Encounter Zone records
+     * @see GRUP
      */
     public GRUP<ECZN> getEncounterZones() {
         return GRUPs.get(GRUP_TYPE.ECZN);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Global records
+     * @see GRUP
      */
     public GRUP<GLOB> getGlobals() {
         return GRUPs.get(GRUP_TYPE.GLOB);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Constructible Object records
+     * @see GRUP
      */
     public GRUP<COBJ> getConstructibleObjects() {
         return GRUPs.get(GRUP_TYPE.COBJ);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Misc Object records
+     * @see GRUP
      */
     public GRUP<MISC> getMiscObjects() {
         return GRUPs.get(GRUP_TYPE.MISC);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing outfit records
+     * @see GRUP
      */
     public GRUP<OTFT> getOutfits() {
         return GRUPs.get(GRUP_TYPE.OTFT);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing head part records
+     * @see GRUP
      */
     public GRUP<HDPT> getHeadParts() {
         return GRUPs.get(GRUP_TYPE.HDPT);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing projectile records
+     * @see GRUP
      */
     public GRUP<PROJ> getProjectiles() {
         return GRUPs.get(GRUP_TYPE.PROJ);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing lighting template records
+     * @see GRUP
      */
     public GRUP<LGTM> getLightingTemplates() {
         return GRUPs.get(GRUP_TYPE.LGTM);
     }
 
     /**
-     *
-     * @see GRUP
      * @return The GRUP containing Book records
+     * @see GRUP
      */
     public GRUP<BOOK> getBooks() {
         return GRUPs.get(GRUP_TYPE.BOOK);
     }
 
     /**
-     *
-     * @see GRUP
      * @return
+     * @see GRUP
      */
     public GRUP<WTHR> getWeathers() {
         return GRUPs.get(GRUP_TYPE.WTHR);
     }
 
     /**
-     *
-     * @see GRUP
      * @return
+     * @see GRUP
      */
     public GRUP<DIAL> getDialogs() {
         return GRUPs.get(GRUP_TYPE.DIAL);
     }
 
     /**
-     *
-     * @see GRUP
      * @return
+     * @see GRUP
      */
     public GRUP<DLBR> getDialogBranches() {
         return GRUPs.get(GRUP_TYPE.DLBR);
     }
 
     /**
-     *
-     * @see GRUP
      * @return
+     * @see GRUP
      */
     public GRUP<DLVW> getDialogViews() {
         return GRUPs.get(GRUP_TYPE.DLVW);
     }
 
     /**
-     *
-     * @see GRUP
      * @return
+     * @see GRUP
      */
     public GRUP<CONT> getContainers() {
         return GRUPs.get(GRUP_TYPE.CONT);
     }
 
     /**
-     *
-     * @see GRUP
      * @return
+     * @see GRUP
      */
     public GRUP<VTYP> getVoiceTypes() {
         return GRUPs.get(GRUP_TYPE.VTYP);
     }
 
     /**
-     *
-     * @see GRUP
      * @return
+     * @see GRUP
      */
     public GRUP<STAT> getStatics() {
         return GRUPs.get(GRUP_TYPE.STAT);
     }
 
     /**
-     *
-     * @see GRUP
      * @return the GRUP containing scroll records
+     * @see GRUP
      */
     public GRUP<SCRL> getScrolls() {
         return GRUPs.get(GRUP_TYPE.SCRL);
     }
 
     /**
-     *
      * @return The name of the mod (including suffix)
      */
     public String getName() {
@@ -1368,16 +1318,14 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
-     * @see ModListing
      * @return The ModListing object associated with the mod.
+     * @see ModListing
      */
     public ModListing getInfo() {
         return modInfo;
     }
 
     /**
-     *
      * @return The name of the mod (without suffix)
      */
     public String getNameNoSuffix() {
@@ -1422,7 +1370,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @param id
      */
     public void remove(FormID id) {
@@ -1447,7 +1394,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
     }
 
     /**
-     *
      * @return An iterator over all the GRUPs in the mod.
      */
     @Override
@@ -1455,10 +1401,38 @@ public class Mod implements Comparable, Iterable<GRUP> {
         return GRUPs.values().iterator();
     }
 
+    /**
+     * The various flags found in the Mod header.
+     */
+    public enum Mod_Flags {
+
+        /**
+         * Master flag determines whether a mod is labeled as a master plugin
+         * and receives a ".esm" suffix.
+         */
+        MASTER(0),
+        /**
+         * String Tabled flag determines whether names and descriptions are
+         * stored inside the mod itself, or in external STRINGS files. <br><br>
+         * <p>
+         * In general, it is suggested to disable this flag for most patches, as
+         * the only benefit of external STRINGS files is easy multi-language
+         * support. Skyproc can offer this same multilanguage support without
+         * external STRINGS files. See SPGlobal.language for more information.
+         *
+         * @see SPGlobal
+         */
+        STRING_TABLED(7);
+        int value;
+
+        Mod_Flags(int in) {
+            value = in;
+        }
+    }
+
     // Internal Classes
     static class TES4 extends Record {
 
-        private final static byte[] defaultINTV = Ln.parseHexString("C5 26 01 00", 4);
         static final SubPrototype TES4proto = new SubPrototype() {
             @Override
             protected void addRecords() {
@@ -1472,6 +1446,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
                 add(new SubData("INCC"));
             }
         };
+        private final static byte[] defaultINTV = Ln.parseHexString("C5 26 01 00", 4);
         SubRecordsDerived subRecords = new SubRecordsDerived(TES4proto);
         private LFlags flags = new LFlags(4);
         private int fluff1 = 0;
@@ -1533,20 +1508,20 @@ public class Mod implements Comparable, Iterable<GRUP> {
             return subRecords.getSubList("MAST");
         }
 
-        void setAuthor(String in) {
-            subRecords.getSubString("CNAM").setString(in);
-        }
-
         String getAuthor() {
             return subRecords.getSubString("CNAM").print();
         }
 
-        void setDescription(String in) {
-            subRecords.getSubString("SNAM").setString(in);
+        void setAuthor(String in) {
+            subRecords.getSubString("CNAM").setString(in);
         }
 
         String getDescription() {
             return subRecords.getSubString("SNAM").print();
+        }
+
+        void setDescription(String in) {
+            subRecords.getSubString("SNAM").setString(in);
         }
 
         @Override
@@ -1564,16 +1539,16 @@ public class Mod implements Comparable, Iterable<GRUP> {
             return 4;
         }
 
-        void setNumRecords(int num) {
-            getHEDR().setRecords(num);
-        }
-
         HEDR getHEDR() {
             return (HEDR) subRecords.get("HEDR");
         }
 
         int getNumRecords() {
             return getHEDR().numRecords;
+        }
+
+        void setNumRecords(int num) {
+            getHEDR().setRecords(num);
         }
 
         @Override
@@ -1589,10 +1564,10 @@ public class Mod implements Comparable, Iterable<GRUP> {
 
     static class HEDR extends SubRecord<HEDR> {
 
+        static int firstAvailableID = 0xD62;  // first available ID on empty CS plugins
         byte[] version;
         int numRecords;
         int nextID;
-        static int firstAvailableID = 0xD62;  // first available ID on empty CS plugins
 
         HEDR() {
             super();
@@ -1660,35 +1635,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
         @Override
         ArrayList<String> getTypes() {
             return Record.getTypeList("HEDR");
-        }
-    }
-
-    /**
-     * The various flags found in the Mod header.
-     */
-    public enum Mod_Flags {
-
-        /**
-         * Master flag determines whether a mod is labeled as a master plugin
-         * and receives a ".esm" suffix.
-         */
-        MASTER(0),
-        /**
-         * String Tabled flag determines whether names and descriptions are
-         * stored inside the mod itself, or in external STRINGS files. <br><br>
-         *
-         * In general, it is suggested to disable this flag for most patches, as
-         * the only benefit of external STRINGS files is easy multi-language
-         * support. Skyproc can offer this same multilanguage support without
-         * external STRINGS files. See SPGlobal.language for more information.
-         *
-         * @see SPGlobal
-         */
-        STRING_TABLED(7);
-        int value;
-
-        Mod_Flags(int in) {
-            value = in;
         }
     }
 }

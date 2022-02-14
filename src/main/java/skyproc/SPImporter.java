@@ -1,9 +1,5 @@
 package skyproc;
 
-import java.io.*;
-import java.nio.ByteBuffer;
-import java.util.*;
-import java.util.zip.DataFormatException;
 import lev.*;
 import skyproc.MajorRecord.MajorFlags;
 import skyproc.SPGlobal.Language;
@@ -11,6 +7,14 @@ import skyproc.SubStringPointer.Files;
 import skyproc.exceptions.BadMod;
 import skyproc.exceptions.MissingMaster;
 import skyproc.gui.SPProgressBarPlug;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.*;
+import java.util.zip.DataFormatException;
 
 /**
  * Used to import data from files into Mod objects that are ready to be
@@ -42,17 +46,6 @@ public class SPImporter {
         (new Thread(new StartImportThread())).start();
     }
 
-    private static class StartImportThread implements Runnable {
-
-        @Override
-        public void run() {
-        }
-
-        public void main(String[] args) {
-            (new Thread(new StartImportThread())).start();
-        }
-    }
-
     /**
      * Loads input plugins.txt and reads input the mods the user has active and
      * returns an ArrayList of the ModListings input load order. If a mod being
@@ -64,10 +57,10 @@ public class SPImporter {
      * patch generations.<br><br> Related settings input SPGlobal:<br> -
      * pluginsListPath<br> - pathToData<br> - pluginListBackupPath
      *
-     * @see SPGlobal
      * @return An ArrayList of ModListings of all active mods present input the
      * data folder.
      * @throws java.io.IOException
+     * @see SPGlobal
      */
     static public ArrayList<ModListing> getActiveModList() throws java.io.IOException {
         if (SPDatabase.activePlugins.isEmpty()) {
@@ -153,9 +146,9 @@ public class SPImporter {
      * then it will be omitted input the results.<br><br> Related settings input
      * SPGlobal:<br> - pathToData
      *
-     * @see SPGlobal
      * @return ArrayList of ModListings of all mods present input the data
      * folder.
+     * @see SPGlobal
      */
     static public ArrayList<ModListing> getModList() {
         SPGlobal.newSyncLog("Get All Present Mod List.txt");
@@ -252,12 +245,12 @@ public class SPImporter {
      * then it will be omitted input the results.<br><br> Related settings input
      * SPGlobal:<br> - pathToData
      *
-     * @see SPGlobal
      * @param grup_targets Any amount of GRUP targets, separated by commas, that
-     * you wish to import.
+     *                     you wish to import.
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws MissingMaster
+     * @see SPGlobal
      */
     static public Set<Mod> importAllMods(GRUP_TYPE... grup_targets) throws MissingMaster {
         return importMods(getModList(), SPGlobal.pathToDataFixed, grup_targets);
@@ -270,12 +263,12 @@ public class SPImporter {
      * then it will be omitted input the results.<br><br> Related settings input
      * SPGlobal:<br> - pathToData
      *
-     * @see SPGlobal
      * @param grup_targets An arraylist of GRUP_TYPE with the desired types to
-     * import
+     *                     import
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws MissingMaster
+     * @see SPGlobal
      */
     static public Set<Mod> importAllMods(ArrayList<GRUP_TYPE> grup_targets) throws MissingMaster {
         GRUP_TYPE[] tmp = new GRUP_TYPE[0];
@@ -295,11 +288,11 @@ public class SPImporter {
      * settings input SPGlobal:<br> - pluginsListPath<br> - pathToData<br> -
      * pluginListBackupPath
      *
-     * @see SPGlobal
      * @return A set of Mods with all their data imported and ready to be
      * manipulated.
      * @throws IOException
      * @throws MissingMaster
+     * @see SPGlobal
      */
     static public Set<Mod> importActiveMods() throws IOException, MissingMaster {
         return importActiveMods(GRUP_TYPE.values());
@@ -316,13 +309,13 @@ public class SPImporter {
      * Related settings input SPGlobal:<br> - pluginsListPath<br> -
      * pathToData<br> - pluginListBackupPath
      *
-     * @see SPGlobal
      * @param grup_targets Any amount of GRUP targets, separated by commas, that
-     * you wish to import.
+     *                     you wish to import.
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws IOException
      * @throws MissingMaster
+     * @see SPGlobal
      */
     static public Set<Mod> importActiveMods(GRUP_TYPE... grup_targets) throws IOException, MissingMaster {
         return importMods(getActiveModList(), SPGlobal.pathToDataFixed, grup_targets);
@@ -339,13 +332,13 @@ public class SPImporter {
      * Related settings input SPGlobal:<br> - pluginsListPath<br> -
      * pathToData<br> - pluginListBackupPath
      *
-     * @see SPGlobal
      * @param grup_targets An arraylist of GRUP_TYPE with the desired types to
-     * import
+     *                     import
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws IOException
      * @throws MissingMaster
+     * @see SPGlobal
      */
     static public Set<Mod> importActiveMods(ArrayList<GRUP_TYPE> grup_targets) throws IOException, MissingMaster {
         GRUP_TYPE[] tmp = new GRUP_TYPE[0];
@@ -358,13 +351,13 @@ public class SPImporter {
      * specified input the parameter.<br><br> Related settings input
      * SPGlobal:<br> - pathToData<br>
      *
-     * @see SPGlobal
-     * @param mods ModListings to look for and import from the data folder.
+     * @param mods         ModListings to look for and import from the data folder.
      * @param grup_targets Any amount of GRUP targets, separated by commas, that
-     * you wish to import.
+     *                     you wish to import.
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws MissingMaster
+     * @see SPGlobal
      */
     static public Set<Mod> importMods(ArrayList<ModListing> mods, GRUP_TYPE... grup_targets) throws MissingMaster {
         return importMods(mods, SPGlobal.pathToDataFixed, grup_targets);
@@ -376,13 +369,13 @@ public class SPImporter {
      * specified input the parameter.<br><br> Related settings input
      * SPGlobal:<br> - pathToData<br>
      *
-     * @see SPGlobal
-     * @param mods ModListings to look for and import from the data folder.
+     * @param mods         ModListings to look for and import from the data folder.
      * @param grup_targets An arraylist of GRUP_TYPE with the desired types to
-     * import
+     *                     import
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws MissingMaster
+     * @see SPGlobal
      */
     static public Set<Mod> importMods(ArrayList<ModListing> mods, ArrayList<GRUP_TYPE> grup_targets) throws MissingMaster {
         GRUP_TYPE[] tmp = new GRUP_TYPE[0];
@@ -396,11 +389,11 @@ public class SPImporter {
      * import the GRUP types you are interested input by using other import
      * functions.<br><br> Related settings input SPGlobal:<br> - pathToData
      *
-     * @see SPGlobal
      * @param mods ModListings to look for and import from the data folder.
      * @return A set of Mods with all GRUPs imported and ready to be
      * manipulated.
      * @throws MissingMaster
+     * @see SPGlobal
      */
     static public Set<Mod> importMods(ArrayList<ModListing> mods) throws MissingMaster {
         return importMods(mods, SPGlobal.pathToDataFixed, GRUP_TYPE.values());
@@ -428,10 +421,10 @@ public class SPImporter {
      * It imports any that are properly located, and loads input only GRUPS
      * specified input the parameter.
      *
-     * @param mods ModListings to look for and import from the data folder.
-     * @param path Path from patch location to where to load mods from.
+     * @param mods         ModListings to look for and import from the data folder.
+     * @param path         Path from patch location to where to load mods from.
      * @param grup_targets Any amount of GRUP targets, separated by commas, that
-     * you wish to import.
+     *                     you wish to import.
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws MissingMaster
@@ -504,14 +497,14 @@ public class SPImporter {
      * Looks for a mod matching the ModListing inside the given path. If
      * properly located, it imports only GRUPS specified input the parameter.
      *
-     * @param listing Mod name and suffix to look for.
-     * @param path Path to look for the mod data.
+     * @param listing      Mod name and suffix to look for.
+     * @param path         Path to look for the mod data.
      * @param grup_targets Any amount of GRUP targets, separated by commas, that
-     * you wish to import.
+     *                     you wish to import.
      * @return A mod with the specified GRUPs imported and ready to be
      * manipulated.
-     * @throws BadMod If SkyProc runs into any unexpected data structures, or
-     * has any error importing a mod at all.
+     * @throws BadMod        If SkyProc runs into any unexpected data structures, or
+     *                       has any error importing a mod at all.
      * @throws MissingMaster
      */
     static public Mod importMod(ModListing listing, String path, GRUP_TYPE... grup_targets) throws BadMod, MissingMaster {
@@ -522,18 +515,18 @@ public class SPImporter {
      * Looks for a mod matching the ModListing inside the given path. If
      * properly located, it imports only GRUPS specified input the parameter.
      *
-     * @param listing Mod name and suffix to look for.
-     * @param path Path to look for the mod data.
+     * @param listing      Mod name and suffix to look for.
+     * @param path         Path to look for the mod data.
      * @param grup_targets An ArrayList of GRUP targets that you wish to import.
      * @return A mod with the specified GRUPs imported and ready to be
      * manipulated.
      * @throws BadMod If SkyProc runs into any unexpected data structures, or
-     * has any error importing a mod at all.
-     *
-     * public Mod importMod(ModListing listing, String path,
-     * ArrayList<GRUP_TYPE> grup_targets) throws BadMod { GRUP_static Type[]
-     * types = new GRUP_TYPE[grup_targets.size()]; types =
-     * grup_targets.toArray(types); return importMod(listing, path, types);
+     *                has any error importing a mod at all.
+     *                <p>
+     *                public Mod importMod(ModListing listing, String path,
+     *                ArrayList<GRUP_TYPE> grup_targets) throws BadMod { GRUP_static Type[]
+     *                types = new GRUP_TYPE[grup_targets.size()]; types =
+     *                grup_targets.toArray(types); return importMod(listing, path, types);
      */
     static Mod importMod(ModListing listing, int index, String path, Boolean addtoDb, GRUP_TYPE... grup_targets) throws BadMod, MissingMaster {
         if (!Consistency.isImported()) {
@@ -602,17 +595,17 @@ public class SPImporter {
      * Looks for a mod matching the ModListing inside the given path. If
      * properly located, it imports only GRUPS specified input the parameter.
      *
-     * @param listing Mod name and suffix to look for.
+     * @param listing      Mod name and suffix to look for.
      * @param grup_targets An ArrayList of GRUP targets that you wish to import.
      * @return A mod with the specified GRUPs imported and ready to be
      * manipulated.
-     * @throws BadMod If SkyProc runs into any unexpected data structures, or
-     * has any error importing a mod at all.
-     *
-     * public Mod importMod(ModListing listing, String path,
-     * ArrayList<GRUP_TYPE> grup_targets) throws BadMod { GRUP_static Type[]
-     * types = new GRUP_TYPE[grup_targets.size()]; types =
-     * grup_targets.toArray(types); return importMod(listing, path, types);
+     * @throws BadMod        If SkyProc runs into any unexpected data structures, or
+     *                       has any error importing a mod at all.
+     *                       <p>
+     *                       public Mod importMod(ModListing listing, String path,
+     *                       ArrayList<GRUP_TYPE> grup_targets) throws BadMod { GRUP_static Type[]
+     *                       types = new GRUP_TYPE[grup_targets.size()]; types =
+     *                       grup_targets.toArray(types); return importMod(listing, path, types);
      * @throws MissingMaster
      */
     public static Mod importMod(ModListing listing, GRUP_TYPE... grup_targets) throws BadMod, MissingMaster {
@@ -656,7 +649,6 @@ public class SPImporter {
     }
 
     /**
-     *
      * A rudimentary mod data Iterator that returns data of subrecords matching
      * typestring. NOTE: Not for general use and not heavily tested. Use at your
      * own risk.
@@ -668,215 +660,6 @@ public class SPImporter {
      */
     static public DirtyParsingIterator getSubRecordsInGRUPs(ModListing targetMod, String typeString, String... grups) {
         return new DirtyParsingIterator(targetMod, typeString, grups);
-    }
-
-    static class GRUPIterator implements Iterator<RecordShrinkArray> {
-
-        LInChannel input;
-        ArrayList<String> targets;
-        String loading;
-
-        GRUPIterator() {
-            targets = new ArrayList<>(0);
-        }
-
-        GRUPIterator(GRUP_TYPE[] grup_targets, LInChannel input) {
-            ArrayList<GRUP_TYPE> tmp = new ArrayList<>(Arrays.asList(grup_targets));
-            tmp.removeIf(g -> GRUP_TYPE.unfinished(g) && !GRUP_TYPE.internal(g));
-            targets = new ArrayList<>(tmp.size());
-            for (GRUP_TYPE g : tmp) {
-                targets.add(g.toString());
-            }
-            this.input = input;
-        }
-
-        @Override
-        public boolean hasNext() {
-            if (targets.isEmpty()) {
-                return false;
-            }
-            loading = scanToGRUPStart(input, targets);
-            targets.remove(loading);
-            return !"NULL".equals(loading);
-        }
-
-        @Override
-        public RecordShrinkArray next() {
-            RecordShrinkArray out;
-            out = extractGRUPData(input);
-            return out;
-        }
-
-        public String loading() {
-            return loading;
-        }
-
-        @Override
-        public void remove() {
-        }
-    }
-
-    /**
-     * A rudimentary parser/iterator that returns data of subrecords with the
-     * desired typestring.
-     */
-    public static class DirtyParsingIterator implements Iterator<RecordShrinkArray> {
-
-        String typeString;
-        ArrayList<String> grups;
-        LImport input;
-        LInChannel fileInput;
-        LShrinkArray uncompressed = new LShrinkArray(new byte[0]);
-        String inputStr = "";
-        String majorRecordType = "";
-        RecordShrinkArray next;
-        ArrayList<ModListing> activeMods;
-        ModListing activeMod;
-
-        DirtyParsingIterator(String typeString, String[] grups) {
-            init(typeString, grups);
-            try {
-                activeMods = SPImporter.getActiveModList();
-            } catch (IOException ex) {
-                activeMods = new ArrayList<>();
-                SPGlobal.logException(ex);
-            }
-            switchToNextMod();
-        }
-
-        DirtyParsingIterator(ModListing mod, String typeString, String[] grups) {
-            init(typeString, grups);
-            activeMods = new ArrayList<>();
-            activeMods.add(mod);
-            switchToNextMod();
-        }
-
-        void init(String typeString, String[] grupTypes) {
-            this.typeString = typeString;
-            grups = new ArrayList<>(Arrays.asList(grupTypes));
-        }
-
-        /**
-         *
-         * @return Current mod being imported from.
-         */
-        public ModListing activeMod() {
-            return activeMod;
-        }
-
-        /**
-         *
-         * @return
-         */
-        @Override
-        public boolean hasNext() {
-            grabNext();
-            return next != null;
-        }
-
-        /**
-         *
-         * @return
-         */
-        @Override
-        public RecordShrinkArray next() {
-            return next;
-        }
-
-        void grabNext() {
-
-            while (fileInput.available() >= 4 || uncompressed.available() >= 4) {
-                if (uncompressed.available() >= 4) {
-                    input = uncompressed;
-                } else {
-                    input = fileInput;
-                }
-                inputStr = input.extractString(0, 4);
-                if ("TES4".equals(inputStr)) {
-                    input.skip(input.extractInt(4) + 16);
-                } else if ("GRUP".equals(inputStr)) {
-                    int size = input.extractInt(4);
-                    String tmpMajorType = input.extractString(0, 4);
-                    if (grups.contains(tmpMajorType)) {
-                        input.skip(12);
-                        majorRecordType = tmpMajorType;
-                    } else if (!tmpMajorType.matches("[a-zA-Z0-9_]*")) {
-                        input.skip(12);
-                    } else {
-                        input.skip(size - 12);
-                    }
-//		    System.out.println("Passed GRUP");
-                } else if (majorRecordType.equals(inputStr)
-                        || "REFR".equals(inputStr)
-                        || "ACHR".equals(inputStr)
-                        || "LAND".equals(inputStr)
-                        || "NAVM".equals(inputStr)
-                        || "NVNM".equals(inputStr)) {
-                    // If major record is target type
-                    if (typeString.equals(inputStr)) {
-                        next = new RecordShrinkArray(input.extract(input.extractInt(4) + 16));
-                        return;
-                    }
-
-                    // Uncompress if compressed
-                    int size = input.extractInt(4);
-                    LFlags flags = new LFlags(input.extract(4));
-                    input.extract(4); //FormID
-                    input.skip(8);
-
-                    if (inputStr.equals("NAVM")) {
-                        input.skip(size);
-//			System.out.println("Skipping size:  " + size);
-                        continue;
-                    }
-
-                    if (flags.get(MajorFlags.Compressed.value)) {
-                        uncompressed = new LShrinkArray(input.extract(size));
-                        try {
-                            uncompressed = uncompressed.correctForCompression();
-                        } catch (DataFormatException ex) {
-                            SPGlobal.logException(ex);
-                        }
-                    }
-
-                } else if (typeString.equals(inputStr)) {
-                    // Found target type
-                    next = new RecordShrinkArray(input.extract(input.extractInt(2)));
-                    return;
-                } else {
-                    // Skip Subrecord
-//		    System.out.println(inputStr + " sub record");
-                    input.skip(input.extractInt(2));
-                }
-            }
-
-            if (switchToNextMod()) {
-                grabNext();
-            }
-        }
-
-        boolean switchToNextMod() {
-            if (fileInput != null) {
-                fileInput.close();
-            }
-            // If we have mods left, switch to it.
-            if (activeMods.size() > 0) {
-                fileInput = new LInChannel(SPGlobal.pathToDataFixed + activeMods.get(0).print());
-                activeMod = activeMods.get(0);
-                activeMods.remove(0);
-                return true;
-            } else {
-                next = null;
-            }
-            return false;
-        }
-
-        /**
-         *
-         */
-        @Override
-        public void remove() {
-        }
     }
 
     static ByteBuffer extractHeaderInfo(LInChannel in) {
@@ -1025,5 +808,222 @@ public class SPImporter {
 
     static private String genStatus(ModListing mod) {
         return "Importing " + mod.print();
+    }
+
+    private static class StartImportThread implements Runnable {
+
+        @Override
+        public void run() {
+        }
+
+        public void main(String[] args) {
+            (new Thread(new StartImportThread())).start();
+        }
+    }
+
+    static class GRUPIterator implements Iterator<RecordShrinkArray> {
+
+        LInChannel input;
+        ArrayList<String> targets;
+        String loading;
+
+        GRUPIterator() {
+            targets = new ArrayList<>(0);
+        }
+
+        GRUPIterator(GRUP_TYPE[] grup_targets, LInChannel input) {
+            ArrayList<GRUP_TYPE> tmp = new ArrayList<>(Arrays.asList(grup_targets));
+            tmp.removeIf(g -> GRUP_TYPE.unfinished(g) && !GRUP_TYPE.internal(g));
+            targets = new ArrayList<>(tmp.size());
+            for (GRUP_TYPE g : tmp) {
+                targets.add(g.toString());
+            }
+            this.input = input;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (targets.isEmpty()) {
+                return false;
+            }
+            loading = scanToGRUPStart(input, targets);
+            targets.remove(loading);
+            return !"NULL".equals(loading);
+        }
+
+        @Override
+        public RecordShrinkArray next() {
+            RecordShrinkArray out;
+            out = extractGRUPData(input);
+            return out;
+        }
+
+        public String loading() {
+            return loading;
+        }
+
+        @Override
+        public void remove() {
+        }
+    }
+
+    /**
+     * A rudimentary parser/iterator that returns data of subrecords with the
+     * desired typestring.
+     */
+    public static class DirtyParsingIterator implements Iterator<RecordShrinkArray> {
+
+        String typeString;
+        ArrayList<String> grups;
+        LImport input;
+        LInChannel fileInput;
+        LShrinkArray uncompressed = new LShrinkArray(new byte[0]);
+        String inputStr = "";
+        String majorRecordType = "";
+        RecordShrinkArray next;
+        ArrayList<ModListing> activeMods;
+        ModListing activeMod;
+
+        DirtyParsingIterator(String typeString, String[] grups) {
+            init(typeString, grups);
+            try {
+                activeMods = SPImporter.getActiveModList();
+            } catch (IOException ex) {
+                activeMods = new ArrayList<>();
+                SPGlobal.logException(ex);
+            }
+            switchToNextMod();
+        }
+
+        DirtyParsingIterator(ModListing mod, String typeString, String[] grups) {
+            init(typeString, grups);
+            activeMods = new ArrayList<>();
+            activeMods.add(mod);
+            switchToNextMod();
+        }
+
+        void init(String typeString, String[] grupTypes) {
+            this.typeString = typeString;
+            grups = new ArrayList<>(Arrays.asList(grupTypes));
+        }
+
+        /**
+         * @return Current mod being imported from.
+         */
+        public ModListing activeMod() {
+            return activeMod;
+        }
+
+        /**
+         * @return
+         */
+        @Override
+        public boolean hasNext() {
+            grabNext();
+            return next != null;
+        }
+
+        /**
+         * @return
+         */
+        @Override
+        public RecordShrinkArray next() {
+            return next;
+        }
+
+        void grabNext() {
+
+            while (fileInput.available() >= 4 || uncompressed.available() >= 4) {
+                if (uncompressed.available() >= 4) {
+                    input = uncompressed;
+                } else {
+                    input = fileInput;
+                }
+                inputStr = input.extractString(0, 4);
+                if ("TES4".equals(inputStr)) {
+                    input.skip(input.extractInt(4) + 16);
+                } else if ("GRUP".equals(inputStr)) {
+                    int size = input.extractInt(4);
+                    String tmpMajorType = input.extractString(0, 4);
+                    if (grups.contains(tmpMajorType)) {
+                        input.skip(12);
+                        majorRecordType = tmpMajorType;
+                    } else if (!tmpMajorType.matches("[a-zA-Z0-9_]*")) {
+                        input.skip(12);
+                    } else {
+                        input.skip(size - 12);
+                    }
+//		    System.out.println("Passed GRUP");
+                } else if (majorRecordType.equals(inputStr)
+                        || "REFR".equals(inputStr)
+                        || "ACHR".equals(inputStr)
+                        || "LAND".equals(inputStr)
+                        || "NAVM".equals(inputStr)
+                        || "NVNM".equals(inputStr)) {
+                    // If major record is target type
+                    if (typeString.equals(inputStr)) {
+                        next = new RecordShrinkArray(input.extract(input.extractInt(4) + 16));
+                        return;
+                    }
+
+                    // Uncompress if compressed
+                    int size = input.extractInt(4);
+                    LFlags flags = new LFlags(input.extract(4));
+                    input.extract(4); //FormID
+                    input.skip(8);
+
+                    if (inputStr.equals("NAVM")) {
+                        input.skip(size);
+//			System.out.println("Skipping size:  " + size);
+                        continue;
+                    }
+
+                    if (flags.get(MajorFlags.Compressed.value)) {
+                        uncompressed = new LShrinkArray(input.extract(size));
+                        try {
+                            uncompressed = uncompressed.correctForCompression();
+                        } catch (DataFormatException ex) {
+                            SPGlobal.logException(ex);
+                        }
+                    }
+
+                } else if (typeString.equals(inputStr)) {
+                    // Found target type
+                    next = new RecordShrinkArray(input.extract(input.extractInt(2)));
+                    return;
+                } else {
+                    // Skip Subrecord
+//		    System.out.println(inputStr + " sub record");
+                    input.skip(input.extractInt(2));
+                }
+            }
+
+            if (switchToNextMod()) {
+                grabNext();
+            }
+        }
+
+        boolean switchToNextMod() {
+            if (fileInput != null) {
+                fileInput.close();
+            }
+            // If we have mods left, switch to it.
+            if (activeMods.size() > 0) {
+                fileInput = new LInChannel(SPGlobal.pathToDataFixed + activeMods.get(0).print());
+                activeMod = activeMods.get(0);
+                activeMods.remove(0);
+                return true;
+            } else {
+                next = null;
+            }
+            return false;
+        }
+
+        /**
+         *
+         */
+        @Override
+        public void remove() {
+        }
     }
 }

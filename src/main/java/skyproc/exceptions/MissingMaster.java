@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc.exceptions;
 
 /**
- *
  * @author Justin Swanson
  */
 public class MissingMaster extends Exception {
@@ -17,7 +12,6 @@ public class MissingMaster extends Exception {
     }
 
     /**
-     *
      * @param msg
      */
     public MissingMaster(String msg) {

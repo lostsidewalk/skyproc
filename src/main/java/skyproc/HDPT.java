@@ -1,19 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.zip.DataFormatException;
 import lev.LFlags;
 import lev.LImport;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.zip.DataFormatException;
+
 /**
- *
  * @author Justin Swanson
  */
 public class HDPT extends MajorRecordNamed {
@@ -38,78 +34,42 @@ public class HDPT extends MajorRecordNamed {
             add(new SubForm("RNAM"));
         }
     };
-    
-    static class HDPT_Flags extends SubRecordTyped {
-
-        LFlags flags = new LFlags(1);
-        
-        HDPT_Flags(String type) {
-            super(type);
-        }
-        
-        @Override
-        void export(ModExporter out) throws IOException {
-            super.export(out);
-            out.write(flags.export(), 1);
-        }
-        
-        @Override
-        void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
-            super.parseData(in, srcMod);
-            flags = new LFlags(in.extract(1));
-        }
-        
-        @Override
-        SubRecord getNew(String type) {
-            return new HDPT_Flags(type);
-        }
-        
-        @Override
-        boolean isValid() {
-            return true;
-        }
-        
-        @Override
-        int getContentLength(ModExporter out) {
-            return 1;
-        }
-    }
 
     // Common Functions
     HDPT() {
         super();
         subRecords.setPrototype(HDPTproto);
     }
-    
+
     @Override
     ArrayList<String> getTypes() {
         return Record.getTypeList("HDPT");
     }
-    
+
     @Override
     Record getNew() {
         return new HDPT();
     }
 
-    // Get/Set
     /**
+     * @return
      * @deprecated use getModelData()
+     */
+    public String getModel() {
+        return subRecords.getModel().getFileName();
+    }
+
+    // Get/Set
+
+    /**
      * @param path
+     * @deprecated use getModelData()
      */
     public void setModel(String path) {
         subRecords.getModel().setFileName(path);
     }
 
     /**
-     * @deprecated use getModelData()
-     * @return
-     */
-    public String getModel() {
-        return subRecords.getModel().getFileName();
-    }
-
-    /**
-     *
      * @return
      */
     public ArrayList<FormID> getHeadParts() {
@@ -117,7 +77,6 @@ public class HDPT extends MajorRecordNamed {
     }
 
     /**
-     *
      * @param id
      */
     public void addHeadPart(FormID id) {
@@ -125,7 +84,6 @@ public class HDPT extends MajorRecordNamed {
     }
 
     /**
-     *
      * @param id
      */
     public void removeHeadPart(FormID id) {
@@ -140,15 +98,6 @@ public class HDPT extends MajorRecordNamed {
     }
 
     /**
-     *
-     * @param txst
-     */
-    public void setBaseTexture(FormID txst) {
-        subRecords.setSubForm("TNAM", txst);
-    }
-
-    /**
-     *
      * @return
      */
     public FormID getBaseTexture() {
@@ -156,15 +105,13 @@ public class HDPT extends MajorRecordNamed {
     }
 
     /**
-     *
-     * @param id
+     * @param txst
      */
-    public void setResourceList(FormID id) {
-        subRecords.setSubForm("RNAM", id);
+    public void setBaseTexture(FormID txst) {
+        subRecords.setSubForm("TNAM", txst);
     }
 
     /**
-     *
      * @return
      */
     public FormID getResourceList() {
@@ -172,15 +119,21 @@ public class HDPT extends MajorRecordNamed {
     }
 
     /**
-     * @deprecated use getModelData()
+     * @param id
+     */
+    public void setResourceList(FormID id) {
+        subRecords.setSubForm("RNAM", id);
+    }
+
+    /**
      * @return List of the AltTextures applied.
+     * @deprecated use getModelData()
      */
     public ArrayList<AltTextures.AltTexture> getAltTextures() {
         return subRecords.getModel().getAltTextures();
     }
 
     /**
-     *
      * @return
      */
     public Model getModelData() {
@@ -198,15 +151,31 @@ public class HDPT extends MajorRecordNamed {
 
     /**
      * @param flag HeadPartFlag to set
-     * @param on value of flag
+     * @param on   value of flag
      */
     public void setHeadPartFlag(skyproc.genenums.HeadPartFlags flag, boolean on) {
         HDPT_Flags h = (HDPT_Flags) subRecords.get("DATA");
         h.flags.set(flag.ordinal(), on);
     }
-    
+
     /**
-     * 
+     * @return HDPT_Type
+     */
+    public HDPT_Type getHDPT_Type() {
+        int i = subRecords.getSubInt("PNAM").get();
+        return HDPT_Type.values()[i];
+    }
+
+    /**
+     * @param t HDPT_Type to set record to
+     */
+    public void setHDPT_Type(HDPT_Type t) {
+        int i = t.ordinal();
+        subRecords.getSubInt("PNAM").set(i);
+    }
+
+    /**
+     *
      */
     public enum HDPT_Type {
         Misc,
@@ -217,23 +186,41 @@ public class HDPT extends MajorRecordNamed {
         Scar,
         Eyebrows
     }
-    
-    /**
-     * 
-     * @return HDPT_Type
-     */
-    public HDPT_Type getHDPT_Type() {
-        int i = subRecords.getSubInt("PNAM").get();
-        return HDPT_Type.values()[i];
+
+    static class HDPT_Flags extends SubRecordTyped {
+
+        LFlags flags = new LFlags(1);
+
+        HDPT_Flags(String type) {
+            super(type);
+        }
+
+        @Override
+        void export(ModExporter out) throws IOException {
+            super.export(out);
+            out.write(flags.export(), 1);
+        }
+
+        @Override
+        void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+            super.parseData(in, srcMod);
+            flags = new LFlags(in.extract(1));
+        }
+
+        @Override
+        SubRecord getNew(String type) {
+            return new HDPT_Flags(type);
+        }
+
+        @Override
+        boolean isValid() {
+            return true;
+        }
+
+        @Override
+        int getContentLength(ModExporter out) {
+            return 1;
+        }
     }
-    
-    /**
-     * 
-     * @param t HDPT_Type to set record to
-     */
-    public void setHDPT_Type(HDPT_Type t) {
-        int i = t.ordinal();
-        subRecords.getSubInt("PNAM").set(i);
-    }
-    
+
 }

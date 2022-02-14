@@ -1,16 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
-import java.util.zip.DataFormatException;
 import lev.LImport;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
+import java.util.zip.DataFormatException;
+
 /**
- *
  * @author Justin Swanson
  */
 class SubIntSigned extends SubInt {
@@ -19,12 +15,12 @@ class SubIntSigned extends SubInt {
     //int length = 4;
 
     SubIntSigned(String type) {
-	super(type);
+        super(type);
     }
 
     SubIntSigned(String type, int length) {
-	this(type);
-	this.length = length;
+        this(type);
+        this.length = length;
     }
 
     /*
@@ -54,11 +50,11 @@ class SubIntSigned extends SubInt {
 
     @Override
     void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
-	super.parseData(in, srcMod);
+        super.parseData(in, srcMod);
 //	data = in.extractIntSigned(length);
         if (length < 4) {
             int value = get();
-            boolean isNeg = (value & (0x80 << (length-1))) != 0;
+            boolean isNeg = (value & (0x80 << (length - 1))) != 0;
             if (isNeg) {
                 for (int i = length; i < 4; i++) {
                     int high = 0xFF << i * 8;
@@ -67,9 +63,9 @@ class SubIntSigned extends SubInt {
                 set(value);
             }
         }
-	if (SPGlobal.logMods){
-	    logMod(srcMod, toString(), "Setting " + this + " to : " + print());
-	}
+        if (SPGlobal.logMods) {
+            logMod(srcMod, toString(), "Setting " + this + " to : " + print());
+        }
     }
 /*
     @Override

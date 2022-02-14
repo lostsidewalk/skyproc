@@ -1,28 +1,27 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
-import java.util.*;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Objects;
+
 /**
- *
  * @author Justin Swanson
  */
 abstract public class LeveledRecord extends MajorRecord implements Iterable<LeveledEntry> {
 
     static final SubPrototype LeveledProto = new SubPrototype(MajorRecord.majorProto) {
-	@Override
-	protected void addRecords() {
-	    add(new SubData("OBND", new byte[12]));
-	    add(new SubData("LVLD", new byte[1]));
-	    add(new SubFlag("LVLF", 1));
+        @Override
+        protected void addRecords() {
+            add(new SubData("OBND", new byte[12]));
+            add(new SubData("LVLD", new byte[1]));
+            add(new SubFlag("LVLF", 1));
             add(new SubForm("LVLG"));
-	    add(new SubListCounted<>("LLCT", 1, new LeveledEntry()));
-	}
+            add(new SubListCounted<>("LLCT", 1, new LeveledEntry()));
+        }
     };
 
     /**
@@ -30,8 +29,8 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      * set to 0x01=All levels Chance none set to 0. Empty MODL, MODT, and COED.
      */
     LeveledRecord() {
-	super();
-	subRecords.setPrototype(LeveledProto);
+        super();
+        subRecords.setPrototype(LeveledProto);
     }
 
     /**
@@ -41,65 +40,40 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      * @param edid EDID to assign the record. Make sure it's unique.
      */
     public LeveledRecord(String edid) {
-	this();
-	originateFromPatch(edid);
-	set(LVLFlag.CalcAllLevelsEqualOrBelowPC, true);
+        this();
+        originateFromPatch(edid);
+        set(LVLFlag.CalcAllLevelsEqualOrBelowPC, true);
     }
 
     /**
-     *
      * @return An iterator that steps through each entry in the LVLN.
      */
     @Override
     public Iterator<LeveledEntry> iterator() {
-	return subRecords.getSubList("LVLO").iterator();
+        return subRecords.getSubList("LVLO").iterator();
     }
-
-    /**
-     * This enum represents the different flags offered by LVLN.
-     */
-    public enum LVLFlag {
-
-	/**
-	 *
-	 */
-	CalcAllLevelsEqualOrBelowPC,
-	/**
-	 *
-	 */
-	CalcForEachItemInCount,
-	/**
-	 *
-	 */
-	UseAll,
-        /**
-         * 
-         */
-        SpecialLoot
-	}
 
     /**
      *
      */
     public void clearEntries() {
-	subRecords.getSubList("LVLO").clear();
+        subRecords.getSubList("LVLO").clear();
     }
 
     /**
-     *
      * @return
      */
     public ArrayList<LeveledEntry> getEntries() {
-	return subRecords.getSubList("LVLO").toPublic();
+        return subRecords.getSubList("LVLO").toPublic();
     }
-    
+
     public ArrayList<FormID> getEntryForms() {
-	ArrayList<LeveledEntry> entries = getEntries();
-	ArrayList<FormID> out = new ArrayList<>(entries.size());
-	for (LeveledEntry e : entries) {
-	    out.add(e.getForm());
-	}
-	return out;
+        ArrayList<LeveledEntry> entries = getEntries();
+        ArrayList<FormID> out = new ArrayList<>(entries.size());
+        for (LeveledEntry e : entries) {
+            out.add(e.getForm());
+        }
+        return out;
     }
 
     /**
@@ -110,16 +84,16 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      * @return
      */
     public ArrayList<LeveledEntry> getFlattenedEntries() {
-	ArrayList<LeveledEntry> out = new ArrayList<>();
-	for (LeveledEntry entry : getEntries()) {
-	    MajorRecord o = SPDatabase.getMajor(entry.getForm());
-	    if (o instanceof LeveledRecord) {
-		out.addAll(((LeveledRecord) o).getFlattenedEntries());
-	    } else {
-		out.add(entry);
-	    }
-	}
-	return out;
+        ArrayList<LeveledEntry> out = new ArrayList<>();
+        for (LeveledEntry entry : getEntries()) {
+            MajorRecord o = SPDatabase.getMajor(entry.getForm());
+            if (o instanceof LeveledRecord) {
+                out.addAll(((LeveledRecord) o).getFlattenedEntries());
+            } else {
+                out.add(entry);
+            }
+        }
+        return out;
     }
 
     /**
@@ -128,43 +102,40 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      * @param entry LVLO to add to this LVLN
      */
     public void addEntry(LeveledEntry entry) {
-	subRecords.getSubList("LVLO").add(entry);
+        subRecords.getSubList("LVLO").add(entry);
     }
 
     /**
      * Adds an entry with the actor, level, and count provided.
      *
-     * @param id The formID of the actor to put on the entry.
+     * @param id    The formID of the actor to put on the entry.
      * @param level Level to mark the entry at.
      * @param count Number of actors to spawn.
      */
     public void addEntry(FormID id, int level, int count) {
-	addEntry(new LeveledEntry(id, level, count));
+        addEntry(new LeveledEntry(id, level, count));
     }
 
     /**
-     *
      * @return The number of entries contained in the LVLN.
      */
     public int numEntries() {
-	return subRecords.getSubList("LVLO").size();
+        return subRecords.getSubList("LVLO").size();
     }
 
     /**
-     *
      * @return True if LVLN has no entries.
      */
     public Boolean isEmpty() {
-	return numEntries() == 0;
+        return numEntries() == 0;
     }
 
     /**
-     *
      * @param i The zero based index to query.
      * @return The ith entry in the LVLN.
      */
     public LeveledEntry getEntry(int i) {
-	return (LeveledEntry) subRecords.getSubList("LVLO").get(i);
+        return (LeveledEntry) subRecords.getSubList("LVLO").get(i);
     }
 
     /**
@@ -173,36 +144,34 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      * @param i The zero based index to remove.
      */
     public void removeEntry(int i) {
-	subRecords.getSubList("LVLO").remove(i);
+        subRecords.getSubList("LVLO").remove(i);
     }
 
     /**
-     *
      * @param id
      */
     public void removeFirstEntry(FormID id) {
-	ArrayList<LeveledEntry> list = getEntries();
-	for (int i = 0; i < list.size(); i++) {
-	    if (list.get(i).getForm().equals(id)) {
-		list.remove(i);
-		break;
-	    }
-	}
+        ArrayList<LeveledEntry> list = getEntries();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getForm().equals(id)) {
+                list.remove(i);
+                break;
+            }
+        }
     }
 
     /**
-     *
      * @param id
      */
     public void removeAllEntries(FormID id) {
-	ArrayList<LeveledEntry> list = getEntries();
-	for (int i = 0; i < list.size();) {
-	    if (list.get(i).getForm().equals(id)) {
-		list.remove(i);
-	    } else {
-		i++;
-	    }
-	}
+        ArrayList<LeveledEntry> list = getEntries();
+        for (int i = 0; i < list.size(); ) {
+            if (list.get(i).getForm().equals(id)) {
+                list.remove(i);
+            } else {
+                i++;
+            }
+        }
     }
 
     /**
@@ -210,31 +179,37 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      * maintaining the spawning probabilities.
      */
     public void reduce() {
-	LListSummary sum = new LListSummary(this);
-	sum.reduce();
-	setTo(sum);
+        LListSummary sum = new LListSummary(this);
+        sum.reduce();
+        setTo(sum);
     }
 
     void setTo(LListSummary sum) {
-	this.clearEntries();
-	for (LListEntry e : sum.entries) {
-	    for (int i = 0; i < e.numEntries; i++) {
-		this.addEntry(e.id, e.level, e.count);
-	    }
-	}
+        this.clearEntries();
+        for (LListEntry e : sum.entries) {
+            for (int i = 0; i < e.numEntries; i++) {
+                this.addEntry(e.id, e.level, e.count);
+            }
+        }
     }
 
     /**
-     *
      * @return The percent chance nothing will spawn from this LVLN. (0.0-1.0)
      */
     public Double getChanceNonePct() {
-	SubData lvld = subRecords.getSubData("LVLD");
-	if (lvld.isValid()) {
-	    return lvld.toInt() / 100.0;
-	} else {
-	    return 0.0;
-	}
+        SubData lvld = subRecords.getSubData("LVLD");
+        if (lvld.isValid()) {
+            return lvld.toInt() / 100.0;
+        } else {
+            return 0.0;
+        }
+    }
+
+    /**
+     * @return The chance that no actor will spawn from this LVLN.
+     */
+    public int getChanceNone() {
+        return subRecords.getSubData("LVLD").toInt();
     }
 
     /**
@@ -244,197 +219,82 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      * @throws BadParameter If in is outside the range: (0-100)
      */
     public void setChanceNone(final int in) throws BadParameter {
-	if (in >= 0 && in <= 100) {
-	    subRecords.setSubData("LVLD", in, 1);
-	} else {
-	    throw new BadParameter("Chance none set outside range 0-100: " + in);
-	}
-    }
-
-    /**
-     *
-     * @return The chance that no actor will spawn from this LVLN.
-     */
-    public int getChanceNone() {
-	return subRecords.getSubData("LVLD").toInt();
+        if (in >= 0 && in <= 100) {
+            subRecords.setSubData("LVLD", in, 1);
+        } else {
+            throw new BadParameter("Chance none set outside range 0-100: " + in);
+        }
     }
 
     /**
      * Checks a flag of the LVLN given by flag parameter.
      *
-     * @see //LVLN_Flags
      * @param flag LVLN_Flags enum representing the flag to check.
      * @return True if given flag is true.
+     * @see //LVLN_Flags
      */
     public boolean get(LVLFlag flag) {
-	return subRecords.getSubFlag("LVLF").is(flag.ordinal());
+        return subRecords.getSubFlag("LVLF").is(flag.ordinal());
     }
 
     /**
      * Sets a flag of the LVLN given by flag parameter
      *
-     * @see //LVLN_Flags
      * @param flag LVLN_Flags enum representing the flag to set.
-     * @param on Boolean to set flag to.
+     * @param on   Boolean to set flag to.
+     * @see //LVLN_Flags
      */
     final public void set(LVLFlag flag, boolean on) {
-	subRecords.setSubFlag("LVLF", flag.ordinal(), on);
+        subRecords.setSubFlag("LVLF", flag.ordinal(), on);
     }
-    
+
     /**
      * s
+     *
      * @return
      */
     public FormID getGlobalForm() {
         return subRecords.getSubForm("LVLG").getForm();
     }
 
-    // Get/Set
     /**
-     *
      * @param id
      */
     public void setGlobalForm(FormID id) {
         subRecords.setSubForm("LVLG", id);
     }
 
+    // Get/Set
+
     /**
-     *
      * @param target
      * @return
      */
     final public boolean contains(MajorRecord target) {
-	for (LeveledEntry entry : this) {
-	    if (entry.getForm().equals(target.getForm())) {
-		return true;
-	    }
-	}
-	return false;
+        for (LeveledEntry entry : this) {
+            if (entry.getForm().equals(target.getForm())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
-     *
-     * @param target Record to look for.
+     * @param target      Record to look for.
      * @param replacement Record to replace with.
      * @return Number of replacements executed.
      */
     final public int replace(MajorRecord target, MajorRecord replacement) {
-	int out = 0;
-	FormID targetF = target.getForm();
-	FormID replaceF = replacement.getForm();
-	for (LeveledEntry entry : this) {
-	    if (entry.getForm().equals(targetF)) {
-		out++;
-		entry.setForm(replaceF);
-	    }
-	}
-	return out;
-    }
-
-    // Large LList splitting
-    static class LListEntry {
-
-	FormID id;
-	int level;
-	int count;
-	int numEntries = 1;
-
-	LListEntry(LeveledEntry e) {
-	    id = e.getForm();
-	    level = e.getLevel();
-	    count = e.getCount();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-	    if (obj == null) {
-		return false;
-	    }
-	    if (getClass() != obj.getClass()) {
-		return false;
-	    }
-	    final LListEntry other = (LListEntry) obj;
-	    if (!Objects.equals(this.id, other.id)) {
-		return false;
-	    }
-	    if (this.level != other.level) {
-		return false;
-	    }
-	    if (this.count != other.count) {
-		return false;
-	    }
-	    return true;
-	}
-
-	@Override
-	public int hashCode() {
-	    int hash = 7;
-	    hash = 47 * hash + Objects.hashCode(this.id);
-	    hash = 47 * hash + this.level;
-	    hash = 47 * hash + this.count;
-	    return hash;
-	}
-    }
-
-    static class LListSummary {
-
-	ArrayList<LListEntry> entries = new ArrayList<>();
-
-	LListSummary(LeveledRecord in) {
-	    this(in.getEntries());
-	}
-
-	LListSummary(Collection<LeveledEntry> in) {
-	    for (LeveledEntry e : in) {
-		LListEntry trans = new LListEntry(e);
-		int existing = entries.indexOf(trans);
-		if (existing != -1) {
-		    entries.get(existing).numEntries++;
-		} else {
-		    entries.add(trans);
-		}
-	    }
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-	    if (obj == null) {
-		return false;
-	    }
-	    if (getClass() != obj.getClass()) {
-		return false;
-	    }
-	    final LListSummary other = (LListSummary) obj;
-	    if (entries.size() != other.entries.size()) {
-		return false;
-	    }
-	    for (LListEntry entry : other.entries) {
-		if (!entries.contains(entry)) {
-		    return false;
-		}
-	    }
-	    return true;
-	}
-
-	public void reduce() {
-	    int[] divs = new int[entries.size()];
-	    for (int i = 0; i < divs.length; i++) {
-		divs[i] = entries.get(i).numEntries;
-	    }
-	    int reduc = Ln.gcd(divs);
-	    if (reduc != 1) {
-		for (LListEntry e : entries) {
-		    e.numEntries /= reduc;
-		}
-	    }
-	}
-
-	public LListEntry oneEntry() {
-	    if (entries.size() == 1) {
-		return entries.get(0);
-	    }
-	    return null;
-	}
+        int out = 0;
+        FormID targetF = target.getForm();
+        FormID replaceF = replacement.getForm();
+        for (LeveledEntry entry : this) {
+            if (entry.getForm().equals(targetF)) {
+                out++;
+                entry.setForm(replaceF);
+            }
+        }
+        return out;
     }
 
     /**
@@ -442,67 +302,204 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      * than 255 (the max Skyrim can actually handle).
      */
     public void splitEntries() {
-	reduce();
+        reduce();
 
-	if (numEntries() <= 255) {
-	    return;
-	}
+        if (numEntries() <= 255) {
+            return;
+        }
 
-	// Create Summaries
-	int numSplits = (int) (numEntries() / 255.0 + 1);
-	int numPerSplit = numEntries() / numSplits;
-	ArrayList<LeveledEntry> list = getEntries();
-	ArrayList<LListSummary> sums = new ArrayList<>(numSplits);
-	for (int i = 0; i < numSplits; i++) {
-	    int index = i * numPerSplit;
-	    int max = index + numPerSplit;
-	    if (max > list.size()) {
-		max = list.size();
-	    }
-	    LListSummary sum = new LListSummary(list.subList(index, max));
-	    sum.reduce();
-	    sums.add(sum);
-	}
+        // Create Summaries
+        int numSplits = (int) (numEntries() / 255.0 + 1);
+        int numPerSplit = numEntries() / numSplits;
+        ArrayList<LeveledEntry> list = getEntries();
+        ArrayList<LListSummary> sums = new ArrayList<>(numSplits);
+        for (int i = 0; i < numSplits; i++) {
+            int index = i * numPerSplit;
+            int max = index + numPerSplit;
+            if (max > list.size()) {
+                max = list.size();
+            }
+            LListSummary sum = new LListSummary(list.subList(index, max));
+            sum.reduce();
+            sums.add(sum);
+        }
 
-	this.clearEntries();
-	// Make sub Llists
-	for (int i = 0; i < sums.size(); i++) {
-	    LListSummary s = sums.get(i);
-	    LListEntry e = s.oneEntry();
-	    if (e == null) {
-		LeveledRecord copy = (LeveledRecord) this.copy(getEDID() + "_" + i);
-		copy.setTo(s);
-		this.addEntry(copy.getForm(), 1, 1);
-	    } else {
-		addEntry(e.id, e.level, e.count);
-	    }
-	}
+        this.clearEntries();
+        // Make sub Llists
+        for (int i = 0; i < sums.size(); i++) {
+            LListSummary s = sums.get(i);
+            LListEntry e = s.oneEntry();
+            if (e == null) {
+                LeveledRecord copy = (LeveledRecord) this.copy(getEDID() + "_" + i);
+                copy.setTo(s);
+                this.addEntry(copy.getForm(), 1, 1);
+            } else {
+                addEntry(e.id, e.level, e.count);
+            }
+        }
     }
 
-    SubData getOBND() {return subRecords.getSubData("OBND");}
-	SubData getLVLD() {return subRecords.getSubData("LVLD");}
-	SubFlag getLVLF() {return subRecords.getSubFlag("LVLF");}
+    SubData getOBND() {
+        return subRecords.getSubData("OBND");
+    }
 
-	/**
-	 * Merges Major Records.
-	 *
-	 * @param no The new MajorRecord to be merged.
-	 * @param bo The base MajorRecord, to prevent base data from being
-	 * re-merged.
-	 * @return The modified MajorRecord.
-	 */
-	@Override
-	public MajorRecord merge(MajorRecord no, MajorRecord bo) {
-		super.merge(no, bo);
-		LeveledRecord l = this;
-		if (!(no == null && bo == null && (no instanceof LeveledRecord) && (bo instanceof LeveledRecord))) {
-			final LeveledRecord nl = (LeveledRecord) no;
-			final LeveledRecord bl = (LeveledRecord) bo;
-			l.getOBND().merge(nl.getOBND(), bl.getOBND());
-			l.getLVLD().merge(nl.getLVLD(), bl.getLVLD());
-			l.getLVLF().merge(nl.getLVLF(), bl.getLVLF());
-			l.subRecords.getSubList("LVLO").mergeListLVLO(nl.subRecords.getSubList("LVLO"), bl.subRecords.getSubList("LVLO"), l);
-		}
-		return l;
-	}
+    SubData getLVLD() {
+        return subRecords.getSubData("LVLD");
+    }
+
+    SubFlag getLVLF() {
+        return subRecords.getSubFlag("LVLF");
+    }
+
+    /**
+     * Merges Major Records.
+     *
+     * @param no The new MajorRecord to be merged.
+     * @param bo The base MajorRecord, to prevent base data from being
+     *           re-merged.
+     * @return The modified MajorRecord.
+     */
+    @Override
+    public MajorRecord merge(MajorRecord no, MajorRecord bo) {
+        super.merge(no, bo);
+        LeveledRecord l = this;
+        if (!(no == null && bo == null && (no instanceof LeveledRecord) && (bo instanceof LeveledRecord))) {
+            final LeveledRecord nl = (LeveledRecord) no;
+            final LeveledRecord bl = (LeveledRecord) bo;
+            l.getOBND().merge(nl.getOBND(), bl.getOBND());
+            l.getLVLD().merge(nl.getLVLD(), bl.getLVLD());
+            l.getLVLF().merge(nl.getLVLF(), bl.getLVLF());
+            l.subRecords.getSubList("LVLO").mergeListLVLO(nl.subRecords.getSubList("LVLO"), bl.subRecords.getSubList("LVLO"), l);
+        }
+        return l;
+    }
+
+    /**
+     * This enum represents the different flags offered by LVLN.
+     */
+    public enum LVLFlag {
+
+        /**
+         *
+         */
+        CalcAllLevelsEqualOrBelowPC,
+        /**
+         *
+         */
+        CalcForEachItemInCount,
+        /**
+         *
+         */
+        UseAll,
+        /**
+         *
+         */
+        SpecialLoot
+    }
+
+    // Large LList splitting
+    static class LListEntry {
+
+        FormID id;
+        int level;
+        int count;
+        int numEntries = 1;
+
+        LListEntry(LeveledEntry e) {
+            id = e.getForm();
+            level = e.getLevel();
+            count = e.getCount();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final LListEntry other = (LListEntry) obj;
+            if (!Objects.equals(this.id, other.id)) {
+                return false;
+            }
+            if (this.level != other.level) {
+                return false;
+            }
+            if (this.count != other.count) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 47 * hash + Objects.hashCode(this.id);
+            hash = 47 * hash + this.level;
+            hash = 47 * hash + this.count;
+            return hash;
+        }
+    }
+
+    static class LListSummary {
+
+        ArrayList<LListEntry> entries = new ArrayList<>();
+
+        LListSummary(LeveledRecord in) {
+            this(in.getEntries());
+        }
+
+        LListSummary(Collection<LeveledEntry> in) {
+            for (LeveledEntry e : in) {
+                LListEntry trans = new LListEntry(e);
+                int existing = entries.indexOf(trans);
+                if (existing != -1) {
+                    entries.get(existing).numEntries++;
+                } else {
+                    entries.add(trans);
+                }
+            }
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final LListSummary other = (LListSummary) obj;
+            if (entries.size() != other.entries.size()) {
+                return false;
+            }
+            for (LListEntry entry : other.entries) {
+                if (!entries.contains(entry)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void reduce() {
+            int[] divs = new int[entries.size()];
+            for (int i = 0; i < divs.length; i++) {
+                divs[i] = entries.get(i).numEntries;
+            }
+            int reduc = Ln.gcd(divs);
+            if (reduc != 1) {
+                for (LListEntry e : entries) {
+                    e.numEntries /= reduc;
+                }
+            }
+        }
+
+        public LListEntry oneEntry() {
+            if (entries.size() == 1) {
+                return entries.get(0);
+            }
+            return null;
+        }
+    }
 }

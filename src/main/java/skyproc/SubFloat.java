@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
-import java.io.IOException;
-import java.util.zip.DataFormatException;
 import lev.LImport;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
+import java.io.IOException;
+import java.util.zip.DataFormatException;
+
 /**
- *
  * @author Justin Swanson
  */
 class SubFloat extends SubRecordTyped {
@@ -19,43 +15,43 @@ class SubFloat extends SubRecordTyped {
     float data;
 
     SubFloat(String type) {
-	super(type);
+        super(type);
     }
 
     @Override
     SubRecord getNew(String type) {
-	return new SubFloat(type);
+        return new SubFloat(type);
     }
 
     @Override
     int getContentLength(ModExporter out) {
-	return 4;
+        return 4;
     }
 
     @Override
     void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
-	super.parseData(in, srcMod);
-	data = in.extractFloat();
-	if (SPGlobal.logMods){
-	    logMod(srcMod, toString(), "Setting " + this + " to : " + print());
-	}
+        super.parseData(in, srcMod);
+        data = in.extractFloat();
+        if (SPGlobal.logMods) {
+            logMod(srcMod, toString(), "Setting " + this + " to : " + print());
+        }
     }
 
     @Override
     public String print() {
-	if (isValid()) {
-	    return String.valueOf(data);
-	} else {
-	    return super.toString();
-	}
+        if (isValid()) {
+            return String.valueOf(data);
+        } else {
+            return super.toString();
+        }
     }
 
     @Override
     void export(ModExporter out) throws IOException {
-	if (isValid()) {
-	    super.export(out);
-	    out.write(data);
-	}
+        if (isValid()) {
+            super.export(out);
+            out.write(data);
+        }
     }
 
     @Override
@@ -75,28 +71,29 @@ class SubFloat extends SubRecordTyped {
 
     @Override
     public int hashCode() {
-	int hash = 7;
-	hash = 67 * hash + Float.floatToIntBits(this.data);
-	return hash;
+        int hash = 7;
+        hash = 67 * hash + Float.floatToIntBits(this.data);
+        return hash;
     }
 
     public void set(float in) {
-	data = in;
+        data = in;
     }
 
     public float get() {
-	return data;
+        return data;
     }
 
     /*
      * SkyBash methods.
      */
+
     /**
      * Merges straight SubFloats with logging capabilities.
      *
      * @param no The new SubFloat to be merged.
      * @param bo The base SubFloat, to prevent base data from being
-     * re-merged.
+     *           re-merged.
      * @return The modified SubFloat.
      */
     @Override

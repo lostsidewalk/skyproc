@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc.genenums;
 
 import java.io.*;
@@ -11,6 +7,7 @@ import java.util.Scanner;
 /**
  * A list of values commonly used by Skyrim for various purposes. UNKNOWN
  * entries are simply placeholders.
+ *
  * @author Justin Swanson
  */
 public enum ActorValue {
@@ -1045,29 +1042,27 @@ public enum ActorValue {
     UNKNOWN;
 
     /**
-     *
      * @param in
      * @return
      */
     static public int value(ActorValue in) {
-	if (in == null || in == UNKNOWN || in == NONE) {
-	    return -1;
-	} else {
-	    return in.ordinal();
-	}
+        if (in == null || in == UNKNOWN || in == NONE) {
+            return -1;
+        } else {
+            return in.ordinal();
+        }
     }
 
     /**
-     *
      * @param in
      * @return
      */
     static public ActorValue value(int in) {
-	if (in < ActorValue.values().length - 2 && in >= 0) {
-	    return ActorValue.values()[in];
-	} else {
-	    return NONE;
-	}
+        if (in < ActorValue.values().length - 2 && in >= 0) {
+            return ActorValue.values()[in];
+        } else {
+            return NONE;
+        }
     }
 
     // Highly specific function meant to parse the function list from
@@ -1076,42 +1071,42 @@ public enum ActorValue {
     // Shouldn't need to be used by you or any users.
     static void parseData() throws IOException {
 
-	String dir = "Validation Files/";
-	BufferedReader in = new BufferedReader(new FileReader(dir + "ActorValueSource.txt"));
-	BufferedWriter out = new BufferedWriter(new FileWriter(dir + "ActorValueOut.txt"));
-	BufferedWriter log = new BufferedWriter(new FileWriter(dir + "ActorValueOutLog.txt"));
+        String dir = "Validation Files/";
+        BufferedReader in = new BufferedReader(new FileReader(dir + "ActorValueSource.txt"));
+        BufferedWriter out = new BufferedWriter(new FileWriter(dir + "ActorValueOut.txt"));
+        BufferedWriter log = new BufferedWriter(new FileWriter(dir + "ActorValueOutLog.txt"));
 
-	String[] values = new String[256];
+        String[] values = new String[256];
 
-	ArrayList<String> outStrings = new ArrayList<>();
-	while (in.ready()) {
-	    String line = in.readLine();
-	    log.write("Read Line: " + line);
-	    Scanner tokenizer = new Scanner(line);
-	    try {
-		int index = Integer.parseInt(tokenizer.next());
-		log.write("  Index: " + index);
-		String name = tokenizer.next();
-		log.write("  Ref: " + name);
+        ArrayList<String> outStrings = new ArrayList<>();
+        while (in.ready()) {
+            String line = in.readLine();
+            log.write("Read Line: " + line);
+            Scanner tokenizer = new Scanner(line);
+            try {
+                int index = Integer.parseInt(tokenizer.next());
+                log.write("  Index: " + index);
+                String name = tokenizer.next();
+                log.write("  Ref: " + name);
 
-		// Generate string
-		values[index] = name;
+                // Generate string
+                values[index] = name;
 
-	    } catch (NumberFormatException ex) {
-		log.write("  Skipped");
-	    }
-	}
+            } catch (NumberFormatException ex) {
+                log.write("  Skipped");
+            }
+        }
 
-	for (int i = 0; i < values.length; i++) {
-	    if (values[i] != null) {
-		out.write(values[i] + ",\n");
-	    } else {
-		out.write("UNKNOWN" + i + ",\n");
-	    }
-	}
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] != null) {
+                out.write(values[i] + ",\n");
+            } else {
+                out.write("UNKNOWN" + i + ",\n");
+            }
+        }
 
-	in.close();
-	out.close();
-	log.close();
+        in.close();
+        out.close();
+        log.close();
     }
 }

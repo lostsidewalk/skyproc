@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc.genenums;
 
 /**
- *
  * @author Justin Swanson
  */
 public enum FirstPersonFlags {
@@ -144,28 +139,26 @@ public enum FirstPersonFlags {
     NONE;
 
     /**
-     *
-     * @return
-     */
-    public int getValue() {
-	switch(this) {
-	    case NONE:
-		return -1;
-	    default:
-		return ordinal();
-	}
-    }
-
-    /**
-     *
      * @param val
      * @return
      */
-    static public  FirstPersonFlags getValue(int val) {
-	if (-1 == val) {
-	    return NONE;
-	} else {
-	    return values()[val];
-	}
+    static public FirstPersonFlags getValue(int val) {
+        if (-1 == val) {
+            return NONE;
+        } else {
+            return values()[val];
+        }
+    }
+
+    /**
+     * @return
+     */
+    public int getValue() {
+        switch (this) {
+            case NONE:
+                return -1;
+            default:
+                return ordinal();
+        }
     }
 }

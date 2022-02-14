@@ -1,17 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
+
+import lev.LImport;
+import skyproc.exceptions.BadParameter;
+import skyproc.exceptions.BadRecord;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.zip.DataFormatException;
-import lev.LImport;
-import skyproc.exceptions.BadParameter;
-import skyproc.exceptions.BadRecord;
 
 /**
  * A set of keywords associated with a major record.
@@ -27,11 +24,11 @@ public class KeywordSet extends SubRecord {
     KeywordSet() {
         super();
     }
-    
-    KeywordSet(KeywordSet rhs){
+
+    KeywordSet(KeywordSet rhs) {
         this();
         counter.setData(rhs.keywords.size(), 4);
-        for(FormID key : rhs.getKeywordRefs()){
+        for (FormID key : rhs.getKeywordRefs()) {
             addKeywordRef(key);
         }
     }
@@ -125,7 +122,6 @@ public class KeywordSet extends SubRecord {
     }
 
     /**
-     *
      * @param set
      * @return True if every keyword in this set is contained in the parameter's
      * set.
@@ -135,7 +131,6 @@ public class KeywordSet extends SubRecord {
     }
 
     /**
-     *
      * @param obj
      * @return
      */
@@ -155,7 +150,6 @@ public class KeywordSet extends SubRecord {
     }
 
     /**
-     *
      * @return
      */
     @Override

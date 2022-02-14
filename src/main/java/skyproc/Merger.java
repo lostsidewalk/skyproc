@@ -93,9 +93,9 @@ public class Merger {
     /**
      * Merges ArrayLists with logging capabilities, from SubLists.
      *
-     * @param tempListNew The new ArrayList to be merged.
+     * @param tempListNew  The new ArrayList to be merged.
      * @param tempListBase The base ArrayList, to prevent base data from being
-     * re-merged.
+     *                     re-merged.
      * @return The modified ArrayList.
      */
     public static <T> ArrayList<T> merge(ArrayList<T> tempList, ArrayList<T> tempListNew, ArrayList<T> tempListBase, String type) {

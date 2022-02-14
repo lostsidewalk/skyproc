@@ -1,23 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.*;
-import java.util.zip.DataFormatException;
-import lev.LInChannel;
+import io.airlift.compress.lz4.Lz4Decompressor;
 import lev.LFlags;
+import lev.LInChannel;
 import lev.LShrinkArray;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
-import io.airlift.compress.lz4.Lz4Decompressor;
+
+import java.io.*;
 import java.nio.ByteBuffer;
+import java.util.*;
+import java.util.zip.DataFormatException;
 
 /**
  * An object that interfaces with BSA files, allowing for queries of its
@@ -80,211 +73,13 @@ public class BSA {
     }
 
     /**
-     *
      * @param filePath Filepath to load BSA data from.
      * @throws FileNotFoundException
      * @throws IOException
-     * @throws BadParameter If the BSA is malformed (by SkyProc standards)
+     * @throws BadParameter          If the BSA is malformed (by SkyProc standards)
      */
     public BSA(String filePath) throws FileNotFoundException, IOException, BadParameter {
         this(filePath, true);
-    }
-
-    final void loadFolders() {
-        if (loaded) {
-            return;
-        }
-        loaded = true;
-        if (SPGlobal.logging()) {
-            SPGlobal.logSpecial(LogTypes.BSA, header, "|============================================");
-            SPGlobal.logSpecial(LogTypes.BSA, header, "|============  Loading " + this + " ============");
-            SPGlobal.logSpecial(LogTypes.BSA, header, "|============================================");
-        }
-        try {
-            String fileName;
-            int fileCounter = 0;
-            in.pos(offset);
-            ArrayList<BSAFolder> temp_folders = new ArrayList<>();
-            int fileRecordsSize = folderCount + folderNameLength + fileCount * 16;
-            for (int i = 0; i < folderCount; i++) {
-                BSAFolder folder = new BSAFolder();
-                in.skip(8); // Skip Hash
-                folder.setFileCount(in.extractInt(4));
-                in.skip(4);
-                folder.dataPos = in.extractLong(0, 8);
-                temp_folders.add(folder);
-            }
-            LShrinkArray fileRecords  = new LShrinkArray(in.extract(0, fileRecordsSize));
-            LShrinkArray fileNames = new LShrinkArray(in.extract(0, fileNameLength));
-
-            int fileNameListPos = 0;
-            int startOfFileRecords = 36 + 24 * folderCount;
-            for(int i = 0; i < folderCount; i++)
-            {
-                BSAFolder folder = temp_folders.get(i);
-                folder.dataPos -= fileNameLength + startOfFileRecords;
-                fileRecords.pos(folder.dataPos);
-                int folderNameLength_ = fileRecords.read() - 1;
-                fileRecords.pos(folder.dataPos + 1);
-                folder.name = fileRecords.extractString(0, folderNameLength_);
-                folder.name = folder.name.toUpperCase();
-                if (SPGlobal.debugBSAimport && SPGlobal.logging()) {
-                    SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded folder: " + folder.name);
-                }
-                long startOfFolderFileRecords  = folder.dataPos + folderNameLength_ + 2;
-                for(int j = 0; j < folder.fileCount; j++)
-                {
-                    BSAFileRef f = new BSAFileRef();
-                    fileRecords.pos(startOfFolderFileRecords + j * 16);
-                    fileRecords.skip(8); // Skip Hash
-                    f.size = fileRecords.extractInt(3); 
-                    LFlags sizeFlag = new LFlags(fileRecords.extract(1));
-                    f.flippedCompression = sizeFlag.get(6);
-                    f.dataOffset = fileRecords.extractInt(4);
-                    fileNames.pos(fileNameListPos);
-                    fileName = "";
-                    while(true)
-                    {
-                        int r = fileNames.read();
-                        if (r == 0)
-                        {
-                                break;
-                        }
-                        fileNameListPos++;
-                        fileName += (char)r;
-                    }
-                    fileNameListPos++;
-                    folder.files.put(fileName.toUpperCase(), f);
-                    if (SPGlobal.logging()) {
-                        SPGlobal.logSpecial(LogTypes.BSA, header, "  " + fileName + ", size: " + Ln.prettyPrintHex(f.size) + ", offset: " + Ln.prettyPrintHex(f.dataOffset) + ", flipped: " + f.flippedCompression);
-                        fileCounter++;
-                    }
-                }
-                folders.put(folder.name, folder);
-            }
-            if (SPGlobal.logging()) {
-                if (SPGlobal.debugBSAimport) {
-                    SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded " + fileCounter + " files.");
-                }
-                SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded BSA: " + getFilePath());
-            }
-        } catch (Exception e) {
-            SPGlobal.logException(e);
-            SPGlobal.logError("BSA", "Skipped BSA " + this);
-            bad = true;
-        }
-    }
-
-    void posAtFilenames() {
-        in.pos(folderNameLength + fileCount * 16 + folderCount * 17 + offset);
-    }
-
-    void posAtFolder(BSAFolder folder) {
-        in.pos(folder.dataPos - fileNameLength);
-    }
-
-    /**
-     *
-     * @return True if BSA has loaded it's folder listings.
-     */
-    public boolean loaded() {
-        return loaded;
-    }
-
-    /**
-     *
-     * @param filePath1 filepath to query for and retrieve.
-     * @return ShrinkArray of the raw data from the BSA of the file specified,
-     * already decompressed if applicable; Empty ShrinkArray if the file did not
-     * exist.
-     */
-    public LShrinkArray getFile(String filePath1) {
-        BSAFileRef ref;
-        if ((ref = getFileRef(filePath1)) != null) {
-            in.pos(ref.dataOffset);
-            int aSize = ref.size;
-            if (is(BSAFlag.NamesInFileData))
-            {
-                while(true)
-                {
-                    int r = in.read();
-                    if (r == 0)
-                    {
-                        break;
-                    }
-                    aSize--;
-                }
-                aSize--;
-            }
-            if (isCompressed(ref))
-            {
-                int uncompressedSize = Ln.arrayToInt(in.extractInts(4));
-                aSize -= 4;
-                byte[] compressedByteData = in.extract(aSize);
-
-                Lz4Decompressor decompressor2 = new Lz4Decompressor();
-                byte[] uncompressedByteData = new byte[uncompressedSize];
-
-                int decompressedLength2 = decompressor2.decompress(compressedByteData, 0, aSize, uncompressedByteData, 0, uncompressedSize);
-                return new LShrinkArray(ByteBuffer.wrap(uncompressedByteData));
-            }
-            return new LShrinkArray(in.extract(0, aSize));
-        }
-        return new LShrinkArray(new byte[0]);
-    }
-
-    void trimName(LShrinkArray out) {
-        if (is(BSAFlag.NamesInFileData)) {
-            out.skip(out.extractInt(1));
-        }
-    }
-
-    long getFileLocation(BSAFileRef ref) {
-        return ref.dataOffset;
-    }
-
-    /**
-     *
-     * @param filePath
-     * @return
-     */
-    long getFileLocation(String filePath) {
-        BSAFileRef ref;
-        if ((ref = getFileRef(filePath)) != null) {
-            return getFileLocation(ref);
-        }
-        return -1;
-    }
-
-    /**
-     *
-     * @param f
-     * @return
-     */
-    long getFileLocation(File f) {
-        return getFileLocation(f.getPath());
-    }
-
-    /**
-     * Returns a ShrinkArray containing the data of the file desired. <br>
-     * Returns loose files if they exist, or the dominant BSA if they do not.
-     *
-     * @param f
-     * @return
-     * @throws IOException
-     * @throws DataFormatException
-     */
-    public LShrinkArray getFile(File f) throws IOException, DataFormatException {
-        return getFile(f.getPath());
-    }
-
-    String getFilename(String filePath) {
-        BSAFileRef ref;
-        if ((ref = getFileRef(filePath)) != null) {
-            in.pos(ref.nameOffset);
-            return in.extractString();
-        }
-        return "";
     }
 
     static String getUsedFilename(String filePath) throws IOException {
@@ -304,7 +99,6 @@ public class BSA {
     }
 
     /**
-     *
      * @param filePath File to query for.
      * @return The used file, which prioritizes loose files first, and then
      * BSAs.<br> NOTE: Not fully sophisticated yet for prioritizing between
@@ -519,13 +313,10 @@ public class BSA {
                             SPGlobal.logSpecial(LogTypes.BSA, header, "Loading: " + bsaPath);
                         }
                         BSA bsa;
-                        if (!bsaLookup.containsKey(bsaPath.getPath().toUpperCase()))
-                        {
+                        if (!bsaLookup.containsKey(bsaPath.getPath().toUpperCase())) {
                             bsa = new BSA(bsaPath, false);
                             bsaLookup.put(bsaPath.getPath().toUpperCase(), bsa);
-                        }
-                        else
-                        {
+                        } else {
                             bsa = bsaLookup.get(bsaPath.getPath().toUpperCase());
                         }
                         resourceLoadOrder.add(bsa);
@@ -561,153 +352,7 @@ public class BSA {
         return out;
     }
 
-    BSAFileRef getFileRef(String filePath) {
-        filePath = filePath.toUpperCase();
-        int index = filePath.lastIndexOf('\\');
-        String folderPath = filePath.substring(0, index);
-        BSAFolder folder = folders.get(folderPath);
-        if (folder != null) {
-            String file = filePath.substring(index + 1);
-            BSAFileRef ref = folder.files.get(file);
-            if (ref != null) {
-                return ref;
-            }
-        }
-        return null;
-    }
-
     /**
-     *
-     * @param filePath Filepath the query for.
-     * @return True if BSA has a file with that path.
-     */
-    public boolean hasFile(String filePath) {
-        return getFileRef(filePath) != null;
-    }
-
-    /**
-     *
-     * @param f
-     * @return
-     */
-    public boolean hasFile(File f) {
-        return hasFile(f.getPath());
-    }
-
-    /**
-     *
-     * @return The BSA's filepath.
-     */
-    public String getFilePath() {
-        return filePath.substring(0, filePath.length());
-    }
-
-    /**
-     *
-     * @param folderPath Folder path to query for.
-     * @return True if BSA has a folder with that path.
-     */
-    public boolean hasFolder(String folderPath) {
-        filePath = filePath.toUpperCase();
-        return folders.containsKey(folderPath);
-    }
-
-    /**
-     *
-     * @return A list of contained folders.
-     */
-    public Set<String> getFolders() {
-        return folders.keySet();
-    }
-
-    /**
-     *
-     * @return Map containing folder paths as keys, and list of file paths as
-     * values.
-     */
-    public Map<String, ArrayList<String>> getFiles() {
-        Map<String, ArrayList<String>> out = new HashMap<>(folders.size());
-        for (BSAFolder folder : folders.values()) {
-            ArrayList<String> list = new ArrayList<>(folder.files.values().size());
-            out.put(folder.name, list);
-            list.addAll(folder.files.keySet());
-        }
-        return out;
-    }
-
-    /**
-     *
-     * @return Number of folders contained in the BSA
-     */
-    public int numFolders() {
-        return folders.size();
-    }
-
-    /**
-     *
-     * @return Number of files contained in the BSA
-     */
-    public int numFiles() {
-        int out = 0;
-        for (BSAFolder folder : folders.values()) {
-            out += folder.fileCount;
-        }
-        return out;
-    }
-
-    /**
-     *
-     * @param fileType Filetype to query for.
-     * @return True if BSA contains files of that type.
-     */
-    public boolean contains(FileType fileType) {
-        if (!fileFlags.isZeros()) {
-            return fileFlags.get(fileType.ordinal());
-        } else {
-            return manualContains(fileType);
-        }
-    }
-
-    boolean manualContains(FileType fileType) {
-        FileType[] types = new FileType[1];
-        types[0] = fileType;
-        return manualContains(types);
-    }
-
-    boolean manualContains(FileType[] fileTypes) {
-        loadFolders();
-        for (BSAFolder folder : folders.values()) {
-            for (String file : folder.files.keySet()) {
-                for (FileType type : fileTypes) {
-                    if (file.endsWith(type.toString())) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @param fileTypes Filetypes to query for.
-     * @return True if BSA contains any of the filetypes.
-     */
-    public boolean containsAny(FileType[] fileTypes) {
-        if (!fileFlags.isZeros()) {
-            for (FileType f : fileTypes) {
-                if (contains(f)) {
-                    return true;
-                }
-            }
-            return false;
-        } else {
-            return manualContains(fileTypes);
-        }
-    }
-
-    /**
-     *
      * @param types Types to load in.
      * @return List of all BSA files that contain any of the filetypes.
      */
@@ -784,13 +429,10 @@ public class BSA {
         if (bsaPath.exists()) {
             try {
                 BSA bsa;
-                if (!bsaLookup.containsKey(bsaPath.getPath().toUpperCase()))
-                {
+                if (!bsaLookup.containsKey(bsaPath.getPath().toUpperCase())) {
                     bsa = new BSA(bsaPath, false);
                     bsaLookup.put(bsaPath.getPath().toUpperCase(), bsa);
-                }
-                else
-                {
+                } else {
                     bsa = bsaLookup.get(bsaPath.getPath().toUpperCase());
                 }
                 pluginLoadOrder.put(m, bsa);
@@ -818,7 +460,6 @@ public class BSA {
     }
 
     /**
-     *
      * @param m
      * @return
      */
@@ -828,7 +469,6 @@ public class BSA {
     }
 
     /**
-     *
      * @param m
      * @return
      */
@@ -836,8 +476,338 @@ public class BSA {
         return hasBSA(m.getInfo());
     }
 
+    static void logBSAError(String source, Exception ex) {
+        String error = "Could not get " + source + ". Strings files or ini changes in it will not be availible.";
+        SPGlobal.logError(header, error);
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw, true);
+        ex.printStackTrace(pw);
+        pw.flush();
+        sw.flush();
+        SPGlobal.log(sw.toString());
+    }
+
+    final void loadFolders() {
+        if (loaded) {
+            return;
+        }
+        loaded = true;
+        if (SPGlobal.logging()) {
+            SPGlobal.logSpecial(LogTypes.BSA, header, "|============================================");
+            SPGlobal.logSpecial(LogTypes.BSA, header, "|============  Loading " + this + " ============");
+            SPGlobal.logSpecial(LogTypes.BSA, header, "|============================================");
+        }
+        try {
+            String fileName;
+            int fileCounter = 0;
+            in.pos(offset);
+            ArrayList<BSAFolder> temp_folders = new ArrayList<>();
+            int fileRecordsSize = folderCount + folderNameLength + fileCount * 16;
+            for (int i = 0; i < folderCount; i++) {
+                BSAFolder folder = new BSAFolder();
+                in.skip(8); // Skip Hash
+                folder.setFileCount(in.extractInt(4));
+                in.skip(4);
+                folder.dataPos = in.extractLong(0, 8);
+                temp_folders.add(folder);
+            }
+            LShrinkArray fileRecords = new LShrinkArray(in.extract(0, fileRecordsSize));
+            LShrinkArray fileNames = new LShrinkArray(in.extract(0, fileNameLength));
+
+            int fileNameListPos = 0;
+            int startOfFileRecords = 36 + 24 * folderCount;
+            for (int i = 0; i < folderCount; i++) {
+                BSAFolder folder = temp_folders.get(i);
+                folder.dataPos -= fileNameLength + startOfFileRecords;
+                fileRecords.pos(folder.dataPos);
+                int folderNameLength_ = fileRecords.read() - 1;
+                fileRecords.pos(folder.dataPos + 1);
+                folder.name = fileRecords.extractString(0, folderNameLength_);
+                folder.name = folder.name.toUpperCase();
+                if (SPGlobal.debugBSAimport && SPGlobal.logging()) {
+                    SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded folder: " + folder.name);
+                }
+                long startOfFolderFileRecords = folder.dataPos + folderNameLength_ + 2;
+                for (int j = 0; j < folder.fileCount; j++) {
+                    BSAFileRef f = new BSAFileRef();
+                    fileRecords.pos(startOfFolderFileRecords + j * 16);
+                    fileRecords.skip(8); // Skip Hash
+                    f.size = fileRecords.extractInt(3);
+                    LFlags sizeFlag = new LFlags(fileRecords.extract(1));
+                    f.flippedCompression = sizeFlag.get(6);
+                    f.dataOffset = fileRecords.extractInt(4);
+                    fileNames.pos(fileNameListPos);
+                    fileName = "";
+                    while (true) {
+                        int r = fileNames.read();
+                        if (r == 0) {
+                            break;
+                        }
+                        fileNameListPos++;
+                        fileName += (char) r;
+                    }
+                    fileNameListPos++;
+                    folder.files.put(fileName.toUpperCase(), f);
+                    if (SPGlobal.logging()) {
+                        SPGlobal.logSpecial(LogTypes.BSA, header, "  " + fileName + ", size: " + Ln.prettyPrintHex(f.size) + ", offset: " + Ln.prettyPrintHex(f.dataOffset) + ", flipped: " + f.flippedCompression);
+                        fileCounter++;
+                    }
+                }
+                folders.put(folder.name, folder);
+            }
+            if (SPGlobal.logging()) {
+                if (SPGlobal.debugBSAimport) {
+                    SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded " + fileCounter + " files.");
+                }
+                SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded BSA: " + getFilePath());
+            }
+        } catch (Exception e) {
+            SPGlobal.logException(e);
+            SPGlobal.logError("BSA", "Skipped BSA " + this);
+            bad = true;
+        }
+    }
+
+    void posAtFilenames() {
+        in.pos(folderNameLength + fileCount * 16 + folderCount * 17 + offset);
+    }
+
+    void posAtFolder(BSAFolder folder) {
+        in.pos(folder.dataPos - fileNameLength);
+    }
+
     /**
+     * @return True if BSA has loaded it's folder listings.
+     */
+    public boolean loaded() {
+        return loaded;
+    }
+
+    /**
+     * @param filePath1 filepath to query for and retrieve.
+     * @return ShrinkArray of the raw data from the BSA of the file specified,
+     * already decompressed if applicable; Empty ShrinkArray if the file did not
+     * exist.
+     */
+    public LShrinkArray getFile(String filePath1) {
+        BSAFileRef ref;
+        if ((ref = getFileRef(filePath1)) != null) {
+            in.pos(ref.dataOffset);
+            int aSize = ref.size;
+            if (is(BSAFlag.NamesInFileData)) {
+                while (true) {
+                    int r = in.read();
+                    if (r == 0) {
+                        break;
+                    }
+                    aSize--;
+                }
+                aSize--;
+            }
+            if (isCompressed(ref)) {
+                int uncompressedSize = Ln.arrayToInt(in.extractInts(4));
+                aSize -= 4;
+                byte[] compressedByteData = in.extract(aSize);
+
+                Lz4Decompressor decompressor2 = new Lz4Decompressor();
+                byte[] uncompressedByteData = new byte[uncompressedSize];
+
+                int decompressedLength2 = decompressor2.decompress(compressedByteData, 0, aSize, uncompressedByteData, 0, uncompressedSize);
+                return new LShrinkArray(ByteBuffer.wrap(uncompressedByteData));
+            }
+            return new LShrinkArray(in.extract(0, aSize));
+        }
+        return new LShrinkArray(new byte[0]);
+    }
+
+    void trimName(LShrinkArray out) {
+        if (is(BSAFlag.NamesInFileData)) {
+            out.skip(out.extractInt(1));
+        }
+    }
+
+    long getFileLocation(BSAFileRef ref) {
+        return ref.dataOffset;
+    }
+
+    /**
+     * @param filePath
+     * @return
+     */
+    long getFileLocation(String filePath) {
+        BSAFileRef ref;
+        if ((ref = getFileRef(filePath)) != null) {
+            return getFileLocation(ref);
+        }
+        return -1;
+    }
+
+    /**
+     * @param f
+     * @return
+     */
+    long getFileLocation(File f) {
+        return getFileLocation(f.getPath());
+    }
+
+    /**
+     * Returns a ShrinkArray containing the data of the file desired. <br>
+     * Returns loose files if they exist, or the dominant BSA if they do not.
      *
+     * @param f
+     * @return
+     * @throws IOException
+     * @throws DataFormatException
+     */
+    public LShrinkArray getFile(File f) throws IOException, DataFormatException {
+        return getFile(f.getPath());
+    }
+
+    String getFilename(String filePath) {
+        BSAFileRef ref;
+        if ((ref = getFileRef(filePath)) != null) {
+            in.pos(ref.nameOffset);
+            return in.extractString();
+        }
+        return "";
+    }
+
+    BSAFileRef getFileRef(String filePath) {
+        filePath = filePath.toUpperCase();
+        int index = filePath.lastIndexOf('\\');
+        String folderPath = filePath.substring(0, index);
+        BSAFolder folder = folders.get(folderPath);
+        if (folder != null) {
+            String file = filePath.substring(index + 1);
+            BSAFileRef ref = folder.files.get(file);
+            if (ref != null) {
+                return ref;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param filePath Filepath the query for.
+     * @return True if BSA has a file with that path.
+     */
+    public boolean hasFile(String filePath) {
+        return getFileRef(filePath) != null;
+    }
+
+    /**
+     * @param f
+     * @return
+     */
+    public boolean hasFile(File f) {
+        return hasFile(f.getPath());
+    }
+
+    /**
+     * @return The BSA's filepath.
+     */
+    public String getFilePath() {
+        return filePath.substring(0, filePath.length());
+    }
+
+    /**
+     * @param folderPath Folder path to query for.
+     * @return True if BSA has a folder with that path.
+     */
+    public boolean hasFolder(String folderPath) {
+        filePath = filePath.toUpperCase();
+        return folders.containsKey(folderPath);
+    }
+
+    /**
+     * @return A list of contained folders.
+     */
+    public Set<String> getFolders() {
+        return folders.keySet();
+    }
+
+    /**
+     * @return Map containing folder paths as keys, and list of file paths as
+     * values.
+     */
+    public Map<String, ArrayList<String>> getFiles() {
+        Map<String, ArrayList<String>> out = new HashMap<>(folders.size());
+        for (BSAFolder folder : folders.values()) {
+            ArrayList<String> list = new ArrayList<>(folder.files.values().size());
+            out.put(folder.name, list);
+            list.addAll(folder.files.keySet());
+        }
+        return out;
+    }
+
+    /**
+     * @return Number of folders contained in the BSA
+     */
+    public int numFolders() {
+        return folders.size();
+    }
+
+    /**
+     * @return Number of files contained in the BSA
+     */
+    public int numFiles() {
+        int out = 0;
+        for (BSAFolder folder : folders.values()) {
+            out += folder.fileCount;
+        }
+        return out;
+    }
+
+    /**
+     * @param fileType Filetype to query for.
+     * @return True if BSA contains files of that type.
+     */
+    public boolean contains(FileType fileType) {
+        if (!fileFlags.isZeros()) {
+            return fileFlags.get(fileType.ordinal());
+        } else {
+            return manualContains(fileType);
+        }
+    }
+
+    boolean manualContains(FileType fileType) {
+        FileType[] types = new FileType[1];
+        types[0] = fileType;
+        return manualContains(types);
+    }
+
+    boolean manualContains(FileType[] fileTypes) {
+        loadFolders();
+        for (BSAFolder folder : folders.values()) {
+            for (String file : folder.files.keySet()) {
+                for (FileType type : fileTypes) {
+                    if (file.endsWith(type.toString())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param fileTypes Filetypes to query for.
+     * @return True if BSA contains any of the filetypes.
+     */
+    public boolean containsAny(FileType[] fileTypes) {
+        if (!fileFlags.isZeros()) {
+            for (FileType f : fileTypes) {
+                if (contains(f)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return manualContains(fileTypes);
+        }
+    }
+
+    /**
      * @param obj
      * @return
      */
@@ -854,7 +824,6 @@ public class BSA {
     }
 
     /**
-     *
      * @return
      */
     @Override
@@ -864,29 +833,7 @@ public class BSA {
         return hash;
     }
 
-    static class BSAFileRef {
-
-        int size;
-        long nameOffset;
-        boolean flippedCompression;
-        long dataOffset;
-    }
-
-    static class BSAFolder {
-
-        String name;
-        long dataPos;
-        private int fileCount;
-        Map<String, BSAFileRef> files = new HashMap<>();
-
-        void setFileCount(int fileCount) {
-            this.fileCount = fileCount;
-            files = new HashMap<>(fileCount);
-        }
-    }
-
     /**
-     *
      * @return
      */
     @Override
@@ -894,15 +841,20 @@ public class BSA {
         return filePath;
     }
 
-    static void logBSAError(String source, Exception ex) {
-        String error = "Could not get " + source + ". Strings files or ini changes in it will not be availible.";
-        SPGlobal.logError(header, error);
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw, true);
-        ex.printStackTrace(pw);
-        pw.flush();
-        sw.flush();
-        SPGlobal.log(sw.toString());
+    /**
+     * @param flag
+     * @return
+     */
+    public boolean is(BSAFlag flag) {
+        return archiveFlags.get(flag.value);
+    }
+
+    boolean isCompressed(BSAFileRef ref) {
+        boolean compressed = is(BSAFlag.Compressed);
+        if (ref.flippedCompression) {
+            compressed = !compressed;
+        }
+        return compressed;
     }
 
     /**
@@ -987,20 +939,24 @@ public class BSA {
         }
     }
 
-    /**
-     *
-     * @param flag
-     * @return
-     */
-    public boolean is(BSAFlag flag) {
-        return archiveFlags.get(flag.value);
+    static class BSAFileRef {
+
+        int size;
+        long nameOffset;
+        boolean flippedCompression;
+        long dataOffset;
     }
 
-    boolean isCompressed(BSAFileRef ref) {
-        boolean compressed = is(BSAFlag.Compressed);
-        if (ref.flippedCompression) {
-            compressed = !compressed;
+    static class BSAFolder {
+
+        String name;
+        long dataPos;
+        Map<String, BSAFileRef> files = new HashMap<>();
+        private int fileCount;
+
+        void setFileCount(int fileCount) {
+            this.fileCount = fileCount;
+            files = new HashMap<>(fileCount);
         }
-        return compressed;
     }
 }

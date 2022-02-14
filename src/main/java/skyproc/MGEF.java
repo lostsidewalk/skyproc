@@ -1,12 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.zip.DataFormatException;
 
 import lev.LFlags;
 import lev.LImport;
@@ -16,6 +8,10 @@ import skyproc.genenums.ActorValue;
 import skyproc.genenums.CastType;
 import skyproc.genenums.DeliveryType;
 import skyproc.genenums.SoundVolume;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.zip.DataFormatException;
 
 /**
  * A Magic Effect record
@@ -45,6 +41,825 @@ public class MGEF extends MajorRecordDescription {
             add(new SubData("OBND"));
         }
     };
+
+    /**
+     * @param edid EDID to give the new record. Make sure it is unique.
+     * @param name
+     */
+    public MGEF(String edid, String name) {
+        this();
+        originateFromPatch(edid);
+        this.setName(name);
+    }
+
+    MGEF() {
+        super();
+        subRecords.setPrototype(MGEFproto);
+    }
+
+    /**
+     * @return
+     */
+    SNDD getSNDD() {
+        return (SNDD) subRecords.get("SNDD");
+    }
+
+    /**
+     * @return Returns the actual ArrayList, not a copy.
+     */
+    public ArrayList<Sound> getSounds() {
+        return getSNDD().sounds;
+    }
+
+    /**
+     * Replaces all previous sounds
+     *
+     * @param sounds
+     */
+    public void setSounds(ArrayList<Sound> sounds) {
+        getSNDD().sounds = sounds;
+    }
+
+    /**
+     * @param sound
+     */
+    public void addSound(Sound sound) {
+        getSNDD().sounds.add(sound);
+    }
+
+    /**
+     * @param sound
+     */
+    public void removeSound(Sound sound) {
+        getSNDD().sounds.remove(sound);
+    }
+
+    @Override
+    ArrayList<String> getTypes() {
+        return Record.getTypeList("MGEF");
+    }
+
+    // Enums
+
+    @Override
+    Record getNew() {
+        return new MGEF();
+    }
+
+    /**
+     * @return
+     */
+    public KeywordSet getKeywordSet() {
+        return subRecords.getKeywords();
+    }
+
+    // Common Functions
+
+    /**
+     * @return Description associated with the Major Record, or <NO TEXT> if
+     * empty.
+     */
+    @Override
+    public String getDescription() {
+        return subRecords.getSubStringPointer("DNAM").print();
+    }
+
+    /**
+     * @param description String to set as the Major Record description.
+     */
+    @Override
+    public void setDescription(String description) {
+        subRecords.setSubStringPointer("DNAM", description);
+    }
+
+    DATA getDATA() {
+        return (DATA) subRecords.get("DATA");
+    }
+
+    /**
+     * @param flag
+     * @param on
+     */
+    public void set(SpellEffectFlag flag, boolean on) {
+        getDATA().flags.set(flag.value, on);
+    }
+
+    // Get/Set
+
+    /**
+     * @param flag
+     * @return
+     */
+    public boolean get(SpellEffectFlag flag) {
+        return getDATA().flags.get(flag.value);
+    }
+
+    /**
+     * @return
+     */
+    public ScriptPackage getScriptPackage() {
+        return subRecords.getScripts();
+    }
+
+    /**
+     * @return
+     */
+    public float getBaseCost() {
+        return getDATA().baseCost;
+    }
+
+    /**
+     * @param value
+     */
+    public void setBaseCost(float value) {
+        getDATA().baseCost = value;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getRelatedID() {
+        return getDATA().relatedID;
+    }
+
+    /**
+     * @param id
+     */
+    public void setRelatedID(FormID id) {
+        getDATA().relatedID = id;
+    }
+
+    /**
+     * @return
+     */
+    public ActorValue getSkillType() {
+        return getDATA().skillType;
+    }
+
+    /**
+     * @param val
+     */
+    public void setSkillType(ActorValue val) {
+        getDATA().skillType = val;
+    }
+
+    /**
+     * @return
+     */
+    public ActorValue getResistanceAV() {
+        return getDATA().resistanceAV;
+    }
+
+    /**
+     * @param val
+     */
+    public void setResistanceAV(ActorValue val) {
+        getDATA().resistanceAV = val;
+    }
+
+    /**
+     * @return
+     */
+    public int getCounterEffectCount() {
+        return getDATA().counterEffectCount;
+    }
+
+    /**
+     * @param counterEffectCount
+     */
+    public void setCounterEffectCount(int counterEffectCount) {
+        getDATA().counterEffectCount = counterEffectCount;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getLight() {
+        return getDATA().lightID;
+    }
+
+    /**
+     * @param light
+     */
+    public void setLight(FormID light) {
+        getDATA().lightID = light;
+    }
+
+    /**
+     * @return
+     */
+    public float getTaperWeight() {
+        return getDATA().taperWeight;
+    }
+
+    /**
+     * @param value
+     */
+    public void setTaperWeight(float value) {
+        getDATA().taperWeight = value;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getHitShader() {
+        return getDATA().hitShader;
+    }
+
+    /**
+     * @param hitShader
+     */
+    public void setHitShader(FormID hitShader) {
+        getDATA().hitShader = hitShader;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getEnchantShader() {
+        return getDATA().enchantShader;
+    }
+
+    /**
+     * @param enchantShader
+     */
+    public void setEnchantShader(FormID enchantShader) {
+        getDATA().enchantShader = enchantShader;
+    }
+
+    /**
+     * @return
+     */
+    public int getSkillLevel() {
+        return getDATA().skillLevel;
+    }
+
+    /**
+     * @param level
+     */
+    public void setSkillLevel(int level) {
+        getDATA().skillLevel = level;
+    }
+
+    /**
+     * @return
+     */
+    public int getArea() {
+        return getDATA().area;
+    }
+
+    /**
+     * @param area
+     */
+    public void setArea(int area) {
+        getDATA().area = area;
+    }
+
+    /**
+     * @return
+     */
+    public float getCastingTime() {
+        return getDATA().castingTime;
+    }
+
+    /**
+     * @param value
+     */
+    public void setCastingTime(float value) {
+        getDATA().castingTime = value;
+    }
+
+    /**
+     * @return
+     */
+    public float getTaperCurve() {
+        return getDATA().taperCurve;
+    }
+
+    /**
+     * @param value
+     */
+    public void setTaperCurve(float value) {
+        getDATA().taperCurve = value;
+    }
+
+    /**
+     * @return
+     */
+    public float getTaperDuration() {
+        return getDATA().taperDuration;
+    }
+
+    /**
+     * @param value
+     */
+    public void setTaperDuration(float value) {
+        getDATA().taperDuration = value;
+    }
+
+    /**
+     * @return
+     */
+    public float getSecondAVWeight() {
+        return getDATA().secondAVWeight;
+    }
+
+    /**
+     * @param value
+     */
+    public void setSecondAVWeight(float value) {
+        getDATA().secondAVWeight = value;
+    }
+
+    /**
+     * @return
+     */
+    public float getEffectType() {
+        return getDATA().effectType;
+    }
+
+    /**
+     * @param value
+     */
+    public void setEffectType(int value) {
+        getDATA().effectType = value;
+    }
+
+    /**
+     * @return
+     */
+    public ActorValue getPrimaryAV() {
+        return getDATA().primaryAV;
+    }
+
+    /**
+     * @param val
+     */
+    public void setPrimaryAV(ActorValue val) {
+        getDATA().primaryAV = val;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getProjectile() {
+        return getDATA().projectileID;
+    }
+
+    /**
+     * @param id
+     */
+    public void setProjectile(FormID id) {
+        getDATA().projectileID = id;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getExplosion() {
+        return getDATA().explosionID;
+    }
+
+    /**
+     * @param id
+     */
+    public void setExplosion(FormID id) {
+        getDATA().explosionID = id;
+    }
+
+    /**
+     * @return
+     */
+    public CastType getCastType() {
+        return getDATA().castType;
+    }
+
+    /**
+     * @param cast
+     */
+    public void setCastType(CastType cast) {
+        getDATA().castType = cast;
+    }
+
+    /**
+     * @return
+     */
+    public DeliveryType getDeliveryType() {
+        return getDATA().deliveryType;
+    }
+
+    /**
+     * @param del
+     */
+    public void setDeliveryType(DeliveryType del) {
+        getDATA().deliveryType = del;
+    }
+
+    /**
+     * @return
+     */
+    public ActorValue getSecondAV() {
+        return getDATA().secondAV;
+    }
+
+    /**
+     * @param val
+     */
+    public void setSecondAV(ActorValue val) {
+        getDATA().secondAV = val;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getCastingArt() {
+        return getDATA().castingArt;
+    }
+
+    /**
+     * @param art
+     */
+    public void setCastingArt(FormID art) {
+        getDATA().castingArt = art;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getHitEffectArt() {
+        return getDATA().hitEffectArt;
+    }
+
+    /**
+     * @param art
+     */
+    public void setHitEffectArt(FormID art) {
+        getDATA().hitEffectArt = art;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getImpactData() {
+        return getDATA().impactData;
+    }
+
+    /**
+     * @param data
+     */
+    public void setImpactData(FormID data) {
+        getDATA().impactData = data;
+    }
+
+    /**
+     * @return
+     */
+    public float getSkillUsageMult() {
+        return getDATA().skillUsageMult;
+    }
+
+    /**
+     * @param mult
+     */
+    public void setSkillUsageMult(float mult) {
+        getDATA().skillUsageMult = mult;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getDualCast() {
+        return getDATA().dualCastID;
+    }
+
+    /**
+     * @param id
+     */
+    public void setDualCast(FormID id) {
+        getDATA().dualCastID = id;
+    }
+
+    /**
+     * @return
+     */
+    public float getDualCastScale() {
+        return getDATA().dualCastScale;
+    }
+
+    /**
+     * @param scale
+     */
+    public void setDualCastScale(float scale) {
+        getDATA().dualCastScale = scale;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getEnchantArt() {
+        return getDATA().enchantArtID;
+    }
+
+    /**
+     * @param art
+     */
+    public void setEnchantArt(FormID art) {
+        getDATA().enchantArtID = art;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getEquipAbility() {
+        return getDATA().equipAbility;
+    }
+
+    /**
+     * @param id
+     */
+    public void setEquipAbility(FormID id) {
+        getDATA().equipAbility = id;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getImageSpaceMod() {
+        return getDATA().imageSpaceModID;
+    }
+
+    /**
+     * @param id
+     */
+    public void setImageSpaceMod(FormID id) {
+        getDATA().imageSpaceModID = id;
+    }
+
+    /**
+     * @return
+     */
+    public FormID getPerk() {
+        return getDATA().perkID;
+    }
+
+    /**
+     * @param id
+     */
+    public void setPerk(FormID id) {
+        getDATA().perkID = id;
+    }
+
+    /**
+     * @return
+     */
+    public SoundVolume getSoundVolume() {
+        return getDATA().vol;
+    }
+
+    /**
+     * @param vol
+     */
+    public void setSoundVolume(SoundVolume vol) {
+        getDATA().vol = vol;
+    }
+
+    /**
+     * @return
+     */
+    public float getScriptAIDataScore() {
+        return getDATA().scriptAIDataScore;
+    }
+
+    /**
+     * @param score
+     */
+    public void setScriptAIDataScore(float score) {
+        getDATA().scriptAIDataScore = score;
+    }
+
+    /**
+     * @return
+     */
+    public float getScriptAIDataTime() {
+        return getDATA().scriptAIDataDelayTime;
+    }
+
+    /**
+     * @param score
+     */
+    public void setScriptAIDataTime(float score) {
+        getDATA().scriptAIDataDelayTime = score;
+    }
+
+    /**
+     * @return
+     */
+    public ArrayList<Condition> getConditions() {
+        return subRecords.getSubList("CTDA").toPublic();
+    }
+
+    /**
+     * @param c
+     */
+    public void addCondition(Condition c) {
+        subRecords.getSubList("CTDA").add(c);
+    }
+
+    /**
+     * @param c
+     */
+    public void removeCondition(Condition c) {
+        subRecords.getSubList("CTDA").remove(c);
+    }
+
+    @Override
+    public MajorRecord merge(MajorRecord no, MajorRecord bo) {
+        super.merge(no, bo);
+        MGEF r = this;
+        if (!(no == null && bo == null && (no instanceof MGEF) && (bo instanceof MGEF))) {
+            final MGEF nr = (MGEF) no;
+            final MGEF br = (MGEF) bo;
+            SubRecords sList = r.subRecords;
+            SubRecords nsList = nr.subRecords;
+            SubRecords bsList = br.subRecords;
+            for (SubRecord s : sList) {
+                s.merge(nsList.get(s.getType()), bsList.get(s.getType()));
+            }
+        }
+        return r;
+    }
+
+    /**
+     *
+     */
+    public enum SpellEffectFlag {
+
+        /**
+         *
+         */
+        Hostile(0),
+        /**
+         *
+         */
+        Recover(1),
+        /**
+         *
+         */
+        Detrimental(2),
+        /**
+         *
+         */
+        SnapToNavmesh(3),
+        /**
+         *
+         */
+        NoHitEvent(4),
+        /**
+         *
+         */
+        Unknown_6(5),
+        /**
+         *
+         */
+        Unknown_7(6),
+        /**
+         *
+         */
+        Unknown_8(7),
+        /**
+         *
+         */
+        DispellEffects(8),
+        /**
+         *
+         */
+        NoDuration(9),
+        /**
+         *
+         */
+        NoMagnitude(10),
+        /**
+         *
+         */
+        NoArea(11),
+        /**
+         *
+         */
+        FXPersist(12),
+        /**
+         *
+         */
+        Unknown_14(13),
+        /**
+         *
+         */
+        GoryVisual(14),
+        /**
+         *
+         */
+        HideInUI(15),
+        /**
+         *
+         */
+        Unknown_17(16),
+        /**
+         *
+         */
+        NoRecast(17),
+        /**
+         *
+         */
+        Unknown_19(18),
+        /**
+         *
+         */
+        Unknown_20(19),
+        /**
+         *
+         */
+        Unknown_21(20),
+        /**
+         *
+         */
+        PowerAffectsMagnitude(21),
+        /**
+         *
+         */
+        PowerAffectsDuration(22),
+        /**
+         *
+         */
+        Unknown_24(23),
+        /**
+         *
+         */
+        Unknown_25(24),
+        /**
+         *
+         */
+        Unknown_26(25),
+        /**
+         *
+         */
+        Painless(26),
+        /**
+         *
+         */
+        NoHitEffect(27),
+        /**
+         *
+         */
+        NoDeathDispel(28),
+        /*
+         *
+         */
+        Unknown_30(29),
+        /**
+         *
+         */
+        Unknown_31(30),
+        /**
+         *
+         */
+        Unknown_32(31);
+
+        int value;
+
+        SpellEffectFlag(int value) {
+            this.value = value;
+        }
+    }
+
+    /**
+     *
+     */
+    public enum SoundData {
+
+        /**
+         *
+         */
+        SheathDraw,
+        /**
+         *
+         */
+        Charge,
+        /**
+         *
+         */
+        Ready,
+        /**
+         *
+         */
+        Release,
+        /**
+         *
+         */
+        ConcentrationCastLoop,
+        /**
+         *
+         */
+        OnHit
+    }
 
     static class DATA extends SubRecord {
 
@@ -398,7 +1213,6 @@ public class MGEF extends MajorRecordDescription {
         }
 
         /**
-         *
          * @param sound
          * @param soundID
          */
@@ -408,7 +1222,6 @@ public class MGEF extends MajorRecordDescription {
         }
 
         /**
-         *
          * @return
          */
         public SoundData getSoundData() {
@@ -416,7 +1229,6 @@ public class MGEF extends MajorRecordDescription {
         }
 
         /**
-         *
          * @param sound
          */
         public void setSoundData(SoundData sound) {
@@ -424,7 +1236,6 @@ public class MGEF extends MajorRecordDescription {
         }
 
         /**
-         *
          * @return
          */
         public FormID getSoundID() {
@@ -432,7 +1243,6 @@ public class MGEF extends MajorRecordDescription {
         }
 
         /**
-         *
          * @param soundID
          */
         public void setSoundID(FormID soundID) {
@@ -440,7 +1250,6 @@ public class MGEF extends MajorRecordDescription {
         }
 
         /**
-         *
          * @return
          */
         @Override
@@ -483,906 +1292,5 @@ public class MGEF extends MajorRecordDescription {
             return true;
         }
 
-    }
-
-    /**
-     *
-     * @return
-     */
-    SNDD getSNDD() {
-        return (SNDD) subRecords.get("SNDD");
-    }
-
-    /**
-     *
-     * @return Returns the actual ArrayList, not a copy.
-     */
-    public ArrayList<Sound> getSounds() {
-        return getSNDD().sounds;
-    }
-
-    /**
-     * Replaces all previous sounds
-     *
-     * @param sounds
-     */
-    public void setSounds(ArrayList<Sound> sounds) {
-        getSNDD().sounds = sounds;
-    }
-
-    /**
-     *
-     * @param sound
-     */
-    public void addSound(Sound sound) {
-        getSNDD().sounds.add(sound);
-    }
-
-    /**
-     *
-     * @param sound
-     */
-    public void removeSound(Sound sound) {
-        getSNDD().sounds.remove(sound);
-    }
-
-    // Enums
-    /**
-     *
-     */
-    public enum SpellEffectFlag {
-
-        /**
-         *
-         */
-        Hostile(0),
-        /**
-         *
-         */
-        Recover(1),
-        /**
-         *
-         */
-        Detrimental(2),
-        /**
-         *
-         */
-        SnapToNavmesh(3),
-        /**
-         *
-         */
-        NoHitEvent(4),
-        /**
-         *
-         */
-        Unknown_6(5),
-        /**
-         *
-         */
-        Unknown_7(6),
-        /**
-         *
-         */
-        Unknown_8(7),
-        /**
-         *
-         */
-        DispellEffects(8),
-        /**
-         *
-         */
-        NoDuration(9),
-        /**
-         *
-         */
-        NoMagnitude(10),
-        /**
-         *
-         */
-        NoArea(11),
-        /**
-         *
-         */
-        FXPersist(12),
-        /**
-         *
-         */
-        Unknown_14(13),
-        /**
-         *
-         */
-        GoryVisual(14),
-        /**
-         *
-         */
-        HideInUI(15),
-        /**
-         *
-         */
-        Unknown_17(16),
-        /**
-         *
-         */
-        NoRecast(17),
-        /**
-         *
-         */
-        Unknown_19(18),
-        /**
-         *
-         */
-        Unknown_20(19),
-        /**
-         *
-         */
-        Unknown_21(20),
-        /**
-         *
-         */
-        PowerAffectsMagnitude(21),
-        /**
-         *
-         */
-        PowerAffectsDuration(22),
-        /**
-         *
-         */
-        Unknown_24(23),
-        /**
-         *
-         */
-        Unknown_25(24),
-        /**
-         *
-         */
-        Unknown_26(25),
-        /**
-         *
-         */
-        Painless(26),
-        /**
-         *
-         */
-        NoHitEffect(27),
-        /**
-         *
-         */
-        NoDeathDispel(28),
-        /*
-         *
-         */
-        Unknown_30(29),
-        /**
-         *
-         */
-        Unknown_31(30),
-        /**
-         *
-         */
-        Unknown_32(31);
-
-        int value;
-
-        SpellEffectFlag(int value) {
-            this.value = value;
-        }
-    }
-
-    /**
-     *
-     */
-    public enum SoundData {
-
-        /**
-         *
-         */
-        SheathDraw,
-        /**
-         *
-         */
-        Charge,
-        /**
-         *
-         */
-        Ready,
-        /**
-         *
-         */
-        Release,
-        /**
-         *
-         */
-        ConcentrationCastLoop,
-        /**
-         *
-         */
-        OnHit
-    }
-
-    // Common Functions
-    /**
-     *
-     * @param edid EDID to give the new record. Make sure it is unique.
-     * @param name
-     */
-    public MGEF(String edid, String name) {
-        this();
-        originateFromPatch(edid);
-        this.setName(name);
-    }
-
-    MGEF() {
-        super();
-        subRecords.setPrototype(MGEFproto);
-    }
-
-    @Override
-    ArrayList<String> getTypes() {
-        return Record.getTypeList("MGEF");
-    }
-
-    @Override
-    Record getNew() {
-        return new MGEF();
-    }
-
-    // Get/Set
-
-    /**
-     * 
-     * @return 
-     */
-    public KeywordSet getKeywordSet() {
-        return subRecords.getKeywords();
-    }
-
-    /**
-     *
-     * @return Description associated with the Major Record, or <NO TEXT> if
-     * empty.
-     */
-    @Override
-    public String getDescription() {
-        return subRecords.getSubStringPointer("DNAM").print();
-    }
-
-    /**
-     *
-     * @param description String to set as the Major Record description.
-     */
-    @Override
-    public void setDescription(String description) {
-        subRecords.setSubStringPointer("DNAM", description);
-    }
-
-    DATA getDATA() {
-        return (DATA) subRecords.get("DATA");
-    }
-
-    /**
-     *
-     * @param flag
-     * @param on
-     */
-    public void set(SpellEffectFlag flag, boolean on) {
-        getDATA().flags.set(flag.value, on);
-    }
-
-    /**
-     *
-     * @param flag
-     * @return
-     */
-    public boolean get(SpellEffectFlag flag) {
-        return getDATA().flags.get(flag.value);
-    }
-
-    /**
-     *
-     * @return
-     */
-    public ScriptPackage getScriptPackage() {
-        return subRecords.getScripts();
-    }
-
-    /**
-     *
-     * @param value
-     */
-    public void setBaseCost(float value) {
-        getDATA().baseCost = value;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getBaseCost() {
-        return getDATA().baseCost;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void setRelatedID(FormID id) {
-        getDATA().relatedID = id;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getRelatedID() {
-        return getDATA().relatedID;
-    }
-
-    /**
-     *
-     * @param val
-     */
-    public void setSkillType(ActorValue val) {
-        getDATA().skillType = val;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public ActorValue getSkillType() {
-        return getDATA().skillType;
-    }
-
-    /**
-     *
-     * @param val
-     */
-    public void setResistanceAV(ActorValue val) {
-        getDATA().resistanceAV = val;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public ActorValue getResistanceAV() {
-        return getDATA().resistanceAV;
-    }
-
-    /**
-     *
-     * @param counterEffectCount
-     */
-    public void setCounterEffectCount(int counterEffectCount) {
-        getDATA().counterEffectCount = counterEffectCount;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getCounterEffectCount() {
-        return getDATA().counterEffectCount;
-    }
-
-    /**
-     *
-     * @param light
-     */
-    public void setLight(FormID light) {
-        getDATA().lightID = light;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getLight() {
-        return getDATA().lightID;
-    }
-
-    /**
-     *
-     * @param value
-     */
-    public void setTaperWeight(float value) {
-        getDATA().taperWeight = value;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getTaperWeight() {
-        return getDATA().taperWeight;
-    }
-
-    /**
-     *
-     * @param hitShader
-     */
-    public void setHitShader(FormID hitShader) {
-        getDATA().hitShader = hitShader;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getHitShader() {
-        return getDATA().hitShader;
-    }
-
-    /**
-     *
-     * @param enchantShader
-     */
-    public void setEnchantShader(FormID enchantShader) {
-        getDATA().enchantShader = enchantShader;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getEnchantShader() {
-        return getDATA().enchantShader;
-    }
-
-    /**
-     *
-     * @param level
-     */
-    public void setSkillLevel(int level) {
-        getDATA().skillLevel = level;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getSkillLevel() {
-        return getDATA().skillLevel;
-    }
-
-    /**
-     *
-     * @param area
-     */
-    public void setArea(int area) {
-        getDATA().area = area;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getArea() {
-        return getDATA().area;
-    }
-
-    /**
-     *
-     * @param value
-     */
-    public void setCastingTime(float value) {
-        getDATA().castingTime = value;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getCastingTime() {
-        return getDATA().castingTime;
-    }
-
-    /**
-     *
-     * @param value
-     */
-    public void setTaperCurve(float value) {
-        getDATA().taperCurve = value;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getTaperCurve() {
-        return getDATA().taperCurve;
-    }
-
-    /**
-     *
-     * @param value
-     */
-    public void setTaperDuration(float value) {
-        getDATA().taperDuration = value;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getTaperDuration() {
-        return getDATA().taperDuration;
-    }
-
-    /**
-     *
-     * @param value
-     */
-    public void setSecondAVWeight(float value) {
-        getDATA().secondAVWeight = value;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getSecondAVWeight() {
-        return getDATA().secondAVWeight;
-    }
-
-    /**
-     *
-     * @param value
-     */
-    public void setEffectType(int value) {
-        getDATA().effectType = value;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getEffectType() {
-        return getDATA().effectType;
-    }
-
-    /**
-     *
-     * @param val
-     */
-    public void setPrimaryAV(ActorValue val) {
-        getDATA().primaryAV = val;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public ActorValue getPrimaryAV() {
-        return getDATA().primaryAV;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void setProjectile(FormID id) {
-        getDATA().projectileID = id;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getProjectile() {
-        return getDATA().projectileID;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void setExplosion(FormID id) {
-        getDATA().explosionID = id;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getExplosion() {
-        return getDATA().explosionID;
-    }
-
-    /**
-     *
-     * @param cast
-     */
-    public void setCastType(CastType cast) {
-        getDATA().castType = cast;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public CastType getCastType() {
-        return getDATA().castType;
-    }
-
-    /**
-     *
-     * @param del
-     */
-    public void setDeliveryType(DeliveryType del) {
-        getDATA().deliveryType = del;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public DeliveryType getDeliveryType() {
-        return getDATA().deliveryType;
-    }
-
-    /**
-     *
-     * @param val
-     */
-    public void setSecondAV(ActorValue val) {
-        getDATA().secondAV = val;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public ActorValue getSecondAV() {
-        return getDATA().secondAV;
-    }
-
-    /**
-     *
-     * @param art
-     */
-    public void setCastingArt(FormID art) {
-        getDATA().castingArt = art;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getCastingArt() {
-        return getDATA().castingArt;
-    }
-
-    /**
-     *
-     * @param art
-     */
-    public void setHitEffectArt(FormID art) {
-        getDATA().hitEffectArt = art;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getHitEffectArt() {
-        return getDATA().hitEffectArt;
-    }
-
-    /**
-     *
-     * @param data
-     */
-    public void setImpactData(FormID data) {
-        getDATA().impactData = data;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getImpactData() {
-        return getDATA().impactData;
-    }
-
-    /**
-     *
-     * @param mult
-     */
-    public void setSkillUsageMult(float mult) {
-        getDATA().skillUsageMult = mult;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getSkillUsageMult() {
-        return getDATA().skillUsageMult;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void setDualCast(FormID id) {
-        getDATA().dualCastID = id;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getDualCast() {
-        return getDATA().dualCastID;
-    }
-
-    /**
-     *
-     * @param scale
-     */
-    public void setDualCastScale(float scale) {
-        getDATA().dualCastScale = scale;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getDualCastScale() {
-        return getDATA().dualCastScale;
-    }
-
-    /**
-     *
-     * @param art
-     */
-    public void setEnchantArt(FormID art) {
-        getDATA().enchantArtID = art;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getEnchantArt() {
-        return getDATA().enchantArtID;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void setEquipAbility(FormID id) {
-        getDATA().equipAbility = id;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getEquipAbility() {
-        return getDATA().equipAbility;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void setImageSpaceMod(FormID id) {
-        getDATA().imageSpaceModID = id;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getImageSpaceMod() {
-        return getDATA().imageSpaceModID;
-    }
-
-    /**
-     *
-     * @param id
-     */
-    public void setPerk(FormID id) {
-        getDATA().perkID = id;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FormID getPerk() {
-        return getDATA().perkID;
-    }
-
-    /**
-     *
-     * @param vol
-     */
-    public void setSoundVolume(SoundVolume vol) {
-        getDATA().vol = vol;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public SoundVolume getSoundVolume() {
-        return getDATA().vol;
-    }
-
-    /**
-     *
-     * @param score
-     */
-    public void setScriptAIDataScore(float score) {
-        getDATA().scriptAIDataScore = score;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getScriptAIDataScore() {
-        return getDATA().scriptAIDataScore;
-    }
-
-    /**
-     *
-     * @param score
-     */
-    public void setScriptAIDataTime(float score) {
-        getDATA().scriptAIDataDelayTime = score;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public float getScriptAIDataTime() {
-        return getDATA().scriptAIDataDelayTime;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public ArrayList<Condition> getConditions() {
-        return subRecords.getSubList("CTDA").toPublic();
-    }
-
-    /**
-     *
-     * @param c
-     */
-    public void addCondition(Condition c) {
-        subRecords.getSubList("CTDA").add(c);
-    }
-
-    /**
-     *
-     * @param c
-     */
-    public void removeCondition(Condition c) {
-        subRecords.getSubList("CTDA").remove(c);
-    }
-
-    @Override
-    public MajorRecord merge(MajorRecord no, MajorRecord bo) {
-        super.merge(no, bo);
-        MGEF r = this;
-        if (!(no == null && bo == null && (no instanceof MGEF) && (bo instanceof MGEF))) {
-            final MGEF nr = (MGEF) no;
-            final MGEF br = (MGEF) bo;
-            SubRecords sList = r.subRecords;
-            SubRecords nsList = nr.subRecords;
-            SubRecords bsList = br.subRecords;
-            for (SubRecord s : sList) {
-                s.merge(nsList.get(s.getType()), bsList.get(s.getType()));
-            }
-        }
-        return r;
     }
 }

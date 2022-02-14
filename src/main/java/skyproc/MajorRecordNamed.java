@@ -1,7 +1,8 @@
 package skyproc;
 
-import java.io.Serializable;
 import skyproc.SubStringPointer.Files;
+
+import java.io.Serializable;
 
 /**
  * An extended major record that has a name. (FULL record)
@@ -12,14 +13,14 @@ public abstract class MajorRecordNamed extends MajorRecord implements Serializab
 
     static final SubPrototype namedProto = new SubPrototype(MajorRecord.majorProto) {
 
-	@Override
-	protected void addRecords() {
-	    add(new SubStringPointer("FULL", Files.STRINGS));
-	}
+        @Override
+        protected void addRecords() {
+            add(new SubStringPointer("FULL", Files.STRINGS));
+        }
     };
 
     MajorRecordNamed() {
-	super();
+        super();
     }
 
     /**
@@ -28,7 +29,7 @@ public abstract class MajorRecordNamed extends MajorRecord implements Serializab
      * @return
      */
     public String getName() {
-	return subRecords.getSubStringPointer("FULL").print();
+        return subRecords.getSubStringPointer("FULL").print();
     }
 
     /**
@@ -37,17 +38,19 @@ public abstract class MajorRecordNamed extends MajorRecord implements Serializab
      * @param in The string to set the in-game name to.
      */
     public void setName(String in) {
-	subRecords.setSubStringPointer("FULL", in);
+        subRecords.setSubStringPointer("FULL", in);
     }
 
-    SubStringPointer getFULL() {return subRecords.getSubStringPointer("FULL");}
+    SubStringPointer getFULL() {
+        return subRecords.getSubStringPointer("FULL");
+    }
 
     /**
      * Merges Major Records with names. Implements MajorRecord's merger.
      *
      * @param no The new MajorRecordNamed to be merged.
      * @param bo The base MajorRecordNamed, to prevent base data from being
-     * re-merged.
+     *           re-merged.
      * @return The modified MajorRecordNamed.
      */
     @Override

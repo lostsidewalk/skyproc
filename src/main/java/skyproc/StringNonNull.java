@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
 import java.io.IOException;
@@ -9,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- *
  * @author Justin Swanson
  */
 class StringNonNull extends Record {
@@ -23,7 +18,7 @@ class StringNonNull extends Record {
         data = in;
     }
 
-    public void set (String in) {
+    public void set(String in) {
         data = in;
     }
 
@@ -34,15 +29,15 @@ class StringNonNull extends Record {
     }
 
     @Override
-     boolean isValid() {
+    boolean isValid() {
         return data != null;
     }
 
-    public boolean equalsIgnoreCase (StringNull in) {
+    public boolean equalsIgnoreCase(StringNull in) {
         return equalsIgnoreCase(in.data);
     }
 
-    public boolean equalsIgnoreCase (String in) {
+    public boolean equalsIgnoreCase(String in) {
         return data.equalsIgnoreCase(in);
     }
 
