@@ -39,7 +39,7 @@ public class Merger {
         if (!Arrays.equals(d, newd) && !Arrays.equals(newd, based)) {
             d = newd;
             if (Merger.fullLogging) {
-                SPGlobal.log(type + ": ", "Merged " + s + " to " + d + " for "
+                SPGlobal.log(type + ": ", "Merged " + s + " to " + Arrays.toString(d) + " for "
                         + Merger.currentRecord + " from Mod " + Merger.currentMod);
             }
         }
@@ -83,7 +83,7 @@ public class Merger {
         if (!so.equals(ns) && !ns.equals(bs)) {
             so = ns;
             if (Merger.fullLogging) {
-                SPGlobal.log(type + ": ", "Merged " + type.toString() + " to " + s + " for "
+                SPGlobal.log(type + ": ", "Merged " + type + " to " + s + " for "
                         + Merger.currentRecord + " from Mod " + Merger.currentMod);
             }
         }

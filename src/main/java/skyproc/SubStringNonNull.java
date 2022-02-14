@@ -20,7 +20,7 @@ public class SubStringNonNull extends SubString {
         in.skip(getIdentifierLength() + getSizeLength());
         string = Ln.arrayToString(in.extractInts(in.available()));
         if (SPGlobal.logMods) {
-            logMod(srcMod, getType().toString(), "Setting " + this + " to " + print());
+            logMod(srcMod, getType(), "Setting " + this + " to " + print());
         }
     }
 
@@ -31,7 +31,7 @@ public class SubStringNonNull extends SubString {
 
     @Override
     void export(ModExporter out) throws IOException {
-        out.write(getType().toString());
+        out.write(getType());
         out.write(getContentLength(out), 2);
         out.write(string);
     }

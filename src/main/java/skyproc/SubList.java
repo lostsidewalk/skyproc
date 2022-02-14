@@ -300,7 +300,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
                 for (T t : tempListNew) {
                     tempList.add(t);
                     if (Merger.fullLogging) {
-                        SPGlobal.log((String) (getTypes().get(0)).toString() + ": ", "Replaced list for " + (String) (getTypes().get(0)).toString() + " from "
+                        SPGlobal.log((String) (getTypes().get(0)) + ": ", "Replaced list for " + (String) (getTypes().get(0)) + " from "
                                 + Merger.currentRecord + " from Mod " + Merger.currentMod);
                     }
                 }

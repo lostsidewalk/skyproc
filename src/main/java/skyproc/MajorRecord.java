@@ -102,7 +102,7 @@ public abstract class MajorRecord extends Record implements Serializable {
      */
     @Override
     public String toString() {
-        String out = "[" + getType().toString() + " | ";
+        String out = "[" + getType() + " | ";
         if (ID.isStandardized()) {
             out += getFormStr();
         } else if (isValid()) {

@@ -13,12 +13,12 @@ abstract class SubRecord<T> extends Record {
 
     @Override
     public String print() {
-        return "No " + getType().toString();
+        return "No " + getType();
     }
 
     @Override
     public String toString() {
-        return getType().toString() + "[" + getClass().getSimpleName() + "]";
+        return getType() + "[" + getClass().getSimpleName() + "]";
     }
 
     @Override
@@ -33,7 +33,7 @@ abstract class SubRecord<T> extends Record {
 
     @Override
     void export(ModExporter out) throws IOException {
-        out.write(getType().toString());
+        out.write(getType());
         out.write(getContentLength(out), getSizeLength());
     }
 

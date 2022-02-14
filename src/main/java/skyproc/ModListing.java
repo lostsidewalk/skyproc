@@ -16,9 +16,9 @@ import java.util.zip.DataFormatException;
  *
  * @author Justin Swanson
  */
-public class ModListing extends SubRecord<ModListing> implements Comparable {
+public class ModListing extends SubRecord<ModListing> implements Comparable<ModListing> {
 
-    private final static ArrayList<String> type = new ArrayList<>(Arrays.asList(new String[]{"MAST", "DATA"}));
+    private final static ArrayList<String> type = new ArrayList<>(Arrays.asList("MAST", "DATA"));
     static ModListing skyrim = new ModListing("Skyrim.esm");
     static ModListing update = new ModListing("Update.esm");
 
@@ -182,12 +182,11 @@ public class ModListing extends SubRecord<ModListing> implements Comparable {
      * before a plugin that was created manually. <br> 4) Remaining plugins are
      * ordered in the same order they were created in the code.
      *
-     * @param o Another ModListing.
+     * @param rhs Another ModListing.
      * @return Whether this modlisting is >/==/< the parameter.
      */
     @Override
-    public int compareTo(Object o) {
-        ModListing rhs = (ModListing) o;
+    public int compareTo(ModListing rhs) {
         if (equals(rhs)) {
             return 0;
         }

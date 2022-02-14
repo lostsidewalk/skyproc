@@ -17,7 +17,7 @@ import java.util.zip.DataFormatException;
  */
 public class KeywordSet extends SubRecord {
 
-    private final static ArrayList<String> type = new ArrayList<>(Arrays.asList(new String[]{"KSIZ", "KWDA"}));
+    private final static ArrayList<String> type = new ArrayList<>(Arrays.asList("KSIZ", "KWDA"));
     SubData counter = new SubData("KSIZ", 0);
     SubFormArray keywords = new SubFormArray("KWDA", 0);
 

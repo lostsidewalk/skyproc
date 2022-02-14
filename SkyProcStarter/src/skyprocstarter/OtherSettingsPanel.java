@@ -2,8 +2,6 @@
 package skyprocstarter;
 
 import lev.gui.LCheckBox;
-import lev.gui.LComboBox;
-import skyproc.SPGlobal;
 import skyproc.gui.SPMainMenuPanel;
 import skyproc.gui.SPSettingPanel;
 import skyproc.gui.SUMGUI;

@@ -787,7 +787,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
         for (GRUP g : GRUPs.values()) {
             for (Object o : g.listRecords) {
                 MajorRecord m = (MajorRecord) o;
-                if (edids.keySet().contains(m.getEDID())
+                if (edids.containsKey(m.getEDID())
                         && (m.getFormMaster().equals(SPGlobal.getGlobalPatch().modInfo)
                         || edids.get(m.getEDID()).getFormMaster().equals(SPGlobal.getGlobalPatch().modInfo))) {
                     SPGlobal.logError("EDID Check", "Error! Duplicate EDID " + m);

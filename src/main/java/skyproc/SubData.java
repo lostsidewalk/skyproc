@@ -159,7 +159,7 @@ class SubData extends SubRecordTyped<byte[]> {
             if (!d.equals(nd) && !nd.equals(bd)) {
                 d = nd;
                 if (Merger.fullLogging) {
-                    Merger.logMerge(getType().toString(), nd.toString());
+                    Merger.logMerge(getType(), nd.toString());
                 }
             }
         }

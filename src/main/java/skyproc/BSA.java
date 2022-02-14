@@ -707,7 +707,7 @@ public class BSA {
      * @return The BSA's filepath.
      */
     public String getFilePath() {
-        return filePath.substring(0, filePath.length());
+        return filePath;
     }
 
     /**

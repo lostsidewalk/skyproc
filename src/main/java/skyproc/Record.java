@@ -29,7 +29,7 @@ public abstract class Record implements Serializable {
     }
 
     static ArrayList<String> getTypeList(String t) {
-        ArrayList<String> out = typeLists.computeIfAbsent(t, t1 -> new ArrayList<>(Arrays.asList(new String[]{t1})));
+        ArrayList<String> out = typeLists.computeIfAbsent(t, t1 -> new ArrayList<>(Arrays.asList(t1)));
         return out;
     }
 
@@ -119,7 +119,7 @@ public abstract class Record implements Serializable {
 
     void export(ModExporter out) throws IOException {
         if (isValid()) {
-            out.write(getType().toString());
+            out.write(getType());
             out.write(getContentLength(out));
         }
     }
@@ -189,7 +189,7 @@ public abstract class Record implements Serializable {
     }
 
     void logSync(String header, String... log) {
-        SPGlobal.logSync(getType().toString(), log);
+        SPGlobal.logSync(getType(), log);
     }
 
     void logError(String header, String... log) {

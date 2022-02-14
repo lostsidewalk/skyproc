@@ -63,9 +63,7 @@ class SubRecordsStream extends SubRecordsDerived {
     @Override
     public void remove(String in) {
         super.remove(in);
-        if (pos.containsKey(in)) {
-            pos.remove(in);
-        }
+        pos.remove(in);
     }
 
     @Override
@@ -119,7 +117,7 @@ class SubRecordsStream extends SubRecordsDerived {
                 record.parseData(record.extractRecordData(in), srcMod);
             }
         } else {
-            throw new BadRecord(getTypes().get(0).toString() + " doesn't know what to do with a " + nextType.toString() + " record.");
+            throw new BadRecord(getTypes().get(0) + " doesn't know what to do with a " + nextType + " record.");
         }
     }
 

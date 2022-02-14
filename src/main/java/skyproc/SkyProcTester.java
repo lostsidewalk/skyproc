@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static skyproc.SPImporter.importActiveMods;
+
 /**
  * @author Justin Swanson
  */
@@ -20,7 +22,7 @@ public class SkyProcTester {
     //    static GRUP_TYPE[] types = {GRUP_TYPE.DIAL};
     static GRUP_TYPE[] types = GRUP_TYPE.values();
     static boolean streaming = false;
-    static ArrayList<GRUP_TYPE> skip = new ArrayList<>(Arrays.asList(new GRUP_TYPE[]{GRUP_TYPE.BOOK}));
+    static ArrayList<GRUP_TYPE> skip = new ArrayList<>(Arrays.asList(GRUP_TYPE.BOOK));
 
     /**
      * @param test
@@ -187,8 +189,7 @@ public class SkyProcTester {
      */
     public static void importTest() {
         try {
-            SPImporter importer = new SPImporter();
-            importer.importActiveMods();
+            importActiveMods();
             Mod patch = new Mod(new ModListing("Test.esp"));
             patch.setFlag(Mod.Mod_Flags.STRING_TABLED, false);
             patch.addAsOverrides(SPGlobal.getDB());

@@ -38,7 +38,7 @@ class SubString extends SubRecordTyped<String> {
         super.parseData(in, srcMod);
         string = Ln.arrayToString(in.extractInts(in.available() - 1));
         if (SPGlobal.logMods) {
-            logMod(srcMod, getType().toString(), "Setting " + this + " to " + print());
+            logMod(srcMod, getType(), "Setting " + this + " to " + print());
         }
     }
 

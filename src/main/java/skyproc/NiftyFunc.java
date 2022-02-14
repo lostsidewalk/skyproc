@@ -611,7 +611,7 @@ public class NiftyFunc {
         // Run BOSS
         if (bossExe != null && bossExe.isFile()) {
             SPGlobal.logMain("BOSS", "Running BOSS.");
-            if (!NiftyFunc.startProcess(bossExe.getParentFile(), new String[]{bossExe.getPath(), "-s", "-U", "-g", "Skyrim"})) {
+            if (!NiftyFunc.startProcess(bossExe.getParentFile(), bossExe.getPath(), "-s", "-U", "-g", "Skyrim")) {
                 SPGlobal.logMain("BOSS", "BOSS failed to run.");
                 if (errorMessages) {
                     response = JOptionPane.showConfirmDialog(null, "BOSS failed to run. Do you want to continue?", "BOSS failed", JOptionPane.YES_NO_OPTION);
@@ -657,7 +657,7 @@ public class NiftyFunc {
         // Run LOOT
         if (lootExe != null && lootExe.isFile()) {
             SPGlobal.logMain("LOOT", "Running LOOT.");
-            if (!NiftyFunc.startProcess(lootExe.getParentFile(), new String[]{lootExe.getPath(), "--game=Skyrim"})) {
+            if (!NiftyFunc.startProcess(lootExe.getParentFile(), lootExe.getPath(), "--game=Skyrim")) {
                 SPGlobal.logMain("LOOT", "LOOT failed to run.");
                 if (errorMessages) {
                     response = JOptionPane.showConfirmDialog(null, "LOOT failed to run. Do you want to continue?", "LOOT failed", JOptionPane.YES_NO_OPTION);

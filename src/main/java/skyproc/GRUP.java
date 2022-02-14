@@ -135,7 +135,7 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
 
     @Override
     void export(ModExporter out) throws IOException {
-        out.write(getType().toString());
+        out.write(getType());
         out.write(getContentLength(out) + getHeaderLength(), getSizeLength());
         out.write(contained);
         out.write(grupType);
