@@ -69,7 +69,7 @@ public class Merger {
     }
 
     public static boolean merge(boolean b, boolean nb, boolean bb, String type, String s) {
-        if (b != nb && !nb != bb) {
+        if (b != nb && nb == bb) {
             b = nb;
             if (Merger.fullLogging) {
                 SPGlobal.log(type + ": ", "Merged " + s + " to " + b + " for "

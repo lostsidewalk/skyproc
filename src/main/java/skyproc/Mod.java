@@ -232,7 +232,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
                 if (!GRUP_TYPE.internal(g)) {
                     GRUP grup = GRUPs.get(g);
                     if (grup != null) {
-                        MajorRecord mr = (MajorRecord) grup.get(query);
+                        MajorRecord mr = grup.get(query);
                         if (mr != null) {
                             return mr;
                         }
@@ -257,7 +257,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
             for (GRUP_TYPE g : grup_types) {
                 GRUP grup = GRUPs.get(g);
                 if (grup != null) {
-                    MajorRecord mr = (MajorRecord) grup.get(edid);
+                    MajorRecord mr = grup.get(edid);
                     if (mr != null) {
                         return mr;
                     }

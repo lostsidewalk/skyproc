@@ -498,7 +498,7 @@ public class BSA {
             SPGlobal.logSpecial(LogTypes.BSA, header, "|============================================");
         }
         try {
-            String fileName;
+            StringBuilder fileName;
             int fileCounter = 0;
             in.pos(offset);
             ArrayList<BSAFolder> temp_folders = new ArrayList<>();
@@ -530,24 +530,24 @@ public class BSA {
                 long startOfFolderFileRecords = folder.dataPos + folderNameLength_ + 2;
                 for (int j = 0; j < folder.fileCount; j++) {
                     BSAFileRef f = new BSAFileRef();
-                    fileRecords.pos(startOfFolderFileRecords + j * 16);
+                    fileRecords.pos(startOfFolderFileRecords + j * 16L);
                     fileRecords.skip(8); // Skip Hash
                     f.size = fileRecords.extractInt(3);
                     LFlags sizeFlag = new LFlags(fileRecords.extract(1));
                     f.flippedCompression = sizeFlag.get(6);
                     f.dataOffset = fileRecords.extractInt(4);
                     fileNames.pos(fileNameListPos);
-                    fileName = "";
+                    fileName = new StringBuilder();
                     while (true) {
                         int r = fileNames.read();
                         if (r == 0) {
                             break;
                         }
                         fileNameListPos++;
-                        fileName += (char) r;
+                        fileName.append((char) r);
                     }
                     fileNameListPos++;
-                    folder.files.put(fileName.toUpperCase(), f);
+                    folder.files.put(fileName.toString().toUpperCase(), f);
                     if (SPGlobal.logging()) {
                         SPGlobal.logSpecial(LogTypes.BSA, header, "  " + fileName + ", size: " + Ln.prettyPrintHex(f.size) + ", offset: " + Ln.prettyPrintHex(f.dataOffset) + ", flipped: " + f.flippedCompression);
                         fileCounter++;
@@ -569,7 +569,7 @@ public class BSA {
     }
 
     void posAtFilenames() {
-        in.pos(folderNameLength + fileCount * 16 + folderCount * 17 + offset);
+        in.pos(folderNameLength + fileCount * 16L + folderCount * 17L + offset);
     }
 
     void posAtFolder(BSAFolder folder) {
@@ -679,10 +679,7 @@ public class BSA {
         BSAFolder folder = folders.get(folderPath);
         if (folder != null) {
             String file = filePath.substring(index + 1);
-            BSAFileRef ref = folder.files.get(file);
-            if (ref != null) {
-                return ref;
-            }
+            return folder.files.get(file);
         }
         return null;
     }

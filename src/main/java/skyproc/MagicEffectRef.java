@@ -60,10 +60,7 @@ public class MagicEffectRef extends SubShellBulkType {
             return false;
         }
         final MagicEffectRef other = (MagicEffectRef) obj;
-        if (!this.getMagicRef().equals(other.getMagicRef())) {
-            return false;
-        }
-        return true;
+        return this.getMagicRef().equals(other.getMagicRef());
     }
 
     /**

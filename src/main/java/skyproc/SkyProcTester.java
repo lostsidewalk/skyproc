@@ -2,6 +2,7 @@ package skyproc;
 
 import lev.Ln;
 import lev.debug.LDebug;
+import lombok.extern.slf4j.Slf4j;
 import skyproc.exceptions.BadRecord;
 import skyproc.gui.SPDefaultGUI;
 import skyproc.gui.SPProgressBarPlug;
@@ -9,20 +10,21 @@ import skyproc.gui.SPProgressBarPlug;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import static skyproc.SPImporter.importActiveMods;
 
 /**
  * @author Justin Swanson
  */
+@Slf4j
 public class SkyProcTester {
 
     static ArrayList<FormID> badIDs;
     //    static GRUP_TYPE[] types = {GRUP_TYPE.DIAL};
     static GRUP_TYPE[] types = GRUP_TYPE.values();
     static boolean streaming = false;
-    static ArrayList<GRUP_TYPE> skip = new ArrayList<>(Arrays.asList(GRUP_TYPE.BOOK));
+    static ArrayList<GRUP_TYPE> skip = new ArrayList<>(List.of(GRUP_TYPE.BOOK));
 
     /**
      * @param test
@@ -49,7 +51,7 @@ public class SkyProcTester {
             }
             gui.finished();
         } catch (Exception e) {
-            System.out.println("EXCEPTION THROWN");
+            log.error("EXCEPTION THROWN: {}", e.getMessage());
             gui.finished();
             SPGlobal.logException(e);
         }
@@ -68,7 +70,7 @@ public class SkyProcTester {
                 break;
             }
         }
-        System.out.println("TESTING COMPLETE");
+        log.info("TESTING COMPLETE");
     }
 
     private static boolean validate(ModTestPackage p) throws Exception {
@@ -95,8 +97,8 @@ public class SkyProcTester {
                 SPProgressBarPlug.setStatus("Validating DONE");
                 for (FormID id : FormID.allIDs) {
                     if (!id.isNull() && id.getMaster() == null && !badIDs.contains(id)) {
-                        System.out.println("A bad id: " + id);
-                        System.out.println("Some FormIDs were unstandardized!!");
+                        log.warn("A bad id: " + id);
+                        log.warn("Some FormIDs were unstandardized!");
                         return false;
                     }
                 }
@@ -109,7 +111,7 @@ public class SkyProcTester {
     }
 
     private static boolean test(GRUP_TYPE type, ModTestPackage p) throws IOException {
-        System.out.println("Testing " + type + " in " + p.main);
+        log.info("Testing {} in {}", type, p.main);
         SPProgressBarPlug.setStatus("Validating " + type);
         SPProgressBarPlug.pause(true);
 
@@ -123,7 +125,7 @@ public class SkyProcTester {
             if (!g.listRecords.isEmpty()) {
                 MajorRecord m = (MajorRecord) g.listRecords.get(0);
                 if (m.subRecords.map.size() > 2) {
-                    System.out.println("Premature streaming occured: " + m);
+                    log.warn("Premature streaming occurred: {}", m);
                     return false;
                 }
             }
@@ -140,14 +142,14 @@ public class SkyProcTester {
             patch.export(new File(SPGlobal.pathToDataFixed + patch.getName()));
         } catch (BadRecord ex) {
             SPGlobal.logException(ex);
-            System.out.println("Record Lengths were off.");
+            log.error("Records lengths were off.");
         }
         passed = passed && NiftyFunc.validateRecordLengths(SPGlobal.pathToDataFixed + "Test.esp", 10);
         File validF = new File("Validation Files/" + type.toString() + "_" + p.main.printNoSuffix() + ".esp");
         if (validF.isFile()) {
             passed = Ln.validateCompare(SPGlobal.pathToDataFixed + "Test.esp", validF.getPath(), 10) && passed;
         } else {
-            System.out.println("Didn't have a source file to validate bytes to.");
+            log.error("Didn't have a source file to validate bytes to.");
         }
 
         SPProgressBarPlug.pause(false);

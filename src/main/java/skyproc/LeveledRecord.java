@@ -426,10 +426,7 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
             if (this.level != other.level) {
                 return false;
             }
-            if (this.count != other.count) {
-                return false;
-            }
-            return true;
+            return this.count == other.count;
         }
 
         @Override

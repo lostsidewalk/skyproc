@@ -270,10 +270,7 @@ public class FormID implements Comparable, Serializable {
                 return false;
             }
         }
-        if (!Objects.equals(this.master, other.master)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.master, other.master);
     }
 
     /**

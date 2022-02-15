@@ -91,7 +91,7 @@ abstract class SubRecord<T> extends Record {
         if (!o.equals(no) && !no.equals(bo)) {
             o = no;
             if (Merger.fullLogging) {
-                Merger.logMerge((String) (getTypes().get(0)), o.toString());
+                Merger.logMerge(getTypes().get(0), o.toString());
             }
         }
         return o;

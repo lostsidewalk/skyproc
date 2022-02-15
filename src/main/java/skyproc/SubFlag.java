@@ -72,10 +72,7 @@ class SubFlag extends SubRecordTyped {
             return false;
         }
         final SubFlag other = (SubFlag) obj;
-        if (!Objects.equals(this.flags, other.flags)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.flags, other.flags);
     }
 
     @Override

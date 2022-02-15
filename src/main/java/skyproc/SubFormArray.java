@@ -125,10 +125,7 @@ class SubFormArray extends SubRecordTyped implements Iterable<FormID> {
             return false;
         }
         final SubFormArray other = (SubFormArray) obj;
-        if (this.IDs != other.IDs && (this.IDs == null || !Ln.equals(this.IDs, other.IDs, true))) {
-            return false;
-        }
-        return true;
+        return this.IDs == other.IDs || (this.IDs != null && Ln.equals(this.IDs, other.IDs, true));
     }
 
     public void clear() {

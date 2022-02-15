@@ -121,10 +121,7 @@ class SubFormData extends SubRecordTyped {
             return false;
         }
         final SubFormData other = (SubFormData) obj;
-        if (!Objects.equals(this.ID, other.ID)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.ID, other.ID);
     }
 
     /**

@@ -135,10 +135,7 @@ class SubRGBshort extends SubRecordTyped {
         if (this.b != other.b) {
             return false;
         }
-        if (this.a != other.a) {
-            return false;
-        }
-        return true;
+        return this.a == other.a;
     }
 
 

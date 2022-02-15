@@ -423,8 +423,7 @@ public class LIGH extends MajorRecordNamed {
 
         @Override
         ArrayList<FormID> allFormIDs() {
-            ArrayList<FormID> out = new ArrayList<>(0);
-            return out;
+            return new ArrayList<>(0);
         }
 
         @Override
@@ -478,10 +477,7 @@ public class LIGH extends MajorRecordNamed {
             if (this.value != other.value) {
                 return false;
             }
-            if (Float.floatToIntBits(this.weight) != Float.floatToIntBits(other.weight)) {
-                return false;
-            }
-            return true;
+            return Float.floatToIntBits(this.weight) == Float.floatToIntBits(other.weight);
         }
 
         @Override

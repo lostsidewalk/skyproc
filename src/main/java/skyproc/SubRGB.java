@@ -82,10 +82,7 @@ class SubRGB extends SubRecordTyped {
         if (Float.floatToIntBits(this.g) != Float.floatToIntBits(other.g)) {
             return false;
         }
-        if (Float.floatToIntBits(this.b) != Float.floatToIntBits(other.b)) {
-            return false;
-        }
-        return true;
+        return Float.floatToIntBits(this.b) == Float.floatToIntBits(other.b);
     }
 
     @Override

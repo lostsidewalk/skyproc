@@ -1771,10 +1771,7 @@ public class RACE extends MajorRecordDescription {
                 return false;
             }
             final AttackData other = (AttackData) obj;
-            if (!Objects.equals(this.getEventName(), other.getEventName())) {
-                return false;
-            }
-            return true;
+            return Objects.equals(this.getEventName(), other.getEventName());
         }
 
         /**

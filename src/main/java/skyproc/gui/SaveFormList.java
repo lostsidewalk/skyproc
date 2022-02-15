@@ -16,11 +16,11 @@ class SaveFormList extends Setting<FormID[]> {
 
     @Override
     public String toString() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for (FormID f : data) {
-            out += f.getFormStr() + delimiter;
+            out.append(f.getFormStr()).append(delimiter);
         }
-        return out;
+        return out.toString();
     }
 
     @Override

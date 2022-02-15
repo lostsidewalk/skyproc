@@ -90,10 +90,7 @@ class StringNonNull extends Record {
             return false;
         }
         final StringNonNull other = (StringNonNull) obj;
-        if (!Objects.equals(this.data, other.data)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.data, other.data);
     }
 
     @Override

@@ -133,10 +133,7 @@ public class SubFormInt extends SubRecordTyped {
             return false;
         }
         final SubFormInt other = (SubFormInt) obj;
-        if (!Objects.equals(this.ID, other.ID)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.ID, other.ID);
     }
 
     /**

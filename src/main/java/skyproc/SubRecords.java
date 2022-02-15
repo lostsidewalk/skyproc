@@ -214,21 +214,21 @@ abstract class SubRecords implements Serializable, Iterable<SubRecord> {
     ArrayList<String> summaryLines() {
         ArrayList<String> out = new ArrayList<>();
         String header = "Summary: ";
-        String data = "";
+        StringBuilder data = new StringBuilder();
         int counter = 0;
         ArrayList<String> printedTypes = new ArrayList<>();
         for (String type : getTypes()) {
             SubRecord s = map.get(type);
             if (s != null && s.isValid() && !printedTypes.contains(type)) {
-                data = data + type + " ";
+                data.append(type).append(" ");
                 if (s instanceof SubList) {
-                    data = data + "(" + ((SubList) s).size() + ") ";
+                    data.append("(").append(((SubList) s).size()).append(") ");
                 }
                 printedTypes.addAll(s.getTypes());
                 if (counter++ == 12) {
                     out.add(header + data);
                     header = "-------- ";
-                    data = "";
+                    data = new StringBuilder();
                     counter = 0;
                 }
             }

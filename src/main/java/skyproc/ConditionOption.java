@@ -146,10 +146,7 @@ class ConditionOption implements Serializable {
         if (!Objects.equals(this.reference, other.reference)) {
             return false;
         }
-        if (!Arrays.equals(this.p3placeholder, other.p3placeholder)) {
-            return false;
-        }
-        return true;
+        return Arrays.equals(this.p3placeholder, other.p3placeholder);
     }
 
     @Override
@@ -224,10 +221,7 @@ class ConditionOption implements Serializable {
                 return false;
             }
             final Cond_FormID other = (Cond_FormID) obj;
-            if (!Objects.equals(this.p1, other.p1)) {
-                return false;
-            }
-            return true;
+            return Objects.equals(this.p1, other.p1);
         }
 
         @Override
@@ -291,10 +285,7 @@ class ConditionOption implements Serializable {
                 return false;
             }
             final Cond_Axis other = (Cond_Axis) obj;
-            if (this.axis != other.axis) {
-                return false;
-            }
-            return true;
+            return this.axis == other.axis;
         }
 
         @Override
@@ -371,10 +362,7 @@ class ConditionOption implements Serializable {
             if (!Objects.equals(this.p1, other.p1)) {
                 return false;
             }
-            if (this.source != other.source) {
-                return false;
-            }
-            return true;
+            return this.source == other.source;
         }
 
         @Override
@@ -452,10 +440,7 @@ class ConditionOption implements Serializable {
             if (this.source != other.source) {
                 return false;
             }
-            if (!Objects.equals(this.p2, other.p2)) {
-                return false;
-            }
-            return true;
+            return Objects.equals(this.p2, other.p2);
         }
 
         @Override
@@ -533,10 +518,7 @@ class ConditionOption implements Serializable {
             if (!Objects.equals(this.p1, other.p1)) {
                 return false;
             }
-            if (this.p2 != other.p2) {
-                return false;
-            }
-            return true;
+            return this.p2 == other.p2;
         }
 
         @Override
@@ -616,10 +598,7 @@ class ConditionOption implements Serializable {
             if (!Objects.equals(this.p1, other.p1)) {
                 return false;
             }
-            if (!Objects.equals(this.p2, other.p2)) {
-                return false;
-            }
-            return true;
+            return Objects.equals(this.p2, other.p2);
         }
 
         @Override
@@ -684,10 +663,7 @@ class ConditionOption implements Serializable {
                 return false;
             }
             final Cond_Gender other = (Cond_Gender) obj;
-            if (this.g != other.g) {
-                return false;
-            }
-            return true;
+            return this.g == other.g;
         }
 
         @Override
@@ -751,10 +727,7 @@ class ConditionOption implements Serializable {
                 return false;
             }
             final Cond_CastingSource other = (Cond_CastingSource) obj;
-            if (this.source != other.source) {
-                return false;
-            }
-            return true;
+            return this.source == other.source;
         }
 
         @Override
@@ -846,10 +819,7 @@ class ConditionOption implements Serializable {
             if (!Objects.equals(this.p2, other.p2)) {
                 return false;
             }
-            if (this.p3 != other.p3) {
-                return false;
-            }
-            return true;
+            return this.p3 == other.p3;
         }
 
         @Override
@@ -928,10 +898,7 @@ class ConditionOption implements Serializable {
             if (this.p1 != other.p1) {
                 return false;
             }
-            if (!Objects.equals(this.p2, other.p2)) {
-                return false;
-            }
-            return true;
+            return Objects.equals(this.p2, other.p2);
         }
 
         @Override
@@ -996,10 +963,7 @@ class ConditionOption implements Serializable {
                 return false;
             }
             final Cond_WardState other = (Cond_WardState) obj;
-            if (this.state != other.state) {
-                return false;
-            }
-            return true;
+            return this.state == other.state;
         }
 
         @Override
@@ -1063,10 +1027,7 @@ class ConditionOption implements Serializable {
                 return false;
             }
             final Cond_Int other = (Cond_Int) obj;
-            if (this.p1 != other.p1) {
-                return false;
-            }
-            return true;
+            return this.p1 == other.p1;
         }
 
         @Override
@@ -1143,10 +1104,7 @@ class ConditionOption implements Serializable {
             if (!Objects.equals(this.p1, other.p1)) {
                 return false;
             }
-            if (!Arrays.equals(this.p2, other.p2)) {
-                return false;
-            }
-            return true;
+            return Arrays.equals(this.p2, other.p2);
         }
 
         @Override
@@ -1225,10 +1183,7 @@ class ConditionOption implements Serializable {
             if (!Objects.equals(this.p1, other.p1)) {
                 return false;
             }
-            if (this.a != other.a) {
-                return false;
-            }
-            return true;
+            return this.a == other.a;
         }
 
         @Override
@@ -1306,10 +1261,7 @@ class ConditionOption implements Serializable {
             if (!Objects.equals(this.p1, other.p1)) {
                 return false;
             }
-            if (this.c != other.c) {
-                return false;
-            }
-            return true;
+            return this.c == other.c;
         }
 
         @Override
@@ -1387,10 +1339,7 @@ class ConditionOption implements Serializable {
             if (!Objects.equals(this.p1, other.p1)) {
                 return false;
             }
-            if (Float.floatToIntBits(this.f) != Float.floatToIntBits(other.f)) {
-                return false;
-            }
-            return true;
+            return Float.floatToIntBits(this.f) == Float.floatToIntBits(other.f);
         }
 
         @Override
@@ -1460,10 +1409,7 @@ class ConditionOption implements Serializable {
             if (this.i1 != other.i1) {
                 return false;
             }
-            if (this.i2 != other.i2) {
-                return false;
-            }
-            return true;
+            return this.i2 == other.i2;
         }
 
         @Override
@@ -1523,10 +1469,7 @@ class ConditionOption implements Serializable {
                 return false;
             }
             final Cond_String other = (Cond_String) obj;
-            if (!Arrays.equals(this.p1, other.p1)) {
-                return false;
-            }
-            return true;
+            return Arrays.equals(this.p1, other.p1);
         }
 
         @Override

@@ -81,9 +81,6 @@ class SubShell extends SubRecord<SubShell> {
             return false;
         }
         final SubShell other = (SubShell) obj;
-        if (!this.subRecords.equals(other.subRecords)) {
-            return false;
-        }
-        return true;
+        return this.subRecords.equals(other.subRecords);
     }
 }

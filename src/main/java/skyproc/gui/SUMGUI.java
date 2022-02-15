@@ -5,6 +5,7 @@ import lev.debug.LDebug;
 import lev.gui.*;
 import lev.gui.resources.LFonts;
 import lev.gui.resources.LImages;
+import lombok.extern.slf4j.Slf4j;
 import skyproc.*;
 import skyproc.SPGlobal.Language;
 import skyproc.exceptions.MissingMaster;
@@ -31,6 +32,7 @@ import java.util.Set;
  *
  * @author Justin Swanson
  */
+@Slf4j
 public class SUMGUI extends JFrame {
 
     static final Color light = new Color(238, 233, 204);
@@ -1027,9 +1029,9 @@ public class SUMGUI extends JFrame {
                         // Check if required mods are loaded
                         for (ModListing m : hook.requiredMods()) {
                             if (!SPDatabase.hasMod(m)) {
-                                String modNames = "";
+                                StringBuilder modNames = new StringBuilder();
                                 for (ModListing m2 : hook.requiredMods()) {
-                                    modNames += "\n" + m2.toString();
+                                    modNames.append("\n").append(m2.toString());
                                 }
                                 JOptionPane.showMessageDialog(null, "This patcher requires the following mods, please add them to your load order:" + modNames);
                                 SPGlobal.logMain("Required Mods", "Didn't have required mods.  Stopping patcher.");
@@ -1061,13 +1063,13 @@ public class SUMGUI extends JFrame {
                     exitProgram(true, false);
                 }
             } catch (MissingMaster m) {
-                System.err.println(m);
+                log.error(m.getMessage(), m);
                 SPGlobal.logException(m);
                 JOptionPane.showMessageDialog(null, m + "\n\n Please activate and try again.");
                 exitProgram(false, true);
 
             } catch (Throwable e) {
-                System.err.println(e);
+                log.error(e.getMessage(), e);
                 SPGlobal.logException(e);
                 JOptionPane.showMessageDialog(null, "There was an exception thrown during program execution: '" + e + "'\n\n" + errorMessage);
 

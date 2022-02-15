@@ -159,10 +159,7 @@ class ConditionBase extends SubRecord {
         if (!Arrays.equals(this.padding, other.padding)) {
             return false;
         }
-        if (!option.equals(other.option)) {
-            return false;
-        }
-        return true;
+        return option.equals(other.option);
     }
 
     @Override

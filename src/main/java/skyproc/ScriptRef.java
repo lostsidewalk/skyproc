@@ -134,10 +134,7 @@ public class ScriptRef extends Record implements Iterable<String> {
             return false;
         }
         final ScriptRef other = (ScriptRef) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.name, other.name);
     }
 
     /**

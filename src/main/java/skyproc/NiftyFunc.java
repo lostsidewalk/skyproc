@@ -402,9 +402,9 @@ public class NiftyFunc {
             int exitStatus = start.waitFor();
             String response = Ln.convertStreamToStr(shellIn);
             if (exitStatus != 0) {
-                String tmp = "";
+                StringBuilder tmp = new StringBuilder();
                 for (String arg : args) {
-                    tmp += " " + arg;
+                    tmp.append(" ").append(arg);
                 }
                 SPGlobal.logError("StartProcess", "Process with args " + tmp + " Failed to run: " + response);
                 return false;

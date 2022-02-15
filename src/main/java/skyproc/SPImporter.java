@@ -1,6 +1,7 @@
 package skyproc;
 
 import lev.*;
+import lombok.extern.slf4j.Slf4j;
 import skyproc.MajorRecord.MajorFlags;
 import skyproc.SPGlobal.Language;
 import skyproc.SubStringPointer.Files;
@@ -22,6 +23,7 @@ import java.util.zip.DataFormatException;
  *
  * @author Justin Swanson
  */
+@Slf4j
 public class SPImporter {
 
     private static String header = "Importer";
@@ -126,11 +128,7 @@ public class SPImporter {
                 SPGlobal.sync(false);
                 SPDatabase.activePlugins = sortModListings(lines);
 
-            } catch (java.io.FileNotFoundException e) {
-                SPGlobal.logException(e);
-                SPGlobal.sync(false);
-                throw e;
-            } catch (java.io.IOException e) {
+            } catch (IOException e) {
                 SPGlobal.logException(e);
                 SPGlobal.sync(false);
                 throw e;
@@ -438,11 +436,11 @@ public class SPImporter {
 
         if (SPGlobal.logging()) {
             SPGlobal.logMain(header, "Starting import of targets: ");
-            String grups = "";
+            StringBuilder grups = new StringBuilder();
             for (GRUP_TYPE g : grup_targets) {
-                grups += "   " + g.toString() + " ";
+                grups.append("   ").append(g.toString()).append(" ");
             }
-            SPGlobal.logMain(header, grups);
+            SPGlobal.logMain(header, grups.toString());
             SPGlobal.logMain(header, "In mods: ");
             for (ModListing m : mods) {
                 SPGlobal.logMain(header, "   " + m.print());
@@ -461,8 +459,6 @@ public class SPImporter {
             if (!SPGlobal.modsToSkip.contains(new ModListing(mod))) {
                 try {
                     outSet.add(importMod(new ModListing(mod), i, path, true, grup_targets));
-                } catch (MissingMaster m) {
-                    throw m;
                 } catch (BadMod ex) {
                     SPGlobal.logError(header, "Exception occured while importing mod : " + mod);
                     SPGlobal.logError(header, "  Message: " + ex);
@@ -627,11 +623,11 @@ public class SPImporter {
             }
         }
         if (!missingMasters.isEmpty()) {
-            String error = "\n" + plugin + " has some missing masters:";
+            StringBuilder error = new StringBuilder("\n" + plugin + " has some missing masters:");
             for (ModListing m : missingMasters) {
-                error += "\n  - " + m.toString();
+                error.append("\n  - ").append(m.toString());
             }
-            throw new MissingMaster(error);
+            throw new MissingMaster(error.toString());
         }
     }
 
@@ -953,7 +949,7 @@ public class SPImporter {
                     } else {
                         input.skip(size - 12);
                     }
-//		    System.out.println("Passed GRUP");
+        		    log.debug("Passed GRUP");
                 } else if (majorRecordType.equals(inputStr)
                         || "REFR".equals(inputStr)
                         || "ACHR".equals(inputStr)
@@ -974,7 +970,7 @@ public class SPImporter {
 
                     if (inputStr.equals("NAVM")) {
                         input.skip(size);
-//			System.out.println("Skipping size:  " + size);
+            			log.debug("Skipping size: {}", size);
                         continue;
                     }
 
@@ -993,7 +989,7 @@ public class SPImporter {
                     return;
                 } else {
                     // Skip Subrecord
-//		    System.out.println(inputStr + " sub record");
+                    log.debug("{} subrecord", inputStr);
                     input.skip(input.extractInt(2));
                 }
             }

@@ -279,7 +279,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
         if (!(no == null && bo == null && (no instanceof SubList) && (bo instanceof SubList))) {
             final SubList<S, T> newlist = (SubList<S, T>) no;
             final SubList<S, T> baselist = (SubList<S, T>) bo;
-            Merger.merge(o.collection, newlist.collection, baselist.collection, (String) (getTypes().get(0)));
+            Merger.merge(o.collection, newlist.collection, baselist.collection, getTypes().get(0));
         }
         return o;
     }
@@ -300,7 +300,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
                 for (T t : tempListNew) {
                     tempList.add(t);
                     if (Merger.fullLogging) {
-                        SPGlobal.log((String) (getTypes().get(0)) + ": ", "Replaced list for " + (String) (getTypes().get(0)) + " from "
+                        SPGlobal.log(getTypes().get(0) + ": ", "Replaced list for " + getTypes().get(0) + " from "
                                 + Merger.currentRecord + " from Mod " + Merger.currentMod);
                     }
                 }
@@ -325,7 +325,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
                 for (int i = 0; i < tempListNew.size(); i++) {
                     tempList.add(tempListNew.get(i));
                     if (Merger.fullLogging) {
-                        SPGlobal.log((String) (getTypes().get(0)) + ": ", "Replaced list for " + (String) (getTypes().get(0)) + " from "
+                        SPGlobal.log(getTypes().get(0) + ": ", "Replaced list for " + getTypes().get(0) + " from "
                                 + Merger.currentRecord + " from Mod " + Merger.currentMod);
                     }
                 }
@@ -346,7 +346,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
      */
     SubList mergeListSFISpecial(SubList tempListNew, SubList tempListBase) {
 
-        SubList tempList = (SubList) this;
+        SubList tempList = this;
 
         //Integer used to hold the number for synchronization.
         int tempnum = 0;
@@ -371,7 +371,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
             if (!newlist.id.contains(baseID) && first.id.contains(baseID)) {
                 first.remove(baseID);
                 if (Merger.fullLogging) {
-                    SPGlobal.log((String) (getTypes().get(0)) + ": ", "Removed " + (String) (getTypes().get(0)) + " " + baseID + " to "
+                    SPGlobal.log(getTypes().get(0) + ": ", "Removed " + getTypes().get(0) + " " + baseID + " to "
                             + Merger.currentRecord + " from Mod " + Merger.currentMod);
                 }
             }
@@ -381,7 +381,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
             if (!first.id.contains(newID) && !baselist.id.contains(newID)) {
                 first.add(new SubFormInt(prototype.getType(), newID, tempnum));
                 if (Merger.fullLogging) {
-                    SPGlobal.log((String) (getTypes().get(0)) + ": ", "Merged " + (String) (getTypes().get(0)) + " " + newID + " to "
+                    SPGlobal.log(getTypes().get(0) + ": ", "Merged " + getTypes().get(0) + " " + newID + " to "
                             + Merger.currentRecord + " from Mod " + Merger.currentMod);
                 }
             }
@@ -404,7 +404,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
      */
     SubList mergeList(SubList tempListNew, SubList tempListBase) {
 
-        SubList tempList = (SubList) this;
+        SubList tempList = this;
 
         SubFormIntStorage first = new SubFormIntStorage(tempList);
         SubFormIntStorage newlist = new SubFormIntStorage(tempListNew);
@@ -416,7 +416,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
             if (!newlist.id.contains(baseID) && first.id.contains(baseID)) {
                 first.remove(baseID);
                 if (Merger.fullLogging) {
-                    SPGlobal.log((String) (getTypes().get(0)) + ": ", "Removed " + (String) (getTypes().get(0)) + " " + baseID + " to "
+                    SPGlobal.log(getTypes().get(0) + ": ", "Removed " + getTypes().get(0) + " " + baseID + " to "
                             + Merger.currentRecord + " from Mod " + Merger.currentMod);
                 }
             }
@@ -434,7 +434,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
                     first.remove(newID);
                     first.add(new SubFormInt(this.prototype.getType(), newID, newValue));
                     if (Merger.fullLogging) {
-                        SPGlobal.log((String) (getTypes().get(0)) + ": ", "Merged integer for + " + (String) (getTypes().get(0)) + " for ID " + newID + " to "
+                        SPGlobal.log(getTypes().get(0) + ": ", "Merged integer for + " + getTypes().get(0) + " for ID " + newID + " to "
                                 + Merger.currentRecord + " from Mod " + Merger.currentMod
                                 + " to count " + newValue);
                     }
@@ -444,7 +444,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
             } else if (!baselist.id.contains(newID)) {
                 first.add(new SubFormInt(this.prototype.getType(), newID, newValue));
                 if (Merger.fullLogging) {
-                    SPGlobal.log((String) (getTypes().get(0)) + ": ", "Added " + (String) (getTypes().get(0)) + " " + newID + " to "
+                    SPGlobal.log(getTypes().get(0) + ": ", "Added " + getTypes().get(0) + " " + newID + " to "
                             + Merger.currentRecord + " from Mod " + Merger.currentMod
                             + " with integer " + newValue);
                 }
@@ -452,7 +452,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
             } else if (!baselist.sfi.get(i).equals(newlist.sfi.get(i))) {
                 first.add(new SubFormInt(this.prototype.getType(), newID, newValue));
                 if (Merger.fullLogging) {
-                    SPGlobal.log((String) (getTypes().get(0)) + ": ", "Merged integer for " + (String) (getTypes().get(0)) + " for ID " + newID + " to "
+                    SPGlobal.log(getTypes().get(0) + ": ", "Merged integer for " + getTypes().get(0) + " for ID " + newID + " to "
                             + Merger.currentRecord + " from Mod " + Merger.currentMod
                             + " to integer " + newValue);
                 }
@@ -465,7 +465,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
     }
 
     SubList mergeListLVLO(SubList newSubList, SubList baseSubList, MajorRecord m) {
-        SubList subList = (SubList) this;
+        SubList subList = this;
 
         /*
          * Note to self: possibly use maps? Can rework to use specialized maps,
@@ -494,17 +494,16 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
         }
 
         for (LeveledEntry entry : newList.list.keySet()) {
-            LeveledEntry l = entry;
             //If the base list doesn't contain an entry on the new list, add it.
-            if (!baseList.contains(l)) {
-                for (int i = 0; i < newList.getCount(l); i++) {
-                    list.add(l);
+            if (!baseList.contains(entry)) {
+                for (int i = 0; i < newList.getCount(entry); i++) {
+                    list.add(entry);
                 }
             } //If it does contain it, add the difference between them.
             else {
-                if (baseList.getCount(l) < newList.getCount(l)) {
-                    for (int i = 0; i < (newList.getCount(l) - baseList.getCount(l)); i++) {
-                        list.add(l);
+                if (baseList.getCount(entry) < newList.getCount(entry)) {
+                    for (int i = 0; i < (newList.getCount(entry) - baseList.getCount(entry)); i++) {
+                        list.add(entry);
                     }
                 }
             }
@@ -513,47 +512,46 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
         if (Merger.mTags.Delev) {
             //Iterate through the base list, cross-check with the newer list.
             for (LeveledEntry entry : baseList.list.keySet()) {
-                LeveledEntry l = entry;
                 //If the new list does not contain this record, it needs entirely removed.
-                if (!newList.contains(l)) {
+                if (!newList.contains(entry)) {
                     //If the list of removed entries contains it, it's already been fully or
                     //partially removed.
                     //Also checks that the base num is greater than the current number of
                     //removed entries - if it's not, then more than needed has already been
                     //fully removed.
-                    if (removedEntries.contains(l) && baseList.getCount(l) > removedEntries.getCount(l)) {
-                        for (int i = 0; i < (baseList.getCount(l) - removedEntries.getCount(l)); i++) {
-                            list.remove(l);
-                            removedEntries.add(l);
+                    if (removedEntries.contains(entry) && baseList.getCount(entry) > removedEntries.getCount(entry)) {
+                        for (int i = 0; i < (baseList.getCount(entry) - removedEntries.getCount(entry)); i++) {
+                            list.remove(entry);
+                            removedEntries.add(entry);
                         }
                     } //If it doesn't contain it, then it needs to be listed in the removed entries
                     //so it's not removed multiple times (or attempted to do that).
                     else {
-                        for (int i = 0; i < baseList.getCount(l); i++) {
-                            list.remove(l);
-                            removedEntries.add(l);
+                        for (int i = 0; i < baseList.getCount(entry); i++) {
+                            list.remove(entry);
+                            removedEntries.add(entry);
                         }
                     }
                 } //If the new list does contain this record, then it only needs partially removed.
                 else {
                     //Check that the new list has less than the base (if it has more, there's no need
                     //to remove elements from the list!).
-                    if (newList.getCount(l) < baseList.getCount(l)) {
+                    if (newList.getCount(entry) < baseList.getCount(entry)) {
                         //If it has less than the base, check that the difference is greater than
                         //the number of already removed entries.
-                        if (removedEntries.contains(l) && (baseList.getCount(l) - newList.getCount(l)) > removedEntries.getCount(l)) {
+                        if (removedEntries.contains(entry) && (baseList.getCount(entry) - newList.getCount(entry)) > removedEntries.getCount(entry)) {
                             //If the difference is greater, remove the difference and note the additional removal
                             //in the removed entries section.
-                            for (int i = 0; i < ((baseList.getCount(l) - newList.getCount(l)) - removedEntries.getCount(l)); i++) {
-                                list.remove(l);
-                                removedEntries.add(l);
+                            for (int i = 0; i < ((baseList.getCount(entry) - newList.getCount(entry)) - removedEntries.getCount(entry)); i++) {
+                                list.remove(entry);
+                                removedEntries.add(entry);
                             }
                         } //If there is no current note of removed entries, just remove the difference
                         //and add that difference to the list of removed entries.
                         else {
-                            for (int i = 0; i < (baseList.getCount(l) - newList.getCount(l)); i++) {
-                                list.remove(l);
-                                removedEntries.add(l);
+                            for (int i = 0; i < (baseList.getCount(entry) - newList.getCount(entry)); i++) {
+                                list.remove(entry);
+                                removedEntries.add(entry);
                             }
                         }
                     }

@@ -1283,13 +1283,8 @@ public class MGEF extends MajorRecordDescription {
                 return false;
             }
             if (soundID == null) {
-                if (other.soundID != null) {
-                    return false;
-                }
-            } else if (!soundID.equals(other.soundID)) {
-                return false;
-            }
-            return true;
+                return other.soundID == null;
+            } else return soundID.equals(other.soundID);
         }
 
     }

@@ -135,10 +135,7 @@ class SubForm extends SubRecordTyped<FormID> {
             return false;
         }
         final SubForm other = (SubForm) obj;
-        if (!Objects.equals(this.ID, other.ID)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.ID, other.ID);
     }
 
     /**
@@ -191,7 +188,7 @@ class SubForm extends SubRecordTyped<FormID> {
             if (!f.equals(nsf) && !nsf.equals(bsf)) {
                 f = nsf;
                 if (Merger.fullLogging) {
-                    Merger.logMerge((String) (getTypes().get(0)), f.toString());
+                    Merger.logMerge(getTypes().get(0), f.toString());
                 }
             }
         }

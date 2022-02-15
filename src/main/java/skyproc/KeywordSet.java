@@ -143,10 +143,7 @@ public class KeywordSet extends SubRecord {
             return false;
         }
         final KeywordSet other = (KeywordSet) obj;
-        if (!Objects.equals(this.keywords, other.keywords)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.keywords, other.keywords);
     }
 
     /**

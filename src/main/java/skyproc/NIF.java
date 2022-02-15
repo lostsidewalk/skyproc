@@ -81,7 +81,7 @@ public class NIF {
         }
         if (!in.getString(20).equals("Gamebryo File Format")) {
             byte first = in.extract(1)[0];
-            if (!in.extractString((int) first, 20).equals("Gamebryo File Format")) {
+            if (!in.extractString(first, 20).equals("Gamebryo File Format")) {
                 throw new BadParameter(fileName + " was not a NIF file.");
             }
         }

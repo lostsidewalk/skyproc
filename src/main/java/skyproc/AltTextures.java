@@ -234,10 +234,7 @@ public class AltTextures extends SubRecordTyped {
             if (!Objects.equals(this.name, other.name)) {
                 return false;
             }
-            if (this.index != other.index) {
-                return false;
-            }
-            return true;
+            return this.index == other.index;
         }
 
         /**

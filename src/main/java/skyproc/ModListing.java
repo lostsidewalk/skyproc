@@ -159,10 +159,7 @@ public class ModListing extends SubRecord<ModListing> implements Comparable<ModL
         if (this.mast != other.mast && (this.mast == null || !this.mast.equalsIgnoreCase(other.mast))) {
             return false;
         }
-        if (this.master != other.master) {
-            return false;
-        }
-        return true;
+        return this.master == other.master;
     }
 
     /**

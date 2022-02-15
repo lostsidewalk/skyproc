@@ -72,21 +72,21 @@ public class EmbeddedScripts {
                 }
 
                 // Generate string
-                String enumString = name + " (";
+                StringBuilder enumString = new StringBuilder(name + " (");
                 boolean first = true;
                 for (ParamType b : parameterMask) {
                     if (first) {
                         first = false;
                     } else {
-                        enumString += ", ";
+                        enumString.append(", ");
                     }
-                    enumString += "ParamType." + b;
+                    enumString.append("ParamType.").append(b);
                 }
-                enumString += "), //" + index;
+                enumString.append("), //").append(index);
                 while (++curIndex < index) {
                     enumStrings.add("UNKNOWN" + curIndex + " (),");
                 }
-                enumStrings.add(enumString);
+                enumStrings.add(enumString.toString());
 
             } catch (NumberFormatException ex) {
                 log.write("  Skipped\n");
@@ -212,21 +212,21 @@ public class EmbeddedScripts {
         LMergeMap<String, ScriptDef> enumBins = new LMergeMap<>(false);
 
         for (ScriptDef d : scripts) {
-            String category = "";
+            StringBuilder category = new StringBuilder();
             boolean first = true;
             for (ParamType t : d.params) {
                 if (first) {
                     first = false;
                 } else {
-                    category += "_";
+                    category.append("_");
                 }
-                category += t.toString();
+                category.append(t.toString());
             }
-            if (category.equals("")) {
-                category = "NoParams";
+            if (category.toString().equals("")) {
+                category = new StringBuilder("NoParams");
             }
-            category = "P_" + category;
-            enumBins.put(category, d);
+            category.insert(0, "P_");
+            enumBins.put(category.toString(), d);
         }
 
         for (String enumName : enumBins.keySet()) {
@@ -352,12 +352,12 @@ public class EmbeddedScripts {
         }
 
         String print() {
-            String out = name + " (" + index;
+            StringBuilder out = new StringBuilder(name + " (" + index);
             for (ParamType b : params) {
-                out += ", ParamType." + b;
+                out.append(", ParamType.").append(b);
             }
-            out += "),\n";
-            return out;
+            out.append("),\n");
+            return out.toString();
         }
     }
 

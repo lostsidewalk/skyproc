@@ -86,10 +86,7 @@ class SubInt extends SubRecordTyped<Integer> {
             return false;
         }
         final SubInt other = (SubInt) obj;
-        if (!Objects.equals(this.data, other.data)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.data, other.data);
     }
 
     @Override

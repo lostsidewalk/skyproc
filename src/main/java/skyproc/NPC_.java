@@ -2264,8 +2264,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
          * @return
          */
         public float getInterpolation() {
-            float val = ((float) subRecords.getSubInt("TINV").get()) / 100.0f;
-            return val;
+            return ((float) subRecords.getSubInt("TINV").get()) / 100.0f;
         }
 
         /**

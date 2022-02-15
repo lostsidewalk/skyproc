@@ -58,7 +58,7 @@ public class SUMprogram implements SUM {
             }
         } catch (Exception e) {
             // If a major error happens, print it everywhere and display a message box.
-            System.err.println(e);
+            System.err.println(e.getMessage());
             SPGlobal.logException(e);
             JOptionPane.showMessageDialog(null, "There was an exception thrown during program execution: '" + e + "'  Check the debug logs.");
             SPGlobal.closeDebug();
@@ -229,11 +229,11 @@ public class SUMprogram implements SUM {
             blockedLinksArea.setSize(SUMGUI.middleDimensions.width - 50, 200);
             blockedLinksArea.setLocation(25, height + 20);
             height = blockedLinksArea.getY() + blockedLinksArea.getHeight();
-            String text = "Blocked Patchers:\n";
+            StringBuilder text = new StringBuilder("Blocked Patchers:\n");
             for (File jar : blockedLinks) {
-                text += "            " + jar.getName() + "\n";
+                text.append("            ").append(jar.getName()).append("\n");
             }
-            blockedLinksArea.setText(text);
+            blockedLinksArea.setText(text.toString());
             hookMenu.hookMenu.add(blockedLinksArea);
         }
         hookMenu.hookMenu.setPreferredSize(new Dimension(SUMGUI.middleDimensions.width, height + 25));

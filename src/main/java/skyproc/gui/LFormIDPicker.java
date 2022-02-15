@@ -41,7 +41,7 @@ public class LFormIDPicker extends LUserSetting<FormID[]> {
         add.addActionListener(arg0 -> {
             for (Object o : addPicker.getSelectedObjects()) {
                 if (!model.contains(o)) {
-                    model.addElement((FormID) o);
+                    model.addElement(o);
                 }
             }
         });

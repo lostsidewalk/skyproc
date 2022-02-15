@@ -227,11 +227,7 @@ public class GMST extends MajorRecord {
      * this GMST contains that type.
      */
     public boolean getBool() {
-        if (getDATA().DATA.toInt() == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return getDATA().DATA.toInt() != 0;
     }
 
     /**

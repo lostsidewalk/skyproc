@@ -230,10 +230,7 @@ class ScriptProperty extends Record implements Serializable {
             return false;
         }
         final ScriptProperty other = (ScriptProperty) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.name, other.name);
     }
 
     @Override
@@ -494,11 +491,11 @@ class ScriptProperty extends Record implements Serializable {
 
         @Override
         public String print() {
-            String out = "";
+            StringBuilder out = new StringBuilder();
             for (Integer i : data) {
-                out += i + " ";
+                out.append(i).append(" ");
             }
-            return out;
+            return out.toString();
         }
     }
 
@@ -541,11 +538,11 @@ class ScriptProperty extends Record implements Serializable {
 
         @Override
         public String print() {
-            String out = "";
+            StringBuilder out = new StringBuilder();
             for (String i : data) {
-                out += i + " ";
+                out.append(i).append(" ");
             }
-            return out;
+            return out.toString();
         }
     }
 
@@ -584,11 +581,11 @@ class ScriptProperty extends Record implements Serializable {
 
         @Override
         public String print() {
-            String out = "";
+            StringBuilder out = new StringBuilder();
             for (FormIDData i : data) {
-                out += i.print() + " ";
+                out.append(i.print()).append(" ");
             }
-            return out;
+            return out.toString();
         }
     }
 
@@ -629,11 +626,11 @@ class ScriptProperty extends Record implements Serializable {
 
         @Override
         public String print() {
-            String out = "";
+            StringBuilder out = new StringBuilder();
             for (Boolean i : data) {
-                out += i + " ";
+                out.append(i).append(" ");
             }
-            return out;
+            return out.toString();
         }
     }
 
@@ -670,11 +667,11 @@ class ScriptProperty extends Record implements Serializable {
 
         @Override
         public String print() {
-            String out = "";
+            StringBuilder out = new StringBuilder();
             for (Float i : data) {
-                out += i + " ";
+                out.append(i).append(" ");
             }
-            return out;
+            return out.toString();
         }
     }
 }

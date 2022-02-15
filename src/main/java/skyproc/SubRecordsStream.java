@@ -79,22 +79,22 @@ class SubRecordsStream extends SubRecordsDerived {
         }
         // Print compressed summary
         int counter = 0;
-        String print = "";
+        StringBuilder print = new StringBuilder();
         if (SPGlobal.logMods) {
             for (String type : getTypes()) {
                 RecordLocation r = pos.get(type);
                 if (r != null) {
-                    print += type + " [" + r.pos + "](" + r.num + ") ";
+                    print.append(type).append(" [").append(r.pos).append("](").append(r.num).append(") ");
                     counter++;
                     if (counter == 5) {
-                        SPGlobal.logMod(srcMod, "", print);
-                        print = "";
+                        SPGlobal.logMod(srcMod, "", print.toString());
+                        print = new StringBuilder();
                         counter = 0;
                     }
                 }
             }
             if (counter > 0) {
-                SPGlobal.logMod(srcMod, "Stream", print);
+                SPGlobal.logMod(srcMod, "Stream", print.toString());
             }
         }
     }

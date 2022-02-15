@@ -47,10 +47,7 @@ public class ItemListing extends SubShell {
             return false;
         }
         final ItemListing other = (ItemListing) obj;
-        if (!getForm().equals(other.getForm())) {
-            return false;
-        }
-        return true;
+        return getForm().equals(other.getForm());
     }
 
     /**

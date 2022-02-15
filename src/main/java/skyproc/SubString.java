@@ -86,10 +86,7 @@ class SubString extends SubRecordTyped<String> {
             return false;
         }
         final SubString other = (SubString) obj;
-        if (!Objects.equals(this.string, other.string)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.string, other.string);
     }
 
     public boolean equalsIgnoreCase(SubString in) {

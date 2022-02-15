@@ -153,10 +153,7 @@ public class STAT extends MajorRecord {
             if (Float.floatToIntBits(this.angle) != Float.floatToIntBits(other.angle)) {
                 return false;
             }
-            if (!Objects.equals(this.id, other.id)) {
-                return false;
-            }
-            return true;
+            return Objects.equals(this.id, other.id);
         }
     }
 }

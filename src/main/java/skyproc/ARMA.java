@@ -184,7 +184,6 @@ public class ARMA extends MajorRecord {
                 return;
             case FEMALE:
                 subRecords.setSubForm("NAM1", skin);
-                return;
         }
     }
 
@@ -285,7 +284,6 @@ public class ARMA extends MajorRecord {
                 return;
             case FEMALE:
                 getDNAM().femalePriority = priority;
-                return;
         }
     }
 

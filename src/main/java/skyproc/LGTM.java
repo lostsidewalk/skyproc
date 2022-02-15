@@ -130,8 +130,7 @@ public class LGTM extends MajorRecord {
 
         @Override
         ArrayList<FormID> allFormIDs() {
-            ArrayList<FormID> out = new ArrayList<>(0);
-            return out;
+            return new ArrayList<>(0);
         }
 
         @Override
@@ -193,8 +192,7 @@ public class LGTM extends MajorRecord {
 
         @Override
         ArrayList<FormID> allFormIDs() {
-            ArrayList<FormID> out = new ArrayList<>(0);
-            return out;
+            return new ArrayList<>(0);
         }
 
         @Override

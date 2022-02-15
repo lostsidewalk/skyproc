@@ -85,11 +85,11 @@ class SubStringPointer extends SubRecordTyped {
                     switch (file) {
                         case STRINGS:
                             int input;
-                            String string = "";
+                            StringBuilder string = new StringBuilder();
                             while ((input = stream.read()) != 0) {
-                                string += (char) input;
+                                string.append((char) input);
                             }
-                            text.setString(string);
+                            text.setString(string.toString());
                             break;
                         default:
                             int length = Ln.arrayToInt(stream.extractInts(0, 4));
@@ -173,10 +173,7 @@ class SubStringPointer extends SubRecordTyped {
             return false;
         }
         final SubStringPointer other = (SubStringPointer) obj;
-        if (!Objects.equals(this.text, other.text)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.text, other.text);
     }
 
     /**
