@@ -2,11 +2,12 @@
 plugins {
     id 'java'
     id 'application'
+    id 'java-library'
     id 'maven-publish'
 }
 
 group = 'com.lostsidewalk'
-version = '0.1'
+version = '0.2'
 
 repositories {
     mavenCentral()
@@ -22,7 +23,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha6'
 
-    implementation group: 'com.lostsidewalk', name: 'lev', version: '1.2'
+    api group: 'com.lostsidewalk', name: 'lev', version: '1.2'
 
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
@@ -60,7 +61,7 @@ publishing {
     repositories {
         maven {
             name = 'GitHubPackages'
-            url = url('https://maven.pkg.github.com/meharris-bnr/skyproc')
+            url = uri("https://maven.pkg.github.com/meharris-bnr/skyproc")
             credentials {
                 username = project.findProperty("publishing.user") ?: System.getenv("SKYPROC_PUBLISHING_USER")
                 password = project.findProperty("publishing.token") ?: System.getenv("SKYPROC_PUBLISHING_TOKEN")
