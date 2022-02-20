@@ -1,24 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import lev.LInChannel;
+import lev.Ln;
+import skyproc.gui.SUMGUI;
+
+import javax.swing.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import lev.LInChannel;
-import lev.Ln;
-import skyproc.gui.SUMGUI;
 
 /**
  * A class to hold many common/useful functions.
@@ -41,10 +32,10 @@ public class NiftyFunc {
      * to an NPCs race will affect ALL NPCs with that same race.<br> If you do
      * not want this, then consider using genSafeScriptAttachingRace().
      *
-     * @param script Script to have the SPEL attach
+     * @param script   Script to have the SPEL attach
      * @param uniqueID A unique string to differentiate the records from any
-     * other SkyProc user's setups.<br> (using your mod's name is usually
-     * sufficient)
+     *                 other SkyProc user's setups.<br> (using your mod's name is usually
+     *                 sufficient)
      * @return The generated SPEL record that can be attached to any RACE to
      * have it attach the desired script.
      */
@@ -70,10 +61,10 @@ public class NiftyFunc {
      * original race. <br> It is a full duplicate and will retain any settings
      * of the original race.
      *
-     * @param script Script to have the SPEL attach
-     * @param uniqueID A unique string to differentiate the records from any
-     * other SkyProc user's setups.<br> (using your mod's name is usually
-     * sufficient)
+     * @param script    Script to have the SPEL attach
+     * @param uniqueID  A unique string to differentiate the records from any
+     *                  other SkyProc user's setups.<br> (using your mod's name is usually
+     *                  sufficient)
      * @param raceToDup Original race that you wish to duplicate.
      * @return A duplicate of the input race, with the only difference being it
      * has a script attachment racial spell.
@@ -90,7 +81,7 @@ public class NiftyFunc {
      * a Leveled List at any point. If it is, that Leveled List is returned;
      * Null if not.
      *
-     * @param npc NPC formID to investigate.
+     * @param npc                  NPC formID to investigate.
      * @param templateFlagsToCheck Template flags to consider.
      * @return LVLN that it is templated to, or null.
      */
@@ -103,7 +94,7 @@ public class NiftyFunc {
      * a Leveled List at any point. If it is, that Leveled List is returned;
      * Null if not.
      *
-     * @param npc NPC to investigate.
+     * @param npc                  NPC to investigate.
      * @param templateFlagsToCheck Template flags to consider.
      * @return LVLN that it is templated to, or null.
      */
@@ -166,11 +157,11 @@ public class NiftyFunc {
      * first program if the second is opened properly.
      *
      * @param startingMem Memory to start the new program with.
-     * @param maxMem Max amount of memory to allow the new program to use.
-     * @param jarPath Path to the jar file to open. Usually, just put the name
-     * of your jar.
-     * @param args Any special main function args you want to give to the second
-     * program.
+     * @param maxMem      Max amount of memory to allow the new program to use.
+     * @param jarPath     Path to the jar file to open. Usually, just put the name
+     *                    of your jar.
+     * @param args        Any special main function args you want to give to the second
+     *                    program.
      * @throws IOException
      * @throws InterruptedException
      */
@@ -181,9 +172,7 @@ public class NiftyFunc {
         argsInternal[2] = "-Xms" + startingMem;
         argsInternal[3] = "-Xmx" + maxMem;
         argsInternal[4] = jarPath;
-        for (int i = 5; i < args.length + 5; i++) {
-            argsInternal[i] = args[i - 5];
-        }
+        System.arraycopy(args, 0, argsInternal, 5, args.length + 5 - 5);
         ProcessBuilder proc = new ProcessBuilder(argsInternal);
         Process start = proc.start();
         InputStream shellIn = start.getInputStream();
@@ -233,7 +222,7 @@ public class NiftyFunc {
         String[] split = version.split("\\.");
         int out = 0;
         for (int i = 0; i < split.length && i < 4; i++) {
-            int next = Integer.valueOf(split[i]) * 1000000;
+            int next = Integer.parseInt(split[i]) * 1000000;
             if (i != 0) {
                 next /= Math.pow(100, i);
             }
@@ -247,13 +236,13 @@ public class NiftyFunc {
      * correct lengths. It does not explicitly check subrecord lengths, but due
      * to the recursive nature of SkyProc, these will be implicitly checked as
      * well by confirming Major Record length.
-     *
+     * <p>
      * This will bug out if strings inside records contain major record types
      * (ex. "SomeEDIDforMGEF", would fail because of "MGEF")
      *
-     * @param testFile File to test.
+     * @param testFile         File to test.
      * @param numErrorsToPrint Number of error messages to print before
-     * stopping.
+     *                         stopping.
      * @return True if the file had correct record lengths.
      */
     public static boolean validateRecordLengths(File testFile, int numErrorsToPrint) {
@@ -265,13 +254,13 @@ public class NiftyFunc {
      * correct lengths. It does not explicitly check subrecord lengths, but due
      * to the recursive nature of SkyProc, these will be implicitly checked as
      * well by confirming Major Record length.
-     *
+     * <p>
      * This will bug out if strings inside records contain major record types
      * (ex. "SomeEDIDforMGEF", would fail because of "MGEF")
      *
-     * @param testFilePath Path to the file to test.
+     * @param testFilePath     Path to the file to test.
      * @param numErrorsToPrint Number of error messages to print before
-     * stopping.
+     *                         stopping.
      * @return True if the file had correct record lengths.
      */
     public static boolean validateRecordLengths(String testFilePath, int numErrorsToPrint) {
@@ -322,7 +311,7 @@ public class NiftyFunc {
                     length = input.extractInt(0, 4);
                     input.skip(4);
                     int formID = input.extractInt(4);
-                    input.skip(8); 
+                    input.skip(8);
                     String subRecordType = input.extractString(0, 4);
                     if (subRecordType.equalsIgnoreCase("EDID")) {
                         int edidLength = input.extractInt(0, 2);
@@ -413,9 +402,9 @@ public class NiftyFunc {
             int exitStatus = start.waitFor();
             String response = Ln.convertStreamToStr(shellIn);
             if (exitStatus != 0) {
-                String tmp = "";
+                StringBuilder tmp = new StringBuilder();
                 for (String arg : args) {
-                    tmp += " " + arg;
+                    tmp.append(" ").append(arg);
                 }
                 SPGlobal.logError("StartProcess", "Process with args " + tmp + " Failed to run: " + response);
                 return false;
@@ -456,9 +445,9 @@ public class NiftyFunc {
     /**
      * Replaces formIDs in arraylist.
      *
-     * @param src Target arraylist to look in
+     * @param src    Target arraylist to look in
      * @param target FormID to replace
-     * @param with FormIDs to substitute in place of target
+     * @param with   FormIDs to substitute in place of target
      * @return Number of targets replaced
      */
     static public int replaceAll(ArrayList<FormID> src, FormID target, FormID... with) {
@@ -496,16 +485,16 @@ public class NiftyFunc {
     }
 
     /*
-    *  Replace all FormIDs in src with the FormID of mapped MajorRecords
-    *
-    * @param src Target arraylist to act on
-    * @param replacements Map of MajorRecords to get replacement FormIDs from
-    * @return Map of replacements keys to number of times replaced
-    */
+     *  Replace all FormIDs in src with the FormID of mapped MajorRecords
+     *
+     * @param src Target arraylist to act on
+     * @param replacements Map of MajorRecords to get replacement FormIDs from
+     * @return Map of replacements keys to number of times replaced
+     */
     static public Map<FormID, Integer> replaceMajors(ArrayList<FormID> src, Map<FormID, MajorRecord> replacements) {
         Map<FormID, Integer> out = new HashMap<>(replacements.size());
         for (FormID id : replacements.keySet()) {
-            out.put(id, new Integer(0));
+            out.put(id, 0);
         }
         for (FormID id : src) {
             MajorRecord replace = replacements.get(id);
@@ -549,7 +538,7 @@ public class NiftyFunc {
     /**
      * Adds and removes desired mods from the plugins list.
      *
-     * @param add Mods to add if they don't already exist on the list
+     * @param add    Mods to add if they don't already exist on the list
      * @param remove Mods to remove if they do exist.
      * @throws IOException
      */
@@ -602,13 +591,7 @@ public class NiftyFunc {
      * @param errorMessages
      */
     public static void runBOSS(boolean errorMessages) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                SUMGUI.progress.setStatusNumbered("Running BOSS");
-            }
-        });
+        SwingUtilities.invokeLater(() -> SUMGUI.progress.setStatusNumbered("Running BOSS"));
         // Find BOSS
         SPGlobal.logMain("BOSS", "Looking for BOSS.");
         int response = JOptionPane.YES_OPTION;
@@ -628,7 +611,7 @@ public class NiftyFunc {
         // Run BOSS
         if (bossExe != null && bossExe.isFile()) {
             SPGlobal.logMain("BOSS", "Running BOSS.");
-            if (!NiftyFunc.startProcess(bossExe.getParentFile(), new String[]{bossExe.getPath(), "-s", "-U", "-g", "Skyrim"})) {
+            if (!NiftyFunc.startProcess(bossExe.getParentFile(), bossExe.getPath(), "-s", "-U", "-g", "Skyrim")) {
                 SPGlobal.logMain("BOSS", "BOSS failed to run.");
                 if (errorMessages) {
                     response = JOptionPane.showConfirmDialog(null, "BOSS failed to run. Do you want to continue?", "BOSS failed", JOptionPane.YES_NO_OPTION);
@@ -654,13 +637,7 @@ public class NiftyFunc {
      * @param errorMessages
      */
     public static void runLOOT(boolean errorMessages) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                SUMGUI.progress.setStatusNumbered("Running LOOT");
-            }
-        });
+        SwingUtilities.invokeLater(() -> SUMGUI.progress.setStatusNumbered("Running LOOT"));
         // Find LOOT
         SPGlobal.logMain("LOOT", "Looking for LOOT.");
         int response = JOptionPane.YES_OPTION;
@@ -680,7 +657,7 @@ public class NiftyFunc {
         // Run LOOT
         if (lootExe != null && lootExe.isFile()) {
             SPGlobal.logMain("LOOT", "Running LOOT.");
-            if (!NiftyFunc.startProcess(lootExe.getParentFile(), new String[]{lootExe.getPath(), "--game=Skyrim"})) {
+            if (!NiftyFunc.startProcess(lootExe.getParentFile(), lootExe.getPath(), "--game=Skyrim")) {
                 SPGlobal.logMain("LOOT", "LOOT failed to run.");
                 if (errorMessages) {
                     response = JOptionPane.showConfirmDialog(null, "LOOT failed to run. Do you want to continue?", "LOOT failed", JOptionPane.YES_NO_OPTION);
@@ -698,7 +675,7 @@ public class NiftyFunc {
         }
         SPGlobal.logMain("LOOT", "LOOT complete.");
     }
-    
+
     /**
      * Copies each major record from the target mod that is referenced in the
      * major record. This makes the major record "self contained" from the
@@ -717,7 +694,7 @@ public class NiftyFunc {
             if (m != null
                     && (id.getMaster().equals(targetMod) // From target mod
                     || !SPDatabase.getMod(id.getMaster()).contains(id) // Or missing "insert"
-                    )) {
+            )) {
                 MajorRecord copy = deepSubrecordCopyDB.get(id);
                 if (copy == null) {
                     String edid = m.getEDID();
@@ -739,7 +716,7 @@ public class NiftyFunc {
      * Checks global path for duplicate record. If none is found, in is
      * returned. If a duplicate is found, in is removed from the global patch
      * and the duplicate is returned.<br><br>
-     *
+     * <p>
      * deepEquals is used to determine if two records are equal.
      *
      * @param in Major Record to check for duplicates.
@@ -760,8 +737,8 @@ public class NiftyFunc {
         }
         return in;
     }
-    
-    public static void logMem(String header){
+
+    public static void logMem(String header) {
         SPGlobal.logMain(header, "Used Memory: " + Ln.toMB((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())) + "MB");
     }
 }

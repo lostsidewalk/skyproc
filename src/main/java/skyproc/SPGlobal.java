@@ -1,11 +1,12 @@
 package skyproc;
 
-import java.io.*;
-import java.util.ArrayList;
 import lev.Ln;
 import lev.debug.LDebug;
 import skyproc.gui.SUMGUI;
+
+import java.io.*;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
 
 /**
  * Global variables/settings of SkyProc.
@@ -14,29 +15,6 @@ import java.nio.file.FileSystems;
  */
 public class SPGlobal {
 
-    static String header = "SPGlobal";
-    static String gameName = "Skyrim";
-    static String pathToDebug = "SkyProcDebug/";
-    static Mod globalPatchOut;
-    static SPLogger log;
-    static boolean logMods = true;
-    static SPDatabase globalDatabase = new SPDatabase();
-    static boolean testing = false;
-    static boolean streamMode = true;
-    static boolean deleteAfterExport = true;
-    static boolean mergeMode = false;
-    static boolean noModsAfter = true;
-    static boolean checkMissingMasters = true;
-    static MajorRecord lastStreamed;
-
-    /*
-     * Customizable Strings
-     */
-    /**
-     * Path and filename to look for the active plugins file.<br>
-     * "/Skyrim/plugins.txt" by default.
-     */
-    public static String pluginsListPath = "/Skyrim Special Edition/plugins.txt";
     /**
      * Path to the Data/ folder to look for plugins to import/export.<br><br> By
      * default, this is set to "../../", meaning the patch has to be in a
@@ -45,6 +23,11 @@ public class SPGlobal {
      */
     //public static String pathToData = "..\\..\\";
     public static final String pathToData = FileSystems.getDefault().getPath("..\\..\\").toAbsolutePath().normalize().toString();
+    /**
+     * Path and filename to look for the active plugins file.<br>
+     * "/Skyrim/plugins.txt" by default.
+     */
+    public static String pluginsListPath = "/Skyrim Special Edition/plugins.txt";
     public static String pathToDataFixed = (pathToData.endsWith("\\") ? pathToData : pathToData + "\\");
     /**
      * A default path to "internal files". This is currently only used for
@@ -58,56 +41,65 @@ public class SPGlobal {
      * give the users of your program ability to adjust this setting.
      */
     public static Language language = Language.English;
-
-    /**
-     *
-     */
-    public static enum Language {
-
-        /**
-         *
-         */
-        English,
-        /**
-         *
-         */
-        Spanish,
-        /**
-         *
-         */
-        Italian,
-        /**
-         *
-         */
-        French,
-        /**
-         *
-         */
-        German,
-        /**
-         *
-         */
-        Russian,
-        /**
-         *
-         */
-        Czech,
-        /**
-         *
-         */
-        Polish,
-        /**
-         *
-         */
-        Japanes;
-    }
     /**
      * The path from the .jar location to create/look for the file used to
      * remember where the plugins.txt file is if the program cannot locate it
      * automatically.
      */
     public static String pluginListBackupPath = "SkyProc-PluginListLocation.txt";
+    /**
+     * Turns off messages about which record is currently being streamed.
+     */
+    public static boolean debugStream = true;
+    /**
+     * Displays information about BSA importing
+     */
+    public static boolean debugBSAimport = true;
+    /**
+     * Displays information about NIF importing
+     */
+    public static boolean debugNIFimport = false;
+    /**
+     * Prints messages about records pairing strings with external STRINGS
+     * files.<br> Prints to the sync log<br>
+     */
+    public static boolean debugStringPairing = true;
+    /**
+     * Print messages concerning the merging of two plugins.<br> Prints to the
+     * sync log<br>
+     */
+    public static boolean debugModMerge = false;
+    /*
+     * Toggle to force to processing exactly like vanilla files for validation.
+     * Switches MajorRecord with flag DELETED to print full contents.
+     * Needed because TesVEdit now removes all subrecords of DELETED majorRecords.
+     */
+    public static boolean forceValidateMode = false;
+    static String header = "SPGlobal";
+    static String gameName = "Skyrim";
+
+    /*
+     * Customizable Strings
+     */
+    static String pathToDebug = "SkyProcDebug/";
+    static Mod globalPatchOut;
+    static SPLogger log;
+    static boolean logMods = true;
+    static SPDatabase globalDatabase = new SPDatabase();
+    static boolean testing = false;
+    static boolean streamMode = true;
+    static boolean deleteAfterExport = true;
+    static boolean mergeMode = false;
+    static boolean noModsAfter = true;
+    static boolean checkMissingMasters = true;
+    static MajorRecord lastStreamed;
     static File skyProcDocuments;
+    static ArrayList<ModListing> modsToSkip = new ArrayList<>();
+    static ArrayList<String> modsToSkipStr = new ArrayList<>();
+    static ArrayList<ModListing> modsWhiteList = new ArrayList<>();
+    static ArrayList<String> modsWhiteListStr = new ArrayList<>();
+    static String appDataFolder;
+    private static boolean allModsAsMasters = false;
 
     /**
      * Returns a File path to the SkyProc Documents folder.
@@ -126,11 +118,17 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @return The database defined as the Global Database
      */
     public static SPDatabase getDB() {
         return globalDatabase;
+    }
+
+    /**
+     * @return the set Global Patch, or null if one hasn' been set.
+     */
+    public static Mod getGlobalPatch() {
+        return globalPatchOut;
     }
 
     /**
@@ -148,19 +146,6 @@ public class SPGlobal {
     }
 
     /**
-     *
-     * @return the set Global Patch, or null if one hasn' been set.
-     */
-    public static Mod getGlobalPatch() {
-        return globalPatchOut;
-    }
-    static ArrayList<ModListing> modsToSkip = new ArrayList<>();
-    static ArrayList<String> modsToSkipStr = new ArrayList<>();
-    static ArrayList<ModListing> modsWhiteList = new ArrayList<>();
-    static ArrayList<String> modsWhiteListStr = new ArrayList<>();
-
-    /**
-     *
      * @param m Mod to skip when importing.
      */
     public static void addModToSkip(ModListing m) {
@@ -168,7 +153,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param s
      */
     public static void addModToSkip(String s) {
@@ -181,7 +165,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param m
      * @return
      */
@@ -190,7 +173,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param name
      * @return
      */
@@ -199,7 +181,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param m
      * @return
      */
@@ -209,7 +190,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param name
      * @return
      */
@@ -280,7 +260,7 @@ public class SPGlobal {
      * Querys the Global Database and returns whether the FormID exists. It
      * limits its search to the given GRUP types for speed reasons.
      *
-     * @param query FormID to look for.
+     * @param query      FormID to look for.
      * @param grup_types GRUPs to look in.
      * @return True if FormID exists in the database.
      */
@@ -332,10 +312,12 @@ public class SPGlobal {
         }
         return ini;
     }
-    static String appDataFolder;
+
+    /*
+     * Logging functions
+     */
 
     /**
-     *
      * @return Path to the skyrim local application data folder.
      * @throws IOException
      */
@@ -390,7 +372,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @return The loadorder.txt file that contains all load order information.
      * @throws IOException
      */
@@ -404,18 +385,16 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param on True if you want data to be streamed on demand; False if you
-     * want it to all be imported at once.
+     *           want it to all be imported at once.
      */
     static public void setStreamMode(boolean on) {
         streamMode = on;
     }
 
     /**
-     *
      * @param on True if you want the patcher to ignore mods that come after it
-     * in the load order.
+     *           in the load order.
      */
     static public void setNoModsAfter(boolean on) {
         noModsAfter = on;
@@ -431,9 +410,6 @@ public class SPGlobal {
         SUMGUI.setErrorMessage(message);
     }
 
-    /*
-     * Logging functions
-     */
     /**
      * Initializes the Debug Logs in a "SkyProcDebug/" folder, and allows you to
      * print messages to them.<br> Do this step early in your program.
@@ -477,14 +453,13 @@ public class SPGlobal {
      *
      * @param header
      * @param reason Reason for blocking the record.
-     * @param m Record that was blocked.
+     * @param m      Record that was blocked.
      */
     public static void logBlocked(String header, String reason, MajorRecord m) {
         log.logSpecial(SPLogger.SpecialTypes.BLOCKED, header, "Blocked " + m + " for reason: " + reason);
     }
 
     /**
-     *
      * @return True if the logger is currently on.
      */
     public static boolean logging() {
@@ -496,7 +471,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param on Turns the logger on/off.
      */
     public static void logging(Boolean on) {
@@ -506,7 +480,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @return True if the logger is currently on.
      */
     public static boolean loggingSync() {
@@ -518,7 +491,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param on Turns the logger on/off.
      */
     public static void loggingSync(Boolean on) {
@@ -539,7 +511,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @return Whether the LLogger's async log is on/off.
      */
     public static boolean loggingAsync() {
@@ -587,7 +558,7 @@ public class SPGlobal {
      * Logs to a specially created log that was previously created using
      * newSpecialLog().
      *
-     * @param e The enum you defined to symbolize the "key" to the special log.
+     * @param e      The enum you defined to symbolize the "key" to the special log.
      * @param header
      * @param print
      */
@@ -600,7 +571,7 @@ public class SPGlobal {
     /**
      * Creates a new special log with any enum value as the key.
      *
-     * @param e Any enum you define to symbolize the "key" to the special log.
+     * @param e       Any enum you define to symbolize the "key" to the special log.
      * @param logName
      */
     public static void newSpecialLog(Enum e, String logName) {
@@ -610,7 +581,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @return if mod specific log files will be written
      */
     public static boolean logMods() {
@@ -618,7 +588,6 @@ public class SPGlobal {
     }
 
     /**
-     *
      * @param on set mod specific logging
      */
     public static void logMods(boolean on) {
@@ -662,6 +631,7 @@ public class SPGlobal {
             SPGlobal.log.newLog(fileName);
         }
     }
+    // Debug Globals
 
     static void sync(boolean flag) {
         if (log != null) {
@@ -679,24 +649,21 @@ public class SPGlobal {
 
     /**
      * Redirects System.out to the asynchronous log stream.
-     *
-     * @throws FileNotFoundException
-     * @throws IOException
      */
-    public static void redirectSystemOutStream() throws FileNotFoundException, IOException {
+    public static void redirectSystemOutStream() {
         if (log == null) {
             createGlobalLog();
         }
         OutputStream outToDebug = new OutputStream() {
             @Override
-            public void write(final int b) throws IOException {
+            public void write(final int b) {
                 if (b != 116) {
                     log("", String.valueOf((char) b));
                 }
             }
 
             @Override
-            public void write(byte[] b, int off, int len) throws IOException {
+            public void write(byte[] b, int off, int len) {
                 String output = new String(b, off, len);
                 if (output.length() > 2) {
                     log("", output);
@@ -735,38 +702,6 @@ public class SPGlobal {
     public static String pathToDebug() {
         return pathToDebug;
     }
-    // Debug Globals
-    /**
-     * Turns off messages about which record is currently being streamed.
-     */
-    public static boolean debugStream = true;
-    /**
-     * Displays information about BSA importing
-     */
-    public static boolean debugBSAimport = true;
-    /**
-     * Displays information about NIF importing
-     */
-    public static boolean debugNIFimport = false;
-    /**
-     * Prints messages about records pairing strings with external STRINGS
-     * files.<br> Prints to the sync log<br>
-     */
-    public static boolean debugStringPairing = true;
-    /**
-     * Print messages concerning the merging of two plugins.<br> Prints to the
-     * sync log<br>
-     */
-    public static boolean debugModMerge = false;
-
-    /*
-     * Toggle to force to processing exactly like vanilla files for validation.
-     * Switches MajorRecord with flag DELETED to print full contents.
-     * Needed because TesVEdit now removes all subrecords of DELETED majorRecords.
-     */
-    public static boolean forceValidateMode = false;
-
-    private static boolean allModsAsMasters = false;
 
     public static boolean getAllModsAsMasters() {
         return allModsAsMasters;
@@ -774,6 +709,49 @@ public class SPGlobal {
 
     public static void setAllModsAsMasters(boolean b) {
         allModsAsMasters = b;
+    }
+
+    /**
+     *
+     */
+    public enum Language {
+
+        /**
+         *
+         */
+        English,
+        /**
+         *
+         */
+        Spanish,
+        /**
+         *
+         */
+        Italian,
+        /**
+         *
+         */
+        French,
+        /**
+         *
+         */
+        German,
+        /**
+         *
+         */
+        Russian,
+        /**
+         *
+         */
+        Czech,
+        /**
+         *
+         */
+        Polish,
+        /**
+         *
+         */
+        Japanes
     }
 
 }

@@ -2,8 +2,9 @@ package skyproc;
 
 /**
  * Types of GRUP records that skyproc can currently import.
- * @see SPImporter
+ *
  * @author Justin Swanson
+ * @see SPImporter
  */
 public enum GRUP_TYPE {
 
@@ -81,7 +82,7 @@ public enum GRUP_TYPE {
      */
     PROJ,
     /**
-     * 
+     *
      */
     STAT,
     /**
@@ -133,7 +134,7 @@ public enum GRUP_TYPE {
      */
     PERK,
     /**
-     * 
+     *
      */
     VTYP,
     /**
@@ -165,22 +166,22 @@ public enum GRUP_TYPE {
      */
     OTFT;
 
-    static boolean unfinished (GRUP_TYPE g) {
-	switch (g) {
-	    case LGTM:
-		return true;
-	    default:
-		return false;
-	}
+    static boolean unfinished(GRUP_TYPE g) {
+        switch (g) {
+            case LGTM:
+                return true;
+            default:
+                return false;
+        }
     }
 
-    static boolean internal (GRUP_TYPE g) {
-	switch (g) {
-	    case INFO:
-		return true;
-	    default:
-		return false;
-	}
+    static boolean internal(GRUP_TYPE g) {
+        switch (g) {
+            case INFO:
+                return true;
+            default:
+                return false;
+        }
     }
 
 }

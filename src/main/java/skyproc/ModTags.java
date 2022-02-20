@@ -71,7 +71,7 @@ public class ModTags {
      * Specialized constructor for tags.
      *
      * @param tags Constructor for a string list of tags, in the form of tag1,
-     * tag2, tag3.. etc.
+     *             tag2, tag3.. etc.
      */
     public ModTags(String tags) {
         Scanner s = new Scanner(tags);
@@ -227,7 +227,7 @@ public class ModTags {
      * Default mod tags constructor.
      *
      * @param use Constructor for activating all tags but deactivate and
-     * override. Default for most mods.
+     *            override. Default for most mods.
      */
     public ModTags(boolean use) {
         if (use) {

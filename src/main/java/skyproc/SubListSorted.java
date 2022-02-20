@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
 import java.util.ArrayList;
@@ -9,7 +5,6 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
- *
  * @author Justin Swanson
  */
 class SubListSorted<S extends SubRecord<T>, T> extends SubList<S, T> {
@@ -21,13 +16,13 @@ class SubListSorted<S extends SubRecord<T>, T> extends SubList<S, T> {
     }
 
     SubListSorted(SubListSorted rhs) {
-	super(rhs);
-	sorter.addAll(rhs.sorter);
+        super(rhs);
+        sorter.addAll(rhs.sorter);
     }
 
     @Override
     SubRecord getNew(String type) {
-	return new SubListSorted(this);
+        return new SubListSorted(this);
     }
 
     @Override
@@ -38,7 +33,7 @@ class SubListSorted<S extends SubRecord<T>, T> extends SubList<S, T> {
     @Override
     public boolean add(T item) {
         sorter.add(item);
-	return super.add(item);
+        return super.add(item);
     }
 
     @Override
@@ -68,27 +63,28 @@ class SubListSorted<S extends SubRecord<T>, T> extends SubList<S, T> {
 
     @Override
     ArrayList<S> translate() {
-	ArrayList<S> out = new ArrayList<>(sorter.size());
-	for (T t : sorter) {
-	    out.add((S) prototype.translate(t));
-	}
-	return out;
+        ArrayList<S> out = new ArrayList<>(sorter.size());
+        for (T t : sorter) {
+            out.add((S) prototype.translate(t));
+        }
+        return out;
     }
 
     public Iterator<S> unsortedIterator() {
-	return super.translate().iterator();
+        return super.translate().iterator();
     }
 
     /*
      * SkyBash methods.
      */
+
     /**
      * Merges SubSortedLists with logging capabilities. Does not check what
      * types of objects are in the list, so merge appropriately.
      *
      * @param no The new SubSortedList to be merged.
      * @param bo The base SubSortedList, to prevent base data from being
-     * re-merged.
+     *           re-merged.
      * @return The modified SubSortedList.
      */
     @Override
@@ -105,9 +101,9 @@ class SubListSorted<S extends SubRecord<T>, T> extends SubList<S, T> {
     /**
      * Merges TreeSets with logging capabilities, from SubSortedLists.
      *
-     * @param tempListNew The new TreeSet to be merged.
+     * @param tempListNew  The new TreeSet to be merged.
      * @param tempListBase The base TreeSet, to prevent base data from being
-     * re-merged.
+     *                     re-merged.
      * @return The modified TreeSet.
      */
     TreeSet<T> merge(TreeSet<T> tempListNew, TreeSet<T> tempListBase) {

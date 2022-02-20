@@ -1,21 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.zip.DataFormatException;
+
 /**
- *
  * @author Justin Swanson
  */
 class SubListCounted<T extends SubRecord> extends SubList {
@@ -30,18 +24,18 @@ class SubListCounted<T extends SubRecord> extends SubList {
     }
 
     SubListCounted(SubListCounted rhs) {
-	super(rhs);
-	counterType = rhs.counterType;
-	counterLength = rhs.counterLength;
+        super(rhs);
+        counterType = rhs.counterType;
+        counterLength = rhs.counterLength;
     }
 
     @Override
     int getContentLength(ModExporter out) {
-	int length = super.getContentLength(out);
-	if (!"".equals(counterType)) {
-	    length += counterLength + 6;
-	}
-	return length;
+        int length = super.getContentLength(out);
+        if (!"".equals(counterType)) {
+            length += counterLength + 6;
+        }
+        return length;
     }
 
     @Override
@@ -54,25 +48,25 @@ class SubListCounted<T extends SubRecord> extends SubList {
 
     @Override
     SubRecord getNew(String type) {
-	return new SubListCounted(this);
+        return new SubListCounted(this);
     }
 
     @Override
     void export(ModExporter out) throws IOException {
-	if (isValid()) {
-	    if (!"".equals(counterType)) {
-		SubData counter = new SubData(counterType, Ln.toByteArray(collection.size(), counterLength));
-		counter.export(out);
-	    }
-	    super.export(out);
-	}
+        if (isValid()) {
+            if (!"".equals(counterType)) {
+                SubData counter = new SubData(counterType, Ln.toByteArray(collection.size(), counterLength));
+                counter.export(out);
+            }
+            super.export(out);
+        }
     }
 
     @Override
     ArrayList<String> getTypes() {
-	ArrayList<String> out = new ArrayList<>(super.getTypes());
-	out.add(counterType);
-	return out;
+        ArrayList<String> out = new ArrayList<>(super.getTypes());
+        out.add(counterType);
+        return out;
     }
 
 

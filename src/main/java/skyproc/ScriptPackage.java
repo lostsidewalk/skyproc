@@ -1,17 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
+
+import lev.LImport;
+import skyproc.exceptions.BadParameter;
+import skyproc.exceptions.BadRecord;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
-import lev.LImport;
-import lev.LOutFile;
-import skyproc.exceptions.BadParameter;
-import skyproc.exceptions.BadRecord;
 
 /**
  * A script package attached to Major Records.
@@ -26,94 +22,93 @@ public class ScriptPackage extends SubRecord implements Serializable {
     SubRecord fragments;
 
     ScriptPackage() {
-	super();
+        super();
     }
 
     ScriptPackage(SubRecord fragments) {
-	this.fragments = fragments;
+        this.fragments = fragments;
     }
 
     @Override
     SubRecord getNew(String type) {
-	if (fragments != null) {
-	    return new ScriptPackage(fragments.getNew(type));
-	} else {
-	    return new ScriptPackage();
-	}
+        if (fragments != null) {
+            return new ScriptPackage(fragments.getNew(type));
+        } else {
+            return new ScriptPackage();
+        }
     }
 
     @Override
     boolean isValid() {
-	return scripts.size() > 0;
+        return scripts.size() > 0;
     }
 
     @Override
     int getContentLength(ModExporter out) {
-	int len = 6;
-	for (ScriptRef s : scripts) {
-	    len += s.getTotalLength(out);
-	}
-	if (fragments != null) {
-	    len += fragments.getContentLength(out);
-	}
-	return len;
+        int len = 6;
+        for (ScriptRef s : scripts) {
+            len += s.getTotalLength(out);
+        }
+        if (fragments != null) {
+            len += fragments.getContentLength(out);
+        }
+        return len;
     }
 
     @Override
     ArrayList<FormID> allFormIDs() {
-	ArrayList<FormID> out = new ArrayList<>(2);
-	for (ScriptRef s : scripts) {
-	    out.addAll(s.allFormIDs());
-	}
-	return out;
+        ArrayList<FormID> out = new ArrayList<>(2);
+        for (ScriptRef s : scripts) {
+            out.addAll(s.allFormIDs());
+        }
+        return out;
     }
 
     @Override
     void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
-	super.parseData(in, srcMod);
-	version = in.extractInt(2);
-	unknown = in.extractInt(2);
-	int scriptCount = in.extractInt(2);
-	if (SPGlobal.logMods){
-	    logMod(srcMod, toString(), "Importing VMAD record with " + scriptCount + " scripts.  Version: " + version + ", unknown: " + unknown);
-	}
-	for (int i = 0; i < scriptCount; i++) {
-	    scripts.add(new ScriptRef(in, srcMod));
-	}
-	if (fragments != null && !in.isDone()) {
-	    fragments.parseData(in, srcMod);
-	}
+        super.parseData(in, srcMod);
+        version = in.extractInt(2);
+        unknown = in.extractInt(2);
+        int scriptCount = in.extractInt(2);
+        if (SPGlobal.logMods) {
+            logMod(srcMod, toString(), "Importing VMAD record with " + scriptCount + " scripts.  Version: " + version + ", unknown: " + unknown);
+        }
+        for (int i = 0; i < scriptCount; i++) {
+            scripts.add(new ScriptRef(in, srcMod));
+        }
+        if (fragments != null && !in.isDone()) {
+            fragments.parseData(in, srcMod);
+        }
     }
 
     @Override
     void export(ModExporter out) throws IOException {
-	super.export(out);
-	out.write(version, 2);
-	out.write(unknown, 2);
-	out.write(scripts.size(), 2);
-	for (ScriptRef s : scripts) {
-	    s.export(out);
-	}
-	if (fragments != null) {
-	    fragments.export(out);
-	}
+        super.export(out);
+        out.write(version, 2);
+        out.write(unknown, 2);
+        out.write(scripts.size(), 2);
+        for (ScriptRef s : scripts) {
+            s.export(out);
+        }
+        if (fragments != null) {
+            fragments.export(out);
+        }
     }
 
     // Get set
+
     /**
-     *
      * @return List of the names of scripts attached.
      */
     public ArrayList<ScriptRef> getScripts() {
-	return scripts;
+        return scripts;
     }
 
     /**
-     *
      * @param scriptName Adds an empty script with the given name.
      */
     public void addScript(String scriptName) {
-	addScript(new ScriptRef(scriptName));
+        addScript(new ScriptRef(scriptName));
     }
 
     /**
@@ -122,7 +117,7 @@ public class ScriptPackage extends SubRecord implements Serializable {
      * @param script
      */
     public void addScript(ScriptRef script) {
-	scripts.add(script);
+        scripts.add(script);
     }
 
     /**
@@ -133,7 +128,7 @@ public class ScriptPackage extends SubRecord implements Serializable {
      * @return
      */
     public ScriptRef getScript(String scriptName) {
-	return getScript(new ScriptRef(scriptName));
+        return getScript(new ScriptRef(scriptName));
     }
 
     /**
@@ -145,16 +140,15 @@ public class ScriptPackage extends SubRecord implements Serializable {
      */
     public ScriptRef getScript(ScriptRef script) {
         int index = scripts.indexOf(script);
-	return (index != -1) ? scripts.get(index) : null;
+        return (index != -1) ? scripts.get(index) : null;
     }
 
     /**
-     *
      * @param scriptName Script name to query
      * @return True if package has a script with that name.
      */
     public boolean hasScript(String scriptName) {
-	return hasScript(new ScriptRef(scriptName));
+        return hasScript(new ScriptRef(scriptName));
     }
 
     /**
@@ -164,15 +158,14 @@ public class ScriptPackage extends SubRecord implements Serializable {
      * @return
      */
     public boolean hasScript(ScriptRef script) {
-	return scripts.contains(script);
+        return scripts.contains(script);
     }
 
     /**
-     *
      * @param scriptName Script name to remove, if present.
      */
     public void removeScript(String scriptName) {
-	removeScript(new ScriptRef(scriptName));
+        removeScript(new ScriptRef(scriptName));
     }
 
     /**
@@ -181,12 +174,12 @@ public class ScriptPackage extends SubRecord implements Serializable {
      * @param script
      */
     public void removeScript(ScriptRef script) {
-	scripts.remove(script);
+        scripts.remove(script);
     }
 
     @Override
     ArrayList<String> getTypes() {
-	return Record.getTypeList("VMAD");
+        return Record.getTypeList("VMAD");
     }
 
     /*

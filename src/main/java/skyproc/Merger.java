@@ -5,7 +5,6 @@ import lev.LFlags;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Merger {
     public static boolean fullLogging;
@@ -40,7 +39,7 @@ public class Merger {
         if (!Arrays.equals(d, newd) && !Arrays.equals(newd, based)) {
             d = newd;
             if (Merger.fullLogging) {
-                SPGlobal.log(type + ": ", "Merged " + s + " to " + d + " for "
+                SPGlobal.log(type + ": ", "Merged " + s + " to " + Arrays.toString(d) + " for "
                         + Merger.currentRecord + " from Mod " + Merger.currentMod);
             }
         }
@@ -70,7 +69,7 @@ public class Merger {
     }
 
     public static boolean merge(boolean b, boolean nb, boolean bb, String type, String s) {
-        if (b != nb && !nb != bb) {
+        if (b != nb && nb == bb) {
             b = nb;
             if (Merger.fullLogging) {
                 SPGlobal.log(type + ": ", "Merged " + s + " to " + b + " for "
@@ -84,7 +83,7 @@ public class Merger {
         if (!so.equals(ns) && !ns.equals(bs)) {
             so = ns;
             if (Merger.fullLogging) {
-                SPGlobal.log(type + ": ", "Merged " + type.toString() + " to " + s + " for "
+                SPGlobal.log(type + ": ", "Merged " + type + " to " + s + " for "
                         + Merger.currentRecord + " from Mod " + Merger.currentMod);
             }
         }
@@ -94,15 +93,14 @@ public class Merger {
     /**
      * Merges ArrayLists with logging capabilities, from SubLists.
      *
-     * @param tempListNew The new ArrayList to be merged.
+     * @param tempListNew  The new ArrayList to be merged.
      * @param tempListBase The base ArrayList, to prevent base data from being
-     * re-merged.
+     *                     re-merged.
      * @return The modified ArrayList.
      */
-    public static <T extends Object> ArrayList<T> merge(ArrayList<T> tempList, ArrayList<T> tempListNew, ArrayList<T> tempListBase, String type) {
+    public static <T> ArrayList<T> merge(ArrayList<T> tempList, ArrayList<T> tempListNew, ArrayList<T> tempListBase, String type) {
         if (!tempList.equals(tempListNew) && !tempListBase.equals(tempListNew)) {
-            for (int i = 0; i < tempListBase.size(); i++) {
-                T t = tempListBase.get(i);
+            for (T t : tempListBase) {
                 if ((!tempListNew.contains(t) && tempList.contains(t))) {
                     tempList.remove(t);
                     if (Merger.fullLogging) {
@@ -111,8 +109,7 @@ public class Merger {
                     }
                 }
             }
-            for (int i = 0; i < tempListNew.size(); i++) {
-                T t = tempListNew.get(i);
+            for (T t : tempListNew) {
                 if (!tempList.contains(t) && !tempListBase.contains(t)) {
                     tempList.add(t);
                     if (Merger.fullLogging) {
@@ -129,7 +126,7 @@ public class Merger {
         if (!lf.equals(newf) && !newf.equals(basef)) {
             lf = newf;
             if (Merger.fullLogging) {
-                SPGlobal.log(type + ": ", "Merged " + type + " to " + lf.toString() + " for "
+                SPGlobal.log(type + ": ", "Merged " + type + " to " + lf + " for "
                         + Merger.currentRecord + " from Mod " + Merger.currentMod);
             }
         }

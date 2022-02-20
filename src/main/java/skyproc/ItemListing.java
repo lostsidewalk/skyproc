@@ -1,110 +1,95 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package skyproc;
 
 /**
- *
  * @author Justin Swanson
  */
 public class ItemListing extends SubShell {
 
-    static SubPrototype itemListingProto = new SubPrototype(){
+    static SubPrototype itemListingProto = new SubPrototype() {
 
-	@Override
-	protected void addRecords() {
-	    add(new SubFormInt("CNTO"));
-	    add(new Owner());
-	}
+        @Override
+        protected void addRecords() {
+            add(new SubFormInt("CNTO"));
+            add(new Owner());
+        }
     };
 
     /**
-     *
      * @param id
      * @param count
      */
     public ItemListing(FormID id, int count) {
-	this();
-	subRecords.setSubFormInt("CNTO", id, count);
+        this();
+        subRecords.setSubFormInt("CNTO", id, count);
     }
 
     /**
-     *
      * @param id
      */
     public ItemListing(FormID id) {
-	this(id, 1);
+        this(id, 1);
     }
 
     ItemListing() {
-	super(itemListingProto);
+        super(itemListingProto);
     }
 
     /**
-     * 
      * @param obj
      * @return
      */
     @Override
     public boolean equals(Object obj) {
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final ItemListing other = (ItemListing) obj;
-	if (!getForm().equals(other.getForm())) {
-	    return false;
-	}
-	return true;
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ItemListing other = (ItemListing) obj;
+        return getForm().equals(other.getForm());
     }
 
     /**
-     * 
      * @return
      */
     @Override
     public int hashCode() {
-	return getForm().hashCode();
+        return getForm().hashCode();
     }
 
     @Override
     SubRecord getNew(String type) {
-	return new ItemListing();
+        return new ItemListing();
     }
 
     // Get/set
+
     /**
-     *
      * @return
      */
     public FormID getForm() {
-	return subRecords.getSubFormInt("CNTO").getForm();
+        return subRecords.getSubFormInt("CNTO").getForm();
     }
 
     /**
-     *
      * @param id
      */
     public void setForm(FormID id) {
-	subRecords.setSubFormInt("CNTO", id);
+        subRecords.setSubFormInt("CNTO", id);
     }
 
     /**
-     *
      * @return
      */
     public int getCount() {
-	return subRecords.getSubFormInt("CNTO").getNum();
+        return subRecords.getSubFormInt("CNTO").getNum();
     }
 
     /**
-     *
      * @param count
      */
     public void setCount(int count) {
-	subRecords.setSubFormInt("CNTO", count);
+        subRecords.setSubFormInt("CNTO", count);
     }
 }
