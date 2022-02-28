@@ -6,6 +6,7 @@ import lev.gui.LProgressBar;
 import lev.gui.LTextPane;
 import lev.gui.resources.LFonts;
 import lev.gui.resources.LImages;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +56,7 @@ public class SPDefaultGUI extends JFrame {
             // Background Panel
             backgroundPanel = new LImagePane(LImages.multipurpose());
             super.add(backgroundPanel);
-            skyprocLogo = new LImagePane(SPDefaultGUI.class.getResource("SkyProc Logo Small.png"));
+            skyprocLogo = new LImagePane(new ClassPathResource("SkyProc Logo Small.png").getURL());
             skyprocLogo.setLocation(getWidth() - skyprocLogo.getWidth() - 15, this.getHeight() - skyprocLogo.getHeight() - 30);
             backgroundPanel.add(skyprocLogo);
 

@@ -6,6 +6,7 @@ import lev.gui.*;
 import lev.gui.resources.LFonts;
 import lev.gui.resources.LImages;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import skyproc.*;
 import skyproc.SPGlobal.Language;
 import skyproc.exceptions.MissingMaster;
@@ -261,7 +262,7 @@ public class SUMGUI extends JFrame {
             } catch (IOException ex) {
                 SPGlobal.logException(ex);
             }
-        } else {
+        } /* else {
             // Create a placeholder for people to see
             try {
                 try (BufferedWriter out = new BufferedWriter(new FileWriter(path))) {
@@ -271,7 +272,7 @@ public class SUMGUI extends JFrame {
             } catch (IOException ex) {
                 SPGlobal.logException(ex);
             }
-        }
+        } */
     }
 
     static void handleArgs(String[] args) {
@@ -347,7 +348,7 @@ public class SUMGUI extends JFrame {
         startPatch.setVisible(false);
 
         try {
-            final LImagePane backToSUM = new LImagePane(SUMprogram.class.getResource("BackToSUMdark.png"));
+            final LImagePane backToSUM = new LImagePane(new ClassPathResource("BackToSUMdark.png").getURL());
             backToSUM.addMouseListener(new MouseListener() {
 
                 @Override
@@ -366,7 +367,7 @@ public class SUMGUI extends JFrame {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     try {
-                        backToSUM.setImage(SUMprogram.class.getResource("BackToSUM.png"));
+                        backToSUM.setImage(new ClassPathResource("BackToSUM.png").getURL());
                     } catch (IOException ex) {
                         SPGlobal.logException(ex);
                     }
@@ -375,7 +376,7 @@ public class SUMGUI extends JFrame {
                 @Override
                 public void mouseExited(MouseEvent e) {
                     try {
-                        backToSUM.setImage(SUMprogram.class.getResource("BackToSUMdark.png"));
+                        backToSUM.setImage(new ClassPathResource("BackToSUMdark.png").getURL());
                     } catch (IOException ex) {
                         SPGlobal.logException(ex);
                     }
@@ -788,7 +789,7 @@ public class SUMGUI extends JFrame {
     final void addComponents() {
         try {
 
-            backgroundPanel = new LImagePane(SUMGUI.class.getResource("background.jpg"));
+            backgroundPanel = new LImagePane(new ClassPathResource("background.jpg").getURL());
             super.add(backgroundPanel);
 
             startPatch = new LButton("Patch");
@@ -959,7 +960,7 @@ public class SUMGUI extends JFrame {
             statusUpdate.setVisible(true);
             backgroundPanel.add(statusUpdate);
 
-            skyProcLogo = new LImagePane(SPDefaultGUI.class.getResource("SkyProc Logo Small.png"));
+            skyProcLogo = new LImagePane(new ClassPathResource("SkyProc Logo Small.png").getURL());
             skyProcLogo.setLocation(5, statusUpdate.getY() - skyProcLogo.getHeight() - 5);
             backgroundPanel.add(skyProcLogo);
 

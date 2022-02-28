@@ -2,6 +2,7 @@ package skyproc.gui;
 
 import lev.Ln;
 import lev.gui.*;
+import org.springframework.core.io.ClassPathResource;
 import skyproc.*;
 import skyproc.SPGlobal.Language;
 
@@ -160,8 +161,8 @@ public class SUMprogram implements SUM {
 
 
         try {
-            collapsedSetting = ImageIO.read(SUM.class.getResource("Open Settings Collapsed.png"));
-            openSetting = ImageIO.read(SUM.class.getResource("Open Settings.png"));
+            collapsedSetting = ImageIO.read(new ClassPathResource("Open Settings Collapsed.png").getURL());
+            openSetting = ImageIO.read(new ClassPathResource("Open Settings.png").getURL());
         } catch (IOException ex) {
             SPGlobal.logException(ex);
         }
@@ -417,7 +418,14 @@ public class SUMprogram implements SUM {
      */
     @Override
     public URL getLogo() {
-        return SUMprogram.class.getResource("SUM program.png");
+        URL url = null;
+        try {
+            url = new ClassPathResource("SUM program.png").getURL();
+        } catch (IOException e) {
+            // TODO: log something here
+        }
+
+        return url;
     }
 
     /**

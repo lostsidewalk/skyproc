@@ -86,7 +86,7 @@ public interface SUM {
     /**
      * Returns a URL to the patcher's logo image.  <br><br>
      * An example line from Automatic Variants is:<br>
-     * <i>return SettingsOther.class.getResource("AutoVarGUITitle.png");</i><br>
+     * <i>return new ClassPathResource("AutoVarGUITitle.png").getURL();</i><br>
      * SettingsOther is simply a class that is in the same package as the png.
      * It can be any class.<br><br>
      * If you do not have a logo, simply put this line (after making sure hasLogo() returns false):<br>

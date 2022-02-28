@@ -2,6 +2,7 @@ package skyproc;
 
 import lev.Ln;
 import lev.gui.LSaveFile;
+import org.springframework.core.io.ClassPathResource;
 import skyproc.gui.SPMainMenuPanel;
 import skyproc.gui.SUM;
 import skyproc.gui.SUMprogram;
@@ -9,6 +10,7 @@ import skyproc.gui.SUMprogram;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,7 +68,14 @@ public class SUMMergerProgram implements SUM {
 
     @Override
     public URL getLogo() {
-        return SUMprogram.class.getResource("SUM program.png");
+        URL url = null;
+        try {
+            url = new ClassPathResource("SUM program.png").getURL();
+        } catch (IOException e) {
+            // TODO: log this
+        }
+
+        return url;
     }
 
     @Override
