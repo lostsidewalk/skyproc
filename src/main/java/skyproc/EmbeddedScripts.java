@@ -276,9 +276,7 @@ public class EmbeddedScripts {
         out.close();
     }
 
-    /**
-     *
-     */
+
     public enum ParamType {
 
         /**
@@ -323,9 +321,7 @@ public class EmbeddedScripts {
         NULL
     }
 
-    /**
-     *
-     */
+
     public enum Param {
 
         /**

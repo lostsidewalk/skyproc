@@ -53,9 +53,7 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
         return subRecords.getSubList("LVLO").iterator();
     }
 
-    /**
-     *
-     */
+
     public void clearEntries() {
         subRecords.getSubList("LVLO").clear();
     }

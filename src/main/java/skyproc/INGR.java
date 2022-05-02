@@ -226,9 +226,7 @@ public class INGR extends MagicItem {
         return i;
     }
 
-    /**
-     *
-     */
+
     public enum INGRFlag {
 
         /**

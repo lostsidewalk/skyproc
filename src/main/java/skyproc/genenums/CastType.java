@@ -7,17 +7,11 @@ package skyproc.genenums;
  */
 public enum CastType {
 
-    /**
-     *
-     */
+
     ConstantEffect,
-    /**
-     *
-     */
+
     FireAndForget,
-    /**
-     *
-     */
+
     Concentration,
     Scroll
 }

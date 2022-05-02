@@ -287,9 +287,7 @@ public class GMST extends MajorRecord {
         Unknown
     }
 
-    /**
-     *
-     */
+
     public enum BoolSetting {
 
         /**
@@ -366,9 +364,7 @@ public class GMST extends MajorRecord {
         bWantCastVoice
     }
 
-    /**
-     *
-     */
+
     public enum FloatSetting {
 
         /**
@@ -8549,9 +8545,7 @@ public class GMST extends MajorRecord {
         fmodifiedTargetAttackRange
     }
 
-    /**
-     *
-     */
+
     public enum IntSetting {
 
         /**
@@ -9752,9 +9746,7 @@ public class GMST extends MajorRecord {
         iMaxAttachedArrows
     }
 
-    /**
-     *
-     */
+
     public enum StringSetting {
 
         /**

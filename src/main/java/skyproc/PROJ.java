@@ -369,9 +369,7 @@ public class PROJ extends MajorRecordNamed {
         return subRecords.getModel();
     }
 
-    /**
-     *
-     */
+
     public enum ProjectileFlag {
 
         /**
@@ -417,9 +415,7 @@ public class PROJ extends MajorRecordNamed {
         }
     }
 
-    /**
-     *
-     */
+
     public enum ProjectileType {
 
         /**

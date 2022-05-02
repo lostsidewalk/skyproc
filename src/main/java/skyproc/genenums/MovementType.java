@@ -8,29 +8,17 @@ import skyproc.exceptions.BadParameter;
  * @author Justin Swanson
  */
 public enum MovementType {
-    /**
-     *
-     */
+
     Walk,
-    /**
-     *
-     */
+
     Run,
-    /**
-     *
-     */
+
     Swim,
-    /**
-     *
-     */
+
     Fly,
-    /**
-     *
-     */
+
     Sneak,
-    /**
-     *
-     */
+
     Sprint;
 
     static String translate(MovementType type) {

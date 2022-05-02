@@ -74,9 +74,7 @@ public abstract class MagicItem extends MajorRecordDescription {
         return subRecords.getKeywords();
     }
 
-    /**
-     *
-     */
+
     public void clearMagicEffects() {
         subRecords.getSubList("EFID").clear();
     }
@@ -95,9 +93,7 @@ public abstract class MagicItem extends MajorRecordDescription {
         return m;
     }
 
-    /**
-     *
-     */
+
     public enum SPELFlag {
 
         /**

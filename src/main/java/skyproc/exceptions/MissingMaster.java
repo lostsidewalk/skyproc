@@ -5,9 +5,7 @@ package skyproc.exceptions;
  */
 public class MissingMaster extends Exception {
 
-    /**
-     *
-     */
+
     public MissingMaster() {
     }
 

@@ -65,9 +65,7 @@ public class DLVW extends MajorRecord {
         subRecords.getSubList("BNAM").remove(dialogBranch);
     }
 
-    /**
-     *
-     */
+
     public void clearBranches() {
         subRecords.getSubList("BNAM").clear();
     }

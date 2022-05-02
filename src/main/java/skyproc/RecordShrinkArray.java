@@ -30,9 +30,7 @@ public class RecordShrinkArray extends LShrinkArray {
         offset = (int) rhs.pos();
     }
 
-    /**
-     *
-     */
+
     public RecordShrinkArray() {
         super(new byte[0]);
         offset = 0;

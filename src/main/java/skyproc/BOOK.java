@@ -246,9 +246,7 @@ public class BOOK extends MajorRecordDescription {
         return subRecords.getModel();
     }
 
-    /**
-     *
-     */
+
     public enum BookFlag {
 
         /**

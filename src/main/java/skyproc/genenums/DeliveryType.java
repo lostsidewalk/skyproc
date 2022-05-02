@@ -7,24 +7,14 @@ package skyproc.genenums;
  */
 public enum DeliveryType {
 
-    /**
-     *
-     */
+
     Self,
-    /**
-     *
-     */
+
     Touch,
-    /**
-     *
-     */
+
     Aimed,
-    /**
-     *
-     */
+
     TargetActor,
-    /**
-     *
-     */
+
     TargetLocation
 }

@@ -530,9 +530,7 @@ public class Condition extends SubShell {
         return null;
     }
 
-    /**
-     *
-     */
+
     public enum CondFlag {
 
         /**
@@ -562,9 +560,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum RunOnType {
 
         /**
@@ -601,9 +597,7 @@ public class Condition extends SubShell {
         EventData
     }
 
-    /**
-     *
-     */
+
     public enum Operator {
 
         /**
@@ -632,9 +626,7 @@ public class Condition extends SubShell {
         LessThanOrEqual
     }
 
-    /**
-     *
-     */
+
     public enum Params {
 
         /**
@@ -651,9 +643,7 @@ public class Condition extends SubShell {
         Third
     }
 
-    /**
-     *
-     */
+
     public enum P_Axis {
 
         /**
@@ -716,9 +706,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_FormID_CastingSource {
 
         /**
@@ -749,9 +737,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_FormID_Int {
 
         /**
@@ -786,9 +772,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_FormID_FormID {
 
         /**
@@ -863,9 +847,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_CastingSource_FormID {
 
         /**
@@ -896,9 +878,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_FormID {
 
         /**
@@ -1425,9 +1405,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_Gender {
 
         /**
@@ -1462,9 +1440,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_CastingSource {
 
         /**
@@ -1515,9 +1491,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_Int_FormID_Int {
 
         /**
@@ -1548,9 +1522,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_Int_FormID {
 
         /**
@@ -1609,9 +1581,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_WardState {
 
         /**
@@ -1642,9 +1612,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_Int {
 
         /**
@@ -1747,9 +1715,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_FormID_String {
 
         /**
@@ -1792,9 +1758,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_FormID_Axis {
 
         /**
@@ -1825,9 +1789,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_FormID_CrimeType {
 
         /**
@@ -1858,9 +1820,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_FormID_Float {
 
         /**
@@ -1891,9 +1851,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_Int_Int {
 
         /**
@@ -1924,9 +1882,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_String {
 
         /**
@@ -1961,9 +1917,7 @@ public class Condition extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum P_NoParams {
 
         /**

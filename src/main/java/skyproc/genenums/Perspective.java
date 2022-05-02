@@ -7,12 +7,8 @@ package skyproc.genenums;
  */
 public enum Perspective {
 
-    /**
-     *
-     */
+
     FIRST_PERSON,
-    /**
-     *
-     */
+
     THIRD_PERSON
 }

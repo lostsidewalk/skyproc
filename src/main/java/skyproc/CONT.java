@@ -91,9 +91,7 @@ public class CONT extends MajorRecordNamed {
         return subRecords.getSubList("CNTO").remove(new ItemListing(itemReference));
     }
 
-    /**
-     *
-     */
+
     public void clearItems() {
         subRecords.getSubList("CNTO").clear();
     }

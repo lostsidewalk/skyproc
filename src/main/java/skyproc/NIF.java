@@ -297,9 +297,7 @@ public class NIF {
         return out;
     }
 
-    /**
-     *
-     */
+
     public enum NodeType {
 
         /**

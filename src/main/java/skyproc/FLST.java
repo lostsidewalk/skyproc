@@ -86,9 +86,7 @@ public class FLST extends MajorRecord {
         subRecords.getSubList("LNAM").addAtIndex(entry, i);
     }
 
-    /**
-     *
-     */
+
     public void clearEntries() {
         subRecords.getSubList("LNAM").clear();
     }

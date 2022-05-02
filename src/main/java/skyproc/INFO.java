@@ -176,9 +176,7 @@ public class INFO extends MajorRecord {
         subRecords.getSubList("TCLT").add(id);
     }
 
-    /**
-     *
-     */
+
     public void clearLinkTo() {
         subRecords.getSubList("TCLT").clear();
     }
@@ -267,9 +265,7 @@ public class INFO extends MajorRecord {
         subRecords.setSubForm("ONAM", id);
     }
 
-    /**
-     *
-     */
+
     public enum ResponseFlag {
 
         /**
@@ -491,9 +487,6 @@ public class INFO extends MajorRecord {
         }
     }
 
-    /**
-     *
-     */
     public static class Response extends SubShell {
 
         Response() {

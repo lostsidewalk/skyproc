@@ -893,9 +893,7 @@ public class BSA {
         CTL
     }
 
-    /**
-     *
-     */
+
     public enum LogTypes {
 
         /**
@@ -904,9 +902,7 @@ public class BSA {
         BSA
     }
 
-    /**
-     *
-     */
+
     public enum BSAFlag {
 
         /**

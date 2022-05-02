@@ -181,9 +181,7 @@ public class ENCH extends MagicItem {
         return e;
     }
 
-    /**
-     *
-     */
+
     public enum EnchantType {
 
         /**
@@ -210,9 +208,7 @@ public class ENCH extends MagicItem {
         }
     }
 
-    /**
-     *
-     */
+
     public enum ENCHFlag {
 
         /**

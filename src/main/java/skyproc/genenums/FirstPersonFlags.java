@@ -5,137 +5,71 @@ package skyproc.genenums;
  */
 public enum FirstPersonFlags {
 
-    /**
-     *
-     */
+
     HEAD,
-    /**
-     *
-     */
+
     HAIR,
-    /**
-     *
-     */
+
     BODY,
-    /**
-     *
-     */
+
     HANDS,
-    /**
-     *
-     */
+
     FOREARMS,
-    /**
-     *
-     */
+
     AMULET,
-    /**
-     *
-     */
+
     RING,
-    /**
-     *
-     */
+
     FEET,
-    /**
-     *
-     */
+
     CALVES,
-    /**
-     *
-     */
+
     SHIELD,
-    /**
-     *
-     */
+
     TAIL,
-    /**
-     *
-     */
+
     LONG_HAIR,
-    /**
-     *
-     */
+
     CIRCLET,
-    /**
-     *
-     */
+
     EARS,
-    /**
-     *
-     */
+
     BodyAddOn3,
-    /**
-     *
-     */
+
     BodyAddOn4,
-    /**
-     *
-     */
+
     BodyAddOn5,
-    /**
-     *
-     */
+
     BodyAddOn6,
-    /**
-     *
-     */
+
     BodyAddOn7,
-    /**
-     *
-     */
+
     BodyAddOn8,
-    /**
-     *
-     */
+
     DecapitateHead,
-    /**
-     *
-     */
+
     Decapitate,
-    /**
-     *
-     */
+
     BodyAddOn9,
-    /**
-     *
-     */
+
     BodyAddOn10,
-    /**
-     *
-     */
+
     BodyAddOn11,
-    /**
-     *
-     */
+
     BodyAddOn12,
-    /**
-     *
-     */
+
     BodyAddOn13,
-    /**
-     *
-     */
+
     BodyAddOn14,
-    /**
-     *
-     */
+
     BodyAddOn15,
-    /**
-     *
-     */
+
     BodyAddOn16,
-    /**
-     *
-     */
+
     BodyAddOn17,
-    /**
-     *
-     */
+
     FX01,
-    /**
-     *
-     */
+
     NONE;
 
     /**

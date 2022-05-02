@@ -4,17 +4,11 @@ package skyproc.genenums;
  * @author Justin Swanson
  */
 public enum Axis {
-    /**
-     *
-     */
+
     X,
-    /**
-     *
-     */
+
     Y,
-    /**
-     *
-     */
+
     Z;
 
     /**

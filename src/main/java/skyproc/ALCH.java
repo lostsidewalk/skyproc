@@ -232,9 +232,7 @@ public class ALCH extends MagicItem {
         return a;
     }
 
-    /**
-     *
-     */
+
     public enum ALCHFlag {
 
         /**

@@ -5,20 +5,12 @@ package skyproc.genenums;
  */
 public enum CastingSource {
 
-    /**
-     *
-     */
+
     Left,
-    /**
-     *
-     */
+
     Right,
-    /**
-     *
-     */
+
     Voice,
-    /**
-     *
-     */
+
     Instant
 }

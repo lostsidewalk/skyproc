@@ -5,9 +5,7 @@ package skyproc.exceptions;
  */
 public class BadParameter extends Exception {
 
-    /**
-     *
-     */
+
     public BadParameter() {
     }
 

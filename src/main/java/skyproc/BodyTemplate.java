@@ -132,9 +132,7 @@ public class BodyTemplate extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum GeneralFlags {
 
         /**
@@ -152,9 +150,7 @@ public class BodyTemplate extends SubShell {
         }
     }
 
-    /**
-     *
-     */
+
     public enum BodyTemplateType {
 
         /**

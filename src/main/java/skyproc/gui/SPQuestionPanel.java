@@ -15,25 +15,19 @@ public abstract class SPQuestionPanel extends SPSettingPanel {
      * Textbox with the question text to display.
      */
     protected LTextPane question;
-    /**
-     *
-     */
+
     protected LButton cancelButton;
     /**
      * Panel to switch to when cancelling.
      */
     protected SPSettingPanel cancelPanel;
-    /**
-     *
-     */
+
     protected LButton backButton;
     /**
      * Panel to switch to when pressing back.
      */
     protected SPSettingPanel backPanel;
-    /**
-     *
-     */
+
     protected LButton nextButton;
     /**
      * Panel to switch to when pressing next.
@@ -174,9 +168,7 @@ public abstract class SPQuestionPanel extends SPSettingPanel {
         question.setFont(f);
     }
 
-    /**
-     *
-     */
+
     public void setQuestionCentered() {
         question.setCentered();
     }

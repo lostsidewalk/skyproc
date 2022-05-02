@@ -5,9 +5,7 @@ package skyproc.exceptions;
  */
 public class BadRecord extends Exception {
 
-    /**
-     *
-     */
+
     public BadRecord() {
     }
 

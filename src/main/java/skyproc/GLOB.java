@@ -129,9 +129,7 @@ public class GLOB extends MajorRecord {
         set(MajorFlags.RelatedToShields, on);
     }
 
-    /**
-     *
-     */
+
     public enum GLOBType {
         /**
          *

@@ -198,9 +198,7 @@ public class AMMO extends MajorRecordDescription {
         return a;
     }
 
-    /**
-     *
-     */
+
     public enum AMMOFlag {
 
         /**

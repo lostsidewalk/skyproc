@@ -298,9 +298,7 @@ public class QUST extends MajorRecordNamed {
         return subRecords.getSubList("INDX").toPublic();
     }
 
-    /**
-     *
-     */
+
     public void clearStages() {
         subRecords.getSubList("INDX").clear();
     }
@@ -317,9 +315,7 @@ public class QUST extends MajorRecordNamed {
         return subRecords.getSubList("QOBJ").toPublic();
     }
 
-    /**
-     *
-     */
+
     public void clearObjectives() {
         subRecords.getSubList("QOBJ").clear();
     }
@@ -343,16 +339,12 @@ public class QUST extends MajorRecordNamed {
         subRecords.getSubList("ALLS").add(alias);
     }
 
-    /**
-     *
-     */
+
     public void clearAliases() {
         subRecords.getSubList("ALLS").clear();
     }
 
-    /**
-     *
-     */
+
     public enum QuestStageFlags {
 
         /**
@@ -369,9 +361,7 @@ public class QUST extends MajorRecordNamed {
         KeepInstanceDataFromHereOn
     }
 
-    /**
-     *
-     */
+
     public enum QuestLogFlags {
 
         /**
@@ -384,9 +374,7 @@ public class QUST extends MajorRecordNamed {
         FailQuest
     }
 
-    /**
-     *
-     */
+
     public enum QuestFlags {
 
         /**
@@ -420,9 +408,7 @@ public class QUST extends MajorRecordNamed {
         }
     }
 
-    /**
-     *
-     */
+
     public enum QuestType {
 
         /**
@@ -475,9 +461,7 @@ public class QUST extends MajorRecordNamed {
         Dragonborn
     }
 
-    /**
-     *
-     */
+
     public abstract static class Alias extends SubShellBulkType {
 
         Alias(SubPrototype proto) {
@@ -536,9 +520,7 @@ public class QUST extends MajorRecordNamed {
         }
     }
 
-    /**
-     *
-     */
+
     public static class AliasLocation extends Alias {
 
         /**
@@ -578,9 +560,7 @@ public class QUST extends MajorRecordNamed {
         }
     }
 
-    /**
-     *
-     */
+
     public static class AliasReference extends Alias {
 
         /**
@@ -723,9 +703,7 @@ public class QUST extends MajorRecordNamed {
         }
     }
 
-    /**
-     *
-     */
+
     public static class QuestStage extends SubShellBulkType {
 
         /**
@@ -786,9 +764,7 @@ public class QUST extends MajorRecordNamed {
         }
     }
 
-    /**
-     *
-     */
+
     public static class QuestLogEntry extends SubShell {
 
         /**
@@ -873,9 +849,7 @@ public class QUST extends MajorRecordNamed {
         }
     }
 
-    /**
-     *
-     */
+
     public static class QuestObjective extends SubShellBulkType {
 
         QuestObjective() {
@@ -989,9 +963,7 @@ public class QUST extends MajorRecordNamed {
         }
     }
 
-    /**
-     *
-     */
+
     public static class QuestTarget extends SubShell {
 
         QuestTarget() {

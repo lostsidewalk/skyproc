@@ -143,9 +143,7 @@ public class ECZN extends MajorRecord {
         return e;
     }
 
-    /**
-     *
-     */
+
     public enum ECZNFlags {
 
         /**

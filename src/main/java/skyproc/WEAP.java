@@ -663,9 +663,7 @@ public class WEAP extends MajorRecordDescription {
         Crossbow
     }
 
-    /**
-     *
-     */
+
     public enum WeaponFlag {
 
         /**

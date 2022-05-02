@@ -375,9 +375,7 @@ public abstract class MajorRecord extends Record implements Serializable {
         return m;
     }
 
-    /**
-     *
-     */
+
     public enum MajorFlags {
 
         /**

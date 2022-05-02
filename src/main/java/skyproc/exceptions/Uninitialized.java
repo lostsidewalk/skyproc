@@ -5,9 +5,7 @@ package skyproc.exceptions;
  */
 public class Uninitialized extends Exception {
 
-    /**
-     *
-     */
+
     public Uninitialized() {
     }
 

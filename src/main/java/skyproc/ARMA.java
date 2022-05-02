@@ -244,9 +244,7 @@ public class ARMA extends MajorRecord {
         return subRecords.getSubList("MODL").toPublic();
     }
 
-    /**
-     *
-     */
+
     public void clearAdditionalRaces() {
         subRecords.getSubList("MODL").clear();
     }

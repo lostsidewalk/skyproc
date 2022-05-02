@@ -131,9 +131,7 @@ public class AltTextures extends SubRecordTyped {
         return a;
     }
 
-    /**
-     *
-     */
+
     public static class AltTexture implements Serializable {
 
         String name;

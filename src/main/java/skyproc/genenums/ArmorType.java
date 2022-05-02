@@ -7,16 +7,10 @@ package skyproc.genenums;
  */
 public enum ArmorType {
 
-    /**
-     *
-     */
+
     LIGHT,
-    /**
-     *
-     */
+
     HEAVY,
-    /**
-     *
-     */
+
     CLOTHING
 }

@@ -20,17 +20,13 @@ public enum GRUP_TYPE {
      * Texture Sets
      */
     TXST,
-    /**
-     *
-     */
+
     GLOB,
     /**
      * Factions
      */
     FACT,
-    /**
-     *
-     */
+
     HDPT,
     /**
      * Races
@@ -40,9 +36,7 @@ public enum GRUP_TYPE {
      * Magic Effects
      */
     MGEF,
-    /**
-     *
-     */
+
     ENCH,
     /**
      * Spells
@@ -53,21 +47,15 @@ public enum GRUP_TYPE {
      * Armors
      */
     ARMO,
-    /**
-     *
-     */
+
     BOOK,
-    /**
-     *
-     */
+
     CONT,
     /**
      * Ingredients
      */
     INGR,
-    /**
-     *
-     */
+
     MISC,
     /**
      * Alchemy
@@ -81,9 +69,7 @@ public enum GRUP_TYPE {
      * Projectile
      */
     PROJ,
-    /**
-     *
-     */
+
     STAT,
     /**
      * Weapons
@@ -101,29 +87,19 @@ public enum GRUP_TYPE {
      * Leveled Lists
      */
     LVLN,
-    /**
-     *
-     */
+
     LVLI,
-    /**
-     *
-     */
+
     WTHR,
-    /**
-     *
-     */
+
     DIAL,
-    /**
-     *
-     */
+
     INFO,
     /**
      * Image Spaces
      */
     QUST,
-    /**
-     *
-     */
+
     IMGS,
     /**
      * Form Lists
@@ -133,37 +109,23 @@ public enum GRUP_TYPE {
      * Perks
      */
     PERK,
-    /**
-     *
-     */
+
     VTYP,
-    /**
-     *
-     */
+
     AVIF,
     /**
      * Armatures
      */
     ARMA,
-    /**
-     *
-     */
+
     ECZN,
-    /**
-     *
-     */
+
     LGTM,
-    /**
-     *
-     */
+
     DLBR,
-    /**
-     *
-     */
+
     DLVW,
-    /**
-     *
-     */
+
     OTFT;
 
     static boolean unfinished(GRUP_TYPE g) {

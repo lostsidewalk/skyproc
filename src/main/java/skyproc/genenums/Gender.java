@@ -6,12 +6,8 @@ package skyproc.genenums;
  * @author Justin Swanson
  */
 public enum Gender {
-    /**
-     *
-     */
+
     MALE,
-    /**
-     *
-     */
+
     FEMALE
 }

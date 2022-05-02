@@ -88,9 +88,7 @@ public class HDPT extends MajorRecordNamed {
         subRecords.getSubList("HNAM").remove(id);
     }
 
-    /**
-     *
-     */
+
     public void clearHeadParts() {
         subRecords.getSubList("HNAM").clear();
     }
@@ -166,9 +164,7 @@ public class HDPT extends MajorRecordNamed {
         subRecords.getSubInt("PNAM").set(i);
     }
 
-    /**
-     *
-     */
+
     public enum HDPT_Type {
         Misc,
         Face,

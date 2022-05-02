@@ -358,9 +358,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return subRecords.getSubList("SNAM").remove(new SubFormInt("SNAM", factionRef, 0));
     }
 
-    /**
-     *
-     */
+
     public void clearFactions() {
         subRecords.getSubList("SNAM").clear();
     }
@@ -386,9 +384,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return subRecords.getSubList("PRKR").remove(new SubFormInt("PRKR", perkRef, 0));
     }
 
-    /**
-     *
-     */
+
     public void clearPerks() {
         subRecords.getSubList("PRKR").clear();
     }
@@ -683,9 +679,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return subRecords.getSubList("SPLO").remove(spellReference);
     }
 
-    /**
-     *
-     */
+
     public void clearSpells() {
         subRecords.getSubList("SPLO").clear();
     }
@@ -715,9 +709,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return subRecords.getSubList("CNTO").remove(new ItemListing(itemReference));
     }
 
-    /**
-     *
-     */
+
     public void clearItems() {
         subRecords.getSubList("CNTO").clear();
     }
@@ -761,9 +753,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return subRecords.getSubList("PKID").toPublic();
     }
 
-    /**
-     *
-     */
+
     public void clearAIPackages() {
         subRecords.getSubList("PKID").clear();
     }
@@ -1269,9 +1259,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return subRecords.getSubList("TINI").remove(tinting);
     }
 
-    /**
-     *
-     */
+
     public void clearTinting() {
         subRecords.getSubList("TINI").clear();
     }
@@ -1297,9 +1285,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return subRecords.getSubList("CSDT").remove(sounds);
     }
 
-    /**
-     *
-     */
+
     public void clearSoundPackages() {
         subRecords.getSubList("CSDT").clear();
     }
@@ -1384,9 +1370,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.getSubList("PNAM").remove(pnam);
     }
 
-    /**
-     *
-     */
+
     public void clearHeadParts() {
         subRecords.getSubList("PNAM").clear();
     }
@@ -1412,9 +1396,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return subRecords.getSubList("ATKD").remove(attack);
     }
 
-    /**
-     *
-     */
+
     public void clearAttackPackages() {
         subRecords.getSubList("ATKD").clear();
     }
@@ -1498,9 +1480,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         SPELL_POINTS_BASE
     }
 
-    /**
-     *
-     */
+
     public enum SoundLocation {
 
         /**
@@ -1742,9 +1722,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
     }
 
-    /**
-     *
-     */
+
     public enum Aggression {
 
         /**
@@ -1765,9 +1743,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         Frenzied
     }
 
-    /**
-     *
-     */
+
     public enum Assistance {
 
         /**
@@ -1784,9 +1760,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         HelpsFriends
     }
 
-    /**
-     *
-     */
+
     public enum Morality {
 
         /**
@@ -1807,9 +1781,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         NoCrime
     }
 
-    /**
-     *
-     */
+
     public enum Confidence {
 
         /**
@@ -1834,9 +1806,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         Foolhardy
     }
 
-    /**
-     *
-     */
+
     public enum Mood {
 
         /**
@@ -1873,9 +1843,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         Disgusted,
     }
 
-    /**
-     *
-     */
+
     public enum FacePart {
 
         /**
@@ -2099,9 +2067,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
     }
 
-    /**
-     *
-     */
+
     public static class TintLayer extends SubShell implements Serializable {
 
         static SubPrototype tintPrototype = new SubPrototype() {

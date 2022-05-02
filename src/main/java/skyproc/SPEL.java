@@ -224,9 +224,7 @@ public class SPEL extends MagicItem {
         return s;
     }
 
-    /**
-     *
-     */
+
     public enum SPELType {
 
         /**

@@ -611,9 +611,7 @@ public class MGEF extends MajorRecordDescription {
         return r;
     }
 
-    /**
-     *
-     */
+
     public enum SpellEffectFlag {
 
         /**
@@ -752,9 +750,7 @@ public class MGEF extends MajorRecordDescription {
         }
     }
 
-    /**
-     *
-     */
+
     public enum SoundData {
 
         /**

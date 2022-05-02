@@ -63,9 +63,7 @@ public class VTYP extends MajorRecord {
         return subRecords.getSubFlag("DNAM").is(flag.ordinal());
     }
 
-    /**
-     *
-     */
+
     public enum VoiceTypeFlag {
         /**
          *

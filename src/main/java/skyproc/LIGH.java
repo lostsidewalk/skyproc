@@ -258,9 +258,7 @@ public class LIGH extends MajorRecordNamed {
         return subRecords.getModel();
     }
 
-    /**
-     *
-     */
+
     public enum LIGHFlag {
 
         /**

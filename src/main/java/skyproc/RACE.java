@@ -167,9 +167,7 @@ public class RACE extends MajorRecordDescription {
         }
     };
 
-    /**
-     *
-     */
+
     RACE() {
         super();
         subRecords.setPrototype(RACEproto);
@@ -243,9 +241,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.getSubList("SPLO").remove(spell);
     }
 
-    /**
-     *
-     */
+
     public void clearSpells() {
         subRecords.getSubList("SPLO").clear();
     }
@@ -646,9 +642,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().unarmedReach = unarmedReach;
     }
 
-    /**
-     *
-     */
+
     public void clearAttackData() {
         subRecords.getSubList("ATKD").clear();
     }
@@ -758,9 +752,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubForm("UNES", id);
     }
 
-    /**
-     *
-     */
+
     public void clearTinting() {
         subRecords.getSubList("NAM0").clear();
     }
@@ -854,9 +846,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.getSubList("QNAM").remove(in);
     }
 
-    /**
-     *
-     */
+
     public void clearEquipSlots() {
         subRecords.getSubList("QNAM").clear();
     }
@@ -1007,9 +997,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.getSubList("MTNM").add(NiftyFunc.trimToFour(name));
     }
 
-    /**
-     *
-     */
+
     public void clearMovementTypeNames() {
         subRecords.getSubList("MTNM").clear();
     }
@@ -1180,9 +1168,7 @@ public class RACE extends MajorRecordDescription {
         return r;
     }
 
-    /**
-     *
-     */
+
     public enum RACEFlags {
 
         /**
@@ -1315,9 +1301,7 @@ public class RACE extends MajorRecordDescription {
         AvoidsRoads
     }
 
-    /**
-     *
-     */
+
     public enum RaceFlags2 {
 
         /**
@@ -1339,9 +1323,7 @@ public class RACE extends MajorRecordDescription {
         }
     }
 
-    /**
-     *
-     */
+
     public enum Size {
 
         /**
@@ -1547,9 +1529,7 @@ public class RACE extends MajorRecordDescription {
         }
     }
 
-    /**
-     *
-     */
+
     static final public class AttackDataInternal extends SubRecord {
 
         float damageMult = 0;
@@ -1634,9 +1614,7 @@ public class RACE extends MajorRecordDescription {
         }
     }
 
-    /**
-     *
-     */
+
     static final public class AttackData extends SubShell {
 
         AttackData() {

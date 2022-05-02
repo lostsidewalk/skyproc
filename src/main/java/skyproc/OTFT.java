@@ -61,9 +61,7 @@ public class OTFT extends MajorRecord {
         subRecords.getSubFormArray("INAM").remove(item);
     }
 
-    /**
-     *
-     */
+
     public void clearInventoryItems() {
         subRecords.getSubFormArray("INAM").clear();
     }
