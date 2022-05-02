@@ -10,7 +10,6 @@ import skyproc.exceptions.BadParameter;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.*;
-import java.util.zip.DataFormatException;
 
 /**
  * An object that interfaces with BSA files, allowing for queries of its

@@ -1,15 +1,12 @@
 package skyproc;
 
 import lev.LImport;
-import skyproc.exceptions.BadParameter;
-import skyproc.exceptions.BadRecord;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.zip.DataFormatException;
 
 /**
  * @author Justin Swanson
