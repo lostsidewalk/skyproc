@@ -38,7 +38,7 @@ public class BSA {
     Map<String, BSAFolder> folders;
     LInChannel in = new LInChannel();
 
-    BSA(File file, boolean load) throws IOException, BadParameter {
+    BSA(File file, boolean load) throws BadParameter {
         this(file.getPath(), load);
     }
 
@@ -74,15 +74,13 @@ public class BSA {
 
     /**
      * @param filePath Filepath to load BSA data from.
-     * @throws FileNotFoundException
-     * @throws IOException
      * @throws BadParameter          If the BSA is malformed (by SkyProc standards)
      */
-    public BSA(String filePath) throws FileNotFoundException, IOException, BadParameter {
+    public BSA(String filePath) throws BadParameter {
         this(filePath, true);
     }
 
-    static String getUsedFilename(String filePath) throws IOException {
+    static String getUsedFilename(String filePath) {
         String tmp, out = "";
         File file = new File(filePath);
         if (!(file = Ln.getFilepathCaseInsensitive(file)).getPath().equals("")) {
@@ -104,9 +102,8 @@ public class BSA {
      * BSAs.<br> NOTE: Not fully sophisticated yet for prioritizing between
      * BSAs.
      * @throws IOException
-     * @throws DataFormatException
      */
-    static public LShrinkArray getUsedFile(String filePath) throws IOException, DataFormatException {
+    static public LShrinkArray getUsedFile(String filePath) throws IOException {
         File outsideBSA = new File(SPGlobal.pathToDataFixed + filePath);
         if (outsideBSA.isFile()) {
             SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded from loose files: " + outsideBSA.getPath());
@@ -320,7 +317,7 @@ public class BSA {
                             bsa = bsaLookup.get(bsaPath.getPath().toUpperCase());
                         }
                         resourceLoadOrder.add(bsa);
-                    } catch (BadParameter | FileNotFoundException ex) {
+                    } catch (BadParameter ex) {
                         logBSAError(s, ex);
                     }
                 } else if (SPGlobal.logging()) {
@@ -437,7 +434,7 @@ public class BSA {
                 }
                 pluginLoadOrder.put(m, bsa);
                 return bsa;
-            } catch (IOException | BadParameter ex) {
+            } catch (BadParameter ex) {
                 logBSAError(m.printNoSuffix() + ".bsa", ex);
                 return null;
             }
@@ -656,10 +653,8 @@ public class BSA {
      *
      * @param f
      * @return
-     * @throws IOException
-     * @throws DataFormatException
      */
-    public LShrinkArray getFile(File f) throws IOException, DataFormatException {
+    public LShrinkArray getFile(File f) {
         return getFile(f.getPath());
     }
 

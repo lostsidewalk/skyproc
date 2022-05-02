@@ -268,80 +268,80 @@ public class NiftyFunc {
         int numErrors = 0;
         ArrayList<String> skip = new ArrayList<>(Arrays.asList(validationSkip));
         try {
-            File file = new File(testFilePath);
-            if (file.isFile()) {
-                SPGlobal.log("Validate", "Target file exists: " + file);
-            } else {
-                SPGlobal.log("Validate", "Target file does NOT exist: " + file);
-            }
-            LInChannel input = new LInChannel(testFilePath);
+        File file = new File(testFilePath);
+        if (file.isFile()) {
+            SPGlobal.log("Validate", "Target file exists: " + file);
+        } else {
+            SPGlobal.log("Validate", "Target file does NOT exist: " + file);
+        }
+        LInChannel input = new LInChannel(testFilePath);
 
-            correct = testHeaderLength(input);
+        correct = testHeaderLength(input);
 
-            String inputStr;
-            //Test GRUPs
-            String majorRecordType = "NULL";
-            int grupLength = 0;
-            long grupPos = input.pos();
-            int length;
-            long start = 0;
-            String EDID = "";
-            Map<Integer, String> formids = new HashMap<>();
-            Map<Integer, String> dupIds = new HashMap<>();
-            while (input.available() >= 4 && (numErrors < numErrorsToPrint || numErrorsToPrint == 0)) {
+        String inputStr;
+        //Test GRUPs
+        String majorRecordType = "NULL";
+        int grupLength = 0;
+        long grupPos = input.pos();
+        int length;
+        long start = 0;
+        String EDID = "";
+        Map<Integer, String> formids = new HashMap<>();
+        Map<Integer, String> dupIds = new HashMap<>();
+        while (input.available() >= 4 && (numErrors < numErrorsToPrint || numErrorsToPrint == 0)) {
 
-                inputStr = input.extractString(0, 4);
-                if (inputStr.equals("GRUP")) {
-                    long inputPos = input.pos();
-                    if (inputPos - grupPos - 4 != grupLength) {
-                        SPGlobal.logError(recordLengths, "GRUP " + majorRecordType + " is wrong. (" + Ln.prettyPrintHex(grupPos) + ")");
-                        numErrors++;
-                        correct = false;
-                    }
-                    grupPos = input.pos() - 4;
-                    grupLength = input.extractInt(0, 4);
-                    majorRecordType = input.extractString(0, 4);
-                    if (skip.contains(majorRecordType)) {
-                        input.skip(grupLength - 12);
-                    } else {
-                        input.skip(12);
-                    }
-                } else if (inputStr.equals(majorRecordType)) {
-                    start = input.pos() - 4;
-                    length = input.extractInt(0, 4);
-                    input.skip(4);
-                    int formID = input.extractInt(4);
-                    input.skip(8);
-                    String subRecordType = input.extractString(0, 4);
-                    if (subRecordType.equalsIgnoreCase("EDID")) {
-                        int edidLength = input.extractInt(0, 2);
-                        EDID = input.extractString(0, edidLength - 1);
-                        input.skip(length - 6 - EDID.length()); // 4 from subrecord type 'EDID' + 2 from length of EDID subrecord
-                        if (formids.containsKey(formID)) {
-                            dupIds.put(formID, EDID);
-                        } else {
-                            formids.put(formID, EDID);
-                        }
-                    } else {
-                        EDID = "No EDID subrecord";
-                        input.skip(length - 4); // 4 from subrecord type
-                    }
-                } else {
-                    SPGlobal.logError(recordLengths, "Major Record: " + majorRecordType + " | " + EDID + " is wrong. (" + Ln.prettyPrintHex(start) + ")");
+            inputStr = input.extractString(0, 4);
+            if (inputStr.equals("GRUP")) {
+                long inputPos = input.pos();
+                if (inputPos - grupPos - 4 != grupLength) {
+                    SPGlobal.logError(recordLengths, "GRUP " + majorRecordType + " is wrong. (" + Ln.prettyPrintHex(grupPos) + ")");
                     numErrors++;
                     correct = false;
                 }
-            }
-
-            if (!dupIds.isEmpty()) {
-                SPGlobal.logError(recordLengths, "Duplicate FormIDs: ");
-                for (int id : dupIds.keySet()) {
-                    SPGlobal.logError(recordLengths, Ln.printHex(id) + ", EDIDS: " + dupIds.get(id) + ", and " + formids.get(id));
+                grupPos = input.pos() - 4;
+                grupLength = input.extractInt(0, 4);
+                majorRecordType = input.extractString(0, 4);
+                if (skip.contains(majorRecordType)) {
+                    input.skip(grupLength - 12);
+                } else {
+                    input.skip(12);
                 }
+            } else if (inputStr.equals(majorRecordType)) {
+                start = input.pos() - 4;
+                length = input.extractInt(0, 4);
+                input.skip(4);
+                int formID = input.extractInt(4);
+                input.skip(8);
+                String subRecordType = input.extractString(0, 4);
+                if (subRecordType.equalsIgnoreCase("EDID")) {
+                    int edidLength = input.extractInt(0, 2);
+                    EDID = input.extractString(0, edidLength - 1);
+                    input.skip(length - 6 - EDID.length()); // 4 from subrecord type 'EDID' + 2 from length of EDID subrecord
+                    if (formids.containsKey(formID)) {
+                        dupIds.put(formID, EDID);
+                    } else {
+                        formids.put(formID, EDID);
+                    }
+                } else {
+                    EDID = "No EDID subrecord";
+                    input.skip(length - 4); // 4 from subrecord type
+                }
+            } else {
+                SPGlobal.logError(recordLengths, "Major Record: " + majorRecordType + " | " + EDID + " is wrong. (" + Ln.prettyPrintHex(start) + ")");
+                numErrors++;
                 correct = false;
             }
+        }
 
-            input.close();
+        if (!dupIds.isEmpty()) {
+            SPGlobal.logError(recordLengths, "Duplicate FormIDs: ");
+            for (int id : dupIds.keySet()) {
+                SPGlobal.logError(recordLengths, Ln.printHex(id) + ", EDIDS: " + dupIds.get(id) + ", and " + formids.get(id));
+            }
+            correct = false;
+        }
+
+        input.close();
 
         } catch (FileNotFoundException ex) {
             SPGlobal.logError(recordLengths, "File could not be found.");

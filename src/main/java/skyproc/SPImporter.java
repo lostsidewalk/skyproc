@@ -673,15 +673,11 @@ public class SPImporter {
             SPGlobal.logMod(mod, header, "Importing Strings");
         }
         for (Files f : SubStringPointer.Files.values()) {
-            try {
-                importStringLocations(mod, f);
-            } catch (IOException | DataFormatException e) {
-                SPGlobal.logError(header, "Error Importing Strings " + f + ": " + e);
-            }
+            importStringLocations(mod, f);
         }
     }
 
-    static void importStringLocations(Mod plugin, SubStringPointer.Files file) throws IOException, DataFormatException {
+    static void importStringLocations(Mod plugin, SubStringPointer.Files file) {
         ArrayList<Language> languageList = new ArrayList<>();
         languageList.add(SPGlobal.language);
         languageList.addAll(Arrays.asList(Language.values()));

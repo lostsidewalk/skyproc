@@ -27,7 +27,7 @@ class ScriptProperty extends Record implements Serializable {
         this.name.set(name);
     }
 
-    ScriptProperty(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+    ScriptProperty(LImport in, Mod srcMod) {
         parseData(in, srcMod);
     }
 

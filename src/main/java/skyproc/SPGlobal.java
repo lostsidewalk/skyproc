@@ -671,7 +671,7 @@ public class SPGlobal {
             }
 
             @Override
-            public void write(byte[] b) throws IOException {
+            public void write(byte[] b) {
                 write(b, 0, b.length);
             }
         };

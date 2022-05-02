@@ -414,7 +414,7 @@ public class INFO extends MajorRecord {
         boolean valid = false;
 
         @Override
-        void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+        void parseData(LImport in, Mod srcMod) {
             unknown = in.extract(1)[0];
             fragmentFlags.set(in.extract(1));
             fragmentFile.set(in.extractString(in.extractInt(2)));
