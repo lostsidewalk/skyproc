@@ -36,7 +36,7 @@ public abstract class SPSettingPanel extends LPanel {
      */
     protected boolean initialized = false;
     private int rightMost = 0;
-    private ArrayList<Component> components = new ArrayList<>();
+    private final ArrayList<Component> components = new ArrayList<>();
 
     /**
      * @param title

@@ -17,9 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,12 +33,6 @@ import java.util.Set;
  */
 @Slf4j
 public class SUMGUI extends JFrame {
-
-    static final Color light = new Color(238, 233, 204);
-    static final Color lightGray = new Color(190, 190, 190);
-    static final Color darkGray = new Color(110, 110, 110);
-    static final Color lightred = Color.red;
-    static final String header = "SUM";
 
     /**
      * Bounds of the SUM GUI.
@@ -70,6 +62,11 @@ public class SUMGUI extends JFrame {
      * Bounds of the two left columns
      */
     public final static Rectangle middleLeftDimensions = new Rectangle(0, 0, middleDimensions.x + middleDimensions.width, middleDimensions.height);
+    static final Color light = new Color(238, 233, 204);
+    static final Color lightGray = new Color(190, 190, 190);
+    static final Color darkGray = new Color(110, 110, 110);
+    static final Color lightred = Color.red;
+    static final String header = "SUM";
     /**
      * Import/Export background thread is stored here for access.
      */

@@ -20,7 +20,7 @@ import java.util.TreeMap;
  */
 public class NIF {
 
-    private static String header = "NIF";
+    private static final String header = "NIF";
     String fileName;
     int numBlocks;
     ArrayList<String> blockTypes;

@@ -228,7 +228,7 @@ public class ModListing extends SubRecord<ModListing> implements Comparable<ModL
             if (rhsActive) {
                 return 1;
             } else {
-                int comp = SPGlobal.getDB().addedPlugins.indexOf(this) - SPGlobal.getDB().addedPlugins.indexOf(rhs);
+                int comp = SPDatabase.addedPlugins.indexOf(this) - SPDatabase.addedPlugins.indexOf(rhs);
                 if (comp != 0) {
                     return comp;
                 } else {

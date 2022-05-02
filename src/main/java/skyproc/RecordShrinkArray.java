@@ -87,7 +87,7 @@ public class RecordShrinkArray extends LShrinkArray {
      * @return
      */
     public FormID extractFormID(ModListing modToStandardizeTo) {
-        Mod mod = SPGlobal.getDB().getMod(modToStandardizeTo);
+        Mod mod = SPDatabase.getMod(modToStandardizeTo);
         if (mod == null) {
             return new FormID();
         }
@@ -123,7 +123,7 @@ public class RecordShrinkArray extends LShrinkArray {
      * @return
      */
     public FormID extractFormID(String type, ModListing modToStandardizeTo) {
-        Mod mod = SPGlobal.getDB().getMod(modToStandardizeTo);
+        Mod mod = SPDatabase.getMod(modToStandardizeTo);
         if (mod == null) {
             return new FormID();
         }

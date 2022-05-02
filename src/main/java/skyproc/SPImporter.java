@@ -26,8 +26,8 @@ import java.util.zip.DataFormatException;
 @Slf4j
 public class SPImporter {
 
-    private static String header = "Importer";
-    private static String debugPath = "Mod Import/";
+    private static final String header = "Importer";
+    private static final String debugPath = "Mod Import/";
 
     /**
      * A placeholder constructor not meant to be called.<br> An SPImporter
@@ -949,7 +949,7 @@ public class SPImporter {
                     } else {
                         input.skip(size - 12);
                     }
-        		    log.debug("Passed GRUP");
+                    log.debug("Passed GRUP");
                 } else if (majorRecordType.equals(inputStr)
                         || "REFR".equals(inputStr)
                         || "ACHR".equals(inputStr)
@@ -970,7 +970,7 @@ public class SPImporter {
 
                     if (inputStr.equals("NAVM")) {
                         input.skip(size);
-            			log.debug("Skipping size: {}", size);
+                        log.debug("Skipping size: {}", size);
                         continue;
                     }
 

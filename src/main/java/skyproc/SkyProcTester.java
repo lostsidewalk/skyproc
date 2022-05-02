@@ -118,7 +118,7 @@ public class SkyProcTester {
         boolean passed = true;
         Mod patch = new Mod(new ModListing("Test.esp"));
         patch.setFlag(Mod.Mod_Flags.STRING_TABLED, false);
-        patch.addAsOverrides(SPGlobal.getDB().getMod(p.main), type);
+        patch.addAsOverrides(SPDatabase.getMod(p.main), type);
         // Test to see if stream has been prematurely imported
         if (SPGlobal.streamMode && type != GRUP_TYPE.NPC_) {
             GRUP g = patch.GRUPs.get(type);

@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
  */
 class ModExporter extends LOutFile {
 
-    private Mod exportMod;
+    private final Mod exportMod;
     private Mod srcMod;
     private MajorRecord srcMajor;
 

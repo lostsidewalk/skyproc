@@ -35,9 +35,9 @@ public class Mod implements Comparable, Iterable<GRUP> {
     Map<ModListing, Integer> masterMap = new HashMap<>();
     Map<SubStringPointer.Files, Map<Integer, Integer>> stringLocations = new EnumMap<>(SubStringPointer.Files.class);
     Map<SubStringPointer.Files, LImport> stringStreams = new EnumMap<>(SubStringPointer.Files.class);
-    private ArrayList<String> outStrings = new ArrayList<>();
-    private ArrayList<String> outDLStrings = new ArrayList<>();
-    private ArrayList<String> outILStrings = new ArrayList<>();
+    private final ArrayList<String> outStrings = new ArrayList<>();
+    private final ArrayList<String> outDLStrings = new ArrayList<>();
+    private final ArrayList<String> outILStrings = new ArrayList<>();
 
     /**
      * Creates an empty Mod with the name and master flag set to match info.
@@ -1446,7 +1446,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
         };
         private final static byte[] defaultINTV = Ln.parseHexString("C5 26 01 00", 4);
         SubRecordsDerived subRecords = new SubRecordsDerived(TES4proto);
-        private LFlags flags = new LFlags(4);
+        private final LFlags flags = new LFlags(4);
         private int fluff1 = 0;
         private int fluff2 = 0;
         private int fluff3 = 0;
