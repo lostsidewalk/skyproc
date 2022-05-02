@@ -67,6 +67,8 @@ public class WTHR extends MajorRecord {
             add(new SubData("MODT"));
             add(new SubData("NAM2"));
             add(new SubData("NAM3"));
+            add(new SubData("HNAM"));
+            add(new SubData("GNAM"));
         }
     };
 
