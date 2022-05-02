@@ -34,6 +34,11 @@ import java.util.Set;
 @Slf4j
 public class SUMGUI extends JFrame {
 
+    static final Color light = new Color(238, 233, 204);
+    static final Color lightGray = new Color(190, 190, 190);
+    static final Color darkGray = new Color(110, 110, 110);
+    static final Color lightred = Color.red;
+
     /**
      * Bounds of the SUM GUI.
      */
@@ -62,10 +67,6 @@ public class SUMGUI extends JFrame {
      * Bounds of the two left columns
      */
     public final static Rectangle middleLeftDimensions = new Rectangle(0, 0, middleDimensions.x + middleDimensions.width, middleDimensions.height);
-    static final Color light = new Color(238, 233, 204);
-    static final Color lightGray = new Color(190, 190, 190);
-    static final Color darkGray = new Color(110, 110, 110);
-    static final Color lightred = Color.red;
     static final String header = "SUM";
     /**
      * Import/Export background thread is stored here for access.
@@ -435,46 +436,46 @@ public class SUMGUI extends JFrame {
             return true;
         }
         try {
-            // See if imported mods and last mod list are the same
-            ArrayList<String> oldList = save.getStrings(SUMGUISettings.LastModlist);
-            for (int i = 0; i < oldList.size(); i++) {
-                String oldString = oldList.get(i);
-                if (oldString.contains(SPDatabase.dateDelim)) {
-                    oldList.set(i, oldString.substring(0, oldString.indexOf(SPDatabase.dateDelim)));
-                }
+        // See if imported mods and last mod list are the same
+        ArrayList<String> oldList = save.getStrings(SUMGUISettings.LastModlist);
+        for (int i = 0; i < oldList.size(); i++) {
+            String oldString = oldList.get(i);
+            if (oldString.contains(SPDatabase.dateDelim)) {
+                oldList.set(i, oldString.substring(0, oldString.indexOf(SPDatabase.dateDelim)));
             }
-            ArrayList<ModListing> curList = new ArrayList<>(SPImporter.getActiveModList());
-            curList.remove(hook.getListing());
-            ArrayList<ModListing> curListTmp = new ArrayList<>(curList);
+        }
+        ArrayList<ModListing> curList = new ArrayList<>(SPImporter.getActiveModList());
+        curList.remove(hook.getListing());
+        ArrayList<ModListing> curListTmp = new ArrayList<>(curList);
 
-            if (curList.size() != oldList.size()) {
+        if (curList.size() != oldList.size()) {
+            if (SPGlobal.logging()) {
+                SPGlobal.logMain("Needs Importing", "Needs importing because last Modlist isn't the same size as current.");
+            }
+            return true;
+        }
+
+        for (int i = 0; i < curList.size(); i++) {
+            ModListing m = curListTmp.get(i);
+            if (!oldList.get(i).equals(m.print().toUpperCase())) {
                 if (SPGlobal.logging()) {
-                    SPGlobal.logMain("Needs Importing", "Needs importing because last Modlist isn't the same size as current.");
+                    SPGlobal.logMain("Needs Importing", "Needs importing because " + oldList.get(i) + " doesn't match " + m.print() + " at index " + i);
                 }
                 return true;
             }
+        }
 
-            for (int i = 0; i < curList.size(); i++) {
-                ModListing m = curListTmp.get(i);
-                if (!oldList.get(i).equals(m.print().toUpperCase())) {
-                    if (SPGlobal.logging()) {
-                        SPGlobal.logMain("Needs Importing", "Needs importing because " + oldList.get(i) + " doesn't match " + m.print() + " at index " + i);
-                    }
-                    return true;
-                }
+        // Check dates
+        ArrayList<String> changedMods = getChangedMods(true);
+        if (changedMods.size() > 0) {
+            if (SPGlobal.logging()) {
+                SPGlobal.logMain("Needs Importing", "Needs importing because " + changedMods.get(0) + " had its date changed.");
             }
+            return true;
+        }
 
-            // Check dates
-            ArrayList<String> changedMods = getChangedMods(true);
-            if (changedMods.size() > 0) {
-                if (SPGlobal.logging()) {
-                    SPGlobal.logMain("Needs Importing", "Needs importing because " + changedMods.get(0) + " had its date changed.");
-                }
-                return true;
-            }
-
-            //Don't need a patch, check for custom hook coding
-            return SUMGUI.hook.needsPatching();
+        //Don't need a patch, check for custom hook coding
+        return SUMGUI.hook.needsPatching();
 
         } catch (IOException ex) {
             SPGlobal.logException(ex);
@@ -525,63 +526,63 @@ public class SUMGUI extends JFrame {
         // If imported, check master lists
         if (imported) {
             try {
-                // Compile old and new Master lists
-                ArrayList<String> oldMasterList = save.getStrings(SUMGUISettings.LastMasterlist);
+            // Compile old and new Master lists
+            ArrayList<String> oldMasterList = save.getStrings(SUMGUISettings.LastMasterlist);
 
-                ArrayList<String> curImportedMods = new ArrayList<>();
-                for (ModListing m : SPDatabase.getImportedModListings()) {
-                    curImportedMods.add(m.print().toUpperCase());
-                }
-                curImportedMods.remove(SPGlobal.getGlobalPatch().getName().toUpperCase());
+            ArrayList<String> curImportedMods = new ArrayList<>();
+            for (ModListing m : SPDatabase.getImportedModListings()) {
+                curImportedMods.add(m.print().toUpperCase());
+            }
+            curImportedMods.remove(SPGlobal.getGlobalPatch().getName().toUpperCase());
 
-                //Remove matching master mods, must be in order
-                ArrayList<String> curImportedModsTmp = new ArrayList<>(curImportedMods);
-                for (int i = 0; i < curImportedModsTmp.size(); i++) {
-                    String curName = curImportedModsTmp.get(i);
-                    if (oldMasterList.contains(curName)) {
-                        for (int j = 0; j < oldMasterList.size(); j++) {
-                            if (oldMasterList.get(j).equalsIgnoreCase(curName)) {
-                                oldMasterList.remove(j);
-                                break;
-                            } else if (curImportedModsTmp.contains(oldMasterList.get(j))) {
-                                //Matching mods out of order, need to patch
-                                if (SPGlobal.logging()) {
-                                    SPGlobal.logMain(header, "Patch needed because masters from before were in a different order.");
-                                }
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                //If old masters are missing, need patch
-                if (!oldMasterList.isEmpty()) {
-                    if (SPGlobal.logging()) {
-                        SPGlobal.logMain(header, "Patch needed because old masters are missing:");
-                        for (String s : oldMasterList) {
-                            SPGlobal.logMain(header, "   " + s);
-                        }
-                    }
-                    return true;
-                }
-
-
-                //Check mods that were imported last time for date modified changes, and remove them if they weren't changed.
-                curImportedMods.removeAll(getChangedMods(false));
-
-                //Check new mods for any records patcher is interested in.  If interesting records found, need patch.
-                for (String curString : curImportedMods) {
-                    Mod curMaster = SPDatabase.getMod(new ModListing(curString));
-                    ArrayList<GRUP_TYPE> contained = curMaster.getContainedTypes();
-                    for (GRUP_TYPE g : hook.importRequests()) {
-                        if (contained.contains(g)) {
+            //Remove matching master mods, must be in order
+            ArrayList<String> curImportedModsTmp = new ArrayList<>(curImportedMods);
+            for (int i = 0; i < curImportedModsTmp.size(); i++) {
+                String curName = curImportedModsTmp.get(i);
+                if (oldMasterList.contains(curName)) {
+                    for (int j = 0; j < oldMasterList.size(); j++) {
+                        if (oldMasterList.get(j).equalsIgnoreCase(curName)) {
+                            oldMasterList.remove(j);
+                            break;
+                        } else if (curImportedModsTmp.contains(oldMasterList.get(j))) {
+                            //Matching mods out of order, need to patch
                             if (SPGlobal.logging()) {
-                                SPGlobal.logMain(header, "Patch needed because " + curMaster + " had records patch might be interested in.");
+                                SPGlobal.logMain(header, "Patch needed because masters from before were in a different order.");
                             }
                             return true;
                         }
                     }
                 }
+            }
+
+            //If old masters are missing, need patch
+            if (!oldMasterList.isEmpty()) {
+                if (SPGlobal.logging()) {
+                    SPGlobal.logMain(header, "Patch needed because old masters are missing:");
+                    for (String s : oldMasterList) {
+                        SPGlobal.logMain(header, "   " + s);
+                    }
+                }
+                return true;
+            }
+
+
+            //Check mods that were imported last time for date modified changes, and remove them if they weren't changed.
+            curImportedMods.removeAll(getChangedMods(false));
+
+            //Check new mods for any records patcher is interested in.  If interesting records found, need patch.
+            for (String curString : curImportedMods) {
+                Mod curMaster = SPDatabase.getMod(new ModListing(curString));
+                ArrayList<GRUP_TYPE> contained = curMaster.getContainedTypes();
+                for (GRUP_TYPE g : hook.importRequests()) {
+                    if (contained.contains(g)) {
+                        if (SPGlobal.logging()) {
+                            SPGlobal.logMain(header, "Patch needed because " + curMaster + " had records patch might be interested in.");
+                        }
+                        return true;
+                    }
+                }
+            }
 
             } catch (IOException ex) {
                 SPGlobal.logException(ex);
