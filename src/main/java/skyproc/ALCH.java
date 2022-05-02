@@ -71,9 +71,7 @@ public class ALCH extends MagicItem {
 
     // Get / set
 
-    /**
-     * @return
-     */
+
     public FormID getPickupSound() {
         return subRecords.getSubForm("YNAM").getForm();
     }
@@ -85,9 +83,7 @@ public class ALCH extends MagicItem {
         subRecords.setSubForm("YNAM", pickupSound);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDropSound() {
         return subRecords.getSubForm("ZNAM").getForm();
     }
@@ -103,9 +99,7 @@ public class ALCH extends MagicItem {
         return (ENIT) subRecords.get("ENIT");
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         return getEnit().value;
     }
@@ -133,9 +127,7 @@ public class ALCH extends MagicItem {
         return getEnit().flags.get(flag.value);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getAddiction() {
         return getEnit().addiction;
     }
@@ -147,9 +139,7 @@ public class ALCH extends MagicItem {
         getEnit().addiction = addiction;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getUseSound() {
         return getEnit().useSound;
     }
@@ -161,9 +151,7 @@ public class ALCH extends MagicItem {
         getEnit().useSound = useSound;
     }
 
-    /**
-     * @return
-     */
+
     public float getWeight() {
         return subRecords.getSubFloat("DATA").get();
     }
@@ -175,9 +163,7 @@ public class ALCH extends MagicItem {
         subRecords.setSubFloat("DATA", weight);
     }
 
-    /**
-     * @return
-     */
+
     public String getInventoryIcon() {
         return subRecords.getSubString("ICON").print();
     }
@@ -189,9 +175,7 @@ public class ALCH extends MagicItem {
         subRecords.setSubString("ICON", filename);
     }
 
-    /**
-     * @return
-     */
+
     public String getMessageIcon() {
         return subRecords.getSubString("MICO").print();
     }
@@ -203,9 +187,7 @@ public class ALCH extends MagicItem {
         subRecords.setSubString("MICO", filename);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEquipType() {
         return subRecords.getSubForm("ETYP").getForm();
     }
@@ -225,9 +207,7 @@ public class ALCH extends MagicItem {
         return subRecords.getModel().getAltTextures();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }

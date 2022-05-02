@@ -112,9 +112,7 @@ public class SPDatabase implements Iterable<Mod> {
         return out;
     }
 
-    /**
-     * @return
-     */
+
     static public ArrayList<Mod> getImportedMods() {
         ArrayList<Mod> out = new ArrayList<>(activePlugins.size());
         for (ModListing m : activePlugins) {

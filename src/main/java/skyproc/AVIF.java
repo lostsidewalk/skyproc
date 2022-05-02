@@ -50,9 +50,7 @@ public class AVIF extends MajorRecordDescription {
         return new AVIF();
     }
 
-    /**
-     * @return
-     */
+
     public String getAbbreviation() {
         return subRecords.getSubString("ANAM").print();
     }
@@ -66,9 +64,7 @@ public class AVIF extends MajorRecordDescription {
         subRecords.setSubString("ANAM", abbr);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<PerkReference> getPerkReferences() {
         return subRecords.getSubList("PNAM").toPublic();
     }

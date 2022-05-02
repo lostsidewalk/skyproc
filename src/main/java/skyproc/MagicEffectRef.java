@@ -63,9 +63,7 @@ public class MagicEffectRef extends SubShellBulkType {
         return this.getMagicRef().equals(other.getMagicRef());
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -73,9 +71,7 @@ public class MagicEffectRef extends SubShellBulkType {
         return hash;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getMagicRef() {
         return subRecords.getSubForm("EFID").getForm();
     }
@@ -93,9 +89,7 @@ public class MagicEffectRef extends SubShellBulkType {
         return (EFIT) subRecords.get("EFIT");
     }
 
-    /**
-     * @return
-     */
+
     public float getMagnitude() {
         return getEFIT().magnitude;
     }
@@ -107,9 +101,7 @@ public class MagicEffectRef extends SubShellBulkType {
         getEFIT().magnitude = magnitude;
     }
 
-    /**
-     * @return
-     */
+
     public int getAreaOfEffect() {
         return getEFIT().AOE;
     }
@@ -121,9 +113,7 @@ public class MagicEffectRef extends SubShellBulkType {
         getEFIT().AOE = aoe;
     }
 
-    /**
-     * @return
-     */
+
     public int getDuration() {
         return getEFIT().duration;
     }
@@ -135,9 +125,7 @@ public class MagicEffectRef extends SubShellBulkType {
         getEFIT().duration = duration;
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<Condition> getConditions() {
         return subRecords.getSubList("CTDA").toPublic();
     }

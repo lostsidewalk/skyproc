@@ -69,9 +69,7 @@ public class HDPT extends MajorRecordNamed {
         subRecords.getModel().setFileName(path);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getHeadParts() {
         return subRecords.getSubList("HNAM").toPublic();
     }
@@ -97,9 +95,7 @@ public class HDPT extends MajorRecordNamed {
         subRecords.getSubList("HNAM").clear();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getBaseTexture() {
         return subRecords.getSubForm("TNAM").getForm();
     }
@@ -111,9 +107,7 @@ public class HDPT extends MajorRecordNamed {
         subRecords.setSubForm("TNAM", txst);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getResourceList() {
         return subRecords.getSubForm("RNAM").getForm();
     }
@@ -133,9 +127,7 @@ public class HDPT extends MajorRecordNamed {
         return subRecords.getModel().getAltTextures();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }

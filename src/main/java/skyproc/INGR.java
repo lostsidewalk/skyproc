@@ -53,9 +53,7 @@ public class INGR extends MagicItem {
         return new INGR();
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
@@ -78,9 +76,7 @@ public class INGR extends MagicItem {
 
     // Get/set
 
-    /**
-     * @return
-     */
+
     public FormID getPickupSound() {
         return subRecords.getSubForm("YNAM").getForm();
     }
@@ -92,9 +88,7 @@ public class INGR extends MagicItem {
         subRecords.setSubForm("YNAM", pickupSound);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDropSound() {
         return subRecords.getSubForm("ZNAM").getForm();
     }
@@ -110,9 +104,7 @@ public class INGR extends MagicItem {
         return (DATA) subRecords.get("DATA");
     }
 
-    /**
-     * @return
-     */
+
     public float getWeight() {
         return getDATA().weight;
     }
@@ -124,9 +116,7 @@ public class INGR extends MagicItem {
         getDATA().weight = weight;
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         return getDATA().value;
     }
@@ -142,9 +132,7 @@ public class INGR extends MagicItem {
         return (ENIT) subRecords.get("ENIT");
     }
 
-    /**
-     * @return
-     */
+
     public int getBaseCost() {
         return getENIT().baseCost;
     }
@@ -172,9 +160,7 @@ public class INGR extends MagicItem {
         return getENIT().flags.get(flag.value);
     }
 
-    /**
-     * @return
-     */
+
     public String getInventoryIcon() {
         return subRecords.getSubString("ICON").print();
     }
@@ -186,9 +172,7 @@ public class INGR extends MagicItem {
         subRecords.setSubString("ICON", filename);
     }
 
-    /**
-     * @return
-     */
+
     public String getMessageIcon() {
         return subRecords.getSubString("MICO").print();
     }
@@ -200,9 +184,7 @@ public class INGR extends MagicItem {
         subRecords.setSubString("MICO", filename);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEquipType() {
         return subRecords.getSubForm("ETYP").getForm();
     }
@@ -222,9 +204,7 @@ public class INGR extends MagicItem {
         return subRecords.getModel().getAltTextures();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }

@@ -51,9 +51,7 @@ public abstract class SPSettingPanel extends LPanel {
         header = new LLabel(title, SUMGUI.SUMmainFont, headerColor);
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public String getName() {
         return header.getText();

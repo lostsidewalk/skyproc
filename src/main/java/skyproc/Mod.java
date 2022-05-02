@@ -379,9 +379,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
         }
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public String toString() {
         return getName();

@@ -76,16 +76,12 @@ public class WEAP extends MajorRecordDescription {
 
     // Enums
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
 
-    /**
-     * @return
-     */
+
     public KeywordSet getKeywordSet() {
         return subRecords.getKeywords();
     }
@@ -94,9 +90,7 @@ public class WEAP extends MajorRecordDescription {
         return (DATA) subRecords.get("DATA");
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         return getDATA().value;
     }
@@ -110,9 +104,7 @@ public class WEAP extends MajorRecordDescription {
 
     // Get /set
 
-    /**
-     * @return
-     */
+
     public float getWeight() {
         return getDATA().weight;
     }
@@ -124,9 +116,7 @@ public class WEAP extends MajorRecordDescription {
         getDATA().weight = weight;
     }
 
-    /**
-     * @return
-     */
+
     public int getDamage() {
         return getDATA().damage;
     }
@@ -138,9 +128,7 @@ public class WEAP extends MajorRecordDescription {
         getDATA().damage = Math.abs(damage);
     }
 
-    /**
-     * @return
-     */
+
     public int getEnchantmentCharge() {
         return subRecords.getSubInt("EAMT").get();
     }
@@ -152,9 +140,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.setSubInt("EAMT", amount);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEnchantment() {
         return subRecords.getSubForm("EITM").getForm();
     }
@@ -166,9 +152,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.setSubForm("EITM", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEquipmentSlot() {
         return subRecords.getSubForm("ETYP").getForm();
     }
@@ -180,9 +164,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.setSubForm("ETYP", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getImpactSet() {
         return subRecords.getSubForm("INAM").getForm();
     }
@@ -210,9 +192,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.getModel().setFileName(filename);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getSheathSound() {
         return subRecords.getSubForm("NAM8").getForm();
     }
@@ -224,9 +204,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.setSubForm("NAM8", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDrawSound() {
         return subRecords.getSubForm("NAM9").getForm();
     }
@@ -256,9 +234,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.setSubForm("TNAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getBoundWeaponSound() {
         return subRecords.getSubForm("UNAM").getForm();
     }
@@ -274,9 +250,7 @@ public class WEAP extends MajorRecordDescription {
         return (DNAM) subRecords.get("DNAM");
     }
 
-    /**
-     * @return
-     */
+
     public WeaponType getWeaponType() {
         return getDNAM().wtype;
     }
@@ -288,9 +262,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().wtype = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getSpeed() {
         return getDNAM().speed;
     }
@@ -302,9 +274,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().speed = speed;
     }
 
-    /**
-     * @return
-     */
+
     public float getReach() {
         return getDNAM().reach;
     }
@@ -316,9 +286,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().reach = reach;
     }
 
-    /**
-     * @return
-     */
+
     public float getSightFOV() {
         return getDNAM().sightFOV;
     }
@@ -330,9 +298,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().sightFOV = fov;
     }
 
-    /**
-     * @return
-     */
+
     public int getVATS() {
         return getDNAM().vats;
     }
@@ -344,9 +310,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().vats = vats;
     }
 
-    /**
-     * @return
-     */
+
     public int getNumProjectiles() {
         return getDNAM().numProjectiles;
     }
@@ -358,9 +322,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().numProjectiles = numProj;
     }
 
-    /**
-     * @return
-     */
+
     public float getMinRange() {
         return getDNAM().minRange;
     }
@@ -372,9 +334,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().minRange = minRange;
     }
 
-    /**
-     * @return
-     */
+
     public float getMaxRange() {
         return getDNAM().maxRange;
     }
@@ -386,9 +346,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().maxRange = maxRange;
     }
 
-    /**
-     * @return
-     */
+
     public float getStagger() {
         return getDNAM().stagger;
     }
@@ -404,9 +362,7 @@ public class WEAP extends MajorRecordDescription {
         return (CRDT) subRecords.get("CRDT");
     }
 
-    /**
-     * @return
-     */
+
     public int getCritDamage() {
         return getCRDT().critDmg;
     }
@@ -418,9 +374,7 @@ public class WEAP extends MajorRecordDescription {
         getCRDT().critDmg = critDmg;
     }
 
-    /**
-     * @return
-     */
+
     public float getCritMult() {
         return getCRDT().critMult;
     }
@@ -432,9 +386,7 @@ public class WEAP extends MajorRecordDescription {
         getCRDT().critMult = critMult;
     }
 
-    /**
-     * @return
-     */
+
     public boolean getCritEffectOnDeath() {
         return getCRDT().onDeath != 0;
     }
@@ -450,9 +402,7 @@ public class WEAP extends MajorRecordDescription {
         }
     }
 
-    /**
-     * @return
-     */
+
     public FormID getCritEffect() {
         return getCRDT().critEffect;
     }
@@ -480,9 +430,7 @@ public class WEAP extends MajorRecordDescription {
         return getDNAM().get(flag);
     }
 
-    /**
-     * @return
-     */
+
     public Skill getSkill() {
         return getDNAM().getSkill();
     }
@@ -494,9 +442,7 @@ public class WEAP extends MajorRecordDescription {
         getDNAM().setSkill(skill);
     }
 
-    /**
-     * @return
-     */
+
     public SoundVolume getDetectionSoundLevel() {
         return SoundVolume.values()[subRecords.getSubInt("VNAM").get()];
     }
@@ -508,9 +454,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.setSubInt("VNAM", level.ordinal());
     }
 
-    /**
-     * @return
-     */
+
     public FormID getTemplate() {
         SubForm sub = subRecords.getSubForm("CNAM");
         return (sub != null) ? sub.getForm() : FormID.NULL;
@@ -528,9 +472,7 @@ public class WEAP extends MajorRecordDescription {
         }
     }
 
-    /**
-     * @return
-     */
+
     public boolean isTemplated() {
         return !FormID.NULL.equals(getTemplate());
     }
@@ -563,9 +505,7 @@ public class WEAP extends MajorRecordDescription {
         return subRecords.getModel().getAltTextures();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }
@@ -579,9 +519,7 @@ public class WEAP extends MajorRecordDescription {
         return AltTextures.equal(getAltTextures(), rhs.getAltTextures());
     }
 
-    /**
-     * @return
-     */
+
     public FormID getFirstPersonModel() {
         return subRecords.getSubForm("WNAM").getForm();
     }
@@ -593,9 +531,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.setSubForm("WNAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getBlockBashImpactDataSet() {
         return subRecords.getSubForm("BIDS").getForm();
     }
@@ -607,9 +543,7 @@ public class WEAP extends MajorRecordDescription {
         subRecords.setSubForm("BIDS", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getAlternateBlockMaterial() {
         return subRecords.getSubForm("BAMT").getForm();
     }

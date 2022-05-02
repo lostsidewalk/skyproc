@@ -68,9 +68,7 @@ public class MISC extends MajorRecordNamed {
         return (DATA) subRecords.get("DATA");
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         return getDATA().value;
     }
@@ -82,9 +80,7 @@ public class MISC extends MajorRecordNamed {
         getDATA().value = value;
     }
 
-    /**
-     * @return
-     */
+
     public float getWeight() {
         return getDATA().weight;
     }
@@ -96,16 +92,12 @@ public class MISC extends MajorRecordNamed {
         getDATA().weight = weight;
     }
 
-    /**
-     * @return
-     */
+
     public KeywordSet getKeywordSet() {
         return subRecords.getKeywords();
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
@@ -118,16 +110,12 @@ public class MISC extends MajorRecordNamed {
         return subRecords.getModel().getAltTextures();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getPickupSound() {
         return subRecords.getSubForm("YNAM").getForm();
     }
@@ -139,9 +127,7 @@ public class MISC extends MajorRecordNamed {
         subRecords.setSubForm("YNAM", sound);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDropSound() {
         return subRecords.getSubForm("ZNAM").getForm();
     }
@@ -153,9 +139,7 @@ public class MISC extends MajorRecordNamed {
         subRecords.setSubForm("ZNAM", sound);
     }
 
-    /**
-     * @return
-     */
+
     public String getInventoryImage() {
         return subRecords.getSubString("ICON").print();
     }
@@ -167,9 +151,7 @@ public class MISC extends MajorRecordNamed {
         subRecords.setSubString("ICON", path);
     }
 
-    /**
-     * @return
-     */
+
     public String getMessageImage() {
         return subRecords.getSubString("MICO").print();
     }

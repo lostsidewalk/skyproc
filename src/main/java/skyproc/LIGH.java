@@ -89,9 +89,7 @@ public class LIGH extends MajorRecordNamed {
         return getDATA().flags.get(flag.ordinal() + 1);
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         return getDATA().value;
     }
@@ -103,9 +101,7 @@ public class LIGH extends MajorRecordNamed {
         getDATA().value = gold;
     }
 
-    /**
-     * @return
-     */
+
     public int getBlue() {
         return getDATA().blue;
     }
@@ -117,9 +113,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().blue = blue;
     }
 
-    /**
-     * @return
-     */
+
     public float getFalloff() {
         return getDATA().falloff;
     }
@@ -131,9 +125,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().falloff = falloff;
     }
 
-    /**
-     * @return
-     */
+
     public float getFov() {
         return getDATA().fov;
     }
@@ -145,9 +137,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().fov = fov;
     }
 
-    /**
-     * @return
-     */
+
     public int getGreen() {
         return getDATA().green;
     }
@@ -159,9 +149,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().green = green;
     }
 
-    /**
-     * @return
-     */
+
     public float getIntensity() {
         return getDATA().intensity;
     }
@@ -173,9 +161,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().intensity = intensity;
     }
 
-    /**
-     * @return
-     */
+
     public float getMovement() {
         return getDATA().movement;
     }
@@ -187,9 +173,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().movement = movement;
     }
 
-    /**
-     * @return
-     */
+
     public float getNearclip() {
         return getDATA().nearclip;
     }
@@ -201,9 +185,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().nearclip = nearclip;
     }
 
-    /**
-     * @return
-     */
+
     public float getPeriod() {
         return getDATA().period;
     }
@@ -215,9 +197,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().period = period;
     }
 
-    /**
-     * @return
-     */
+
     public int getRadius() {
         return getDATA().radius;
     }
@@ -229,9 +209,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().radius = radius;
     }
 
-    /**
-     * @return
-     */
+
     public int getRed() {
         return getDATA().red;
     }
@@ -243,9 +221,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().red = red;
     }
 
-    /**
-     * @return
-     */
+
     public int getTime() {
         return getDATA().time;
     }
@@ -257,9 +233,7 @@ public class LIGH extends MajorRecordNamed {
         this.getDATA().time = time;
     }
 
-    /**
-     * @return
-     */
+
     public float getWeight() {
         return getDATA().weight;
     }
@@ -279,9 +253,7 @@ public class LIGH extends MajorRecordNamed {
         return subRecords.getModel().getAltTextures();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }

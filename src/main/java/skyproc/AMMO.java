@@ -52,9 +52,7 @@ public class AMMO extends MajorRecordDescription {
         return Record.getTypeList("AMMO");
     }
 
-    /**
-     * @return
-     */
+
     public KeywordSet getKeywordSet() {
         return subRecords.getKeywords();
     }
@@ -77,9 +75,7 @@ public class AMMO extends MajorRecordDescription {
         subRecords.getModel().setFileName(path);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getPickupSound() {
         return subRecords.getSubForm("YNAM").getForm();
     }
@@ -91,9 +87,7 @@ public class AMMO extends MajorRecordDescription {
         subRecords.setSubForm("YNAM", sound);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDropSound() {
         return subRecords.getSubForm("ZNAM").getForm();
     }
@@ -109,9 +103,7 @@ public class AMMO extends MajorRecordDescription {
         return (DATA) subRecords.get("DATA");
     }
 
-    /**
-     * @return
-     */
+
     public FormID getProjectile() {
         return getData().projectile;
     }
@@ -139,9 +131,7 @@ public class AMMO extends MajorRecordDescription {
         return getData().flags.get(flag.ordinal());
     }
 
-    /**
-     * @return
-     */
+
     public float getDamage() {
         return getData().damage;
     }
@@ -153,9 +143,7 @@ public class AMMO extends MajorRecordDescription {
         getData().damage = damage;
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         return getData().value;
     }
@@ -175,9 +163,7 @@ public class AMMO extends MajorRecordDescription {
         return subRecords.getModel().getAltTextures();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }

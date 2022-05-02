@@ -79,9 +79,7 @@ public class LeveledEntry extends SubShell {
         getEntry().count = in;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getForm() {
         return getEntry().entry;
     }

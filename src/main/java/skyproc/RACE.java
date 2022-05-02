@@ -224,9 +224,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubForm("WNAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getSpells() {
         return subRecords.getSubList("SPLO").toPublic();
     }
@@ -396,9 +394,7 @@ public class RACE extends MajorRecordDescription {
         }
     }
 
-    /**
-     * @return
-     */
+
     public float getAccelerationRate() {
         return getDATA().accelerationRate;
     }
@@ -410,9 +406,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().accelerationRate = accelerationRate;
     }
 
-    /**
-     * @return
-     */
+
     public float getAimAngleTolerance() {
         return getDATA().aimAngleTolerance;
     }
@@ -424,9 +418,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().aimAngleTolerance = aimAngleTolerance;
     }
 
-    /**
-     * @return
-     */
+
     public float getAngularAcceleration() {
         return getDATA().angularAcceleration;
     }
@@ -438,9 +430,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().angularAcceleration = angularAcceleration;
     }
 
-    /**
-     * @return
-     */
+
     public float getAngularTolerance() {
         return getDATA().angularTolerance;
     }
@@ -452,9 +442,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().angularTolerance = angularTolerance;
     }
 
-    /**
-     * @return
-     */
+
     public float getBaseCarryWeight() {
         return getDATA().baseCarryWeight;
     }
@@ -466,9 +454,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().baseCarryWeight = baseCarryWeight;
     }
 
-    /**
-     * @return
-     */
+
     public float getBaseMass() {
         return getDATA().baseMass;
     }
@@ -480,9 +466,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().baseMass = baseMass;
     }
 
-    /**
-     * @return
-     */
+
     public float getDecelerationRate() {
         return getDATA().decelerationRate;
     }
@@ -494,9 +478,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().decelerationRate = decelerationRate;
     }
 
-    /**
-     * @return
-     */
+
     public float getFemaleWeight() {
         return getDATA().femaleWeight;
     }
@@ -508,9 +490,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().femaleWeight = femaleWeight;
     }
 
-    /**
-     * @return
-     */
+
     public float getFlightRadius() {
         return getDATA().flightRadius;
     }
@@ -522,9 +502,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().flightRadius = flightRadius;
     }
 
-    /**
-     * @return
-     */
+
     public float getHealthRegen() {
         return getDATA().healthRegen;
     }
@@ -536,9 +514,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().healthRegen = healthRegen;
     }
 
-    /**
-     * @return
-     */
+
     public float getInjuredHealthPct() {
         return getDATA().injuredHealthPct;
     }
@@ -550,9 +526,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().injuredHealthPct = injuredHealthPct;
     }
 
-    /**
-     * @return
-     */
+
     public float getMagickaRegen() {
         return getDATA().magickaRegen;
     }
@@ -564,9 +538,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().magickaRegen = magickaRegen;
     }
 
-    /**
-     * @return
-     */
+
     public float getMaleHeight() {
         return getDATA().maleHeight;
     }
@@ -578,9 +550,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().maleHeight = maleHeight;
     }
 
-    /**
-     * @return
-     */
+
     public float getMaleWeight() {
         return getDATA().maleWeight;
     }
@@ -592,9 +562,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().maleWeight = maleWeight;
     }
 
-    /**
-     * @return
-     */
+
     public Size getSize() {
         return getDATA().size;
     }
@@ -606,9 +574,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().size = size;
     }
 
-    /**
-     * @return
-     */
+
     public float getStaminaRegen() {
         return getDATA().staminaRegen;
     }
@@ -620,9 +586,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().staminaRegen = staminaRegen;
     }
 
-    /**
-     * @return
-     */
+
     public float getStartingHealth() {
         return getDATA().startingHealth;
     }
@@ -634,9 +598,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().startingHealth = startingHealth;
     }
 
-    /**
-     * @return
-     */
+
     public float getStartingMagicka() {
         return getDATA().startingMagicka;
     }
@@ -648,9 +610,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().startingMagicka = startingMagicka;
     }
 
-    /**
-     * @return
-     */
+
     public float getStartingStamina() {
         return getDATA().startingStamina;
     }
@@ -662,9 +622,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().startingStamina = startingStamina;
     }
 
-    /**
-     * @return
-     */
+
     public float getUnarmedDamage() {
         return getDATA().unarmedDamage;
     }
@@ -676,9 +634,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().unarmedDamage = unarmedDamage;
     }
 
-    /**
-     * @return
-     */
+
     public float getUnarmedReach() {
         return getDATA().unarmedReach;
     }
@@ -697,9 +653,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.getSubList("ATKD").clear();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<AttackData> getAttackData() {
         return subRecords.getSubList("ATKD").toPublic();
     }
@@ -732,9 +686,7 @@ public class RACE extends MajorRecordDescription {
         }
     }
 
-    /**
-     * @return
-     */
+
     public FormID getMaterialType() {
         return subRecords.getSubForm("NAM4").getForm();
     }
@@ -746,9 +698,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubForm("NAM4", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getImpactDataSet() {
         return subRecords.getSubForm("NAM5").getForm();
     }
@@ -760,9 +710,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubForm("NAM5", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDecapitationFX() {
         return subRecords.getSubForm("NAM7").getForm();
     }
@@ -774,9 +722,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubForm("NAM7", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getOpenLootSound() {
         return subRecords.getSubForm("ONAM").getForm();
     }
@@ -788,9 +734,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubForm("ONAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getCloseLootSound() {
         return subRecords.getSubForm("LNAM").getForm();
     }
@@ -802,9 +746,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubForm("LNAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getUnarmedEquipSlot() {
         return subRecords.getSubForm("UNES").getForm();
     }
@@ -893,9 +835,7 @@ public class RACE extends MajorRecordDescription {
         return getBehaviorGraph(gender).subRecords.getModel();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getEquipSlots() {
         return subRecords.getSubList("QNAM").toPublic();
     }
@@ -921,23 +861,17 @@ public class RACE extends MajorRecordDescription {
         subRecords.getSubList("QNAM").clear();
     }
 
-    /**
-     * @return
-     */
+
     public KeywordSet getKeywordSet() {
         return subRecords.getKeywords();
     }
 
-    /**
-     * @return
-     */
+
     public BodyTemplate getBodyTemplate() {
         return subRecords.getBodyTemplate();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getArmorRace() {
         return subRecords.getSubForm("RNAM").getForm();
     }
@@ -949,9 +883,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubForm("RNAM", race);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getMorphRace() {
         return subRecords.getSubForm("NAM8").getForm();
     }
@@ -999,9 +931,7 @@ public class RACE extends MajorRecordDescription {
         }
     }
 
-    /**
-     * @return
-     */
+
     public FirstPersonFlags getHeadBipedObject() {
         return getDATA().headBipedObject;
     }
@@ -1013,9 +943,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().headBipedObject = object;
     }
 
-    /**
-     * @return
-     */
+
     public FirstPersonFlags getHairBipedObject() {
         return getDATA().hairBipedObject;
     }
@@ -1027,9 +955,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().hairBipedObject = object;
     }
 
-    /**
-     * @return
-     */
+
     public FirstPersonFlags getShieldBipedObject() {
         return getDATA().shieldBipedObject;
     }
@@ -1041,9 +967,7 @@ public class RACE extends MajorRecordDescription {
         getDATA().shieldBipedObject = object;
     }
 
-    /**
-     * @return
-     */
+
     public FirstPersonFlags getBodyBipedObject() {
         return getDATA().bodyBipedObject;
     }
@@ -1071,9 +995,7 @@ public class RACE extends MajorRecordDescription {
         return getDATA().flags2.get(flag.val);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<String> getMovementTypeNames() {
         return subRecords.getSubList("MTNM").toPublic();
     }
@@ -1099,9 +1021,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.getSubList("MTNM").remove(NiftyFunc.trimToFour(name));
     }
 
-    /**
-     * @return
-     */
+
     public float getFaceGenMainClamp() {
         return subRecords.getSubFloat("PNAM").get();
     }
@@ -1113,9 +1033,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubFloat("PNAM", in);
     }
 
-    /**
-     * @return
-     */
+
     public float getFaceGenFaceClamp() {
         return subRecords.getSubFloat("UNAM").get();
     }
@@ -1127,9 +1045,7 @@ public class RACE extends MajorRecordDescription {
         subRecords.setSubFloat("UNAM", in);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getAttackRace() {
         return subRecords.getSubForm("ATKR").getForm();
     }

@@ -71,9 +71,7 @@ public class ARMO extends MajorRecordDescription {
         return new ARMO();
     }
 
-    /**
-     * @return
-     */
+
     public KeywordSet getKeywordSet() {
         return subRecords.getKeywords();
     }
@@ -101,9 +99,7 @@ public class ARMO extends MajorRecordDescription {
         subRecords.getSubList("MODL").remove(id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEnchantment() {
         return subRecords.getSubForm("EITM").getForm();
     }
@@ -175,9 +171,7 @@ public class ARMO extends MajorRecordDescription {
         }
     }
 
-    /**
-     * @return
-     */
+
     public FormID getPickupSound() {
         return subRecords.getSubForm("YNAM").getForm();
     }
@@ -189,9 +183,7 @@ public class ARMO extends MajorRecordDescription {
         subRecords.setSubForm("YNAM", sound);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDropSound() {
         return subRecords.getSubForm("ZNAM").getForm();
     }
@@ -210,16 +202,12 @@ public class ARMO extends MajorRecordDescription {
         subRecords.setSubForm("ETYP", slot);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEquipSet() {
         return subRecords.getSubForm("ETYP").getForm();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getBashImpactData() {
         return subRecords.getSubForm("BIDS").getForm();
     }
@@ -231,9 +219,7 @@ public class ARMO extends MajorRecordDescription {
         subRecords.setSubForm("BIDS", set);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getRace() {
         return subRecords.getSubForm("RNAM").getForm();
     }
@@ -249,9 +235,7 @@ public class ARMO extends MajorRecordDescription {
         return (DATA) subRecords.get("DATA");
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         return getDATA().value;
     }
@@ -263,9 +247,7 @@ public class ARMO extends MajorRecordDescription {
         getDATA().value = value;
     }
 
-    /**
-     * @return
-     */
+
     public float getWeight() {
         return getDATA().weight;
     }
@@ -277,9 +259,7 @@ public class ARMO extends MajorRecordDescription {
         getDATA().weight = weight;
     }
 
-    /**
-     * @return
-     */
+
     public float getArmorRatingFloat() {
         return (float) (subRecords.getSubData("DNAM").toInt() / 100.0);
     }
@@ -291,9 +271,7 @@ public class ARMO extends MajorRecordDescription {
         subRecords.setSubData("DNAM", (int) rating * 100);
     }
 
-    /**
-     * @return
-     */
+
     public int getArmorRating() {
         return subRecords.getSubData("DNAM").toInt();
     }
@@ -305,9 +283,7 @@ public class ARMO extends MajorRecordDescription {
         subRecords.setSubData("DNAM", rating);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getTemplate() {
         return subRecords.getSubForm("TNAM").getForm();
     }
@@ -324,16 +300,12 @@ public class ARMO extends MajorRecordDescription {
 
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
 
-    /**
-     * @return
-     */
+
     public BodyTemplate getBodyTemplate() {
         return subRecords.getBodyTemplate();
     }

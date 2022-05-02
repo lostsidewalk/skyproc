@@ -50,9 +50,7 @@ public class ItemListing extends SubShell {
         return getForm().equals(other.getForm());
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public int hashCode() {
         return getForm().hashCode();
@@ -65,9 +63,7 @@ public class ItemListing extends SubShell {
 
     // Get/set
 
-    /**
-     * @return
-     */
+
     public FormID getForm() {
         return subRecords.getSubFormInt("CNTO").getForm();
     }
@@ -79,9 +75,7 @@ public class ItemListing extends SubShell {
         subRecords.setSubFormInt("CNTO", id);
     }
 
-    /**
-     * @return
-     */
+
     public int getCount() {
         return subRecords.getSubFormInt("CNTO").getNum();
     }

@@ -98,9 +98,7 @@ public class CONT extends MajorRecordNamed {
         subRecords.getSubList("CNTO").clear();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<ItemListing> getItems() {
         return subRecords.getSubList("CNTO").toPublic();
     }
@@ -132,9 +130,7 @@ public class CONT extends MajorRecordNamed {
         return out;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getOpenSound() {
         return subRecords.getSubForm("SNAM").getForm();
     }
@@ -146,9 +142,7 @@ public class CONT extends MajorRecordNamed {
         subRecords.setSubForm("SNAM", sound);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getCloseSound() {
         return subRecords.getSubForm("QNAM").getForm();
     }
@@ -160,9 +154,7 @@ public class CONT extends MajorRecordNamed {
         subRecords.setSubForm("QNAM", sound);
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }

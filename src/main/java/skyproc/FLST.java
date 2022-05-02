@@ -73,9 +73,7 @@ public class FLST extends MajorRecord {
         subRecords.getSubList("LNAM").remove(entry);
     }
 
-    /**
-     * @return
-     */
+
     public int getSize() {
         return subRecords.getSubList("LNAM").size();
     }

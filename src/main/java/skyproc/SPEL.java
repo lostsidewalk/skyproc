@@ -58,9 +58,7 @@ public class SPEL extends MagicItem {
         return new SPEL();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getInventoryModel() {
         return subRecords.getSubForm("MODB").getForm();
     }
@@ -74,9 +72,7 @@ public class SPEL extends MagicItem {
         subRecords.setSubForm("MODB", invModel);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEquipSlot() {
         return subRecords.getSubForm("ETYP").getForm();
     }
@@ -92,9 +88,7 @@ public class SPEL extends MagicItem {
         return (SPIT) subRecords.get("SPIT");
     }
 
-    /**
-     * @return
-     */
+
     public int getBaseCost() {
         return getSPIT().baseCost;
     }
@@ -122,9 +116,7 @@ public class SPEL extends MagicItem {
         return getSPIT().flags.get(flag.value);
     }
 
-    /**
-     * @return
-     */
+
     public SPELType getSpellType() {
         return SPELType.value(getSPIT().baseType);
     }
@@ -136,9 +128,7 @@ public class SPEL extends MagicItem {
         getSPIT().baseType = type.value;
     }
 
-    /**
-     * @return
-     */
+
     public float getChargeTime() {
         return getSPIT().chargeTime;
     }
@@ -150,9 +140,7 @@ public class SPEL extends MagicItem {
         getSPIT().chargeTime = chargeTime;
     }
 
-    /**
-     * @return
-     */
+
     public CastType getCastType() {
         return getSPIT().castType;
     }
@@ -164,9 +152,7 @@ public class SPEL extends MagicItem {
         getSPIT().castType = type;
     }
 
-    /**
-     * @return
-     */
+
     public DeliveryType getDeliveryType() {
         return getSPIT().targetType;
     }
@@ -178,9 +164,7 @@ public class SPEL extends MagicItem {
         getSPIT().targetType = type;
     }
 
-    /**
-     * @return
-     */
+
     public float getCastDuration() {
         return getSPIT().castDuration;
     }
@@ -192,9 +176,7 @@ public class SPEL extends MagicItem {
         getSPIT().castDuration = duration;
     }
 
-    /**
-     * @return
-     */
+
     public float getRange() {
         return getSPIT().range;
     }

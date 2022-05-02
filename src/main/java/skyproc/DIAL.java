@@ -61,9 +61,7 @@ public class DIAL extends MajorRecord {
 
     // Get/Set
 
-    /**
-     * @return
-     */
+
     public String getDialog() {
         return subRecords.getSubStringPointer("FULL").print();
     }
@@ -75,9 +73,7 @@ public class DIAL extends MajorRecord {
         subRecords.setSubStringPointer("FULL", dialog);
     }
 
-    /**
-     * @return
-     */
+
     public float getPriority() {
         return subRecords.getSubFloat("PNAM").get();
     }
@@ -89,9 +85,7 @@ public class DIAL extends MajorRecord {
         subRecords.setSubFloat("PNAM", f);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getBranch() {
         return subRecords.getSubForm("BNAM").getForm();
     }
@@ -103,9 +97,7 @@ public class DIAL extends MajorRecord {
         subRecords.setSubForm("BNAM", branch);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getQuest() {
         return subRecords.getSubForm("QNAM").getForm();
     }
@@ -117,9 +109,7 @@ public class DIAL extends MajorRecord {
         subRecords.setSubForm("QNAM", quest);
     }
 
-    /**
-     * @return
-     */
+
     public String getSubTypeName() {
         return subRecords.getSubString("SNAM").print();
     }
@@ -134,9 +124,7 @@ public class DIAL extends MajorRecord {
         subRecords.setSubString("SNAM", name);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<INFO> getDialogTopicInfos() {
         return grup.getRecords();
     }

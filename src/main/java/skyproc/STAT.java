@@ -49,9 +49,7 @@ public class STAT extends MajorRecord {
         return new STAT();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }
@@ -60,9 +58,7 @@ public class STAT extends MajorRecord {
         return (DNAM) subRecords.get("DNAM");
     }
 
-    /**
-     * @return
-     */
+
     public float getMaxAngle() {
         return getDNAM().angle;
     }
@@ -74,9 +70,7 @@ public class STAT extends MajorRecord {
         getDNAM().angle = angle;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getMaterial() {
         return getDNAM().id;
     }

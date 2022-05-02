@@ -55,9 +55,7 @@ public class BOOK extends MajorRecordDescription {
         return Record.getTypeList("BOOK");
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
@@ -80,9 +78,7 @@ public class BOOK extends MajorRecordDescription {
         subRecords.getModel().setFileName(path);
     }
 
-    /**
-     * @return
-     */
+
     public String getInventoryImage() {
         return subRecords.getSubString("ICON").print();
     }
@@ -94,9 +90,7 @@ public class BOOK extends MajorRecordDescription {
         subRecords.setSubString("ICON", path);
     }
 
-    /**
-     * @return
-     */
+
     public String getMessageImage() {
         return subRecords.getSubString("MICO").print();
     }
@@ -108,9 +102,7 @@ public class BOOK extends MajorRecordDescription {
         subRecords.setSubString("MICO", path);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getPickupSound() {
         return subRecords.getSubForm("YNAM").getForm();
     }
@@ -122,9 +114,7 @@ public class BOOK extends MajorRecordDescription {
         subRecords.setSubForm("YNAM", sound);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDropSound() {
         return subRecords.getSubForm("ZNAM").getForm();
     }
@@ -136,9 +126,7 @@ public class BOOK extends MajorRecordDescription {
         subRecords.setSubForm("ZNAM", sound);
     }
 
-    /**
-     * @return
-     */
+
     public KeywordSet getKeywordSet() {
         return subRecords.getKeywords();
     }
@@ -147,9 +135,7 @@ public class BOOK extends MajorRecordDescription {
         return (DATA) subRecords.get("DATA");
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         return getDATA().value;
     }
@@ -161,9 +147,7 @@ public class BOOK extends MajorRecordDescription {
         getDATA().value = gold;
     }
 
-    /**
-     * @return
-     */
+
     public float getWeight() {
         return getDATA().weight;
     }
@@ -191,9 +175,7 @@ public class BOOK extends MajorRecordDescription {
         return getDATA().flags.get(flag.ordinal());
     }
 
-    /**
-     * @return
-     */
+
     public ActorValue getTeachesAV() {
         return getDATA().teachesAV;
     }
@@ -205,9 +187,7 @@ public class BOOK extends MajorRecordDescription {
         getDATA().teachesAV = val;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getTeachesSpell() {
         return getDATA().teachesSpell;
     }
@@ -219,9 +199,7 @@ public class BOOK extends MajorRecordDescription {
         getDATA().teachesSpell = spell;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getInventoryArt() {
         return subRecords.getSubForm("INAM").getForm();
     }
@@ -243,9 +221,7 @@ public class BOOK extends MajorRecordDescription {
         subRecords.setSubStringPointer("CNAM", description);
     }
 
-    /**
-     * @return
-     */
+
     public String getText() {
         return subRecords.getSubStringPointer("DESC").print();
     }
@@ -265,9 +241,7 @@ public class BOOK extends MajorRecordDescription {
         return subRecords.getModel().getAltTextures();
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }

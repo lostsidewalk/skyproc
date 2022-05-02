@@ -146,9 +146,7 @@ public class KeywordSet extends SubRecord {
         return Objects.equals(this.keywords, other.keywords);
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public int hashCode() {
         int hash = 5;

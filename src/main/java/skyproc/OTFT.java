@@ -42,9 +42,7 @@ public class OTFT extends MajorRecord {
 
     // Get/Set
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getInventoryList() {
         return subRecords.get("INAM").allFormIDs();
     }

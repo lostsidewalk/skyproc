@@ -177,16 +177,12 @@ public class QUST extends MajorRecordNamed {
         return Record.getTypeList("QUST");
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<Condition> getConditions() {
         return subRecords.getSubList("CTDA").toPublic();
     }
@@ -224,9 +220,7 @@ public class QUST extends MajorRecordNamed {
         return (DNAM) subRecords.get("DNAM");
     }
 
-    /**
-     * @return
-     */
+
     public int getPriority() {
         return getDNAM().priority;
     }
@@ -261,9 +255,7 @@ public class QUST extends MajorRecordNamed {
         return getDNAM().flags.get(flag.value);
     }
 
-    /**
-     * @return
-     */
+
     public QuestType getQuestType() {
         return getDNAM().questType;
     }
@@ -275,9 +267,7 @@ public class QUST extends MajorRecordNamed {
         getDNAM().questType = type;
     }
 
-    /**
-     * @return
-     */
+
     public String getShortName() {
         return subRecords.getSubString("ENAM").print();
     }
@@ -289,9 +279,7 @@ public class QUST extends MajorRecordNamed {
         subRecords.setSubString("ENAM", shortName);
     }
 
-    /**
-     * @return
-     */
+
     public String getObjectWindowFilter() {
         return subRecords.getSubString("FLTR").print();
     }
@@ -305,9 +293,7 @@ public class QUST extends MajorRecordNamed {
 
     // Get Set Functions
 
-    /**
-     * @return
-     */
+
     public ArrayList<QuestStage> getStages() {
         return subRecords.getSubList("INDX").toPublic();
     }
@@ -326,9 +312,7 @@ public class QUST extends MajorRecordNamed {
         subRecords.getSubList("INDX").add(stage);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<QuestObjective> getObjectives() {
         return subRecords.getSubList("QOBJ").toPublic();
     }
@@ -347,9 +331,7 @@ public class QUST extends MajorRecordNamed {
         subRecords.getSubList("QOBJ").add(objective);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<Alias> getAliases() {
         return subRecords.getSubList("ALLS").toPublic();
     }

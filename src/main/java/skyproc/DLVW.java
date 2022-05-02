@@ -34,9 +34,7 @@ public class DLVW extends MajorRecord {
         return Record.getTypeList("DLVW");
     }
 
-    /**
-     * @return
-     */
+
     public FormID getQuest() {
         return subRecords.getSubForm("QNAM").getForm();
     }
@@ -48,9 +46,7 @@ public class DLVW extends MajorRecord {
         subRecords.setSubForm("QNAM", quest);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getBranches() {
         return subRecords.getSubList("BNAM").toPublic();
     }

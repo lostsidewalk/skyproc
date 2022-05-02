@@ -66,9 +66,7 @@ public class ECZN extends MajorRecord {
         getDATA().flags.set(flag.value, on);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getLocation() {
         return getDATA().location;
     }
@@ -80,9 +78,7 @@ public class ECZN extends MajorRecord {
         getDATA().location = location;
     }
 
-    /**
-     * @return
-     */
+
     public int getMaxLevel() {
         return getDATA().maxLevel;
     }
@@ -94,9 +90,7 @@ public class ECZN extends MajorRecord {
         getDATA().maxLevel = maxLevel;
     }
 
-    /**
-     * @return
-     */
+
     public int getMinLevel() {
         return getDATA().minLevel;
     }
@@ -108,9 +102,7 @@ public class ECZN extends MajorRecord {
         getDATA().minLevel = minLevel;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getOwner() {
         return getDATA().owner;
     }
@@ -122,9 +114,7 @@ public class ECZN extends MajorRecord {
         getDATA().owner = owner;
     }
 
-    /**
-     * @return
-     */
+
     public int getRank() {
         return getDATA().rank;
     }

@@ -36,9 +36,7 @@ public class Model extends SubShell {
         return new Model();
     }
 
-    /**
-     * @return
-     */
+
     public String getFileName() {
         return subRecords.getSubString("MODL").print();
     }

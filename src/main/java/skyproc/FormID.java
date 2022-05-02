@@ -280,9 +280,7 @@ public class FormID implements Comparable, Serializable {
         return equals(FormID.NULL);
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public int hashCode() {
         int hash = 7;

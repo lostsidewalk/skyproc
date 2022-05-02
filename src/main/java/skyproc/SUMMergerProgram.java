@@ -116,9 +116,7 @@ public class SUMMergerProgram implements SUM {
         return true;
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public String description() {
         return "Merges SkyProc patchers into one patch.";

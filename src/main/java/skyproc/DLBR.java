@@ -34,9 +34,7 @@ public class DLBR extends MajorRecord {
         return Record.getTypeList("DLBR");
     }
 
-    /**
-     * @return
-     */
+
     public FormID getQuest() {
         return subRecords.getSubForm("QNAM").getForm();
     }
@@ -48,9 +46,7 @@ public class DLBR extends MajorRecord {
         subRecords.setSubForm("QNAM", quest);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getStartingTopic() {
         return subRecords.getSubForm("SNAM").getForm();
     }

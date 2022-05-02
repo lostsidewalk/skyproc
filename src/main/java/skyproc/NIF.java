@@ -287,9 +287,7 @@ public class NIF {
         return out;
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<TextureSet> extractTextureSets() {
         Map<Integer, LPair<String, ArrayList<String>>> data = extractTextures();
         ArrayList<TextureSet> out = new ArrayList<>(data.size());

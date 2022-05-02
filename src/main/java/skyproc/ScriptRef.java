@@ -137,9 +137,7 @@ public class ScriptRef extends Record implements Iterable<String> {
         return Objects.equals(this.name, other.name);
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public int hashCode() {
         int hash = 7;

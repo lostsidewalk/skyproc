@@ -73,16 +73,12 @@ public class PERK extends MajorRecordDescription {
         return new PERK();
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<Condition> getConditions() {
         return subRecords.getSubList("CTDA").toPublic();
     }
@@ -101,9 +97,7 @@ public class PERK extends MajorRecordDescription {
         subRecords.getSubList("CTDA").remove(c);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getNextPerk() {
         return subRecords.getSubForm("NNAM").getForm();
     }

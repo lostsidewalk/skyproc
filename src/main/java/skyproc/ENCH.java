@@ -52,9 +52,7 @@ public class ENCH extends MagicItem {
         return (ENIT) subRecords.get("ENIT");
     }
 
-    /**
-     * @return
-     */
+
     public int getBaseCost() {
         return getENIT().baseCost;
     }
@@ -82,9 +80,7 @@ public class ENCH extends MagicItem {
         return getENIT().flags.get(in.value);
     }
 
-    /**
-     * @return
-     */
+
     public CastType getCastType() {
         return getENIT().castType;
     }
@@ -96,9 +92,7 @@ public class ENCH extends MagicItem {
         getENIT().castType = type;
     }
 
-    /**
-     * @return
-     */
+
     public int getChargeAmount() {
         return getENIT().chargeAmount;
     }
@@ -110,9 +104,7 @@ public class ENCH extends MagicItem {
         getENIT().chargeAmount = amount;
     }
 
-    /**
-     * @return
-     */
+
     public DeliveryType getDeliveryType() {
         return getENIT().targetType;
     }
@@ -124,9 +116,7 @@ public class ENCH extends MagicItem {
         getENIT().targetType = type;
     }
 
-    /**
-     * @return
-     */
+
     public EnchantType getEnchantType() {
         return getENIT().enchantType;
     }
@@ -138,9 +128,7 @@ public class ENCH extends MagicItem {
         getENIT().enchantType = type;
     }
 
-    /**
-     * @return
-     */
+
     public float getChargeTime() {
         return getENIT().chargeTime;
     }
@@ -152,9 +140,7 @@ public class ENCH extends MagicItem {
         getENIT().chargeTime = time;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getBaseEnchantment() {
         return getENIT().baseEnchantment;
     }
@@ -166,9 +152,7 @@ public class ENCH extends MagicItem {
         getENIT().baseEnchantment = id;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getWornRestrictions() {
         return getENIT().wornRestrictions;
     }

@@ -150,9 +150,7 @@ public enum FirstPersonFlags {
         }
     }
 
-    /**
-     * @return
-     */
+
     public int getValue() {
         switch (this) {
             case NONE:

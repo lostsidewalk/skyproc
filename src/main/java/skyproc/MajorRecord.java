@@ -81,9 +81,7 @@ public abstract class MajorRecord extends Record implements Serializable {
         return subRecords.equals(other.subRecords);
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public int hashCode() {
         int hash = 3;

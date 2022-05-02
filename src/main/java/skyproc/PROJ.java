@@ -64,9 +64,7 @@ public class PROJ extends MajorRecordNamed {
         subRecords.getModel().setFileName(path);
     }
 
-    /**
-     * @return
-     */
+
     public String getEffectModel() {
         return subRecords.getSubString("NAM1").print();
     }
@@ -100,9 +98,7 @@ public class PROJ extends MajorRecordNamed {
         return getDATA().flags.get(flag.value);
     }
 
-    /**
-     * @return
-     */
+
     public ProjectileType getProjType() {
         return ProjectileType.values()[getDATA().projType.getFirstTrue()];
     }
@@ -116,9 +112,7 @@ public class PROJ extends MajorRecordNamed {
         flags.set(t.ordinal(), true);
     }
 
-    /**
-     * @return
-     */
+
     public float getGravity() {
         return getDATA().gravity;
     }
@@ -130,9 +124,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().gravity = gravity;
     }
 
-    /**
-     * @return
-     */
+
     public float getSpeed() {
         return getDATA().speed;
     }
@@ -144,9 +136,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().speed = speed;
     }
 
-    /**
-     * @return
-     */
+
     public float getRange() {
         return getDATA().range;
     }
@@ -158,9 +148,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().range = range;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getLight() {
         return getDATA().light;
     }
@@ -172,9 +160,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().light = light;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getMuzzleLight() {
         return getDATA().muzzleLight;
     }
@@ -186,9 +172,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().muzzleLight = light;
     }
 
-    /**
-     * @return
-     */
+
     public float getTracerChance() {
         return getDATA().tracerChance;
     }
@@ -200,9 +184,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().tracerChance = chance;
     }
 
-    /**
-     * @return
-     */
+
     public float getProximity() {
         return getDATA().proximity;
     }
@@ -214,9 +196,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().proximity = proximity;
     }
 
-    /**
-     * @return
-     */
+
     public float getTimer() {
         return getDATA().timer;
     }
@@ -228,9 +208,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().timer = timer;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getExplosionType() {
         return getDATA().explosionType;
     }
@@ -242,9 +220,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().explosionType = explType;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getSound() {
         return getDATA().sound;
     }
@@ -256,9 +232,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().sound = sound;
     }
 
-    /**
-     * @return
-     */
+
     public float getMuzzleFlashDuration() {
         return getDATA().muzzleFlashDuration;
     }
@@ -270,9 +244,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().muzzleFlashDuration = duration;
     }
 
-    /**
-     * @return
-     */
+
     public float getFadeDuration() {
         return getDATA().fadeDuration;
     }
@@ -284,9 +256,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().fadeDuration = duration;
     }
 
-    /**
-     * @return
-     */
+
     public float getImpactForce() {
         return getDATA().impactForce;
     }
@@ -298,9 +268,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().impactForce = force;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getExplosionSound() {
         return getDATA().explosionSound;
     }
@@ -312,9 +280,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().explosionSound = sound;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDisableSound() {
         return getDATA().disableSound;
     }
@@ -326,9 +292,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().disableSound = sound;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDefaultWeaponSource() {
         return getDATA().defaultWeaponSource;
     }
@@ -340,9 +304,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().defaultWeaponSource = weaponSource;
     }
 
-    /**
-     * @return
-     */
+
     public float getConeSpread() {
         return getDATA().coneSpread;
     }
@@ -354,9 +316,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().coneSpread = spread;
     }
 
-    /**
-     * @return
-     */
+
     public float getCollisionRadius() {
         return getDATA().collisionRadius;
     }
@@ -368,9 +328,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().collisionRadius = radius;
     }
 
-    /**
-     * @return
-     */
+
     public float getLifetime() {
         return getDATA().lifetime;
     }
@@ -382,9 +340,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().lifetime = lifetime;
     }
 
-    /**
-     * @return
-     */
+
     public float getRelaunchInterval() {
         return getDATA().relaunchInterval;
     }
@@ -396,9 +352,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().relaunchInterval = interval;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDecalData() {
         return getDATA().decalData;
     }
@@ -410,9 +364,7 @@ public class PROJ extends MajorRecordNamed {
         getDATA().decalData = decal;
     }
 
-    /**
-     * @return
-     */
+
     public Model getModelData() {
         return subRecords.getModel();
     }

@@ -82,9 +82,7 @@ public class ModListing extends SubRecord<ModListing> implements Comparable<ModL
         }
     }
 
-    /**
-     * @return
-     */
+
     public String printNoSuffix() {
         return mast.print();
     }

@@ -65,9 +65,7 @@ public class GLOB extends MajorRecord {
         return Record.getTypeList("GLOB");
     }
 
-    /**
-     * @return
-     */
+
     public GLOBType getGLOBType() {
         SubData fnam = subRecords.getSubData("FNAM");
         if ((int) fnam.data[0] == GLOBType.Short.value) {
@@ -100,9 +98,7 @@ public class GLOB extends MajorRecord {
         }
     }
 
-    /**
-     * @return
-     */
+
     public float getValue() {
         return subRecords.getSubFloat("FLTV").get();
     }
@@ -121,9 +117,7 @@ public class GLOB extends MajorRecord {
         setValue((float) Integer.parseInt(Ln.convertBoolTo1(value)));
     }
 
-    /**
-     * @return
-     */
+
     public boolean isConstant() {
         return get(MajorFlags.RelatedToShields);
     }

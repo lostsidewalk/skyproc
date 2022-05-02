@@ -59,9 +59,7 @@ public class COBJ extends MajorRecord {
         throw new UnsupportedOperationException("COBJ does not have keywords");
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<Condition> getConditions() {
         return subRecords.getSubList("CTDA").toPublic();
     }
@@ -104,16 +102,12 @@ public class COBJ extends MajorRecord {
         subRecords.getSubList("CNTO").clear();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<SubFormInt> getIngredients() {
         return subRecords.getSubList("CNTO").toPublic();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getResultFormID() {
         return subRecords.getSubForm("CNAM").getForm();
     }
@@ -125,9 +119,7 @@ public class COBJ extends MajorRecord {
         subRecords.setSubForm("CNAM", form);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getBenchKeywordFormID() {
         return subRecords.getSubForm("BNAM").getForm();
     }
@@ -139,9 +131,7 @@ public class COBJ extends MajorRecord {
         subRecords.setSubForm("BNAM", form);
     }
 
-    /**
-     * @return
-     */
+
     public int getOutputQuantity() {
         return subRecords.getSubInt("NAM1").get();
     }

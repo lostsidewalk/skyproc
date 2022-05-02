@@ -65,9 +65,7 @@ public class IMGS extends MajorRecord {
         return (DNAM) subRecords.get("DNAM");
     }
 
-    /**
-     * @return
-     */
+
     public float getEyeAdaptSpeed() {
         return getHNAM().eyeAdaptSpeed;
     }
@@ -79,9 +77,7 @@ public class IMGS extends MajorRecord {
         getHNAM().eyeAdaptSpeed = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getBloomRadius() {
         return getHNAM().bloomRadius;
     }
@@ -93,9 +89,7 @@ public class IMGS extends MajorRecord {
         getHNAM().bloomRadius = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getBloomThreshold() {
         return getHNAM().bloomThreshold;
     }
@@ -107,9 +101,7 @@ public class IMGS extends MajorRecord {
         getHNAM().bloomThreshold = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getBloomScale() {
         return getHNAM().bloomScale;
     }
@@ -121,9 +113,7 @@ public class IMGS extends MajorRecord {
         getHNAM().bloomScale = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getTargetLum1() {
         return getHNAM().targetLum1;
     }
@@ -135,9 +125,7 @@ public class IMGS extends MajorRecord {
         getHNAM().targetLum1 = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getTargetLum2() {
         return getHNAM().targetLum2;
     }
@@ -149,9 +137,7 @@ public class IMGS extends MajorRecord {
         getHNAM().targetLum2 = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getSunlightScale() {
         return getHNAM().sunlightScale;
     }
@@ -163,9 +149,7 @@ public class IMGS extends MajorRecord {
         getHNAM().sunlightScale = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getSkyScale() {
         return getHNAM().skyScale;
     }
@@ -177,9 +161,7 @@ public class IMGS extends MajorRecord {
         getHNAM().skyScale = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getEyeAdaptStrength() {
         return getHNAM().eyeAdaptStrength;
     }
@@ -191,9 +173,7 @@ public class IMGS extends MajorRecord {
         getHNAM().eyeAdaptStrength = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getSaturation() {
         return getCNAM().saturation;
     }
@@ -205,9 +185,7 @@ public class IMGS extends MajorRecord {
         getCNAM().saturation = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getBrightness() {
         return getCNAM().brightness;
     }
@@ -219,9 +197,7 @@ public class IMGS extends MajorRecord {
         getCNAM().brightness = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getContrast() {
         return getCNAM().contrast;
     }
@@ -233,9 +209,7 @@ public class IMGS extends MajorRecord {
         getCNAM().contrast = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getRed() {
         return getTNAM().red;
     }
@@ -247,9 +221,7 @@ public class IMGS extends MajorRecord {
         getTNAM().red = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getBlue() {
         return getTNAM().blue;
     }
@@ -261,9 +233,7 @@ public class IMGS extends MajorRecord {
         getTNAM().blue = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getGreen() {
         return getTNAM().green;
     }
@@ -275,9 +245,7 @@ public class IMGS extends MajorRecord {
         getTNAM().green = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getAlpha() {
         return getTNAM().alpha;
     }
@@ -289,9 +257,7 @@ public class IMGS extends MajorRecord {
         getTNAM().alpha = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getDOFstrength() {
         return getDNAM().DOFstrength;
     }
@@ -303,9 +269,7 @@ public class IMGS extends MajorRecord {
         getDNAM().DOFstrength = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getDOFdistance() {
         return getDNAM().DOFdistance;
     }
@@ -317,9 +281,7 @@ public class IMGS extends MajorRecord {
         getDNAM().DOFdistance = in;
     }
 
-    /**
-     * @return
-     */
+
     public float getDOFrange() {
         return getDNAM().DOFrange;
     }

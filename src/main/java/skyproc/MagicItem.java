@@ -34,9 +34,7 @@ public abstract class MagicItem extends MajorRecordDescription {
         super();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<MagicEffectRef> getMagicEffects() {
         return subRecords.getSubList("EFID").toPublic();
     }

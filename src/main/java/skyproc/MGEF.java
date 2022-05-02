@@ -57,9 +57,7 @@ public class MGEF extends MajorRecordDescription {
         subRecords.setPrototype(MGEFproto);
     }
 
-    /**
-     * @return
-     */
+
     SNDD getSNDD() {
         return (SNDD) subRecords.get("SNDD");
     }
@@ -106,9 +104,7 @@ public class MGEF extends MajorRecordDescription {
         return new MGEF();
     }
 
-    /**
-     * @return
-     */
+
     public KeywordSet getKeywordSet() {
         return subRecords.getKeywords();
     }
@@ -154,16 +150,12 @@ public class MGEF extends MajorRecordDescription {
         return getDATA().flags.get(flag.value);
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
 
-    /**
-     * @return
-     */
+
     public float getBaseCost() {
         return getDATA().baseCost;
     }
@@ -175,9 +167,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().baseCost = value;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getRelatedID() {
         return getDATA().relatedID;
     }
@@ -189,9 +179,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().relatedID = id;
     }
 
-    /**
-     * @return
-     */
+
     public ActorValue getSkillType() {
         return getDATA().skillType;
     }
@@ -203,9 +191,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().skillType = val;
     }
 
-    /**
-     * @return
-     */
+
     public ActorValue getResistanceAV() {
         return getDATA().resistanceAV;
     }
@@ -217,9 +203,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().resistanceAV = val;
     }
 
-    /**
-     * @return
-     */
+
     public int getCounterEffectCount() {
         return getDATA().counterEffectCount;
     }
@@ -231,9 +215,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().counterEffectCount = counterEffectCount;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getLight() {
         return getDATA().lightID;
     }
@@ -245,9 +227,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().lightID = light;
     }
 
-    /**
-     * @return
-     */
+
     public float getTaperWeight() {
         return getDATA().taperWeight;
     }
@@ -259,9 +239,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().taperWeight = value;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getHitShader() {
         return getDATA().hitShader;
     }
@@ -273,9 +251,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().hitShader = hitShader;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEnchantShader() {
         return getDATA().enchantShader;
     }
@@ -287,9 +263,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().enchantShader = enchantShader;
     }
 
-    /**
-     * @return
-     */
+
     public int getSkillLevel() {
         return getDATA().skillLevel;
     }
@@ -301,9 +275,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().skillLevel = level;
     }
 
-    /**
-     * @return
-     */
+
     public int getArea() {
         return getDATA().area;
     }
@@ -315,9 +287,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().area = area;
     }
 
-    /**
-     * @return
-     */
+
     public float getCastingTime() {
         return getDATA().castingTime;
     }
@@ -329,9 +299,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().castingTime = value;
     }
 
-    /**
-     * @return
-     */
+
     public float getTaperCurve() {
         return getDATA().taperCurve;
     }
@@ -343,9 +311,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().taperCurve = value;
     }
 
-    /**
-     * @return
-     */
+
     public float getTaperDuration() {
         return getDATA().taperDuration;
     }
@@ -357,9 +323,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().taperDuration = value;
     }
 
-    /**
-     * @return
-     */
+
     public float getSecondAVWeight() {
         return getDATA().secondAVWeight;
     }
@@ -371,9 +335,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().secondAVWeight = value;
     }
 
-    /**
-     * @return
-     */
+
     public float getEffectType() {
         return getDATA().effectType;
     }
@@ -385,9 +347,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().effectType = value;
     }
 
-    /**
-     * @return
-     */
+
     public ActorValue getPrimaryAV() {
         return getDATA().primaryAV;
     }
@@ -399,9 +359,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().primaryAV = val;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getProjectile() {
         return getDATA().projectileID;
     }
@@ -413,9 +371,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().projectileID = id;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getExplosion() {
         return getDATA().explosionID;
     }
@@ -427,9 +383,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().explosionID = id;
     }
 
-    /**
-     * @return
-     */
+
     public CastType getCastType() {
         return getDATA().castType;
     }
@@ -441,9 +395,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().castType = cast;
     }
 
-    /**
-     * @return
-     */
+
     public DeliveryType getDeliveryType() {
         return getDATA().deliveryType;
     }
@@ -455,9 +407,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().deliveryType = del;
     }
 
-    /**
-     * @return
-     */
+
     public ActorValue getSecondAV() {
         return getDATA().secondAV;
     }
@@ -469,9 +419,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().secondAV = val;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getCastingArt() {
         return getDATA().castingArt;
     }
@@ -483,9 +431,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().castingArt = art;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getHitEffectArt() {
         return getDATA().hitEffectArt;
     }
@@ -497,9 +443,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().hitEffectArt = art;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getImpactData() {
         return getDATA().impactData;
     }
@@ -511,9 +455,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().impactData = data;
     }
 
-    /**
-     * @return
-     */
+
     public float getSkillUsageMult() {
         return getDATA().skillUsageMult;
     }
@@ -525,9 +467,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().skillUsageMult = mult;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDualCast() {
         return getDATA().dualCastID;
     }
@@ -539,9 +479,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().dualCastID = id;
     }
 
-    /**
-     * @return
-     */
+
     public float getDualCastScale() {
         return getDATA().dualCastScale;
     }
@@ -553,9 +491,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().dualCastScale = scale;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEnchantArt() {
         return getDATA().enchantArtID;
     }
@@ -567,9 +503,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().enchantArtID = art;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getEquipAbility() {
         return getDATA().equipAbility;
     }
@@ -581,9 +515,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().equipAbility = id;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getImageSpaceMod() {
         return getDATA().imageSpaceModID;
     }
@@ -595,9 +527,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().imageSpaceModID = id;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getPerk() {
         return getDATA().perkID;
     }
@@ -609,9 +539,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().perkID = id;
     }
 
-    /**
-     * @return
-     */
+
     public SoundVolume getSoundVolume() {
         return getDATA().vol;
     }
@@ -623,9 +551,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().vol = vol;
     }
 
-    /**
-     * @return
-     */
+
     public float getScriptAIDataScore() {
         return getDATA().scriptAIDataScore;
     }
@@ -637,9 +563,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().scriptAIDataScore = score;
     }
 
-    /**
-     * @return
-     */
+
     public float getScriptAIDataTime() {
         return getDATA().scriptAIDataDelayTime;
     }
@@ -651,9 +575,7 @@ public class MGEF extends MajorRecordDescription {
         getDATA().scriptAIDataDelayTime = score;
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<Condition> getConditions() {
         return subRecords.getSubList("CTDA").toPublic();
     }

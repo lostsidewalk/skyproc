@@ -164,9 +164,7 @@ public class LFormIDPicker extends LUserSetting<FormID[]> {
         load(out);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getPickedIDs() {
         ArrayList<FormID> out = new ArrayList<>(model.getSize());
         for (int i = 0; i < model.getSize(); i++) {

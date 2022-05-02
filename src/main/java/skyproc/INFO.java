@@ -78,9 +78,7 @@ public class INFO extends MajorRecord {
         return new INFO();
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
@@ -107,9 +105,7 @@ public class INFO extends MajorRecord {
         return getENAM().flags.get(res.value);
     }
 
-    /**
-     * @return
-     */
+
     public float getResetTime() {
         float tmp = ((float) getENAM().hoursReset) / 65535;
         return tmp * 24;
@@ -125,9 +121,7 @@ public class INFO extends MajorRecord {
 
     // Get/set
 
-    /**
-     * @return
-     */
+
     public FormID getTopic() {
         return subRecords.getSubForm("TPIC").getForm();
     }
@@ -139,9 +133,7 @@ public class INFO extends MajorRecord {
         subRecords.setSubForm("TPIC", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getPreviousINFO() {
         return subRecords.getSubForm("PNAM").getForm();
     }
@@ -153,9 +145,7 @@ public class INFO extends MajorRecord {
         subRecords.setSubForm("PNAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public FavorLevel getFavorLevel() {
         return FavorLevel.values()[subRecords.getSubInt("CNAM").get()];
     }
@@ -167,9 +157,7 @@ public class INFO extends MajorRecord {
         subRecords.setSubInt("CNAM", lev.ordinal());
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getLinkTo() {
         return subRecords.getSubList("TCLT").toPublic();
     }
@@ -195,9 +183,7 @@ public class INFO extends MajorRecord {
         subRecords.getSubList("TCLT").clear();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getResponseData() {
         return subRecords.getSubForm("DNAM").getForm();
     }
@@ -209,9 +195,7 @@ public class INFO extends MajorRecord {
         subRecords.setSubForm("DNAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<Condition> getConditions() {
         return subRecords.getSubList("CTDA").toPublic();
     }
@@ -230,16 +214,12 @@ public class INFO extends MajorRecord {
         subRecords.getSubList("CTDA").remove(c);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<Response> getResponses() {
         return subRecords.getSubList("TRDT").toPublic();
     }
 
-    /**
-     * @return
-     */
+
     public String getPrompt() {
         return subRecords.getSubStringPointer("RNAM").print();
     }
@@ -251,9 +231,7 @@ public class INFO extends MajorRecord {
         subRecords.setSubStringPointer("RNAM", text);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getSpeaker() {
         return subRecords.getSubForm("ANAM").getForm();
     }
@@ -265,9 +243,7 @@ public class INFO extends MajorRecord {
         subRecords.setSubForm("ANAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getWalkAwayTopic() {
         return subRecords.getSubForm("TWAT").getForm();
     }
@@ -279,9 +255,7 @@ public class INFO extends MajorRecord {
         subRecords.setSubForm("TWAT", id);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getAudioOverride() {
         return subRecords.getSubForm("ONAM").getForm();
     }

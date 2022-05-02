@@ -307,9 +307,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return (ACBS) subRecords.get("ACBS");
     }
 
-    /**
-     * @return
-     */
+
     public ScriptPackage getScriptPackage() {
         return subRecords.getScripts();
     }
@@ -367,9 +365,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.getSubList("SNAM").clear();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<SubFormInt> getPerks() {
         return subRecords.getSubList("PRKR").toPublic();
     }
@@ -484,9 +480,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getDNAM().setSkillMod(skill, value);
     }
 
-    /**
-     * @return
-     */
+
     public Aggression getAggression() {
         return getAIDT().aggression;
     }
@@ -498,9 +492,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getAIDT().aggression = level;
     }
 
-    /**
-     * @return
-     */
+
     public Confidence getConfidence() {
         return getAIDT().confidence;
     }
@@ -512,9 +504,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getAIDT().confidence = level;
     }
 
-    /**
-     * @return
-     */
+
     public Morality getMorality() {
         return getAIDT().morality;
     }
@@ -526,9 +516,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getAIDT().morality = level;
     }
 
-    /**
-     * @return
-     */
+
     public Assistance getAssistance() {
         return getAIDT().assistance;
     }
@@ -640,9 +628,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("VTCK", voiceTypeRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getTemplate() {
         return subRecords.getSubForm("TPLT").getForm();
     }
@@ -661,9 +647,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return !getTemplate().equals(FormID.NULL);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getRace() {
         return subRecords.getSubForm("RNAM").getForm();
     }
@@ -675,9 +659,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("RNAM", raceRef);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getSpells() {
         return subRecords.getSubList("SPLO").toPublic();
     }
@@ -740,9 +722,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.getSubList("CNTO").clear();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<ItemListing> getItems() {
         return subRecords.getSubList("CNTO").toPublic();
     }
@@ -788,9 +768,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.getSubList("PKID").clear();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getNPCClass() {
         return subRecords.getSubForm("CNAM").getForm();
     }
@@ -802,9 +780,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("CNAM", classReference);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getHairColor() {
         return subRecords.getSubForm("HCLF").getForm();
     }
@@ -816,9 +792,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("HCLF", hairColorRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getSkin() {
         return subRecords.getSubForm("WNAM").getForm();
     }
@@ -830,9 +804,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("WNAM", wornArmorRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getAttackDataRace() {
         return subRecords.getSubForm("ATKR").getForm();
     }
@@ -844,9 +816,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("ATKR", attackRaceRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDefaultOutfit() {
         return subRecords.getSubForm("DOFT").getForm();
     }
@@ -858,9 +828,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("DOFT", defaultOutfitRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getSleepingOutfit() {
         return subRecords.getSubForm("SOFT").getForm();
     }
@@ -872,9 +840,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("SOFT", sleepingOutfitRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getCombatStyle() {
         return subRecords.getSubForm("ZNAM").getForm();
     }
@@ -886,9 +852,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("ZNAM", combatRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getCrimeFaction() {
         return subRecords.getSubForm("CRIF").getForm();
     }
@@ -900,9 +864,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("CRIF", crimeFactionRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getFeatureSet() {
         return subRecords.getSubForm("FTST").getForm();
     }
@@ -914,9 +876,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("FTST", headPartsRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getAudioTemplate() {
         return subRecords.getSubForm("CSCR").getForm();
     }
@@ -928,9 +888,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("CSCR", audioTemplateRef);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getDefaultPackageList() {
         return subRecords.getSubForm("DPLT").getForm();
     }
@@ -942,9 +900,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("DPLT", list);
     }
 
-    /**
-     * @return
-     */
+
     public float getHeight() {
         return subRecords.getSubFloat("NAM6").get();
     }
@@ -956,9 +912,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubFloat("NAM6", height);
     }
 
-    /**
-     * @return
-     */
+
     public float getWeight() {
         return subRecords.getSubFloat("NAM7").get();
     }
@@ -970,9 +924,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubFloat("NAM7", weight);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getFarAwayModelSkin() {
         return subRecords.getSubForm("ANAM").getForm();
     }
@@ -984,9 +936,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("ANAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public float getFarAwayModelDistance() {
         return getDNAM().farAwayDistance;
     }
@@ -998,9 +948,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getDNAM().farAwayDistance = dist;
     }
 
-    /**
-     * @return
-     */
+
     public int getHealthOffset() {
         return getACBS().healthOffset;
     }
@@ -1012,9 +960,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getACBS().healthOffset = value;
     }
 
-    /**
-     * @return
-     */
+
     public int getMagickaOffset() {
         return getACBS().magickaOffset;
     }
@@ -1026,9 +972,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getACBS().magickaOffset = value;
     }
 
-    /**
-     * @return
-     */
+
     public int getFatigueOffset() {
         return getACBS().fatigueOffset;
     }
@@ -1040,9 +984,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getACBS().fatigueOffset = value;
     }
 
-    /**
-     * @return
-     */
+
     public Mood getMood() {
         return getAIDT().mood;
     }
@@ -1054,9 +996,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getAIDT().mood = value;
     }
 
-    /**
-     * @return
-     */
+
     public int getEnergy() {
         return getAIDT().energy;
     }
@@ -1068,9 +1008,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getAIDT().energy = energy;
     }
 
-    /**
-     * @return
-     */
+
     public int getAggroWarn() {
         return getAIDT().aggroWarn;
     }
@@ -1082,9 +1020,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getAIDT().aggroWarn = aggro;
     }
 
-    /**
-     * @return
-     */
+
     public int getAggroWarnAttack() {
         return getAIDT().aggroWarnAttack;
     }
@@ -1096,9 +1032,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getAIDT().aggroWarnAttack = aggro;
     }
 
-    /**
-     * @return
-     */
+
     public int getAggroAttack() {
         return getAIDT().aggroAttack;
     }
@@ -1110,9 +1044,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getAIDT().aggroAttack = aggro;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getGiftFilter() {
         return subRecords.getSubForm("ACBS").getForm();
     }
@@ -1124,9 +1056,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("GNAM", id);
     }
 
-    /**
-     * @return
-     */
+
     public int getGearedUpWeapons() {
         return getDNAM().gearedUpWeapons;
     }
@@ -1138,9 +1068,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getDNAM().gearedUpWeapons = value;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getSpectatorOverride() {
         return subRecords.getSubForm("SPOR").getForm();
     }
@@ -1152,9 +1080,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("SPOR", list);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getObserveDeadOverride() {
         return subRecords.getSubForm("OCOR").getForm();
     }
@@ -1166,9 +1092,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("OCOR", list);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getGuardWornOverride() {
         return subRecords.getSubForm("GWOR").getForm();
     }
@@ -1180,9 +1104,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("GWOR", list);
     }
 
-    /**
-     * @return
-     */
+
     public FormID getCombatOverride() {
         return subRecords.getSubForm("ECOR").getForm();
     }
@@ -1194,9 +1116,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubForm("ECOR", list);
     }
 
-    /**
-     * @return
-     */
+
     public String getShortName() {
         return subRecords.getSubStringPointer("SHRT").print();
     }
@@ -1208,9 +1128,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.setSubStringPointer("SHRT", alias);
     }
 
-    /**
-     * @return
-     */
+
     public SoundVolume getSoundVolume() {
         return SoundVolume.values()[subRecords.getSubInt("NAM8").get()];
     }
@@ -1330,9 +1248,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<TintLayer> getTinting() {
         return subRecords.getSubList("TINI").collection;
     }
@@ -1360,9 +1276,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.getSubList("TINI").clear();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<SoundPackage> getSounds() {
         return subRecords.getSubList("CSDT").collection;
     }
@@ -1410,9 +1324,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         return (NAMA) subRecords.get("NAMA");
     }
 
-    /**
-     * @return
-     */
+
     public int getNosePreset() {
         return getNAMA().nose;
     }
@@ -1425,9 +1337,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         getNAMA().valid = true;
     }
 
-    /**
-     * @return
-     */
+
     public int getEyePreset() {
         return getNAMA().eyes;
     }
@@ -1441,9 +1351,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         n.valid = true;
     }
 
-    /**
-     * @return
-     */
+
     public int getMouthPreset() {
         return getNAMA().mouth;
     }
@@ -1457,9 +1365,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         n.valid = true;
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getHeadParts() {
         return subRecords.getSubList("PNAM").toPublic();
     }
@@ -1485,9 +1391,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.getSubList("PNAM").clear();
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<AttackPackage> getAttackPackages() {
         return subRecords.getSubList("ATKD").toPublic();
     }
@@ -1515,9 +1419,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         subRecords.getSubList("ATKD").clear();
     }
 
-    /**
-     * @return
-     */
+
     public KeywordSet getKeywordSet() {
         return subRecords.getKeywords();
     }

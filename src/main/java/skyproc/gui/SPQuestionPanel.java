@@ -188,9 +188,7 @@ public abstract class SPQuestionPanel extends SPSettingPanel {
         question.setForeground(c);
     }
 
-    /**
-     * @return
-     */
+
     public String getQuestionText() {
         return question.getText();
     }

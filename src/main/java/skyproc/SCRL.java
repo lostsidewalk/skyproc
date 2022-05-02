@@ -100,9 +100,7 @@ public class SCRL extends MagicItem {
         return (SPIT) subRecords.get("SPIT");
     }
 
-    /**
-     * @return
-     */
+
     public int getBaseCost() {
         return getSPIT().baseCost;
     }
@@ -130,9 +128,7 @@ public class SCRL extends MagicItem {
         return getSPIT().flags.get(flag.value);
     }
 
-    /**
-     * @return
-     */
+
     public SPEL.SPELType getSpellType() {
         return SPEL.SPELType.value(getSPIT().baseType);
     }
@@ -144,9 +140,7 @@ public class SCRL extends MagicItem {
         getSPIT().baseType = type.value;
     }
 
-    /**
-     * @return
-     */
+
     public float getChargeTime() {
         return getSPIT().chargeTime;
     }
@@ -158,9 +152,7 @@ public class SCRL extends MagicItem {
         getSPIT().chargeTime = chargeTime;
     }
 
-    /**
-     * @return
-     */
+
     public CastType getCastType() {
         return getSPIT().castType;
     }
@@ -172,9 +164,7 @@ public class SCRL extends MagicItem {
         getSPIT().castType = type;
     }
 
-    /**
-     * @return
-     */
+
     public DeliveryType getDeliveryType() {
         return getSPIT().targetType;
     }
@@ -186,9 +176,7 @@ public class SCRL extends MagicItem {
         getSPIT().targetType = type;
     }
 
-    /**
-     * @return
-     */
+
     public float getCastDuration() {
         return getSPIT().castDuration;
     }
@@ -200,9 +188,7 @@ public class SCRL extends MagicItem {
         getSPIT().castDuration = duration;
     }
 
-    /**
-     * @return
-     */
+
     public float getRange() {
         return getSPIT().range;
     }
@@ -228,9 +214,7 @@ public class SCRL extends MagicItem {
         getSPIT().perkType = perkRef;
     }
 
-    /**
-     * @return
-     */
+
     public String getInventoryIcon() {
         return subRecords.getSubString("ICON").print();
     }
@@ -242,9 +226,7 @@ public class SCRL extends MagicItem {
         subRecords.setSubString("ICON", filename);
     }
 
-    /**
-     * @return
-     */
+
     public String getMessageIcon() {
         return subRecords.getSubString("MICO").print();
     }

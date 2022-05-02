@@ -401,23 +401,17 @@ public class Condition extends SubShell {
         getBase().comparisonValueFloat = f;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getValueGlobal() {
         return getBase().comparisonValueForm;
     }
 
-    /**
-     * @return
-     */
+
     public float getValueFloat() {
         return getBase().comparisonValueFloat;
     }
 
-    /**
-     * @return
-     */
+
     public Operator getOperator() {
         return getBase().operator;
     }
@@ -429,9 +423,7 @@ public class Condition extends SubShell {
         getBase().operator = o;
     }
 
-    /**
-     * @return
-     */
+
     public RunOnType getRunOnType() {
         return getBase().option.runType;
     }
@@ -443,9 +435,7 @@ public class Condition extends SubShell {
         getBase().option.runType = t;
     }
 
-    /**
-     * @return
-     */
+
     public FormID getReference() {
         return getBase().option.reference;
     }
@@ -457,51 +447,37 @@ public class Condition extends SubShell {
         getBase().option.reference = id;
     }
 
-    /**
-     * @return
-     */
+
     public Enum getFunction() {
         return getBase().option.script;
     }
 
-    /**
-     * @return
-     */
+
     public int getFunctionIndex() {
         return getBase().option.index;
     }
 
-    /**
-     * @return
-     */
+
     public Object getParam1() {
         return getBase().option.getParam1();
     }
 
-    /**
-     * @return
-     */
+
     public Object getParam2() {
         return getBase().option.getParam2();
     }
 
-    /**
-     * @return
-     */
+
     public Object getParam3() {
         return getBase().option.getParam3();
     }
 
-    /**
-     * @return
-     */
+
     public Enum getScript() {
         return getBase().option.script;
     }
 
-    /**
-     * @return
-     */
+
     public int getScriptIndex() {
         return getBase().option.index;
     }

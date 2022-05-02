@@ -159,9 +159,7 @@ public class ARMA extends MajorRecord {
         return AltTextures.equal(getAltTextures(gender, perspective), rhs.getAltTextures(gender, perspective));
     }
 
-    /**
-     * @return
-     */
+
     public FormID getRace() {
         return subRecords.getSubForm("RNAM").getForm();
     }
@@ -241,9 +239,7 @@ public class ARMA extends MajorRecord {
         subRecords.getSubList("MODL").remove(addRace);
     }
 
-    /**
-     * @return
-     */
+
     public ArrayList<FormID> getAdditionalRaces() {
         return subRecords.getSubList("MODL").toPublic();
     }
@@ -255,9 +251,7 @@ public class ARMA extends MajorRecord {
         subRecords.getSubList("MODL").clear();
     }
 
-    /**
-     * @return
-     */
+
     public FormID getFootstepSound() {
         return subRecords.getSubForm("SNDD").getForm();
     }
@@ -300,9 +294,7 @@ public class ARMA extends MajorRecord {
         }
     }
 
-    /**
-     * @return
-     */
+
     public int getDetectionSoundValue() {
         return getDNAM().detectionSoundValue;
     }
@@ -314,9 +306,7 @@ public class ARMA extends MajorRecord {
         getDNAM().detectionSoundValue = value;
     }
 
-    /**
-     * @return
-     */
+
     public float getWeaponAdjust() {
         return getDNAM().weaponAdjust;
     }
@@ -328,9 +318,7 @@ public class ARMA extends MajorRecord {
         getDNAM().weaponAdjust = adjust;
     }
 
-    /**
-     * @return
-     */
+
     public BodyTemplate getBodyTemplate() {
         return subRecords.getBodyTemplate();
     }

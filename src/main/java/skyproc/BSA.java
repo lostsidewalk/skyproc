@@ -820,9 +820,7 @@ public class BSA {
         return Objects.equals(this.filePath, other.filePath);
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -830,9 +828,7 @@ public class BSA {
         return hash;
     }
 
-    /**
-     * @return
-     */
+
     @Override
     public String toString() {
         return filePath;

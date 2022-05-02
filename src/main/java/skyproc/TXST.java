@@ -107,9 +107,7 @@ public class TXST extends MajorRecord implements Iterable<String> {
         return "";
     }
 
-    /**
-     * @return
-     */
+
     public String getColorMap() {
         return getNthMap(0);
     }
@@ -121,9 +119,7 @@ public class TXST extends MajorRecord implements Iterable<String> {
         setNthMap(0, path);
     }
 
-    /**
-     * @return
-     */
+
     public String getNormalMap() {
         return getNthMap(1);
     }
@@ -135,9 +131,7 @@ public class TXST extends MajorRecord implements Iterable<String> {
         setNthMap(1, path);
     }
 
-    /**
-     * @return
-     */
+
     public String getMaskMap() {
         return getNthMap(2);
     }
@@ -149,9 +143,7 @@ public class TXST extends MajorRecord implements Iterable<String> {
         setNthMap(2, path);
     }
 
-    /**
-     * @return
-     */
+
     public String getToneMap() {
         return getNthMap(3);
     }
@@ -163,9 +155,7 @@ public class TXST extends MajorRecord implements Iterable<String> {
         setNthMap(3, path);
     }
 
-    /**
-     * @return
-     */
+
     public String getDetailMap() {
         return getNthMap(4);
     }
@@ -177,9 +167,7 @@ public class TXST extends MajorRecord implements Iterable<String> {
         setNthMap(4, path);
     }
 
-    /**
-     * @return
-     */
+
     public String getEnvironmentMap() {
         return getNthMap(5);
     }
@@ -191,9 +179,7 @@ public class TXST extends MajorRecord implements Iterable<String> {
         setNthMap(5, path);
     }
 
-    /**
-     * @return
-     */
+
     public String getSpecularityMap() {
         return getNthMap(7);
     }
