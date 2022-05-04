@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'com.lostsidewalk'
-version = '0.3'
+version = '0.4-dev1'
 
 repositories {
     mavenCentral()
@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     // This dependency is used by the application.
-    implementation 'com.google.guava:guava:31.0.1-jre'
+    implementation 'com.google.guava:guava:31.1-jre'
 
     // https://mvnrepository.com/artifact/io.airlift/aircompressor
     implementation 'io.airlift:aircompressor:0.21'
@@ -25,7 +25,7 @@ dependencies {
 
     api group: 'com.lostsidewalk', name: 'lev', version: '1.2'
 
-    implementation 'org.springframework.boot:spring-boot-starter:2.6.4'
+    implementation 'org.springframework.boot:spring-boot-starter:2.6.7'
 
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
@@ -33,7 +33,7 @@ dependencies {
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
-    compileOnly 'org.projectlombok:lombok:1.18.22'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
