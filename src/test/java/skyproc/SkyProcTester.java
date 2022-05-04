@@ -3,6 +3,9 @@ package skyproc;
 import lev.Ln;
 import lev.debug.LDebug;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import skyproc.exceptions.BadRecord;
 import skyproc.gui.SPDefaultGUI;
 import skyproc.gui.SPProgressBarPlug;
@@ -10,9 +13,10 @@ import skyproc.gui.SPProgressBarPlug;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static skyproc.SPImporter.importActiveMods;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Justin Swanson
@@ -20,16 +24,14 @@ import static skyproc.SPImporter.importActiveMods;
 @Slf4j
 public class SkyProcTester {
 
-    static ArrayList<FormID> badIDs;
+    ArrayList<FormID> badIDs;
     //    static GRUP_TYPE[] types = {GRUP_TYPE.DIAL};
-    static GRUP_TYPE[] types = GRUP_TYPE.values();
-    static boolean streaming = false;
-    static ArrayList<GRUP_TYPE> skip = new ArrayList<>(List.of(GRUP_TYPE.BOOK));
+    GRUP_TYPE[] types = GRUP_TYPE.values();
+    boolean streaming = false;
+    ArrayList<GRUP_TYPE> skip = new ArrayList<>(List.of(GRUP_TYPE.BOOK));
 
-    /**
-     * @param test
-     */
-    public static void runTests(int test) {
+    @BeforeEach
+    public void beforeEach() {
         setSkyProcGlobal();
         badIDs = new ArrayList<>();
         ModListing skyrim = new ModListing("Skyrim.esm");
@@ -37,28 +39,15 @@ public class SkyProcTester {
         badIDs.add(new FormID("00001E", skyrim));  //NoZoneZone
         SPGlobal.testing = true;
         SPDefaultGUI gui = new SPDefaultGUI("Tester Program", "A tester program meant to flex SkyProc.");
-        try {
-            switch (test) {
-                case 1:
-                    validateAll();
-                    break;
-                case 2:
-                    importTest();
-                    break;
-                case 3:
-                    copyTest();
-                    break;
-            }
-            gui.finished();
-        } catch (Exception e) {
-            log.error("EXCEPTION THROWN: {}", e.getMessage());
-            gui.finished();
-            SPGlobal.logException(e);
-        }
+    }
+
+    @AfterAll
+    public static void afterAll() {
         LDebug.wrapUp();
     }
 
-    private static void validateAll() throws Exception {
+    @Test
+    void validateAll() throws Exception {
         ModTestPackage[] mods = {
                 new ModTestPackage("Skyrim.esm", "Skyrim.esm", "Update.esm"),
                 new ModTestPackage("Dawnguard.esm", "Skyrim.esm", "Update.esm", "Dawnguard.esm"),
@@ -66,14 +55,45 @@ public class SkyProcTester {
         };
         SPGlobal.checkMissingMasters = false;
         for (ModTestPackage p : mods) {
-            if (!validate(p)) {
-                break;
-            }
+            boolean isValid = validate(p);
+            log.info("validated mod={}, isValid={}", p, isValid);
+            assertTrue(isValid);
         }
         log.info("TESTING COMPLETE");
     }
 
-    private static boolean validate(ModTestPackage p) throws Exception {
+    @Test
+    void copyTest() throws IOException, BadRecord {
+        SPProgressBarPlug.pause(true);
+
+        boolean passed = true;
+        Mod merger = new Mod(new ModListing("tmpMerge.esp"));
+        merger.addAsOverrides(SPGlobal.getDB());
+        for (FormID f : badIDs) {
+            merger.remove(f);
+        }
+
+        Mod patch = new Mod(new ModListing("Test.esp"));
+        patch.setFlag(Mod.Mod_Flags.STRING_TABLED, false);
+        patch.setAuthor("Leviathan1753");
+
+        for (GRUP g : merger) {
+            for (Object o : g) {
+                MajorRecord m = (MajorRecord) o;
+                m.copyOf(patch);
+            }
+        }
+
+        patch.export(new File(SPGlobal.pathToDataFixed + patch.getName()));
+        passed = passed && NiftyFunc.validateRecordLengths(SPGlobal.pathToDataFixed + "Test.esp", 10);
+
+        SPProgressBarPlug.pause(false);
+        SPProgressBarPlug.incrementBar();
+
+        assertTrue(passed);
+    }
+
+    private boolean validate(ModTestPackage p) throws Exception {
 
         SubStringPointer.shortNull = false;
 
@@ -110,7 +130,7 @@ public class SkyProcTester {
         return exportPass && idPass;
     }
 
-    private static boolean test(GRUP_TYPE type, ModTestPackage p) throws IOException {
+    private boolean test(GRUP_TYPE type, ModTestPackage p) throws IOException {
         log.info("Testing {} in {}", type, p.main);
         SPProgressBarPlug.setStatus("Validating " + type);
         SPProgressBarPlug.pause(true);
@@ -157,62 +177,7 @@ public class SkyProcTester {
         return passed;
     }
 
-    private static boolean copyTest() throws IOException, BadRecord {
-        SPProgressBarPlug.pause(true);
-
-        boolean passed = true;
-        Mod merger = new Mod(new ModListing("tmpMerge.esp"));
-        merger.addAsOverrides(SPGlobal.getDB());
-        for (FormID f : badIDs) {
-            merger.remove(f);
-        }
-
-        Mod patch = new Mod(new ModListing("Test.esp"));
-        patch.setFlag(Mod.Mod_Flags.STRING_TABLED, false);
-        patch.setAuthor("Leviathan1753");
-
-        for (GRUP g : merger) {
-            for (Object o : g) {
-                MajorRecord m = (MajorRecord) o;
-                m.copyOf(patch);
-            }
-        }
-
-        patch.export(new File(SPGlobal.pathToDataFixed + patch.getName()));
-        passed = passed && NiftyFunc.validateRecordLengths(SPGlobal.pathToDataFixed + "Test.esp", 10);
-
-        SPProgressBarPlug.pause(false);
-        SPProgressBarPlug.incrementBar();
-        return passed;
-    }
-
-    /**
-     *
-     */
-    public static void importTest() {
-        try {
-            importActiveMods();
-            Mod patch = new Mod(new ModListing("Test.esp"));
-            patch.setFlag(Mod.Mod_Flags.STRING_TABLED, false);
-            patch.addAsOverrides(SPGlobal.getDB());
-            patch.allFormIDs();
-        } catch (Exception e) {
-            SPGlobal.logException(e);
-        }
-    }
-
-    /**
-     *
-     */
-    public static void parseEmbeddedScripts() {
-        try {
-            EmbeddedScripts.generateEnums();
-        } catch (IOException ex) {
-            SPGlobal.logException(ex);
-        }
-    }
-
-    private static void setSkyProcGlobal() {
+    private void setSkyProcGlobal() {
         SPGlobal.createGlobalLog();
         LDebug.timeElapsed = true;
         SPGlobal.streamMode = streaming;
@@ -230,6 +195,11 @@ public class SkyProcTester {
             for (int i = 0; i < list.length; i++) {
                 importList[i] = new ModListing(list[i]);
             }
+        }
+
+        @Override
+        public String toString() {
+            return "main=" + main + ", importList=" + Arrays.toString(importList);
         }
     }
 }

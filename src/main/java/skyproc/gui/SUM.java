@@ -1,12 +1,14 @@
 package skyproc.gui;
 
 import lev.gui.LSaveFile;
+import org.springframework.core.io.ClassPathResource;
 import skyproc.GRUP_TYPE;
 import skyproc.Mod;
 import skyproc.ModListing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -94,7 +96,16 @@ public interface SUM {
      *
      * @return URL to your patcher's logo.
      */
-    URL getLogo();
+    default URL getLogo() {
+        URL url = null;
+        try {
+            url = new ClassPathResource("no_logo.png").getURL();
+        } catch (IOException e) {
+            // TODO: log something here
+        }
+
+        return url;
+    }
 
     /**
      * True if you have a savefile.<br>

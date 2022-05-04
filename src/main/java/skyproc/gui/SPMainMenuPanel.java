@@ -73,7 +73,7 @@ public class SPMainMenuPanel extends JPanel {
             int height = 150;
             customLogo = new LImagePane(logo);
             customLogo.setMaxSize(SUMGUI.leftDimensions.width, height);
-            customLogo.setLocation(SUMGUI.leftDimensions.width / 2 - customLogo.getWidth() / 2, 14);
+            customLogo.setLocation(SUMGUI.leftDimensions.width / 2 - customLogo.getWidth() / 2, 25);
             add(customLogo);
             tieWelcomeAndLogo();
         } catch (IOException ex) {

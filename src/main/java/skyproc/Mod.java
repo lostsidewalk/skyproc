@@ -385,7 +385,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
         return getName();
     }
 
-    ArrayList<FormID> allFormIDs() {
+    public ArrayList<FormID> allFormIDs() {
         ArrayList<FormID> tmp = new ArrayList<>();
         for (GRUP g : GRUPs.values()) {
             tmp.addAll(g.allFormIDs());

@@ -398,15 +398,16 @@ public class NiftyFunc {
                 proc.directory(directory);
             }
             Process start = proc.start();
-            InputStream shellIn = start.getInputStream();
+//            InputStream shellIn = start.getInputStream();
             int exitStatus = start.waitFor();
-            String response = Ln.convertStreamToStr(shellIn);
+//            String response = Ln.convertStreamToStr(shellIn);
             if (exitStatus != 0) {
-                StringBuilder tmp = new StringBuilder();
+                StringBuilder a = new StringBuilder();
                 for (String arg : args) {
-                    tmp.append(" ").append(arg);
+                    a.append(" ").append(arg);
                 }
-                SPGlobal.logError("StartProcess", "Process with args " + tmp + " Failed to run: " + response);
+                String errorResponse = Ln.convertStreamToStr(start.getErrorStream());
+                SPGlobal.logError("StartProcess", "Process with args " + a + " failed to run due to: " + errorResponse);
                 return false;
             }
         } catch (IOException | InterruptedException ex) {

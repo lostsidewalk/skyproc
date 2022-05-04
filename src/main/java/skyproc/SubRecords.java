@@ -251,7 +251,7 @@ abstract class SubRecords implements Serializable, Iterable<SubRecord> {
         if (record != null) {
             record.parseData(record.extractRecordData(in), srcMod);
         } else {
-            throw new BadRecord(getTypes().get(0) + " doesn't know what to do with a " + nextType + " record.");
+            throw new BadRecord(getTypes().get(0) + " doesn't know what to do with a " + nextType + " record in source mod " + srcMod);
         }
     }
 

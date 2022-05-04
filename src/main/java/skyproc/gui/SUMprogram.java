@@ -1,6 +1,7 @@
 package skyproc.gui;
 
 import lev.Ln;
+import lev.debug.LDebug;
 import lev.gui.*;
 import org.springframework.core.io.ClassPathResource;
 import skyproc.*;
@@ -16,6 +17,8 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import static skyproc.SPImporter.importActiveMods;
 
 /**
  * SUM - SkyProc Unified Manager<br> This is the main program that hooks
@@ -54,6 +57,7 @@ public class SUMprogram implements SUM {
     public static void main(String[] args) {
         try {
             if (handleArgs(args)) {
+                SPGlobal.createGlobalLog();
                 SUMprogram sum = new SUMprogram();
                 sum.runProgram();
             }
@@ -71,23 +75,22 @@ public class SUMprogram implements SUM {
         for (String s : args) {
             argsList.add(s.toUpperCase());
         }
-        if (argsList.contains("-TESTCOPY")) {
-            SPGlobal.forceValidateMode = true;
-            SkyProcTester.runTests(3);
-            return false;
-        }
         if (argsList.contains("-TESTIMPORT")) {
-            SPGlobal.forceValidateMode = true;
-            SkyProcTester.runTests(2);
-            return false;
-        }
-        if (argsList.contains("-TEST")) {
-            SPGlobal.forceValidateMode = true;
-            SkyProcTester.runTests(1);
+            SPGlobal.createGlobalLog();
+            LDebug.timeElapsed = true;
+            SPGlobal.streamMode = false;
+            SPGlobal.logging(true);
+            SPGlobal.setGlobalPatch(new Mod(new ModListing("Test", false)));
+            SPGlobal.testing = true;
+            SPDefaultGUI gui = new SPDefaultGUI("SkyProc Test", "SkyProc live import/patch generation test module");
+
+            runImportTest();
+            gui.finished();
+            LDebug.wrapUp();
             return false;
         }
         if (argsList.contains("-EMBEDDEDSCRIPTGEN")) {
-            SkyProcTester.parseEmbeddedScripts();
+            parseEmbeddedScripts();
             return false;
         }
         if (argsList.contains("-GENPATCH")) {
@@ -98,10 +101,31 @@ public class SUMprogram implements SUM {
         return true;
     }
 
+    private static void runImportTest() {
+        try {
+            importActiveMods();
+            Mod patch = new Mod(new ModListing("Test.esp"));
+            patch.setFlag(Mod.Mod_Flags.STRING_TABLED, false);
+            patch.addAsOverrides(SPGlobal.getDB());
+            patch.allFormIDs();
+        } catch (Exception e) {
+            SPGlobal.logException(e);
+        }
+    }
+
+    private static void parseEmbeddedScripts() {
+        try {
+            EmbeddedScripts.generateEnums();
+        } catch (IOException ex) {
+            SPGlobal.logException(ex);
+        }
+    }
+
     /**
      * @return Path to the text document containing the most recent list of
      * executed SkyProc patchers.
-     * @throws IOException
+     *
+     * @throws IOException when something horrible happens
      */
     public static String getSUMPatchList() throws IOException {
         return SPGlobal.getSkyProcDocuments() + "\\SUM patch list.txt";
@@ -140,7 +164,6 @@ public class SUMprogram implements SUM {
     }
 
     void openDebug() {
-        SPGlobal.createGlobalLog();
         SPGlobal.debugModMerge = false;
         SPGlobal.debugBSAimport = false;
         SPGlobal.debugNIFimport = false;
@@ -241,8 +264,7 @@ public class SUMprogram implements SUM {
     }
 
     void getHooks() {
-        ArrayList<File> jars = findJars(new File("../"));
-
+        ArrayList<File> jars = findJars(new File(SPGlobal.pathToPatchers));
         // Locate classes that implement SUM
         for (File jar : jars) {
             try {
@@ -294,6 +316,7 @@ public class SUMprogram implements SUM {
     }
 
     ArrayList<File> findJars(File dir) {
+        SPGlobal.logSpecial(SUMlogs.JarHook, "Jar Load", "Path to patchers: " + dir.getAbsolutePath());
         ArrayList<File> files = Ln.generateFileList(dir, false);
         ArrayList<File> out = new ArrayList<>();
         for (File f : files) {
@@ -306,9 +329,7 @@ public class SUMprogram implements SUM {
     }
 
     /**
-     * Returns the modlisting used for the exported patch.
-     *
-     * @return
+     * @return the modlisting used for the exported patch.
      */
     @Override
     public ModListing getListing() {
@@ -323,57 +344,36 @@ public class SUMprogram implements SUM {
         return true;
     }
 
-    /**
-     * @return
-     */
     @Override
     public ArrayList<ModListing> requiredMods() {
         return new ArrayList<>(0);
     }
 
-    /**
-     * @return
-     */
     @Override
     public String description() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /**
-     * @return
-     */
     @Override
     public String getName() {
         return "SkyProc Unified Manager";
     }
 
-    /**
-     * @return
-     */
     @Override
     public GRUP_TYPE[] dangerousRecordReport() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /**
-     * @return
-     */
     @Override
     public GRUP_TYPE[] importRequests() {
         return new GRUP_TYPE[0];
     }
 
-    /**
-     * @return
-     */
     @Override
     public boolean importAtStart() {
         return false;
     }
 
-    /**
-     * @return
-     */
     @Override
     public boolean hasStandardMenu() {
         return true;
@@ -381,41 +381,26 @@ public class SUMprogram implements SUM {
 
     // SUM methods
 
-    /**
-     * @return
-     */
     @Override
     public SPMainMenuPanel getStandardMenu() {
         return mmenu;
     }
 
-    /**
-     * @return
-     */
     @Override
     public boolean hasCustomMenu() {
         return false;
     }
 
-    /**
-     * @return
-     */
     @Override
     public JFrame openCustomMenu() {
         return null;
     }
 
-    /**
-     * @return
-     */
     @Override
     public boolean hasLogo() {
         return true;
     }
 
-    /**
-     * @return
-     */
     @Override
     public URL getLogo() {
         URL url = null;
@@ -428,33 +413,21 @@ public class SUMprogram implements SUM {
         return url;
     }
 
-    /**
-     * @return
-     */
     @Override
     public boolean hasSave() {
         return true;
     }
 
-    /**
-     * @return
-     */
     @Override
     public LSaveFile getSave() {
         return SUMsave;
     }
 
-    /**
-     * @return
-     */
     @Override
     public String getVersion() {
         return version;
     }
 
-    /**
-     * @return
-     */
     @Override
     public Mod getExportPatch() {
         Mod patch = new Mod(getListing());
@@ -463,9 +436,6 @@ public class SUMprogram implements SUM {
         return patch;
     }
 
-    /**
-     * @return
-     */
     @Override
     public Color getHeaderColor() {
         return teal;
@@ -708,7 +678,6 @@ public class SUMprogram implements SUM {
     }
 
     enum SUMSettings {
-
         MAX_MEM,
         MERGE_PATCH,
         DISABLED,
@@ -719,7 +688,6 @@ public class SUMprogram implements SUM {
     }
 
     enum SUMlogs {
-
         JarHook
     }
 
@@ -903,18 +871,21 @@ public class SUMprogram implements SUM {
             int desiredWidth = SUMGUI.middleDimensions.width - desiredMargin * 2;
             int width = cbox.getWidth() + 10;
 
-            if (hook.hasLogo()) {
+            try {
+                URL logoImage = null;
                 try {
-                    logo = new LImagePane(hook.getLogo());
-                    if (logo.getWidth() + width > desiredWidth) {
-                        logo.setMaxSize(desiredWidth - width, 0);
-                    }
-                    using = logo;
-                    add(logo);
-                } catch (IOException ex) {
-                    SPGlobal.logException(ex);
-                    logo = null;
+                    logoImage = hook.getLogo();
+                } catch (Exception ignored) {}
+                logoImage = logoImage == null ? getDefaultLogoImage() : logoImage;
+                logo = new LImagePane(logoImage);
+                if (logo.getWidth() + width > desiredWidth) {
+                    logo.setMaxSize(desiredWidth - width, 0);
                 }
+                using = logo;
+                add(logo);
+            } catch (IOException ex) {
+                SPGlobal.logException(ex);
+                logo = null;
             }
             if (logo == null) {
                 title = new LLabel(hook.getName(), SUMGUI.SUMmainFont.deriveFont((float) 25), hook.getHeaderColor());
@@ -1061,5 +1032,16 @@ public class SUMprogram implements SUM {
             public void mouseExited(MouseEvent arg0) {
             }
         }
+    }
+
+    private URL getDefaultLogoImage() {
+        URL url = null;
+        try {
+            url = new ClassPathResource("no_logo.png").getURL();
+        } catch (IOException e) {
+            // TODO: log this
+        }
+
+        return url;
     }
 }

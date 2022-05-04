@@ -20,7 +20,7 @@ class GRUPRecursive<T extends MajorRecord> extends GRUP<T> {
         MajorRecord m = super.extractMajor(in, srcMod);
         if (m != null && !in.isDone() && "GRUP".equals(getNextType(in))) {
             if (SPGlobal.logging()) {
-                SPGlobal.log("GRUPRecursive", "Extracting an appended GRUP.");
+                // SPGlobal.log("GRUPRecursive", "Extracting an appended GRUP.");
             }
             GRUP g = m.getGRUPAppend();
             g.parseData(g.extractRecordData(in), srcMod);

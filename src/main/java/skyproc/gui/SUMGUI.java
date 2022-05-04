@@ -109,8 +109,8 @@ public class SUMGUI extends JFrame {
     SUMGUI() {
         super(hook.getName());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
-        Dimension GUISIZE = new Dimension(954, 658);
+        setResizable(true);
+        Dimension GUISIZE = new Dimension(962, 667);
         setSize(GUISIZE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width / 2 - GUISIZE.width / 2, dim.height / 2 - GUISIZE.height / 2);
@@ -195,6 +195,9 @@ public class SUMGUI extends JFrame {
                         SPMainMenuPanel menu = hook.getStandardMenu();
                         if (!menu.hasVersion()) {
                             menu.setVersion(hook.getVersion());
+                        }
+                        if (hook.getLogo() != null) {
+                            menu.addLogo(hook.getLogo());
                         }
                         singleton.add(menu);
                         if (justSettings) {
@@ -950,7 +953,7 @@ public class SUMGUI extends JFrame {
 
             statusUpdate = new JTextArea();
             statusUpdate.setSize(250, 18);
-            statusUpdate.setLocation(5, getFrameHeight() - statusUpdate.getHeight());
+            statusUpdate.setLocation(5, getFrameHeight() - statusUpdate.getHeight() - 10);
             statusUpdate.setForeground(Color.LIGHT_GRAY);
             statusUpdate.setOpaque(false);
             statusUpdate.setText("Started application");

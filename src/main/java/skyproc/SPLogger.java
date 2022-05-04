@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Justin Swanson
  */
-class SPLogger extends LLogger {
+class SPLogger extends ConsoleLogger {
 
     Map<Mod, LDebug> modImports = new HashMap<>();
     int modNum = 0;

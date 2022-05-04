@@ -117,7 +117,11 @@ class SubRecordsStream extends SubRecordsDerived {
                 record.parseData(record.extractRecordData(in), srcMod);
             }
         } else {
-            throw new BadRecord(getTypes().get(0) + " doesn't know what to do with a " + nextType + " record.");
+            //
+            // TODO: implement a global error-handling strategy to use here;
+            //
+            SPGlobal.logError("BadRecord", this.prototype + " doesn't know what to do with a " + nextType + " record in source mod " + srcMod);
+//            throw new BadRecord();
         }
     }
 

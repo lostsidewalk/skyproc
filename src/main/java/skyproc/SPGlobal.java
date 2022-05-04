@@ -2,11 +2,15 @@ package skyproc;
 
 import lev.Ln;
 import lev.debug.LDebug;
+import lev.debug.LLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import skyproc.gui.SUMGUI;
 
 import java.io.*;
-import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Global variables/settings of SkyProc.
@@ -21,14 +25,14 @@ public class SPGlobal {
      * subfolder of "Data/". (ex "Data/SkyProc Patchers/My SkyProc Patcher/My
      * Patcher.jar")
      */
-    //public static String pathToData = "..\\..\\";
-    public static final String pathToData = FileSystems.getDefault().getPath("..\\..\\").toAbsolutePath().normalize().toString();
-    /**
-     * Path and filename to look for the active plugins file.<br>
-     * "/Skyrim/plugins.txt" by default.
-     */
-    public static String pluginsListPath = "/Skyrim Special Edition/plugins.txt";
+    // TODO: make this externally configurable
+    public static final String pathToData = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\";
+    // FileSystems.getDefault().getPath("..\\..\\skyproc\\Data").toAbsolutePath().normalize().toString();
     public static String pathToDataFixed = (pathToData.endsWith("\\") ? pathToData : pathToData + "\\");
+    /**
+     *
+     */
+    public static String pathToPatchers = Ln.getMyDocuments().getPath() + "//SkyProc Patchers//";
     /**
      * A default path to "internal files". This is currently only used for
      * saving custom path information for Skyrim.ini and plugins.txt. This can
@@ -41,12 +45,6 @@ public class SPGlobal {
      * give the users of your program ability to adjust this setting.
      */
     public static Language language = Language.English;
-    /**
-     * The path from the .jar location to create/look for the file used to
-     * remember where the plugins.txt file is if the program cannot locate it
-     * automatically.
-     */
-    public static String pluginListBackupPath = "SkyProc-PluginListLocation.txt";
     /**
      * Turns off messages about which record is currently being streamed.
      */
@@ -86,8 +84,8 @@ public class SPGlobal {
     static SPLogger log;
     static boolean logMods = true;
     static SPDatabase globalDatabase = new SPDatabase();
-    static boolean testing = false;
-    static boolean streamMode = true;
+    public static boolean testing = false;
+    public static boolean streamMode = true;
     static boolean deleteAfterExport = true;
     static boolean mergeMode = false;
     static boolean noModsAfter = true;
@@ -429,10 +427,18 @@ public class SPGlobal {
         log = new SPLogger(path);
     }
 
+    private static final Logger slf4j = LoggerFactory.getLogger(SPGlobal.class);
+
+    private static Optional<SPLogger> optLog() {
+        return Optional.ofNullable(log);
+    }
+
+    private static void withGlobalLogger(Consumer<SPLogger> logConsumer) {
+        optLog().ifPresentOrElse(logConsumer, () -> slf4j.warn("No global logger defined"));
+    }
+
     static void logSync(String header, String... print) {
-        if (log != null) {
-            log.logSync(header, print);
-        }
+        withGlobalLogger(l -> l.logSync(header, print));
     }
 
     /**
@@ -443,9 +449,7 @@ public class SPGlobal {
      * @param print
      */
     public static void logMain(String header, String... print) {
-        if (log != null) {
-            SPGlobal.log.logMain(header, print);
-        }
+        withGlobalLogger(l -> l.logMain(header, print));
     }
 
     /**
@@ -456,7 +460,7 @@ public class SPGlobal {
      * @param m      Record that was blocked.
      */
     public static void logBlocked(String header, String reason, MajorRecord m) {
-        log.logSpecial(SPLogger.SpecialTypes.BLOCKED, header, "Blocked " + m + " for reason: " + reason);
+        withGlobalLogger(l -> l.logSpecial(SPLogger.SpecialTypes.BLOCKED, header, "Blocked " + m + " for reason: " + reason));
     }
 
     /**
@@ -474,9 +478,7 @@ public class SPGlobal {
      * @param on Turns the logger on/off.
      */
     public static void logging(Boolean on) {
-        if (log != null) {
-            SPGlobal.log.logging(on);
-        }
+        withGlobalLogger(l -> l.logging(on));
     }
 
     /**
@@ -494,9 +496,7 @@ public class SPGlobal {
      * @param on Turns the logger on/off.
      */
     public static void loggingSync(Boolean on) {
-        if (log != null) {
-            SPGlobal.log.loggingSync(on);
-        }
+        withGlobalLogger(l -> l.loggingSync(on));
     }
 
     /**
@@ -505,9 +505,7 @@ public class SPGlobal {
      * @param on
      */
     public static void loggingAsync(Boolean on) {
-        if (log != null) {
-            SPGlobal.log.loggingAsync(on);
-        }
+        withGlobalLogger(l -> l.loggingAsync(on));
     }
 
     /**
@@ -525,9 +523,7 @@ public class SPGlobal {
      * Flushes the Debug buffers to the files.
      */
     public static void flush() {
-        if (log != null) {
-            SPGlobal.log.flush();
-        }
+        withGlobalLogger(LLogger::flush);
     }
 
     /**
@@ -538,9 +534,7 @@ public class SPGlobal {
      * @param print
      */
     public static void logError(String header, String... print) {
-        if (log != null) {
-            SPGlobal.log.logError(header, print);
-        }
+        withGlobalLogger(l -> l.logError(header, print));
     }
 
     /**
@@ -549,9 +543,7 @@ public class SPGlobal {
      * @param e Exception to print.
      */
     public static void logException(Throwable e) {
-        if (log != null) {
-            SPGlobal.log.logException(e);
-        }
+        withGlobalLogger(l -> l.logException(e));
     }
 
     /**
@@ -563,9 +555,7 @@ public class SPGlobal {
      * @param print
      */
     public static void logSpecial(Enum e, String header, String... print) {
-        if (log != null) {
-            SPGlobal.log.logSpecial(e, header, print);
-        }
+        withGlobalLogger(l -> l.logSpecial(e, header, print));
     }
 
     /**
@@ -575,9 +565,7 @@ public class SPGlobal {
      * @param logName
      */
     public static void newSpecialLog(Enum e, String logName) {
-        if (log != null) {
-            SPGlobal.log.addSpecial(e, logName);
-        }
+        withGlobalLogger(l -> l.addSpecial(e, logName));
     }
 
     /**
@@ -604,9 +592,7 @@ public class SPGlobal {
     }
 
     static void newSyncLog(String fileName) {
-        if (log != null) {
-            SPGlobal.log.newSyncLog(fileName);
-        }
+        withGlobalLogger(l -> l.newSyncLog(fileName));
     }
 
     /**
@@ -616,9 +602,7 @@ public class SPGlobal {
      * @param print
      */
     public static void log(String header, String... print) {
-        if (log != null) {
-            SPGlobal.log.log(header, print);
-        }
+        withGlobalLogger(l -> l.log(header, print));
     }
 
     /**
@@ -627,16 +611,12 @@ public class SPGlobal {
      * @param fileName Name of the log.
      */
     public static void newLog(String fileName) {
-        if (log != null) {
-            SPGlobal.log.newLog(fileName);
-        }
+        withGlobalLogger(l -> l.newLog(fileName));
     }
     // Debug Globals
 
     static void sync(boolean flag) {
-        if (log != null) {
-            log.sync(flag);
-        }
+        withGlobalLogger(l -> l.sync(flag));
     }
 
     static boolean sync() {
@@ -711,9 +691,7 @@ public class SPGlobal {
         allModsAsMasters = b;
     }
 
-    /**
-     *
-     */
+
     public enum Language {
 
         /**

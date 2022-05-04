@@ -7,17 +7,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Not actually used.  This class only has functions that deal with parsing hardcoded Embedded Script info.
- * This then generates Java code that is actually used in SkyProc.
+ * This class has functions that deal with parsing hardcoded Embedded Script info, and generating
+ * the corresponding Java code which is used by SkyProc.
+ *
+ * Validation Files/EmbeddedScriptSource.txt
+ *  - basic function list, parsed by parseScriptData
+ *
+ * Validation Files/EmbeddedScriptSourceGib.txt
+ *  - function list taken from mod.gib.me/skyrim/functions.html
+ *  - parsed by parseScriptDataGibMe
  *
  * @author Justin Swanson
  */
 public class EmbeddedScripts {
 
-    // Highly specific function meant to parse the function list from
-    // mod.gib.me/skyrim/functions.html as an easier way to generate
-    // script objects, rather than typing it all by hand.
-    // Shouldn't need to be used by you or any users.
+    @SuppressWarnings("unused")
     static void parseScriptDataGibMe() throws IOException {
 
         String dir = "Validation Files/";
@@ -337,7 +341,9 @@ public class EmbeddedScripts {
          */
         Three
     }
-
+    //
+    // Note: see EmbeddedScriptsSources.txt
+    //
     static class ScriptDef {
 
         int index;
