@@ -34,7 +34,7 @@ class SubRGBshort extends SubRecordTyped {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return 4;
     }
 
@@ -45,9 +45,7 @@ class SubRGBshort extends SubRecordTyped {
         g = (short) in.extractInt(1);
         b = (short) in.extractInt(1);
         a = (short) in.extractInt(1);
-        if (SPGlobal.logMods) {
-            logMod(srcMod, toString(), "Setting " + this + " to : " + print());
-        }
+        logMod(srcMod, toString(), "Setting " + this + " to : " + print());
     }
 
     @Override

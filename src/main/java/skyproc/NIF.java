@@ -300,53 +300,29 @@ public class NIF {
 
     public enum NodeType {
 
-        /**
-         *
-         */
+
         NINODE,
-        /**
-         *
-         */
+
         BSBEHAVIORGRAPHEXTRADATA,
-        /**
-         *
-         */
+
         NICONTROLLERSEQUENCE,
-        /**
-         *
-         */
+
         BSINVMARKER,
-        /**
-         *
-         */
+
         NITRISHAPE,
-        /**
-         *
-         */
+
         NITRISHAPEDATA,
-        /**
-         *
-         */
+
         NISKININSTANCE,
-        /**
-         *
-         */
+
         NISKINDATA,
-        /**
-         *
-         */
+
         NISKINPARTITION,
-        /**
-         *
-         */
+
         BSLIGHTINGSHADERPROPERTY,
-        /**
-         *
-         */
+
         BSEFFECTSHADERPROPERTY,
-        /**
-         *
-         */
+
         BSSHADERTEXTURESET,
         /**
          *

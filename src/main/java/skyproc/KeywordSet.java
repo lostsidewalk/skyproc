@@ -1,6 +1,7 @@
 package skyproc;
 
 import lev.LImport;
+import lev.Ln;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -10,11 +11,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.zip.DataFormatException;
 
-/**
- * A set of keywords associated with a major record.
- *
- * @author Justin Swanson
- */
 public class KeywordSet extends SubRecord {
 
     private final static ArrayList<String> type = new ArrayList<>(Arrays.asList("KSIZ", "KWDA"));
@@ -40,7 +36,7 @@ public class KeywordSet extends SubRecord {
 
     @Override
     boolean isValid() {
-        return keywords.isValid();
+        return counter.getData() != null && counter.getData()[0] != 0x00 && keywords.isValid();
     }
 
     @Override
@@ -49,9 +45,9 @@ public class KeywordSet extends SubRecord {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
-        return counter.getTotalLength(out)
-                + keywords.getTotalLength(out);
+    int getContentLength(boolean isStringTabled) {
+        return counter.getTotalLength(isStringTabled)
+                + keywords.getTotalLength(isStringTabled);
     }
 
     @Override

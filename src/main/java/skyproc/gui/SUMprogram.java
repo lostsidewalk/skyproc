@@ -1,7 +1,6 @@
 package skyproc.gui;
 
 import lev.Ln;
-import lev.debug.LDebug;
 import lev.gui.*;
 import org.springframework.core.io.ClassPathResource;
 import skyproc.*;
@@ -57,7 +56,6 @@ public class SUMprogram implements SUM {
     public static void main(String[] args) {
         try {
             if (handleArgs(args)) {
-                SPGlobal.createGlobalLog();
                 SUMprogram sum = new SUMprogram();
                 sum.runProgram();
             }
@@ -66,7 +64,6 @@ public class SUMprogram implements SUM {
             System.err.println(e.getMessage());
             SPGlobal.logException(e);
             JOptionPane.showMessageDialog(null, "There was an exception thrown during program execution: '" + e + "'  Check the debug logs.");
-            SPGlobal.closeDebug();
         }
     }
 
@@ -76,17 +73,13 @@ public class SUMprogram implements SUM {
             argsList.add(s.toUpperCase());
         }
         if (argsList.contains("-TESTIMPORT")) {
-            SPGlobal.createGlobalLog();
-            LDebug.timeElapsed = true;
             SPGlobal.streamMode = false;
-            SPGlobal.logging(true);
             SPGlobal.setGlobalPatch(new Mod(new ModListing("Test", false)));
             SPGlobal.testing = true;
             SPDefaultGUI gui = new SPDefaultGUI("SkyProc Test", "SkyProc live import/patch generation test module");
 
             runImportTest();
             gui.finished();
-            LDebug.wrapUp();
             return false;
         }
         if (argsList.contains("-EMBEDDEDSCRIPTGEN")) {
@@ -94,7 +87,6 @@ public class SUMprogram implements SUM {
             return false;
         }
         if (argsList.contains("-GENPATCH")) {
-            SPGlobal.createGlobalLog("SkyProcDebug/Merger/");
             SUMGUI.open(new SUMMergerProgram(), args);
             return false;
         }
@@ -167,7 +159,6 @@ public class SUMprogram implements SUM {
         SPGlobal.debugModMerge = false;
         SPGlobal.debugBSAimport = false;
         SPGlobal.debugNIFimport = false;
-        SPGlobal.newSpecialLog(SUMlogs.JarHook, "Jar Hooking.txt");
     }
 
     void openGUI() {

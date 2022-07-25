@@ -19,20 +19,18 @@ public class SubStringNonNull extends SubString {
     void parseData(LImport in, Mod srcMod) {
         in.skip(getIdentifierLength() + getSizeLength());
         string = Ln.arrayToString(in.extractInts(in.available()));
-        if (SPGlobal.logMods) {
-            logMod(srcMod, getType(), "Setting " + this + " to " + print());
-        }
+        logMod(srcMod, getType(), "Setting " + this + " to " + print());
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return string.length();
     }
 
     @Override
     void export(ModExporter out) throws IOException {
         out.write(getType());
-        out.write(getContentLength(out), 2);
+        out.write(getContentLength(out.getExportMod().isFlag(Mod.Mod_Flags.STRING_TABLED)), 2);
         out.write(string);
     }
 

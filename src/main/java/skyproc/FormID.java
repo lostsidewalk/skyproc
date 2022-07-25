@@ -248,7 +248,7 @@ public class FormID implements Comparable, Serializable {
         return master != null;
     }
 
-    int getContentLength() {
+    int getContentLength(boolean isStringTabled) {
         return 4;
     }
 

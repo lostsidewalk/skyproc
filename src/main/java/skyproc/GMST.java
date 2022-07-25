@@ -140,9 +140,9 @@ public class GMST extends MajorRecord {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         updateDATAtype();
-        return super.getContentLength(out);
+        return super.getContentLength(isStringTabled);
     }
 
     /**
@@ -265,54 +265,32 @@ public class GMST extends MajorRecord {
      */
     public enum GMSTType {
 
-        /**
-         *
-         */
+
         Bool,
-        /**
-         *
-         */
+
         Int,
-        /**
-         *
-         */
+
         Float,
-        /**
-         *
-         */
+
         String,
-        /**
-         *
-         */
+
         Unknown
     }
 
 
     public enum BoolSetting {
 
-        /**
-         *
-         */
+
         bAllow,
-        /**
-         *
-         */
+
         bAutoAimBasedOnDistance,
-        /**
-         *
-         */
+
         bCrosshairEnabled,
-        /**
-         *
-         */
+
         bForce,
-        /**
-         *
-         */
+
         bForcePow,
-        /**
-         *
-         */
+
         bFull,
         /**
          *
@@ -12382,12 +12360,12 @@ public class GMST extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             switch (GMSTtype) {
                 case String:
-                    return DATAs.getContentLength(out);
+                    return DATAs.getContentLength(isStringTabled);
                 default:
-                    return DATA.getContentLength(out);
+                    return DATA.getContentLength(isStringTabled);
             }
         }
 

@@ -1,13 +1,13 @@
 package skyproc;
 
 import lev.Ln;
-import lev.debug.LDebug;
-import lev.debug.LLogger;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import skyproc.gui.SUMGUI;
 
 import java.io.*;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -17,7 +17,11 @@ import java.util.function.Consumer;
  *
  * @author Justin Swanson
  */
+@SuppressWarnings("unused")
+@Slf4j
 public class SPGlobal {
+
+    private static final String FS_DELIMITER = FileSystems.getDefault().getSeparator();
 
     /**
      * Path to the Data/ folder to look for plugins to import/export.<br><br> By
@@ -26,9 +30,9 @@ public class SPGlobal {
      * Patcher.jar")
      */
     // TODO: make this externally configurable
-    public static final String pathToData = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\";
-    // FileSystems.getDefault().getPath("..\\..\\skyproc\\Data").toAbsolutePath().normalize().toString();
-    public static String pathToDataFixed = (pathToData.endsWith("\\") ? pathToData : pathToData + "\\");
+//    public static final String pathToData = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\";
+    public static final String pathToData = Ln.getMyDocuments().getPath() + "/.steam/debian-installation/steamapps/common/Skyrim Special Edition/Data/";
+    public static String pathToDataFixed = pathToData; // (pathToData.endsWith("\\") ? pathToData : pathToData + "\\");
     /**
      *
      */
@@ -79,10 +83,7 @@ public class SPGlobal {
     /*
      * Customizable Strings
      */
-    static String pathToDebug = "SkyProcDebug/";
     static Mod globalPatchOut;
-    static SPLogger log;
-    static boolean logMods = true;
     static SPDatabase globalDatabase = new SPDatabase();
     public static boolean testing = false;
     public static boolean streamMode = true;
@@ -100,16 +101,13 @@ public class SPGlobal {
     private static boolean allModsAsMasters = false;
 
     /**
-     * Returns a File path to the SkyProc Documents folder.
-     *
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
+     * @return a File path to the SkyProc Documents folder.
      */
-    public static File getSkyProcDocuments() throws FileNotFoundException, IOException {
+    public static File getSkyProcDocuments() throws IOException {
         if (skyProcDocuments == null) {
             File myDocs = SPGlobal.getMyDocumentsSkyrimFolder();
             skyProcDocuments = new File(myDocs.getPath() + "\\SkyProc\\");
+            //noinspection ResultOfMethodCallIgnored
             skyProcDocuments.mkdirs();
         }
         return skyProcDocuments;
@@ -151,7 +149,7 @@ public class SPGlobal {
     }
 
     /**
-     * @param s
+     * @param s Mod to skip
      */
     public static void addModToSkip(String s) {
         s = s.toUpperCase();
@@ -162,35 +160,19 @@ public class SPGlobal {
         }
     }
 
-    /**
-     * @param m
-     * @return
-     */
     public static boolean isModToSkip(ModListing m) {
         return modsToSkip.contains(m) || isModToSkip(m.print());
     }
 
-    /**
-     * @param name
-     * @return
-     */
     public static boolean isModToSkip(String name) {
         return Ln.hasAnyKeywords(name, modsToSkipStr);
     }
 
-    /**
-     * @param m
-     * @return
-     */
     public static boolean isWhiteListed(ModListing m) {
         return (modsWhiteList.isEmpty() && modsWhiteListStr.isEmpty())
                 || modsWhiteList.contains(m) || isWhiteListed(m.print());
     }
 
-    /**
-     * @param name
-     * @return
-     */
     public static boolean isWhiteListed(String name) {
         return (modsWhiteList.isEmpty() && modsWhiteListStr.isEmpty())
                 || Ln.hasAnyKeywords(name, modsWhiteListStr);
@@ -199,9 +181,6 @@ public class SPGlobal {
     /**
      * True if not blacklisted and if white listed (if there are any white
      * listings)
-     *
-     * @param m
-     * @return
      */
     public static boolean shouldImport(ModListing m) {
         return !SPGlobal.isModToSkip(m) && SPGlobal.isWhiteListed(m);
@@ -210,9 +189,6 @@ public class SPGlobal {
     /**
      * True if not blacklisted and if white listed (if there are any white
      * listings)
-     *
-     * @param name
-     * @return
      */
     public static boolean shouldImport(String name) {
         return !SPGlobal.isModToSkip(name) && SPGlobal.isWhiteListed(name);
@@ -221,8 +197,6 @@ public class SPGlobal {
     /**
      * Adds a mod to the white list. Once a mod is on the white list, only white
      * list mods will be imported by SkyProc.
-     *
-     * @param m
      */
     public static void addModToWhiteList(ModListing m) {
         modsWhiteList.add(m);
@@ -231,8 +205,6 @@ public class SPGlobal {
     /**
      * Adds a mod to the white list. Once a mod is on the white list, only white
      * list mods will be imported by SkyProc.
-     *
-     * @param s
      */
     public static void addModToWhiteList(String s) {
         if (s.contains(".ESP") || s.contains(".ESM")) {
@@ -268,25 +240,17 @@ public class SPGlobal {
 
     /**
      * Returns the My Documents Skyrim folder where the ini's are located.
-     *
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
      */
-    static public File getMyDocumentsSkyrimFolder() throws FileNotFoundException, IOException {
+    static public File getMyDocumentsSkyrimFolder() throws IOException {
         return getSkyrimINI().getParentFile();
     }
 
     /**
      * Returns the Skyrim.ini file in the My Documents folder.
-     *
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
      */
-    static public File getSkyrimINI() throws FileNotFoundException, IOException {
+    static public File getSkyrimINI() throws IOException {
         File myDocuments = Ln.getMyDocuments();
-        File ini = new File(myDocuments.getPath() + "//My Games//Skyrim Special Edition//Skyrim.ini");
+        File ini = new File(myDocuments.getPath() + "/.steam/debian-installation/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My Games/Skyrim Special Edition/Skyrim.ini");
 
         // See if there's a manual override
         File override = new File(SPGlobal.pathToInternalFiles + "Skyrim-INI-Location.txt");
@@ -317,26 +281,23 @@ public class SPGlobal {
 
     /**
      * @return Path to the skyrim local application data folder.
-     * @throws IOException
      */
     static public String getSkyrimAppData() throws IOException {
         if (appDataFolder == null) {
             appDataFolder = System.getenv("LOCALAPPDATA");
 
-            // If XP
             if (appDataFolder == null) {
-                SPGlobal.logError(header, "Can't locate local app data folder directly, probably running XP.");
+//                SPGlobal.logError(header, "Can't locate local app data folder directly.");
                 appDataFolder = System.getenv("APPDATA");
 
-                // If Messed Up
                 if (appDataFolder == null) {
-                    SPGlobal.logError(header, "Can't locate local app data folder.");
-                    appDataFolder = Ln.manualFindFile("your Plugins.txt file.\nThis is usually found in your Local Application Data folder.\n"
-                            + "You may need to turn on hidden folders to see it.", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
+//                    SPGlobal.logError(header, "Can't locate local app data folder.");
+                    appDataFolder = Ln.manualFindFile("""
+                            your Plugins.txt file.
+                            This is usually found in your Local Application Data folder.
+                            You may need to turn on hidden folders to see it.""", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
                     SPGlobal.logMain(header, "Plugin.txt returned: ", appDataFolder, "     Shaving off the \\Plugins.txt.");
-                    appDataFolder = appDataFolder.substring(0, appDataFolder.lastIndexOf("\\"));
-                    // remove \\Skyrim so it can be added again below. Yep
-                    appDataFolder = appDataFolder.substring(0, appDataFolder.lastIndexOf("\\"));
+                    appDataFolder = appDataFolder.substring(0, appDataFolder.lastIndexOf(FS_DELIMITER));
                 } else {
                     SPGlobal.logMain(header, "APPDATA returned: ", appDataFolder, "     Shaving off the \\Application Data.");
                     appDataFolder = appDataFolder.substring(0, appDataFolder.lastIndexOf("\\"));
@@ -345,7 +306,6 @@ public class SPGlobal {
                     SPGlobal.logMain(header, "path now reads: ", appDataFolder);
                 }
             }
-            appDataFolder += "\\Skyrim Special Edition";
             SPGlobal.logMain(header, SPGlobal.gameName + " App data thought to be found at: ", appDataFolder);
         }
         return appDataFolder;
@@ -353,25 +313,22 @@ public class SPGlobal {
 
     /**
      * Returns the plugins.txt file that contains load order information.
-     *
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
      */
-    static public String getPluginsTxt() throws FileNotFoundException, IOException {
-        String pluginsFile = getSkyrimAppData() + "\\plugins.txt";
+    static public String getPluginsTxt() throws IOException {
+        String pluginsFile = getSkyrimAppData() + FS_DELIMITER + "plugins.txt";
         File pluginListPath = new File(pluginsFile);
         if (!pluginListPath.exists()) {
             SPGlobal.logMain(header, SPGlobal.gameName + " Plugin file location wrong. Locating manually.");
-            pluginsFile = Ln.manualFindFile("your Plugins.txt file.\nThis is usually found in your Local Application Data folder.\n"
-                    + "You may need to turn on hidden folders to see it.", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
+            pluginsFile = Ln.manualFindFile("""
+                    your Plugins.txt file.
+                    This is usually found in your Local Application Data folder.
+                    You may need to turn on hidden folders to see it.""", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
         }
         return pluginsFile;
     }
 
     /**
      * @return The loadorder.txt file that contains all load order information.
-     * @throws IOException
      */
     static public String getLoadOrderTxt() throws IOException {
         String loadorderFile = getSkyrimAppData() + "\\loadorder.txt";
@@ -401,140 +358,53 @@ public class SPGlobal {
     /**
      * Lets you set the message to display when an error occurs that causes the
      * program to stop prematurely.
-     *
-     * @param message
      */
     static public void setSUMerrorMessage(String message) {
         SUMGUI.setErrorMessage(message);
     }
 
-    /**
-     * Initializes the Debug Logs in a "SkyProcDebug/" folder, and allows you to
-     * print messages to them.<br> Do this step early in your program.
-     */
-    public static void createGlobalLog() {
-        createGlobalLog("SkyProcDebug/");
-    }
-
-    /**
-     * Initializes the Debug Logs in a path + "SkyProcDebug/" folder, and allows
-     * you to print messages to them.<br> Do this step early in your program.
-     *
-     * @param path The path to create the "SkyProcDebug/" folder.
-     */
-    public static void createGlobalLog(String path) {
-        pathToDebug = path;
-        log = new SPLogger(path);
-    }
-
     private static final Logger slf4j = LoggerFactory.getLogger(SPGlobal.class);
 
-    private static Optional<SPLogger> optLog() {
+    private static Optional<Logger> optLog() {
         return Optional.ofNullable(log);
     }
 
-    private static void withGlobalLogger(Consumer<SPLogger> logConsumer) {
+    private static void withGlobalLogger(Consumer<Logger> logConsumer) {
         optLog().ifPresentOrElse(logConsumer, () -> slf4j.warn("No global logger defined"));
     }
 
     static void logSync(String header, String... print) {
-        withGlobalLogger(l -> l.logSync(header, print));
+        withGlobalLogger(l -> l.info("[{}] {}", header, print));
     }
 
     /**
      * Logs a message to the Debug Overview file. <br> Use this for major
      * program "milestones".
-     *
-     * @param header
-     * @param print
      */
     public static void logMain(String header, String... print) {
-        withGlobalLogger(l -> l.logMain(header, print));
+        withGlobalLogger(l -> l.info("[{}] {}", header, print));
     }
 
     /**
      * Logs a specific record as blocked in the "Blocked Records.txt" log.
-     *
-     * @param header
-     * @param reason Reason for blocking the record.
-     * @param m      Record that was blocked.
      */
     public static void logBlocked(String header, String reason, MajorRecord m) {
-        withGlobalLogger(l -> l.logSpecial(SPLogger.SpecialTypes.BLOCKED, header, "Blocked " + m + " for reason: " + reason));
+        withGlobalLogger(l -> l.info("[{}] Blocked {} due to: {}", header, m, reason));
     }
 
     /**
      * @return True if the logger is currently on.
      */
     public static boolean logging() {
-        if (log != null) {
-            return SPGlobal.log.logging();
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * @param on Turns the logger on/off.
-     */
-    public static void logging(Boolean on) {
-        withGlobalLogger(l -> l.logging(on));
-    }
-
-    /**
-     * @return True if the logger is currently on.
-     */
-    public static boolean loggingSync() {
-        if (log != null) {
-            return SPGlobal.log.loggingSync();
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * @param on Turns the logger on/off.
-     */
-    public static void loggingSync(Boolean on) {
-        withGlobalLogger(l -> l.loggingSync(on));
-    }
-
-    /**
-     * Turns the LLogger async log on/off.
-     *
-     * @param on
-     */
-    public static void loggingAsync(Boolean on) {
-        withGlobalLogger(l -> l.loggingAsync(on));
-    }
-
-    /**
-     * @return Whether the LLogger's async log is on/off.
-     */
-    public static boolean loggingAsync() {
-        if (log != null) {
-            return SPGlobal.log.loggingAsync();
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Flushes the Debug buffers to the files.
-     */
-    public static void flush() {
-        withGlobalLogger(LLogger::flush);
+        return log != null;
     }
 
     /**
      * A special function that simply prints to both the debug overview and the
      * asynchronous log for easy location in either place.
-     *
-     * @param header
-     * @param print
      */
     public static void logError(String header, String... print) {
-        withGlobalLogger(l -> l.logError(header, print));
+        withGlobalLogger(l -> l.error("[{}] {}", header, print));
     }
 
     /**
@@ -543,120 +413,26 @@ public class SPGlobal {
      * @param e Exception to print.
      */
     public static void logException(Throwable e) {
-        withGlobalLogger(l -> l.logException(e));
+        withGlobalLogger(l -> l.error("EXCEPTION due to: {}", e.getMessage()));
     }
 
     /**
      * Logs to a specially created log that was previously created using
      * newSpecialLog().
-     *
-     * @param e      The enum you defined to symbolize the "key" to the special log.
-     * @param header
-     * @param print
      */
-    public static void logSpecial(Enum e, String header, String... print) {
-        withGlobalLogger(l -> l.logSpecial(e, header, print));
-    }
-
-    /**
-     * Creates a new special log with any enum value as the key.
-     *
-     * @param e       Any enum you define to symbolize the "key" to the special log.
-     * @param logName
-     */
-    public static void newSpecialLog(Enum e, String logName) {
-        withGlobalLogger(l -> l.addSpecial(e, logName));
-    }
-
-    /**
-     * @return if mod specific log files will be written
-     */
-    public static boolean logMods() {
-        return logMods;
-    }
-
-    /**
-     * @param on set mod specific logging
-     */
-    public static void logMods(boolean on) {
-        logMods = on;
-        if (on) {
-            logging(true);
-        }
-    }
-
-    static void logMod(Mod m, String h, String... data) {
-        if (logMods && log != null) {
-            log.logMod(m, h, data);
-        }
-    }
-
-    static void newSyncLog(String fileName) {
-        withGlobalLogger(l -> l.newSyncLog(fileName));
+    public static void logSpecial(Enum<?> e, String header, String... print) {
+        withGlobalLogger(l -> l.info("[{} {}] {}", e, header, print));
     }
 
     /**
      * Prints a message to the asynchronous log.
-     *
-     * @param header
-     * @param print
      */
     public static void log(String header, String... print) {
-        withGlobalLogger(l -> l.log(header, print));
+        withGlobalLogger(l -> l.info("[{}] {}", header, print));
     }
 
-    /**
-     * Creates a new asynchronous log.
-     *
-     * @param fileName Name of the log.
-     */
-    public static void newLog(String fileName) {
-        withGlobalLogger(l -> l.newLog(fileName));
-    }
-    // Debug Globals
-
-    static void sync(boolean flag) {
-        withGlobalLogger(l -> l.sync(flag));
-    }
-
-    static boolean sync() {
-        if (log != null) {
-            return log.sync();
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Redirects System.out to the asynchronous log stream.
-     */
-    public static void redirectSystemOutStream() {
-        if (log == null) {
-            createGlobalLog();
-        }
-        OutputStream outToDebug = new OutputStream() {
-            @Override
-            public void write(final int b) {
-                if (b != 116) {
-                    log("", String.valueOf((char) b));
-                }
-            }
-
-            @Override
-            public void write(byte[] b, int off, int len) {
-                String output = new String(b, off, len);
-                if (output.length() > 2) {
-                    log("", output);
-                }
-            }
-
-            @Override
-            public void write(byte[] b) {
-                write(b, 0, b.length);
-            }
-        };
-
-        System.setOut(new PrintStream(outToDebug, true));
+    public static void logMod(Mod srcMod, String header, String... data) {
+        log.info("[{}] [{}] {}", srcMod.getName(), header, data);
     }
 
     static void reset() {
@@ -665,22 +441,6 @@ public class SPGlobal {
         SPDatabase.modLookup.clear();
         FormID.allIDs.clear();
         Consistency.clear();
-    }
-
-    /**
-     * Closes all logs.
-     */
-    public static void closeDebug() {
-        LDebug.wrapUp();
-    }
-
-    /**
-     * Returns the path to the debug folder.
-     *
-     * @return
-     */
-    public static String pathToDebug() {
-        return pathToDebug;
     }
 
     public static boolean getAllModsAsMasters() {

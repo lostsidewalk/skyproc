@@ -2,14 +2,12 @@ package skyproc;
 
 import lev.LImport;
 import lev.Ln;
+import lombok.extern.slf4j.Slf4j;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.DataFormatException;
 
 /**
@@ -80,15 +78,11 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
         while (!in.isDone()) {
             extractMajor(in, srcMod);
         }
-        if (SPGlobal.logMods) {
-            logMod(srcMod, toString(), "Data exhausted");
-        }
+        logMod(srcMod, toString(), "Data exhausted");
     }
 
     MajorRecord extractMajor(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
-        if (SPGlobal.logMods) {
-            logMod(srcMod, toString(), "============== Extracting Next " + getContainedType() + " =============");
-        }
+        logMod(srcMod, toString(), "============== Extracting Next " + getContainedType() + " =============");
         T item = (T) prototype.getNew();
         item.srcMod = srcMod;
         item.subRecords.setMajor(item);
@@ -99,7 +93,7 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
             // Add to GRUP
             if (item.isValid()) {
                 addRecord(item);
-            } else if (SPGlobal.logMods) {
+            } else {
                 logMod(srcMod, toString(), "Did not add " + getContainedType().toString() + " " + item + " because it was not valid.");
             }
 
@@ -136,7 +130,7 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
     @Override
     void export(ModExporter out) throws IOException {
         out.write(getType());
-        out.write(getContentLength(out) + getHeaderLength(), getSizeLength());
+        out.write(getContentLength(out.getExportMod().isFlag(Mod.Mod_Flags.STRING_TABLED)) + getHeaderLength(), getSizeLength());
         out.write(contained);
         out.write(grupType);
         out.write(dateStamp);
@@ -198,15 +192,24 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
         return removeRecord(item.getForm());
     }
 
+    /**
+     * List of special types offered by SPLogger.  To log to one of them, use
+     * logSpecial from LLogger.
+     */
+    public enum SpecialTypes {
+        /**
+         * A logstream used for logging which records have been skipped/blockec.
+         */
+        BLOCKED
+    }
+
     void handleBadRecord(MajorRecord r, String reason) {
-        if (SPGlobal.logMods) {
-            if (r.isValid()) {
-                logMod(r.srcMod, toString(), "Caught a bad record: " + r + ", reason: " + reason);
-                logSpecial(SPLogger.SpecialTypes.BLOCKED, toString(), "Caught a bad record: " + r + " from " + r.srcMod + ", reason: " + reason);
-            } else {
-                logMod(r.srcMod, toString(), "Caught a bad record, reason:" + reason);
-                logSpecial(SPLogger.SpecialTypes.BLOCKED, toString(), "Caught a bad record, reason:" + reason);
-            }
+        if (r.isValid()) {
+            logMod(r.srcMod, toString(), "Caught a bad record: " + r + ", reason: " + reason);
+            logSpecial(SpecialTypes.BLOCKED, toString(), "Caught a bad record: " + r + " from " + r.srcMod + ", reason: " + reason);
+        } else {
+            logMod(r.srcMod, toString(), "Caught a bad record, reason:" + reason);
+            logSpecial(SpecialTypes.BLOCKED, toString(), "Caught a bad record, reason:" + reason);
         }
     }
 
@@ -299,13 +302,13 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
             log(toString(), "Size before: " + numRecords());
         }
         for (MajorRecord item : rhs) {
-            if (logging() && SPGlobal.debugModMerge) {
-                if (contains(item.getForm())) {
-                    log(toString(), "Replacing record " + item + " with one from " + rhs);
-                } else {
-                    log(toString(), "Adding record " + item);
-                }
-            }
+//            if (logging() && SPGlobal.debugModMerge) {
+//                if (contains(item.getForm())) {
+//                    log.info("Replacing record " + item + " with one from " + rhs);
+//                } else {
+//                    log.info("Adding record " + item);
+//                }
+//            }
             addRecord(item);
         }
         if (logging() && SPGlobal.debugModMerge) {
@@ -324,11 +327,11 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         int length = 0;
         for (T t : listRecords) {
             if (t.isValid()) {
-                length += t.getTotalLength(out);
+                length += t.getTotalLength(isStringTabled);
             }
         }
         return length;

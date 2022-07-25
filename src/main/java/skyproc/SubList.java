@@ -166,10 +166,10 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         int length = 0;
         for (S s : translate()) {
-            length += s.getTotalLength(out);
+            length += s.getTotalLength(isStringTabled);
         }
         return length;
     }

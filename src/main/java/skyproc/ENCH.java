@@ -14,7 +14,7 @@ import java.util.zip.DataFormatException;
 /**
  * @author Justin Swanson
  */
-public class ENCH extends MagicItem {
+public class ENCH extends EnchantedItem {
 
     // Static prototypes and definitions
     static final SubPrototype ENCHproto = new SubPrototype(MagicItem.magicItemProto) {
@@ -25,7 +25,6 @@ public class ENCH extends MagicItem {
             remove("DESC");
             add(new ENIT());
             reposition("EFID");
-            reposition("KWDA");
         }
     };
 
@@ -184,9 +183,7 @@ public class ENCH extends MagicItem {
 
     public enum EnchantType {
 
-        /**
-         *
-         */
+
         Enchantment(6),
         /**
          *
@@ -283,7 +280,7 @@ public class ENCH extends MagicItem {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (old) {
                 return 32;
             } else {

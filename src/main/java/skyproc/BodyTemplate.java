@@ -135,13 +135,9 @@ public class BodyTemplate extends SubShell {
 
     public enum GeneralFlags {
 
-        /**
-         *
-         */
+
         ModulatesVoice(0),
-        /**
-         *
-         */
+
         NonPlayable(4);
         int value;
 
@@ -153,13 +149,9 @@ public class BodyTemplate extends SubShell {
 
     public enum BodyTemplateType {
 
-        /**
-         *
-         */
+
         Normal("BODT"),
-        /**
-         *
-         */
+
         Biped("BOD2");
         String type;
 
@@ -219,7 +211,7 @@ public class BodyTemplate extends SubShell {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             int len = 4;
             if (isBODT()) {
                 len += 4;

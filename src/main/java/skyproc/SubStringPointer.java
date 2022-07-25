@@ -66,9 +66,6 @@ class SubStringPointer extends SubRecordTyped {
     void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
         data.parseData(in, srcMod);
         fetchStringPointers(srcMod);
-        if (SPGlobal.logMods) {
-            logMod(srcMod, getType(), "Setting " + this + " to : " + Ln.arrayToString(data.getData()) + " - " + this);
-        }
     }
 
     void fetchStringPointers(Mod srcMod) {
@@ -98,11 +95,6 @@ class SubStringPointer extends SubRecordTyped {
                                 text.setString(in);
                             }
                     }
-
-                    if (SPGlobal.logMods && SPGlobal.debugStringPairing) {
-                        logMod(srcMod, "", file + " pointer " + Ln.printHex(data.getData(), true, false) + " set to : " + print());
-                    }
-
                 } else {
                     if (logging() && SPGlobal.debugStringPairing) {
                         boolean nullPtr = true;
@@ -113,9 +105,7 @@ class SubStringPointer extends SubRecordTyped {
                             }
                         }
                         if (!nullPtr) {
-                            if (SPGlobal.logMods) {
-                                logMod(srcMod, "", file + " pointer " + Ln.printHex(data.getData(), true, false) + " COULD NOT BE PAIRED");
-                            }
+                            logMod(srcMod, "", file + " pointer " + Ln.printHex(data.getData(), true, false) + " COULD NOT BE PAIRED");
                         }
                     }
                     data.setData(0, 1); // Invalidate data to stop export
@@ -136,12 +126,12 @@ class SubStringPointer extends SubRecordTyped {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         if (isValid()) {
-            if (out.getExportMod().isFlag(Mod_Flags.STRING_TABLED)) {
+            if (isStringTabled) {
                 return 4; // length of 4
             } else if (text.isValid()) {
-                return text.getContentLength(out);
+                return text.getContentLength(isStringTabled);
             }
         }
 
@@ -149,9 +139,9 @@ class SubStringPointer extends SubRecordTyped {
     }
 
     @Override
-    int getTotalLength(ModExporter out) {
+    int getTotalLength(boolean isStringTabled) {
         if (isValid() || forceExport) {
-            return getContentLength(out) + getHeaderLength();
+            return getContentLength(isStringTabled) + getHeaderLength();
         } else {
             return 0;
         }

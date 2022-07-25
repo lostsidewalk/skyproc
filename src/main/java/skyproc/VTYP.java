@@ -65,13 +65,9 @@ public class VTYP extends MajorRecord {
 
 
     public enum VoiceTypeFlag {
-        /**
-         *
-         */
+
         AllowDefaultDialogue,
-        /**
-         *
-         */
+
         Female,
     }
 }

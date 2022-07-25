@@ -93,9 +93,7 @@ public class GLOB extends MajorRecord {
     @Override
     void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
         super.parseData(in, srcMod);
-        if (SPGlobal.logMods) {
-            logMod(srcMod, "GLOB", "Constant: " + get(MajorFlags.RelatedToShields));
-        }
+        logMod(srcMod, "GLOB", "Constant: " + get(MajorFlags.RelatedToShields));
     }
 
 
@@ -131,17 +129,11 @@ public class GLOB extends MajorRecord {
 
 
     public enum GLOBType {
-        /**
-         *
-         */
+
         Short(0x73),
-        /**
-         *
-         */
+
         Long(0x6C),
-        /**
-         *
-         */
+
         Float(0x66);
 
         int value;

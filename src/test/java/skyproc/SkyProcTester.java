@@ -1,9 +1,7 @@
 package skyproc;
 
 import lev.Ln;
-import lev.debug.LDebug;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import skyproc.exceptions.BadRecord;
@@ -41,17 +39,12 @@ public class SkyProcTester {
         SPDefaultGUI gui = new SPDefaultGUI("Tester Program", "A tester program meant to flex SkyProc.");
     }
 
-    @AfterAll
-    public static void afterAll() {
-        LDebug.wrapUp();
-    }
-
     @Test
     void validateAll() throws Exception {
         ModTestPackage[] mods = {
                 new ModTestPackage("Skyrim.esm", "Skyrim.esm", "Update.esm"),
-                new ModTestPackage("Dawnguard.esm", "Skyrim.esm", "Update.esm", "Dawnguard.esm"),
-                new ModTestPackage("Dragonborn.esm", "Skyrim.esm", "Update.esm", "Dragonborn.esm")
+//                new ModTestPackage("Dawnguard.esm", "Skyrim.esm", "Update.esm", "Dawnguard.esm"),
+//                new ModTestPackage("Dragonborn.esm", "Skyrim.esm", "Update.esm", "Dragonborn.esm")
         };
         SPGlobal.checkMissingMasters = false;
         for (ModTestPackage p : mods) {
@@ -112,7 +105,9 @@ public class SkyProcTester {
                 if (!test(g, p)) {
                     SPProgressBarPlug.setStatus("FAILED: " + g);
                     exportPass = false;
-                    break;
+                    log.info("GRUP failed validation: {}", g);
+                } else {
+                    log.info("GRUP passed validation: {}", g);
                 }
                 SPProgressBarPlug.setStatus("Validating DONE");
                 for (FormID id : FormID.allIDs) {
@@ -135,8 +130,8 @@ public class SkyProcTester {
         SPProgressBarPlug.setStatus("Validating " + type);
         SPProgressBarPlug.pause(true);
 
-        boolean passed = true;
-        Mod patch = new Mod(new ModListing("Test.esp"));
+        String testModName = String.format("%s_Test.esp", type);
+        Mod patch = new Mod(new ModListing(testModName));
         patch.setFlag(Mod.Mod_Flags.STRING_TABLED, false);
         patch.addAsOverrides(SPDatabase.getMod(p.main), type);
         // Test to see if stream has been prematurely imported
@@ -162,14 +157,18 @@ public class SkyProcTester {
             patch.export(new File(SPGlobal.pathToDataFixed + patch.getName()));
         } catch (BadRecord ex) {
             SPGlobal.logException(ex);
-            log.error("Records lengths were off.");
+            log.error("Records lengths were off for type={}", type);
         }
-        passed = passed && NiftyFunc.validateRecordLengths(SPGlobal.pathToDataFixed + "Test.esp", 10);
-        File validF = new File("Validation Files/" + type.toString() + "_" + p.main.printNoSuffix() + ".esp");
+        boolean passed = NiftyFunc.validateRecordLengths(SPGlobal.pathToDataFixed + testModName, 10);
+        File validF = new File("Validation Files/" + type + "_" + p.main.printNoSuffix() + ".esp");
         if (validF.isFile()) {
-            passed = Ln.validateCompare(SPGlobal.pathToDataFixed + "Test.esp", validF.getPath(), 10) && passed;
+            passed = Ln.validateCompare(SPGlobal.pathToDataFixed + testModName, validF.getPath(), 256) && passed;
         } else {
-            log.error("Didn't have a source file to validate bytes to.");
+            log.error("Didn't have a source file to validate bytes to for type={}", type);
+        }
+
+        if (!passed) {
+            log.warn("Validation failed for testFile=" + SPGlobal.pathToDataFixed + testModName + ", keyFile=" + validF.getPath());
         }
 
         SPProgressBarPlug.pause(false);
@@ -178,10 +177,7 @@ public class SkyProcTester {
     }
 
     private void setSkyProcGlobal() {
-        SPGlobal.createGlobalLog();
-        LDebug.timeElapsed = true;
         SPGlobal.streamMode = streaming;
-        SPGlobal.logging(true);
         SPGlobal.setGlobalPatch(new Mod(new ModListing("Test", false)));
     }
 

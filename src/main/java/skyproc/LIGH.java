@@ -261,61 +261,33 @@ public class LIGH extends MajorRecordNamed {
 
     public enum LIGHFlag {
 
-        /**
-         *
-         */
+
         Dynamic,
-        /**
-         *
-         */
+
         CanBeCarried,
-        /**
-         *
-         */
+
         Negative,
-        /**
-         *
-         */
+
         Flicker,
-        /**
-         *
-         */
+
         Unknown,
-        /**
-         *
-         */
+
         OffByDefault,
-        /**
-         *
-         */
+
         FlickerSlow,
-        /**
-         *
-         */
+
         Pulse,
-        /**
-         *
-         */
+
         PulseSlow,
-        /**
-         *
-         */
+
         Spotlight,
-        /**
-         *
-         */
+
         ShadowSpotlight,
-        /**
-         *
-         */
+
         ShadowHemisphere,
-        /**
-         *
-         */
+
         ShadowOmnidirectional,
-        /**
-         *
-         */
+
         PortalStrict
     }
 
@@ -387,7 +359,7 @@ public class LIGH extends MajorRecordNamed {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 48;
         }
 

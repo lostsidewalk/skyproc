@@ -84,11 +84,9 @@ class ConditionBase extends SubRecord {
         option = ConditionOption.getOption(in.extractInt(2));
         padding = in.extract(2);
 
-        if (SPGlobal.logMods) {
-            logMod(srcMod, "", "New Condition.  Function: " + option.script.toString() + ", index: " + option.index);
-            logMod(srcMod, "", "  Operator: " + operator + ", flags: " + flags + " useGlobal: " + get(Condition.CondFlag.UseGlobal));
-            logMod(srcMod, "", "  Comparison Val: " + comparisonValueForm + "|" + comparisonValueFloat);
-        }
+        logMod(srcMod, "", "New Condition.  Function: " + option.script.toString() + ", index: " + option.index);
+        logMod(srcMod, "", "  Operator: " + operator + ", flags: " + flags + " useGlobal: " + get(Condition.CondFlag.UseGlobal));
+        logMod(srcMod, "", "  Comparison Val: " + comparisonValueForm + "|" + comparisonValueFloat);
 
         option.parseData(in, srcMod);
 
@@ -115,7 +113,7 @@ class ConditionBase extends SubRecord {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return 32;
     }
 

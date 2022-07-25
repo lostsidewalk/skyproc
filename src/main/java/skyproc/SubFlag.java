@@ -30,9 +30,7 @@ class SubFlag extends SubRecordTyped {
     void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
         super.parseData(in, srcMod);
         flags.set(in.getAllBytes());
-        if (SPGlobal.logMods) {
-            logMod(srcMod, toString(), "Setting " + this + " to : " + print());
-        }
+        logMod(srcMod, toString(), "Setting " + this + " to : " + print());
     }
 
     void set(int bit, boolean on) {
@@ -59,7 +57,7 @@ class SubFlag extends SubRecordTyped {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return flags.length();
     }
 

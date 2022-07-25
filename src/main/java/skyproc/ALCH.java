@@ -235,21 +235,13 @@ public class ALCH extends MagicItem {
 
     public enum ALCHFlag {
 
-        /**
-         *
-         */
+
         ManualCalc(0),
-        /**
-         *
-         */
+
         Food(1),
-        /**
-         *
-         */
+
         Medicine(16),
-        /**
-         *
-         */
+
         Poison(17);
         int value;
 
@@ -304,7 +296,7 @@ public class ALCH extends MagicItem {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 20;
         }
 

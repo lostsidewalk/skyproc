@@ -33,7 +33,7 @@ class SubRGB extends SubRecordTyped {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return 12;
     }
 
@@ -43,9 +43,7 @@ class SubRGB extends SubRecordTyped {
         r = in.extractFloat();
         g = in.extractFloat();
         b = in.extractFloat();
-        if (SPGlobal.logMods) {
-            logMod(srcMod, toString(), "Setting " + this + " to : " + print());
-        }
+        logMod(srcMod, toString(), "Setting " + this + " to : " + print());
     }
 
     @Override
@@ -94,10 +92,6 @@ class SubRGB extends SubRecordTyped {
         return hash;
     }
 
-    /**
-     * @param color
-     * @param val
-     */
     public void set(RGB color, float val) {
         switch (color) {
             case Red:
@@ -112,10 +106,6 @@ class SubRGB extends SubRecordTyped {
         }
     }
 
-    /**
-     * @param color
-     * @return
-     */
     public float get(RGB color) {
         if (!isValid()) {
             return 0;

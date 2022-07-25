@@ -46,9 +46,7 @@ public class ScriptRef extends Record implements Iterable<String> {
         name.set(in.extractString(in.extractInt(2)));
         unknown = in.extractInt(1);
         int propertyCount = in.extractInt(2);
-        if (SPGlobal.logMods) {
-            logMod(srcMod, "VMAD", "  Script " + name.toString() + " with " + propertyCount + " properties. Unknown: " + unknown);
-        }
+        logMod(srcMod, "VMAD", "  Script " + name.toString() + " with " + propertyCount + " properties. Unknown: " + unknown);
         for (int i = 0; i < propertyCount; i++) {
             properties.add(new ScriptProperty(in, srcMod));
         }
@@ -113,10 +111,10 @@ public class ScriptRef extends Record implements Iterable<String> {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
-        int len = name.getTotalLength(out) + 3;
+    int getContentLength(boolean isStringTabled) {
+        int len = name.getTotalLength(isStringTabled) + 3;
         for (ScriptProperty p : properties) {
-            len += p.getTotalLength(out);
+            len += p.getTotalLength(isStringTabled);
         }
         return len;
     }

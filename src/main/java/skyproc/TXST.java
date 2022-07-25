@@ -232,13 +232,9 @@ public class TXST extends MajorRecord implements Iterable<String> {
      */
     public enum TXSTflag {
 
-        /**
-         *
-         */
+
         SPECULAR_MAP_OFF,
-        /**
-         *
-         */
+
         FACEGEN_TEXTURES
     }
 }

@@ -376,9 +376,7 @@ public class ARMO extends MajorRecordDescription {
             super.parseData(in, srcMod);
             value = in.extractInt(4);
             weight = in.extractFloat();
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "Value: " + value + ", weight " + weight);
-            }
+            logMod(srcMod, "", "Value: " + value + ", weight " + weight);
         }
 
         @Override
@@ -392,7 +390,7 @@ public class ARMO extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 8;
         }
 

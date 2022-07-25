@@ -201,17 +201,11 @@ public class AMMO extends MajorRecordDescription {
 
     public enum AMMOFlag {
 
-        /**
-         *
-         */
+
         IgnoresWeaponResistance,
-        /**
-         *
-         */
+
         NonPlayable,
-        /**
-         *
-         */
+
         //VanishesWhenNotInFlight,
         /*
          *
@@ -254,7 +248,7 @@ public class AMMO extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 16;
         }
 

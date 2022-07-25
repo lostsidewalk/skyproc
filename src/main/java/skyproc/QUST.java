@@ -17,7 +17,6 @@ public class QUST extends MajorRecordNamed {
 
     // Static prototypes and definitions
     static final SubPrototype ALSTALLSproto = new SubPrototype() {
-
         @Override
         protected void addRecords() {
             add(SubString.getNew("ALID", true));
@@ -347,26 +346,18 @@ public class QUST extends MajorRecordNamed {
 
     public enum QuestStageFlags {
 
-        /**
-         *
-         */
+
         StartUpStage,
-        /**
-         *
-         */
+
         ShutDownStage,
-        /**
-         *
-         */
+
         KeepInstanceDataFromHereOn
     }
 
 
     public enum QuestLogFlags {
 
-        /**
-         *
-         */
+
         CompleteQuest,
         /**
          *
@@ -634,7 +625,7 @@ public class QUST extends MajorRecordNamed {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 12;
         }
 
@@ -693,7 +684,7 @@ public class QUST extends MajorRecordNamed {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 4;
         }
 
@@ -953,7 +944,7 @@ public class QUST extends MajorRecordNamed {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 8;
         }
 
@@ -1087,18 +1078,18 @@ public class QUST extends MajorRecordNamed {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (!valid) {
                 return 0;
             }
             int len = 3; // unknown + fragment count
-            len += fragmentFile.getTotalLength(out);
+            len += fragmentFile.getTotalLength(isStringTabled);
             for (QUSTScriptFragment frag : questFragments) {
-                len += frag.getContentLength(out);
+                len += frag.getContentLength(isStringTabled);
             }
             len += 2; // alias count
             for (AliasScriptFragment frag : aliasFragments) {
-                len += frag.getContentLength(out);
+                len += frag.getContentLength(isStringTabled);
             }
             return len;
         }
@@ -1141,9 +1132,9 @@ public class QUST extends MajorRecordNamed {
             fragmentName.export(out);
         }
 
-        int getContentLength(ModExporter out) {
-            return 9 + scriptName.getTotalLength(out)
-                    + fragmentName.getTotalLength(out);
+        int getContentLength(boolean isStringTabled) {
+            return 9 + scriptName.getTotalLength(isStringTabled)
+                    + fragmentName.getTotalLength(isStringTabled);
         }
     }
 
@@ -1201,10 +1192,10 @@ public class QUST extends MajorRecordNamed {
             }
         }
 
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             int size = 0;
             for (ScriptRef s : scripts) {
-                size += s.getTotalLength(out);
+                size += s.getTotalLength(isStringTabled);
             }
             return 14 + size;
         }

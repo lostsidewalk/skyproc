@@ -68,7 +68,7 @@ class Owner extends SubRecordTyped {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return 12;
     }
 

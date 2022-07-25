@@ -24,7 +24,7 @@ class StringNonNull extends Record {
 
     @Override
     void export(ModExporter out) throws IOException {
-        out.write(getContentLength(out), 2);
+        out.write(getContentLength(out.getExportMod().isFlag(Mod.Mod_Flags.STRING_TABLED)), 2);
         out.write(data);
     }
 
@@ -72,7 +72,7 @@ class StringNonNull extends Record {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return data.length();
     }
 

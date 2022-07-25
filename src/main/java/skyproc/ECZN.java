@@ -146,17 +146,11 @@ public class ECZN extends MajorRecord {
 
     public enum ECZNFlags {
 
-        /**
-         *
-         */
+
         NeverResets(0),
-        /**
-         *
-         */
+
         MatchPCBelowMin(1),
-        /**
-         *
-         */
+
         DisableCombatBoundary(2);
         int value;
 
@@ -197,12 +191,10 @@ public class ECZN extends MajorRecord {
                 flags.set(in.extract(1));
                 maxLevel = in.extractInt(1);
             }
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "DATA record: ");
-                logMod(srcMod, "", "  " + "Owner: " + owner.getFormStr() + ", Location: " + location.getFormStr());
-                logMod(srcMod, "", "  " + "Required Rank: " + rank + ", Minimum Level: " + minLevel);
-                logMod(srcMod, "", "  " + "Max Level: " + maxLevel + ", Flags: " + flags);
-            }
+            logMod(srcMod, "", "DATA record: ");
+            logMod(srcMod, "", "  " + "Owner: " + owner.getFormStr() + ", Location: " + location.getFormStr());
+            logMod(srcMod, "", "  " + "Required Rank: " + rank + ", Minimum Level: " + minLevel);
+            logMod(srcMod, "", "  " + "Max Level: " + maxLevel + ", Flags: " + flags);
 
             valid = true;
         }
@@ -226,7 +218,7 @@ public class ECZN extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (isValid()) {
                 return 12;
             } else {

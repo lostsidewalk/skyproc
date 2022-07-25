@@ -1470,7 +1470,7 @@ public class RACE extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (mountData == null) {
                 return 128;
             } else {
@@ -1609,7 +1609,7 @@ public class RACE extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 44;
         }
     }

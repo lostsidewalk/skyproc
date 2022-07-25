@@ -124,7 +124,7 @@ public class LGTM extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 92;
         }
 
@@ -186,7 +186,7 @@ public class LGTM extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 32;
         }
 

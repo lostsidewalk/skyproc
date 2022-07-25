@@ -37,10 +37,10 @@ class SubRecordsCopied extends SubRecords {
     }
 
     @Override
-    public int length(ModExporter out) {
+    public int length(boolean isStringTabled) {
         int length = 0;
         for (SubRecord s : iteratorNoCopy()) {
-            length += s.getTotalLength(out);
+            length += s.getTotalLength(isStringTabled);
         }
         return length;
     }

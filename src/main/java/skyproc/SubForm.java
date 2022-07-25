@@ -105,8 +105,8 @@ class SubForm extends SubRecordTyped<FormID> {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
-        return ID.getContentLength();
+    int getContentLength(boolean isStringTabled) {
+        return ID.getContentLength(isStringTabled);
     }
 
     @Override

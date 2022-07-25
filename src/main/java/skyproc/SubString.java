@@ -37,9 +37,7 @@ class SubString extends SubRecordTyped<String> {
     void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
         super.parseData(in, srcMod);
         string = Ln.arrayToString(in.extractInts(in.available() - 1));
-        if (SPGlobal.logMods) {
-            logMod(srcMod, getType(), "Setting " + this + " to " + print());
-        }
+        logMod(srcMod, getType(), "Setting " + this + " to " + print());
     }
 
     @Override
@@ -61,7 +59,7 @@ class SubString extends SubRecordTyped<String> {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return string.length() + 1;
     }
 

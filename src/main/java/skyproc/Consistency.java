@@ -189,7 +189,6 @@ class Consistency {
 
         void pruneConflicts() {
             if (SPGlobal.logging()) {
-                SPGlobal.newLog(debugFolder + "Conflict Pruning.txt");
                 SPGlobal.log(header, "====================================");
                 SPGlobal.log(header, "====== Pruning Conflicts ===========");
                 SPGlobal.log(header, "====================================");
@@ -330,7 +329,6 @@ class Consistency {
                 } else {
                     name = debugFolder + "Import - V2 - Remaining.txt";
                 }
-                SPGlobal.newSpecialLog(LogTypes.CONSISTENCY_IMPORT, name);
                 SPGlobal.logSpecial(LogTypes.CONSISTENCY_IMPORT, "v2Import", "Importing v2 consistency file.");
             }
             LInChannel in = new LInChannel(f);
@@ -385,7 +383,6 @@ class Consistency {
                 } else {
                     name = debugFolder + "Import - V1 - Remaining.txt";
                 }
-                SPGlobal.newSpecialLog(LogTypes.CONSISTENCY_IMPORT, name);
                 SPGlobal.logSpecial(LogTypes.CONSISTENCY_IMPORT, "v1Import", "Importing v1 consistency file.");
             }
             BufferedReader in = new BufferedReader(new FileReader(f));
@@ -504,7 +501,6 @@ class Consistency {
             }
             if (SPGlobal.logging()) {
                 String name = debugFolder + "Import - V3.txt";
-                SPGlobal.newSpecialLog(LogTypes.CONSISTENCY_IMPORT, name);
                 SPGlobal.logSpecial(LogTypes.CONSISTENCY_IMPORT, "Import", "Importing v3 consistency file.");
             }
             Mod global = SPGlobal.getGlobalPatch();
@@ -535,7 +531,6 @@ class Consistency {
             Map<String, FormID> map = v2.storage.get(SPGlobal.getGlobalPatch().getInfo());
             if (SPGlobal.logging()) {
                 String name = debugFolder + "Import - V3.txt";
-                SPGlobal.newSpecialLog(LogTypes.CONSISTENCY_IMPORT, name);
                 SPGlobal.logSpecial(LogTypes.CONSISTENCY_IMPORT, "Import", "Upgrading from v2 consistency.");
             }
             for (Entry<String, FormID> entry : map.entrySet()) {

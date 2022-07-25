@@ -30,7 +30,7 @@ class SubIntSigned extends SubInt {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
 	return length;
     }
 
@@ -63,9 +63,7 @@ class SubIntSigned extends SubInt {
                 set(value);
             }
         }
-        if (SPGlobal.logMods) {
-            logMod(srcMod, toString(), "Setting " + this + " to : " + print());
-        }
+        logMod(srcMod, toString(), "Setting " + this + " to : " + print());
     }
 /*
     @Override

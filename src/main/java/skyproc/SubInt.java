@@ -31,7 +31,7 @@ class SubInt extends SubRecordTyped<Integer> {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return length;
     }
 
@@ -50,9 +50,7 @@ class SubInt extends SubRecordTyped<Integer> {
     void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
         super.parseData(in, srcMod);
         data = in.extractInt(length);
-        if (SPGlobal.logMods) {
-            logMod(srcMod, toString(), "Setting " + this + " to : " + print());
-        }
+        logMod(srcMod, toString(), "Setting " + this + " to : " + print());
     }
 
     @Override
@@ -123,14 +121,12 @@ class SubInt extends SubRecordTyped<Integer> {
     @Override
     public SubRecord merge(SubRecord no, SubRecord bo) {
         SubInt integer = this;
-        if (!(no == null && bo == null && (no instanceof SubInt) && (bo instanceof SubInt))) {
-            final SubInt newint = (SubInt) no;
-            final SubInt baseint = (SubInt) bo;
-            if (!integer.equals(newint) && !newint.equals(baseint)) {
-                integer = newint;
-                if (Merger.fullLogging) {
-                    Merger.logMerge(getType(), integer.toString());
-                }
+        final SubInt newint = (SubInt) no;
+        final SubInt baseint = (SubInt) bo;
+        if (!integer.equals(newint) && !newint.equals(baseint)) {
+            integer = newint;
+            if (Merger.fullLogging) {
+                Merger.logMerge(getType(), integer.toString());
             }
         }
         return integer;

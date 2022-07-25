@@ -117,8 +117,8 @@ public class ModListing extends SubRecord<ModListing> implements Comparable<ModL
     }
 
     @Override
-    int getContentLength(ModExporter out) {
-        return mast.getContentLength(out) + 14 + 4;  // 14 for DATA, 4 for .esp
+    int getContentLength(boolean isStringTabled) {
+        return mast.getContentLength(isStringTabled) + 14 + 4;  // 14 for DATA, 4 for .esp
     }
 
     @Override

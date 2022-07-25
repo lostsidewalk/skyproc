@@ -227,37 +227,21 @@ public class SPEL extends MagicItem {
 
     public enum SPELType {
 
-        /**
-         *
-         */
+
         Spell(0),
-        /**
-         *
-         */
+
         Disease(1),
-        /**
-         *
-         */
+
         Power(2),
-        /**
-         *
-         */
+
         LesserPower(3),
-        /**
-         *
-         */
+
         Ability(4),
-        /**
-         *
-         */
+
         Addition(10),
-        /**
-         *
-         */
+
         Voice(11),
-        /**
-         *
-         */
+
         UNKNOWN(-1);
         int value;
 

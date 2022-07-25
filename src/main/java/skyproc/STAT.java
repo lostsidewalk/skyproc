@@ -118,7 +118,7 @@ public class STAT extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 8;
         }
 

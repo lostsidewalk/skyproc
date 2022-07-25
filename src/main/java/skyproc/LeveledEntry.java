@@ -124,7 +124,7 @@ public class LeveledEntry extends SubShell {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 12;
         }
 

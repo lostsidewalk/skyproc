@@ -66,8 +66,6 @@ public class SPImporter {
      */
     static public ArrayList<ModListing> getActiveModList() throws java.io.IOException {
         if (SPDatabase.activePlugins.isEmpty()) {
-            SPGlobal.sync(true);
-            SPGlobal.newSyncLog("Get Active Mod List.txt");
             String header = "IMPORT MODS";
             BufferedReader ModFile;
             String dataFolder = SPGlobal.getPluginsTxt();
@@ -125,12 +123,10 @@ public class SPImporter {
                     line = ModFile.readLine();
                 }
 
-                SPGlobal.sync(false);
                 SPDatabase.activePlugins = sortModListings(lines);
 
             } catch (IOException e) {
                 SPGlobal.logException(e);
-                SPGlobal.sync(false);
                 throw e;
             }
         }
@@ -149,7 +145,6 @@ public class SPImporter {
      * @see SPGlobal
      */
     static public ArrayList<ModListing> getModList() {
-        SPGlobal.newSyncLog("Get All Present Mod List.txt");
         File directory = new File(SPGlobal.pathToDataFixed);
         ArrayList<String> out = new ArrayList<>();
         if (directory.isDirectory()) {
@@ -169,7 +164,6 @@ public class SPImporter {
     }
 
     static ArrayList<ModListing> sortModListings(ArrayList<String> lines) {
-        SPGlobal.sync(true);
         //Read it input
         ArrayList<String> esms = new ArrayList<>();
         ArrayList<String> esps = new ArrayList<>();
@@ -197,8 +191,6 @@ public class SPImporter {
 
         }
 
-        SPGlobal.flush();
-
         ArrayList<ModListing> listing = new ArrayList<>();
         for (String m : esms) {
             listing.add(new ModListing(m));
@@ -216,7 +208,6 @@ public class SPImporter {
             }
         }
 
-        SPGlobal.sync(false);
         return listing;
     }
 
@@ -528,13 +519,10 @@ public class SPImporter {
         if (!Consistency.isImported()) {
             Consistency.importConsistency(true);
         }
-        SPGlobal.sync(true);
         try {
             RecordFileChannel input = new RecordFileChannel(path + listing.print());
             Mod plugin = new Mod(listing, extractHeaderInfo(input));
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(plugin, header, "Opened filestream to mod: " + listing.print());
-            }
+            SPGlobal.logMod(plugin, header, "Opened filestream to mod: " + listing.print());
             if (SPGlobal.checkMissingMasters) {
                 checkMissingMasters(plugin);
             }
@@ -552,11 +540,8 @@ public class SPImporter {
             while (iter.hasNext()) {
                 String result = iter.loading();
                 SPProgressBarPlug.setStatusNumbered(genStatus(listing) + ": " + result);
-                if (SPGlobal.logMods) {
-                    SPGlobal.logMod(plugin, header, "================== Loading in GRUP " + result + ": ", plugin.getName(), " ===================");
-                }
+                SPGlobal.logMod(plugin, header, "================== Loading in GRUP " + result + ": ", plugin.getName(), " ===================");
                 plugin.parseData(result, iter.next());
-                SPGlobal.flush();
             }
 
             if (addtoDb) {
@@ -582,8 +567,6 @@ public class SPImporter {
 
             SPGlobal.logException(e);
             throw new BadMod("Ran into an exception, check SPGlobal.logs for more details.");
-        } finally {
-            SPGlobal.sync(false);
         }
     }
 
@@ -669,9 +652,7 @@ public class SPImporter {
 
     static void importStringLocations(Mod mod) {
         String header = "Importing Strings";
-        if (SPGlobal.logMods) {
-            SPGlobal.logMod(mod, header, "Importing Strings");
-        }
+        SPGlobal.logMod(mod, header, "Importing Strings");
         for (Files f : SubStringPointer.Files.values()) {
             importStringLocations(mod, f);
         }
@@ -754,7 +735,7 @@ public class SPImporter {
 
         if (in == null) {
             SPGlobal.logError(header, plugin + " did not have Strings files (loose or in BSA).");
-        } else if (SPGlobal.logMods) {
+        } else {
             SPGlobal.logMod(plugin, header, "Loaded " + file + " from language: " + plugin.language);
         }
     }

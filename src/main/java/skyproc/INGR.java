@@ -229,17 +229,11 @@ public class INGR extends MagicItem {
 
     public enum INGRFlag {
 
-        /**
-         *
-         */
+
         ManualCalc(0),
-        /**
-         *
-         */
+
         Food(1),
-        /**
-         *
-         */
+
         ReferencesPersist(8);
         int value;
 
@@ -269,9 +263,7 @@ public class INGR extends MagicItem {
             super.parseData(in, srcMod);
             value = in.extractInt(4);
             weight = in.extractFloat();
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "Setting DATA:    Weight: " + weight);
-            }
+            logMod(srcMod, "", "Setting DATA:    Weight: " + weight);
         }
 
         @Override
@@ -280,7 +272,7 @@ public class INGR extends MagicItem {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 8;
         }
 
@@ -323,9 +315,7 @@ public class INGR extends MagicItem {
             super.parseData(in, srcMod);
             baseCost = in.extractInt(4);
             flags.set(in.extract(4));
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "Base cost: " + baseCost + ", flags: " + flags);
-            }
+            logMod(srcMod, "", "Base cost: " + baseCost + ", flags: " + flags);
         }
 
         @Override
@@ -334,7 +324,7 @@ public class INGR extends MagicItem {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 8;
         }
 

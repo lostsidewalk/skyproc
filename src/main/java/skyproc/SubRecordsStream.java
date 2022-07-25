@@ -80,22 +80,20 @@ class SubRecordsStream extends SubRecordsDerived {
         // Print compressed summary
         int counter = 0;
         StringBuilder print = new StringBuilder();
-        if (SPGlobal.logMods) {
-            for (String type : getTypes()) {
-                RecordLocation r = pos.get(type);
-                if (r != null) {
-                    print.append(type).append(" [").append(r.pos).append("](").append(r.num).append(") ");
-                    counter++;
-                    if (counter == 5) {
-                        SPGlobal.logMod(srcMod, "", print.toString());
-                        print = new StringBuilder();
-                        counter = 0;
-                    }
+        for (String type : getTypes()) {
+            RecordLocation r = pos.get(type);
+            if (r != null) {
+                print.append(type).append(" [").append(r.pos).append("](").append(r.num).append(") ");
+                counter++;
+                if (counter == 5) {
+                    SPGlobal.logMod(srcMod, "", print.toString());
+                    print = new StringBuilder();
+                    counter = 0;
                 }
             }
-            if (counter > 0) {
-                SPGlobal.logMod(srcMod, "Stream", print.toString());
-            }
+        }
+        if (counter > 0) {
+            SPGlobal.logMod(srcMod, "Stream", print.toString());
         }
     }
 
@@ -141,9 +139,7 @@ class SubRecordsStream extends SubRecordsDerived {
                     major.srcMod.input.pos(position.pos);
                     if (SPGlobal.debugStream && SPGlobal.logging()) {
                         if (!major.equals(SPGlobal.lastStreamed)) {
-                            if (SPGlobal.logMods) {
-                                SPGlobal.logMod(major.srcMod, "Stream", "Streaming from " + major);
-                            }
+                            SPGlobal.logMod(major.srcMod, "Stream", "Streaming from " + major);
                             SPGlobal.lastStreamed = major;
                         }
                     }

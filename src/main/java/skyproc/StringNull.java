@@ -21,8 +21,8 @@ class StringNull extends StringNonNull {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
-        return super.getContentLength(out) + 1;
+    int getContentLength(boolean isStringTabled) {
+        return super.getContentLength(isStringTabled) + 1;
     }
 
     @Override

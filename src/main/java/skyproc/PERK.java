@@ -235,14 +235,14 @@ public class PERK extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (!valid) {
                 return 0;
             }
             int len = 3;
-            len += fragmentFile.getTotalLength(out);
+            len += fragmentFile.getTotalLength(isStringTabled);
             for (PERKScriptFragment frag : fragments) {
-                len += frag.getContentLength(out);
+                len += frag.getContentLength(isStringTabled);
             }
             return len;
         }
@@ -279,9 +279,9 @@ public class PERK extends MajorRecordDescription {
             fragmentName.export(out);
         }
 
-        int getContentLength(ModExporter out) {
-            return 5 + scriptName.getTotalLength(out)
-                    + fragmentName.getTotalLength(out);
+        int getContentLength(boolean isStringTabled) {
+            return 5 + scriptName.getTotalLength(isStringTabled)
+                    + fragmentName.getTotalLength(isStringTabled);
         }
     }
 }

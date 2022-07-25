@@ -268,57 +268,31 @@ public class INFO extends MajorRecord {
 
     public enum ResponseFlag {
 
-        /**
-         *
-         */
+
         Goodbye(0),
-        /**
-         *
-         */
+
         Random(1),
-        /**
-         *
-         */
+
         SayOnce(2),
-        /**
-         *
-         */
+
         RandomEnd(5),
-        /**
-         *
-         */
+
         InvisibleContinue(6),
-        /**
-         *
-         */
+
         WalkAway(7),
-        /**
-         *
-         */
+
         WalkAwayInvisbleInMenu(8),
-        /**
-         *
-         */
+
         ForceSubtitle(9),
-        /**
-         *
-         */
+
         CanMoveWhileGreeting(10),
-        /**
-         *
-         */
+
         HasNoLipFile(11),
-        /**
-         *
-         */
+
         RequiresPostProcessing(12),
-        /**
-         *
-         */
+
         AudioOutputOverride(13),
-        /**
-         *
-         */
+
         SpendsFavorPoints(14),
         ;
         int value;
@@ -360,7 +334,7 @@ public class INFO extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 24;
         }
     }
@@ -400,7 +374,7 @@ public class INFO extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 4;
         }
     }
@@ -440,14 +414,14 @@ public class INFO extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (!valid) {
                 return 0;
             }
             int len = 2;
-            len += fragmentFile.getTotalLength(out);
+            len += fragmentFile.getTotalLength(isStringTabled);
             for (ScriptFragment frag : fragments) {
-                len += frag.getContentLength(out);
+                len += frag.getContentLength(isStringTabled);
             }
             return len;
         }
@@ -481,9 +455,9 @@ public class INFO extends MajorRecord {
             fragmentName.export(out);
         }
 
-        int getContentLength(ModExporter out) {
-            return 1 + scriptName.getTotalLength(out)
-                    + fragmentName.getTotalLength(out);
+        int getContentLength(boolean isStringTabled) {
+            return 1 + scriptName.getTotalLength(isStringTabled)
+                    + fragmentName.getTotalLength(isStringTabled);
         }
     }
 

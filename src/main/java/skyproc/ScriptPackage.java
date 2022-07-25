@@ -44,13 +44,13 @@ public class ScriptPackage extends SubRecord implements Serializable {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         int len = 6;
         for (ScriptRef s : scripts) {
-            len += s.getTotalLength(out);
+            len += s.getTotalLength(isStringTabled);
         }
         if (fragments != null) {
-            len += fragments.getContentLength(out);
+            len += fragments.getContentLength(isStringTabled);
         }
         return len;
     }
@@ -70,9 +70,7 @@ public class ScriptPackage extends SubRecord implements Serializable {
         version = in.extractInt(2);
         unknown = in.extractInt(2);
         int scriptCount = in.extractInt(2);
-        if (SPGlobal.logMods) {
-            logMod(srcMod, toString(), "Importing VMAD record with " + scriptCount + " scripts.  Version: " + version + ", unknown: " + unknown);
-        }
+        logMod(srcMod, toString(), "Importing VMAD record with " + scriptCount + " scripts.  Version: " + version + ", unknown: " + unknown);
         for (int i = 0; i < scriptCount; i++) {
             scripts.add(new ScriptRef(in, srcMod));
         }

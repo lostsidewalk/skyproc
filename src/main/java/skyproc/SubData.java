@@ -85,7 +85,7 @@ class SubData extends SubRecordTyped<byte[]> {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         if (isValid()) {
             return data.length;
         } else {

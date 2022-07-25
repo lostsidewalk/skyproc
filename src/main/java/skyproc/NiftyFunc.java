@@ -352,9 +352,9 @@ public class NiftyFunc {
         }
 
         if (correct) {
-            SPGlobal.log(recordLengths, "Validated.");
+            SPGlobal.log(recordLengths, "Validated test file path=" + testFilePath);
         } else {
-            SPGlobal.logError(recordLengths, "NOT Validated.");
+            SPGlobal.logError(recordLengths, "Validation failed for test file path=" + testFilePath);
         }
         return correct;
     }

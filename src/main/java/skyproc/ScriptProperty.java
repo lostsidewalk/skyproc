@@ -113,9 +113,7 @@ class ScriptProperty extends Record implements Serializable {
         name.set(in.extractString(in.extractInt(2)));
         ScriptPropertyType type = ScriptPropertyType.value(in.extractInt(1));
         unknown = in.extractInt(1);
-        if (SPGlobal.logMods) {
-            logMod(srcMod, "VMAD", "    Property " + name + " with type " + type + ", unknown: " + unknown);
-        }
+        logMod(srcMod, "VMAD", "    Property " + name + " with type " + type + ", unknown: " + unknown);
         switch (type) {
             case FormID:
                 data = new FormIDData();
@@ -151,17 +149,13 @@ class ScriptProperty extends Record implements Serializable {
                 if (logging()) {
                     logError("VMAD", "    Importing property with UNKNOWN TYPE!");
                 }
-                if (SPGlobal.logMods) {
-                    logMod(srcMod, "VMAD", "    Importing property with UNKNOWN TYPE!");
-                }
+                logMod(srcMod, "VMAD", "    Importing property with UNKNOWN TYPE!");
                 in.extractInts(1000);  // break extraction to exclude NPC from database
         }
         if (data != null) {
             data.parseData(in, srcMod);
         }
-        if (SPGlobal.logMods) {
-            logMod(srcMod, "VMAD", "      Data: " + data.print());
-        }
+        logMod(srcMod, "VMAD", "      Data: " + data.print());
     }
 
     @Override
@@ -213,9 +207,9 @@ class ScriptProperty extends Record implements Serializable {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
-        int len = name.getTotalLength(out) + 2;
-        return len + data.getContentLength();
+    int getContentLength(boolean isStringTabled) {
+        int len = name.getTotalLength(isStringTabled) + 2;
+        return len + data.getContentLength(isStringTabled);
     }
 
     @Override
@@ -276,7 +270,7 @@ class ScriptProperty extends Record implements Serializable {
 
         void parseData(LImport in, Mod srcMod);
 
-        int getContentLength();
+        int getContentLength(boolean isStringTabled);
 
         void export(ModExporter out) throws IOException;
 
@@ -295,7 +289,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return 2 + data.length();
         }
 
@@ -326,7 +320,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return 4;
         }
 
@@ -356,7 +350,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return 1;
         }
 
@@ -404,7 +398,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return 8;
         }
 
@@ -435,7 +429,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return 4;
         }
 
@@ -469,7 +463,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return data.size() * 4 + 4;
         }
 
@@ -511,7 +505,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             int out = data.size() * 2 + 4;
             for (String s : data) {
                 out += s.length();
@@ -559,7 +553,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return data.size() * 8 + 4;
         }
 
@@ -600,7 +594,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return data.size() + 4;
         }
 
@@ -645,7 +639,7 @@ class ScriptProperty extends Record implements Serializable {
         }
 
         @Override
-        public int getContentLength() {
+        public int getContentLength(boolean isStringTabled) {
             return data.size() * 4 + 4;
         }
 

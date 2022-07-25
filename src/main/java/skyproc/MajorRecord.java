@@ -158,9 +158,7 @@ public abstract class MajorRecord extends Record implements Serializable {
         if (get(MajorFlags.Compressed)) {
             set(MajorFlags.Compressed, false);
             in = in.correctForCompression();
-            if (SPGlobal.logMods) {
-                logMod(srcMod, getTypes().toString(), "Decompressed");
-            }
+            logMod(srcMod, getTypes().toString(), "Decompressed");
         }
 
         if (!in.isDone() && "EDID".equals(getNextType(in))) {
@@ -202,19 +200,19 @@ public abstract class MajorRecord extends Record implements Serializable {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         if (this.get(MajorFlags.Deleted) && !SPGlobal.forceValidateMode) {
             return 0;
         } else {
-            return subRecords.length(out);
+            return subRecords.length(isStringTabled);
         }
     }
 
     @Override
-    int getTotalLength(ModExporter out) {
-        int len = super.getTotalLength(out);
+    int getTotalLength(boolean isStringTabled) {
+        int len = super.getTotalLength(isStringTabled);
         if (shouldExportGRUP()) {
-            len += getGRUPAppend().getTotalLength(out);
+            len += getGRUPAppend().getTotalLength(isStringTabled);
         }
         return len;
     }

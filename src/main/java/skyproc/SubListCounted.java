@@ -30,8 +30,8 @@ class SubListCounted<T extends SubRecord> extends SubList {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
-        int length = super.getContentLength(out);
+    int getContentLength(boolean isStringTabled) {
+        int length = super.getContentLength(isStringTabled);
         if (!"".equals(counterType)) {
             length += counterLength + 6;
         }

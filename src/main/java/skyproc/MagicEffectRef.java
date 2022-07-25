@@ -212,7 +212,7 @@ public class MagicEffectRef extends SubShellBulkType {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 12;
         }
 

@@ -1,7 +1,6 @@
 package skyproc.gui;
 
 import lev.Ln;
-import lev.debug.LDebug;
 import lev.gui.*;
 import lev.gui.resources.LFonts;
 import lev.gui.resources.LImages;
@@ -692,12 +691,6 @@ public class SUMGUI extends JFrame {
             hook.getSave().saveToFile();
         }
         save.saveToFile();
-
-        if (forceClose) {
-            LDebug.wrapUpAndExit();
-        } else {
-            LDebug.wrapUp();
-        }
     }
 
     static void runThread() {

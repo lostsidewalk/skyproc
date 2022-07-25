@@ -259,10 +259,10 @@ abstract class SubRecords implements Serializable, Iterable<SubRecord> {
         map.remove(in);
     }
 
-    public int length(ModExporter out) {
+    public int length(boolean isStringTabled) {
         int length = 0;
         for (SubRecord s : this) {
-            length += s.getTotalLength(out);
+            length += s.getTotalLength(isStringTabled);
         }
         return length;
     }

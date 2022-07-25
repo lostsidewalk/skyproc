@@ -119,7 +119,7 @@ public abstract class Record implements Serializable {
     void export(ModExporter out) throws IOException {
         if (isValid()) {
             out.write(getType());
-            out.write(getContentLength(out));
+            out.write(getContentLength(out.getExportMod().isFlag(Mod.Mod_Flags.STRING_TABLED)));
         }
     }
 
@@ -169,15 +169,11 @@ public abstract class Record implements Serializable {
 
     abstract int getFluffLength();
 
-    int getTotalLength(ModExporter out) {
-        return getContentLength(out) + getHeaderLength();
+    int getTotalLength(boolean isStringTabled) {
+        return getContentLength(isStringTabled) + getHeaderLength();
     }
 
-    abstract int getContentLength(ModExporter out);
-
-    void newSyncLog(String fileName) {
-        SPGlobal.newSyncLog(fileName);
-    }
+    abstract int getContentLength(boolean isStringTabled);
 
     boolean logging() {
         return SPGlobal.logging();
@@ -201,13 +197,5 @@ public abstract class Record implements Serializable {
 
     void log(String header, String... log) {
         SPGlobal.log(header, log);
-    }
-
-    void newLog(String fileName) {
-        SPGlobal.newLog(fileName);
-    }
-
-    void flush() {
-        SPGlobal.flush();
     }
 }

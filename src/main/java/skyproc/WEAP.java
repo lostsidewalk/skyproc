@@ -23,38 +23,39 @@ public class WEAP extends MajorRecordDescription {
 
         @Override
         protected void addRecords() {
-            after(new ScriptPackage(), "EDID");
-            add(new SubData("OBND", new byte[12]));
-            reposition("FULL");
-            add(new Model());
-            add(new SubString("ICON"));
-            add(new SubString("MICO"));
-            add(new SubForm("EITM"));
-            add(new SubInt("EAMT", 2));
-            add(new DestructionData());
-            add(new SubForm("ETYP"));
-            add(new SubForm("BIDS"));
-            add(new SubForm("BAMT"));
-            add(new SubForm("YNAM"));
-            add(new SubForm("ZNAM"));
-            add(new KeywordSet());
-            reposition("DESC");
-            add(SubString.getNew("NNAM", true));
-            add(new SubForm("INAM"));
-            add(new SubForm("WNAM"));
-            add(new SubList<>(new SubData("ENAM")));
-            add(new SubForm("SNAM"));
-            add(new SubForm("XNAM"));
-            add(new SubForm("NAM7"));
-            add(new SubForm("TNAM"));
-            add(new SubForm("UNAM"));
-            add(new SubForm("NAM9"));
-            add(new SubForm("NAM8"));
-            add(new DATA());
-            add(new DNAM());
-            add(new CRDT());
-            add(new SubInt("VNAM", 4));
-            add(new SubForm("CNAM"));
+            after(new ScriptPackage(), "EDID"); // ok
+            // VMAD
+            add(new SubData("OBND", new byte[12])); // ok
+            reposition("FULL"); // ok
+            add(new Model()); // ok
+            add(new SubString("ICON")); // ok
+            add(new SubString("MICO")); // ok
+            add(new SubForm("EITM")); // ok
+            add(new SubInt("EAMT", 2)); // ok
+            add(new DestructionData()); // ok
+            add(new SubForm("ETYP")); // ok
+            add(new SubForm("BIDS")); // ok
+            add(new SubForm("BAMT")); // ok
+            add(new SubForm("YNAM")); // ok
+            add(new SubForm("ZNAM")); // ok
+            add(new KeywordSet()); // ok
+            reposition("DESC"); // ok
+            add(SubString.getNew("NNAM", true)); // ok
+            add(new SubForm("INAM")); // ok
+            add(new SubForm("WNAM")); // ok
+            add(new SubList<>(new SubData("ENAM"))); // ok
+            add(new SubForm("SNAM")); // ok
+            add(new SubForm("XNAM")); // ok
+            add(new SubForm("NAM7")); // ok
+            add(new SubForm("TNAM")); // ok
+            add(new SubForm("UNAM")); // ok
+            add(new SubForm("NAM9")); // ok
+            add(new SubForm("NAM8")); // ok
+            add(new DATA()); // ok
+            add(new DNAM()); // ok
+            add(new CRDT()); // needs updated
+            add(new SubInt("VNAM", 4)); // ok
+            add(new SubForm("CNAM")); // ok
         }
     };
 
@@ -840,21 +841,18 @@ public class WEAP extends MajorRecordDescription {
             rumbleRightMotorStrength = in.extractFloat();
             runbleDuration = in.extractFloat();
             unknown6 = in.extract(12);
-//	    flags3.set(in.extract(4));
             skill = in.extractInt(4);
             unknown7 = in.extract(8);
             resist = in.extract(4);
             unknown8 = in.extract(4);
             stagger = in.extractFloat();
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "WType: " + wtype + ", speed: " + speed + ", reach: " + reach);
-                logMod(srcMod, "", "SightFOV: " + sightFOV + ", vats: " + vats + ", numProjectiles: " + numProjectiles);
-                logMod(srcMod, "", "EmbeddedWeapActorVal: " + embeddedWeapActorValue + ", MinRange: " + minRange + ", MaxRange: " + maxRange);
-                logMod(srcMod, "", "stagger: " + stagger + ", Bound: " + get(WeaponFlag.BoundWeapon) + ", Cant Drop: " + get(WeaponFlag.CantDrop));
-                logMod(srcMod, "", "Hide Backpack: " + get(WeaponFlag.HideBackpack) + ", Ignore Normal Weapon Resistance: " + get(WeaponFlag.IgnoresNormalWeaponResistance) + ", Minor Crime: " + get(WeaponFlag.MinorCrime));
-                logMod(srcMod, "", "NPCs Use Ammo: " + get(WeaponFlag.NPCsUseAmmo) + ", No jam after reload: " + get(WeaponFlag.NoJamAfterReload) + ", Non Hostile: " + get(WeaponFlag.NonHostile));
-                logMod(srcMod, "", "Non Playable: " + get(WeaponFlag.NonPlayable) + ", Not used in normal combat: " + get(WeaponFlag.NotUsedInNormalCombat) + ", Player Only: " + get(WeaponFlag.PlayerOnly));
-            }
+            logMod(srcMod, "", "WType: " + wtype + ", speed: " + speed + ", reach: " + reach);
+            logMod(srcMod, "", "SightFOV: " + sightFOV + ", vats: " + vats + ", numProjectiles: " + numProjectiles);
+            logMod(srcMod, "", "EmbeddedWeapActorVal: " + embeddedWeapActorValue + ", MinRange: " + minRange + ", MaxRange: " + maxRange);
+            logMod(srcMod, "", "stagger: " + stagger + ", Bound: " + get(WeaponFlag.BoundWeapon) + ", Cant Drop: " + get(WeaponFlag.CantDrop));
+            logMod(srcMod, "", "Hide Backpack: " + get(WeaponFlag.HideBackpack) + ", Ignore Normal Weapon Resistance: " + get(WeaponFlag.IgnoresNormalWeaponResistance) + ", Minor Crime: " + get(WeaponFlag.MinorCrime));
+            logMod(srcMod, "", "NPCs Use Ammo: " + get(WeaponFlag.NPCsUseAmmo) + ", No jam after reload: " + get(WeaponFlag.NoJamAfterReload) + ", Non Hostile: " + get(WeaponFlag.NonHostile));
+            logMod(srcMod, "", "Non Playable: " + get(WeaponFlag.NonPlayable) + ", Not used in normal combat: " + get(WeaponFlag.NotUsedInNormalCombat) + ", Player Only: " + get(WeaponFlag.PlayerOnly));
         }
 
         public boolean get(WeaponFlag flag) {
@@ -890,7 +888,7 @@ public class WEAP extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 100;
         }
 
@@ -971,9 +969,7 @@ public class WEAP extends MajorRecordDescription {
             value = in.extractInt(4);
             weight = in.extractFloat();
             damage = in.extractInt(2);
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "Value: " + value + ", weight: " + weight + ", damage: " + damage);
-            }
+            logMod(srcMod, "", "Value: " + value + ", weight: " + weight + ", damage: " + damage);
         }
 
         @Override
@@ -987,7 +983,7 @@ public class WEAP extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 10;
         }
 
@@ -1043,8 +1039,7 @@ public class WEAP extends MajorRecordDescription {
             out.write(critDmg);
             out.write(critMult);
             out.write(onDeath, 1);
-            out.write(unused, 3);
-            out.write(unknown, 4);
+            out.write(unused, 7);
             critEffect.export(out);
             out.write(unknown2, 4);
         }
@@ -1055,14 +1050,11 @@ public class WEAP extends MajorRecordDescription {
             critDmg = in.extractInt(2);
             unknown0 = in.extract(2);
             critMult = in.extractFloat();
-            onDeath = in.extractInt(1);
-            unused = in.extract(3);
-            unknown = in.extract(4);
+            onDeath = in.extractInt(1); // ok
+            unused = in.extract(7); // ok
             critEffect.parseData(in, srcMod);
             unknown2 = in.extract(4);
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "critDmg: " + critDmg + ", critMult: " + critMult + ", crit effect: " + critEffect);
-            }
+            logMod(srcMod, "", "critDmg: " + critDmg + ", critMult: " + critMult + ", crit effect: " + critEffect);
         }
 
         @Override
@@ -1076,8 +1068,8 @@ public class WEAP extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
-            return 16;
+        int getContentLength(boolean isStringTabled) {
+            return 24;
         }
 
         @Override

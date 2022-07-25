@@ -11,10 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
-/**
- * @author Justin Swanson
- */
-public abstract class MagicItem extends MajorRecordDescription {
+public abstract class EnchantedItem extends MajorRecordDescription {
 
     // Static prototypes and definitions
     static final SubPrototype magicItemProto = new SubPrototype(MajorRecordDescription.descProto) {
@@ -25,15 +22,13 @@ public abstract class MagicItem extends MajorRecordDescription {
             reposition("FULL");
             reposition("DESC");
             add(new SubList<>(new MagicEffectRef()));
-            add(new KeywordSet());
         }
     };
 
     // Common Functions
-    MagicItem() {
+    EnchantedItem() {
         super();
     }
-
 
     public ArrayList<MagicEffectRef> getMagicEffects() {
         return subRecords.getSubList("EFID").toPublic();
@@ -70,11 +65,6 @@ public abstract class MagicItem extends MajorRecordDescription {
         return subRecords.getSubData("OBND");
     }
 
-    KeywordSet getKeywordSet() {
-        return subRecords.getKeywords();
-    }
-
-
     public void clearMagicEffects() {
         subRecords.getSubList("EFID").clear();
     }
@@ -82,12 +72,11 @@ public abstract class MagicItem extends MajorRecordDescription {
     @Override
     public MajorRecord merge(MajorRecord no, MajorRecord bo) {
         super.merge(no, bo);
-        MagicItem m = this;
-        if (!(no == null && bo == null && (no instanceof MagicItem) && (bo instanceof MagicItem))) {
-            final MagicItem nmi = (MagicItem) no;
-            final MagicItem bmi = (MagicItem) bo;
+        EnchantedItem m = this;
+        if (!(no == null && bo == null && (no instanceof EnchantedItem) && (bo instanceof EnchantedItem))) {
+            final EnchantedItem nmi = (EnchantedItem) no;
+            final EnchantedItem bmi = (EnchantedItem) bo;
             m.getOBND().merge(nmi.getOBND(), bmi.getOBND());
-            m.getKeywordSet().merge(nmi.getKeywordSet(), bmi.getKeywordSet());
             m.getEFID().merge(nmi.getEFID(), bmi.getEFID());
         }
         return m;
@@ -100,13 +89,21 @@ public abstract class MagicItem extends MajorRecordDescription {
         ManualCostCalculation(0),
 
         PCStartSpell(17),
-
+        /**
+         *
+         */
         AreaEffectIgnoresLOS(19),
-
+        /**
+         *
+         */
         IgnoreResistance(20),
-
+        /**
+         *
+         */
         NoAbsorbOrReflect(21),
-
+        /**
+         *
+         */
         NoDualCastModification(23);
         int value;
 

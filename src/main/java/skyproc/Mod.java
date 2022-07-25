@@ -65,9 +65,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
     @SuppressWarnings("LeakingThisInConstructor")
     Mod(ModListing info, ByteBuffer headerInfo) throws Exception {
         this(info, true);
-        if (SPGlobal.logMods) {
-            SPGlobal.logMod(this, "MOD", "Parsing header");
-        }
+        SPGlobal.logMod(this, "MOD", "Parsing header");
         if (!headerInfo.hasRemaining()) {
             throw new BadMod(info.print() + " did not have a TES4 header.");
         }
@@ -359,24 +357,18 @@ public class Mod implements Comparable, Iterable<GRUP> {
      */
     public void print() {
 
-        SPGlobal.newSyncLog("Mod Export/" + getName() + ".txt");
-
         if (!getMastersStrings().isEmpty()) {
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(this, getName(), "=======================================================================");
-                SPGlobal.logMod(this, getName(), "======================= Printing Mod Masters ==========================");
-                SPGlobal.logMod(this, getName(), "=======================================================================");
-                for (String s : getMastersStrings()) {
-                    SPGlobal.logMod(this, getName(), s);
-                }
+            SPGlobal.logMod(this, getName(), "=======================================================================");
+            SPGlobal.logMod(this, getName(), "======================= Printing Mod Masters ==========================");
+            SPGlobal.logMod(this, getName(), "=======================================================================");
+            for (String s : getMastersStrings()) {
+                SPGlobal.logMod(this, getName(), s);
             }
         }
         for (GRUP g : GRUPs.values()) {
             g.toString();
         }
-        if (SPGlobal.logMods) {
-            SPGlobal.logMod(this, getName(), "------------------------  DONE PRINTING -------------------------------");
-        }
+        SPGlobal.logMod(this, getName(), "------------------------  DONE PRINTING -------------------------------");
     }
 
 
@@ -448,9 +440,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
             }
         }
 
-        if (SPGlobal.logMods) {
-            SPGlobal.logMod(this, getName(), "No strings file for " + file);
-        }
+        SPGlobal.logMod(this, getName(), "No strings file for " + file);
     }
 
     /**
@@ -674,10 +664,6 @@ public class Mod implements Comparable, Iterable<GRUP> {
 
     void export(File outPath) throws IOException, BadRecord {
         SPGlobal.logMain("Mod Export", "Exporting " + this);
-        if (SPGlobal.logging()) {
-            SPGlobal.newSyncLog("Export - " + this.getName() + ".txt");
-            SPGlobal.sync(true);
-        }
 
         ModExporter out = new ModExporter(outPath, this);
 
@@ -1528,8 +1514,8 @@ public class Mod implements Comparable, Iterable<GRUP> {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
-            return subRecords.length(out);
+        int getContentLength(boolean isStringTabled) {
+            return subRecords.length(isStringTabled);
         }
 
         @Override
@@ -1626,7 +1612,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 12;
         }
 

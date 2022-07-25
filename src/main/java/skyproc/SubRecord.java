@@ -34,7 +34,7 @@ abstract class SubRecord<T> extends Record {
     @Override
     void export(ModExporter out) throws IOException {
         out.write(getType());
-        out.write(getContentLength(out), getSizeLength());
+        out.write(getContentLength(out.getExportMod().isFlag(Mod.Mod_Flags.STRING_TABLED)), getSizeLength());
     }
 
     abstract SubRecord getNew(String type);

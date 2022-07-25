@@ -101,7 +101,7 @@ public class DestructionData extends SubShell {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 20;
         }
     }

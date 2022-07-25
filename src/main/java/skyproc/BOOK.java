@@ -249,21 +249,13 @@ public class BOOK extends MajorRecordDescription {
 
     public enum BookFlag {
 
-        /**
-         *
-         */
+
         TeachesSkill,
-        /**
-         *
-         */
+
         CantBeTaken,
-        /**
-         *
-         */
+
         TeachesSpell,
-        /**
-         *
-         */
+
         Read
     }
 
@@ -314,7 +306,7 @@ public class BOOK extends MajorRecordDescription {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 16;
         }
 

@@ -2200,7 +2200,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 52;
         }
 
@@ -2231,16 +2231,14 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
             farAwayDistance = in.extractFloat();
             gearedUpWeapons = in.extractInt(1);
             fluff2 = in.extract(3);
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "DNAM record: ");
-                String temp;
-                for (Skill s : Skill.NPC_Skills()) {
-                    temp = " BASE:" + getSkillBase(s) + ", MOD:" + getSkillMod(s);
-                    logMod(srcMod, "", "  " + s.toString() + Ln.spaceLeft(false, 15 - s.toString().length() + temp.length(), ' ', temp));
-                }
-                logMod(srcMod, "", "  " + "Health: " + health + ", Magicka: " + magicka + ", Stamina: " + stamina);
-                logMod(srcMod, "", "  " + "Far Away Distance: " + farAwayDistance + ", Geared Up weapons: " + gearedUpWeapons);
+            logMod(srcMod, "", "DNAM record: ");
+            String temp;
+            for (Skill s : Skill.NPC_Skills()) {
+                temp = " BASE:" + getSkillBase(s) + ", MOD:" + getSkillMod(s);
+                logMod(srcMod, "", "  " + s.toString() + Ln.spaceLeft(false, 15 - s.toString().length() + temp.length(), ' ', temp));
             }
+            logMod(srcMod, "", "  " + "Health: " + health + ", Magicka: " + magicka + ", Stamina: " + stamina);
+            logMod(srcMod, "", "  " + "Far Away Distance: " + farAwayDistance + ", Geared Up weapons: " + gearedUpWeapons);
         }
 
         @Override
@@ -2332,12 +2330,10 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
             templateFlags.set(in.extract(2));
             healthOffset = in.extractInt(2);
             bleedout = in.extractInt(2);
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "ACBS record: ");
-                logMod(srcMod, "", "  " + "Base Spell Points: " + magickaOffset + ", Base Fatigue: " + fatigueOffset);
-                logMod(srcMod, "", "  " + "Level: " + level + ", Min Calculated Level: " + minCalcLevel + ", Max Calculated Level: " + maxCalcLevel);
-                logMod(srcMod, "", "  " + "Speed Multiplier: " + speed + ", Disposition Base: " + dispositionBase);
-            }
+            logMod(srcMod, "", "ACBS record: ");
+            logMod(srcMod, "", "  " + "Base Spell Points: " + magickaOffset + ", Base Fatigue: " + fatigueOffset);
+            logMod(srcMod, "", "  " + "Level: " + level + ", Min Calculated Level: " + minCalcLevel + ", Max Calculated Level: " + maxCalcLevel);
+            logMod(srcMod, "", "  " + "Speed Multiplier: " + speed + ", Disposition Base: " + dispositionBase);
         }
 
         @Override
@@ -2362,7 +2358,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 24;
         }
 
@@ -2430,12 +2426,10 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
             aggroWarn = in.extractInt(4);
             aggroWarnAttack = in.extractInt(4);
             aggroAttack = in.extractInt(4);
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "AIDT record: ");
-                logMod(srcMod, "", "  Aggression: " + aggression + ", Confidence: " + confidence + ", Morality: " + morality);
-                logMod(srcMod, "", "  Assistance: " + assistance + ", Mood: " + mood + ", AggroRadiusBehavior: " + aggroRadiusBehavior);
-                logMod(srcMod, "", "  Aggro Attack: " + aggroAttack + ", Aggro Warn: " + aggroWarn + ", Aggro Warn/Attack: " + aggroWarnAttack);
-            }
+            logMod(srcMod, "", "AIDT record: ");
+            logMod(srcMod, "", "  Aggression: " + aggression + ", Confidence: " + confidence + ", Morality: " + morality);
+            logMod(srcMod, "", "  Assistance: " + assistance + ", Mood: " + mood + ", AggroRadiusBehavior: " + aggroRadiusBehavior);
+            logMod(srcMod, "", "  Aggro Attack: " + aggroAttack + ", Aggro Warn: " + aggroWarn + ", Aggro Warn/Attack: " + aggroWarnAttack);
         }
 
         @Override
@@ -2460,7 +2454,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 20;
         }
 
@@ -2592,7 +2586,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 44;
         }
 
@@ -2714,7 +2708,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 76;
         }
 
@@ -2783,7 +2777,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 16;
         }
 

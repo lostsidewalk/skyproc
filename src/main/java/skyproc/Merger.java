@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class Merger {
-    public static boolean fullLogging;
+    public static boolean fullLogging = true;
     public static String currentRecord;
     public static String currentMod;
     public static HashMap<FormID, LVLOList> leveledRecordMap = new HashMap<>();

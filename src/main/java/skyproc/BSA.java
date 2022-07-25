@@ -849,41 +849,14 @@ public class BSA {
      */
     public enum FileType {
 
-        /**
-         *
-         */
         NIF,
-        /**
-         *
-         */
         DDS,
-        /**
-         *
-         */
         XML,
-        /**
-         *
-         */
         WAV,
-        /**
-         *
-         */
         MP3,
-        /**
-         *
-         */
         TXT_HTML_BAT_SCC,
-        /**
-         *
-         */
         SPT,
-        /**
-         *
-         */
         TEX_FNT,
-        /**
-         *
-         */
         CTL
     }
 
@@ -899,21 +872,13 @@ public class BSA {
 
     public enum BSAFlag {
 
-        /**
-         *
-         */
+
         DirectoriesHaveNames(0),
-        /**
-         *
-         */
+
         FilesHaveNames(1),
-        /**
-         *
-         */
+
         Compressed(2),
-        /**
-         *
-         */
+
         NamesInFileData(8);
         int value;
 

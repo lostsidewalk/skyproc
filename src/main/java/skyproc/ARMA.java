@@ -374,9 +374,7 @@ public class ARMA extends MajorRecord {
             detectionSoundValue = in.extractInt(1);
             unknown2 = in.extract(1);
             weaponAdjust = in.extractFloat();
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "M-Priority: " + malePriority + ", F-Priority: " + femalePriority + ", DetectionValue: " + detectionSoundValue + ", weaponAdjust: " + weaponAdjust);
-            }
+            logMod(srcMod, "", "M-Priority: " + malePriority + ", F-Priority: " + femalePriority + ", DetectionValue: " + detectionSoundValue + ", weaponAdjust: " + weaponAdjust);
         }
 
         @Override
@@ -390,7 +388,7 @@ public class ARMA extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 12;
         }
 

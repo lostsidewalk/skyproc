@@ -45,9 +45,7 @@ class SubFormArray extends SubRecordTyped implements Iterable<FormID> {
         if (size != 0) {
             for (int i = 0; i < size; i++) {
                 IDs.get(i).parseData(in, srcMod);
-                if (SPGlobal.logMods) {
-                    logMod(srcMod, toString(), "Setting " + this + " FormID[" + i + "]: " + IDs.get(i));
-                }
+                logMod(srcMod, toString(), "Setting " + this + " FormID[" + i + "]: " + IDs.get(i));
             }
         } else {
             while (!in.isDone()) {
@@ -55,9 +53,7 @@ class SubFormArray extends SubRecordTyped implements Iterable<FormID> {
                 id.parseData(in, srcMod);
                 add(id);
                 size++;
-                if (SPGlobal.logMods) {
-                    logMod(srcMod, toString(), "Setting " + this + " FormID[" + size + "]: " + id);
-                }
+                logMod(srcMod, toString(), "Setting " + this + " FormID[" + size + "]: " + id);
             }
         }
     }
@@ -85,7 +81,7 @@ class SubFormArray extends SubRecordTyped implements Iterable<FormID> {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
+    int getContentLength(boolean isStringTabled) {
         return IDs.size() * 4;
     }
 

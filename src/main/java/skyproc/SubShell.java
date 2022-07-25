@@ -32,8 +32,8 @@ class SubShell extends SubRecord<SubShell> {
     }
 
     @Override
-    int getContentLength(ModExporter out) {
-        return subRecords.length(out);
+    int getContentLength(boolean isStringTabled) {
+        return subRecords.length(isStringTabled);
     }
 
     @Override

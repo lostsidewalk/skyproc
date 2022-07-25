@@ -372,41 +372,23 @@ public class PROJ extends MajorRecordNamed {
 
     public enum ProjectileFlag {
 
-        /**
-         *
-         */
+
         Explosion(1),
-        /**
-         *
-         */
+
         AltTrigger(2),
-        /**
-         *
-         */
+
         MuzzleFlash(3),
-        /**
-         *
-         */
+
         CanBeDisabled(5),
-        /**
-         *
-         */
+
         CanBePickedUp(6),
-        /**
-         *
-         */
+
         SuperSonic(7),
-        /**
-         *
-         */
+
         CritPinsLimbs(8),
-        /**
-         *
-         */
+
         PassThroughSmallTransparent(9),
-        /**
-         *
-         */
+
         DisableCombatAimCorrection(10);
         int value;
 
@@ -580,7 +562,7 @@ public class PROJ extends MajorRecordNamed {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 92;
         }
 

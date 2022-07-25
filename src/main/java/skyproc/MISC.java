@@ -201,9 +201,7 @@ public class MISC extends MajorRecordNamed {
             super.parseData(in, srcMod);
             value = in.extractInt(4);
             weight = in.extractFloat();
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "Setting DATA:    Weight: " + weight);
-            }
+            logMod(srcMod, "", "Setting DATA:    Weight: " + weight);
         }
 
         @Override
@@ -212,7 +210,7 @@ public class MISC extends MajorRecordNamed {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 8;
         }
 

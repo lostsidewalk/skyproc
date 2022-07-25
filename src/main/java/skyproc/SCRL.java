@@ -259,9 +259,7 @@ public class SCRL extends MagicItem {
             super.parseData(in, srcMod);
             value = in.extractInt(4);
             weight = in.extractFloat();
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "Setting DATA:    Weight: " + weight);
-            }
+            logMod(srcMod, "", "Setting DATA:    Weight: " + weight);
         }
 
         @Override
@@ -270,7 +268,7 @@ public class SCRL extends MagicItem {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 8;
         }
 

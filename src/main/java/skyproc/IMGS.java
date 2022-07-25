@@ -330,13 +330,11 @@ public class IMGS extends MajorRecord {
             skyScale = in.extractFloat();
             eyeAdaptStrength = in.extractFloat();
 
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "HNAM record: ");
-                logMod(srcMod, "", "  " + "Eye Adapt Speed: " + eyeAdaptSpeed + ", Bloom Radius: " + bloomRadius);
-                logMod(srcMod, "", "  " + "Bloom Threshold: " + bloomThreshold + ", Bloom Scale: " + bloomScale + ", Target Lum #1: " + targetLum1);
-                logMod(srcMod, "", "  " + "Target Lum #2: " + targetLum2 + ", Sunlight Scale: " + sunlightScale);
-                logMod(srcMod, "", "  " + "Sky Scale: " + skyScale + ", Eye Adapt Strength: " + eyeAdaptStrength);
-            }
+            logMod(srcMod, "", "HNAM record: ");
+            logMod(srcMod, "", "  " + "Eye Adapt Speed: " + eyeAdaptSpeed + ", Bloom Radius: " + bloomRadius);
+            logMod(srcMod, "", "  " + "Bloom Threshold: " + bloomThreshold + ", Bloom Scale: " + bloomScale + ", Target Lum #1: " + targetLum1);
+            logMod(srcMod, "", "  " + "Target Lum #2: " + targetLum2 + ", Sunlight Scale: " + sunlightScale);
+            logMod(srcMod, "", "  " + "Sky Scale: " + skyScale + ", Eye Adapt Strength: " + eyeAdaptStrength);
 
             valid = true;
         }
@@ -363,7 +361,7 @@ public class IMGS extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (isValid()) {
                 return 36;
             } else {
@@ -402,10 +400,8 @@ public class IMGS extends MajorRecord {
             brightness = in.extractFloat();
             contrast = in.extractFloat();
 
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "CNAM record: ");
-                logMod(srcMod, "", "  " + "Saturation: " + saturation + ", Brightness: " + brightness + ", Contrast: " + contrast);
-            }
+            logMod(srcMod, "", "CNAM record: ");
+            logMod(srcMod, "", "  " + "Saturation: " + saturation + ", Brightness: " + brightness + ", Contrast: " + contrast);
 
             valid = true;
         }
@@ -426,7 +422,7 @@ public class IMGS extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (isValid()) {
                 return 12;
             } else {
@@ -467,11 +463,9 @@ public class IMGS extends MajorRecord {
             green = in.extractFloat();
             blue = in.extractFloat();
 
-            if (SPGlobal.logMods) {
-                logMod(srcMod, "", "TNAM record: RWX Format");
-                logMod(srcMod, "", "  " + "Red: " + red + ", Green: " + green);
-                logMod(srcMod, "", "  " + "Blue: " + blue + ", Alpha: " + alpha);
-            }
+            logMod(srcMod, "", "TNAM record: RWX Format");
+            logMod(srcMod, "", "  " + "Red: " + red + ", Green: " + green);
+            logMod(srcMod, "", "  " + "Blue: " + blue + ", Alpha: " + alpha);
 
             valid = true;
         }
@@ -493,7 +487,7 @@ public class IMGS extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (isValid()) {
                 return 16;
             } else {
@@ -555,7 +549,7 @@ public class IMGS extends MajorRecord {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             if (isValid()) {
                 if (unknown != null) {
                     return 16;

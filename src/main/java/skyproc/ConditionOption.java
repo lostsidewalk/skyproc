@@ -10,15 +10,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-/**
- * @author Justin Swanson
- */
+
 class ConditionOption implements Serializable {
 
     int index;
+
     Enum script;
+
     RunOnType runType = RunOnType.Subject;
+
     FormID reference = new FormID();
+
     byte[] p3placeholder = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF};
 
     public static ConditionOption getOption(int index) {
@@ -85,9 +87,7 @@ class ConditionOption implements Serializable {
         runType = RunOnType.values()[in.extractInt(4)];
         reference.parseData(in, srcMod);
         parseParam3(in, srcMod);
-        if (SPGlobal.logMods) {
-            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Run Type: " + runType + ", Reference: " + reference);
-        }
+        SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Run Type: " + runType + ", Reference: " + reference);
     }
 
     public ArrayList<FormID> allFormIDs() {
@@ -189,9 +189,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1.parseData(in, srcMod);
             in.skip(4);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1);
         }
 
         @Override
@@ -253,9 +251,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             axis = Axis.get(in.extractString(1));
             in.skip(7);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Axis: " + axis);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Axis: " + axis);
         }
 
         @Override
@@ -327,9 +323,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1.parseData(in, srcMod);
             source = CastingSource.values()[in.extractInt(4)];
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Casting Source: " + source);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Casting Source: " + source);
         }
 
         @Override
@@ -405,9 +399,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             source = CastingSource.values()[in.extractInt(4)];
             p2.parseData(in, srcMod);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Casting Source: " + source + ", FormID: " + p2);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Casting Source: " + source + ", FormID: " + p2);
         }
 
         @Override
@@ -483,9 +475,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1.parseData(in, srcMod);
             p2 = in.extractInt(4);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Int: " + p2);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Int: " + p2);
         }
 
         @Override
@@ -563,9 +553,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1.parseData(in, srcMod);
             p2.parseData(in, srcMod);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID 1: " + p1 + ", FormID 2: " + p2);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID 1: " + p1 + ", FormID 2: " + p2);
         }
 
         @Override
@@ -631,9 +619,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             g = Gender.values()[in.extractInt(4)];
             in.skip(4);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Gender: " + g);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Gender: " + g);
         }
 
         @Override
@@ -695,9 +681,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             source = CastingSource.values()[in.extractInt(4)];
             in.skip(4);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Casting Source: " + source);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Casting Source: " + source);
         }
 
         @Override
@@ -776,9 +760,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1 = in.extractInt(4);
             p2.parseData(in, srcMod);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Int 1: " + p1 + ", FormID: " + p1 + ", Int 2: " + p3);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Int 1: " + p1 + ", FormID: " + p1 + ", Int 2: " + p3);
         }
 
         @Override
@@ -863,9 +845,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1 = in.extractInt(4);
             p2.parseData(in, srcMod);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Int: " + p1 + ", FormID: " + p2);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Int: " + p1 + ", FormID: " + p2);
         }
 
         @Override
@@ -931,9 +911,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             state = WardState.values()[in.extractInt(4)];
             in.skip(4);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Ward State: " + state);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Ward State: " + state);
         }
 
         @Override
@@ -995,9 +973,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1 = in.extractInt(4);
             in.skip(4);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Int: " + p1);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Int: " + p1);
         }
 
         @Override
@@ -1069,9 +1045,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1.parseData(in, srcMod);
             p2 = in.extract(4);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1);
         }
 
         @Override
@@ -1148,9 +1122,7 @@ class ConditionOption implements Serializable {
             p1.parseData(in, srcMod);
             a = Axis.get(in.extractString(1));
             in.skip(3);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Axis: " + a);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Axis: " + a);
         }
 
         @Override
@@ -1226,9 +1198,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1.parseData(in, srcMod);
             c = CrimeType.values()[in.extractInt(4)];
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Crime Type: " + c);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Crime Type: " + c);
         }
 
         @Override
@@ -1304,9 +1274,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             p1.parseData(in, srcMod);
             f = in.extractFloat();
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Float: " + f);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  FormID: " + p1 + ", Float: " + f);
         }
 
         @Override
@@ -1374,9 +1342,7 @@ class ConditionOption implements Serializable {
         public void parseParam1(LImport in, Mod srcMod) {
             i1 = in.extractInt(4);
             i2 = in.extractInt(4);
-            if (SPGlobal.logMods) {
-                SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Int 1: " + i1 + ", Int 2: " + i2);
-            }
+            SPGlobal.logMod(srcMod, this.getClass().getSimpleName(), "  Int 1: " + i1 + ", Int 2: " + i2);
         }
 
         @Override
@@ -1479,4 +1445,5 @@ class ConditionOption implements Serializable {
             return hash;
         }
     }
+
 }

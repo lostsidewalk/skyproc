@@ -206,7 +206,7 @@ public class HDPT extends MajorRecordNamed {
         }
 
         @Override
-        int getContentLength(ModExporter out) {
+        int getContentLength(boolean isStringTabled) {
             return 1;
         }
     }
