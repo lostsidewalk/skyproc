@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class Merger {
-    public static boolean fullLogging = true;
+    public static final boolean fullLogging = true;
     public static String currentRecord;
     public static String currentMod;
-    public static HashMap<FormID, LVLOList> leveledRecordMap = new HashMap<>();
+    public static final HashMap<FormID, LVLOList> leveledRecordMap = new HashMap<>();
     public static ModTags mTags;
 
     public static float merge(float f, float newfloat, float basefloat, String type, String s) {

@@ -162,7 +162,7 @@ class ConditionOption implements Serializable {
 
     public static class Cond_FormID extends ConditionOption {
 
-        FormID p1;
+        final FormID p1;
 
         Cond_FormID() {
             p1 = new FormID();
@@ -294,7 +294,7 @@ class ConditionOption implements Serializable {
 
     public static class Cond_FormID_CastingSource extends ConditionOption {
 
-        FormID p1;
+        final FormID p1;
         CastingSource source;
 
         Cond_FormID_CastingSource() {
@@ -371,7 +371,7 @@ class ConditionOption implements Serializable {
     public static class Cond_CastingSource_FormID extends ConditionOption {
 
         CastingSource source;
-        FormID p2;
+        final FormID p2;
 
         Cond_CastingSource_FormID() {
             p2 = new FormID();
@@ -446,7 +446,7 @@ class ConditionOption implements Serializable {
 
     public static class Cond_FormID_Int extends ConditionOption {
 
-        FormID p1;
+        final FormID p1;
         int p2;
 
         Cond_FormID_Int() {
@@ -522,8 +522,8 @@ class ConditionOption implements Serializable {
 
     public static class Cond_FormID_FormID extends ConditionOption {
 
-        FormID p1;
-        FormID p2;
+        final FormID p1;
+        final FormID p2;
 
         Cond_FormID_FormID() {
             p1 = new FormID();
@@ -725,7 +725,7 @@ class ConditionOption implements Serializable {
     public static class Cond_Int_FormID_Int extends ConditionOption {
 
         int p1;
-        FormID p2;
+        final FormID p2;
         int p3;
 
         Cond_Int_FormID_Int() {
@@ -817,7 +817,7 @@ class ConditionOption implements Serializable {
     public static class Cond_Int_FormID extends ConditionOption {
 
         int p1;
-        FormID p2;
+        final FormID p2;
 
         Cond_Int_FormID() {
             p2 = new FormID();
@@ -1016,7 +1016,7 @@ class ConditionOption implements Serializable {
 
     public static class Cond_FormID_String extends ConditionOption {
 
-        FormID p1;
+        final FormID p1;
         byte[] p2;
 
         Cond_FormID_String() {
@@ -1092,7 +1092,7 @@ class ConditionOption implements Serializable {
 
     public static class Cond_FormID_Axis extends ConditionOption {
 
-        FormID p1;
+        final FormID p1;
         Axis a;
 
         Cond_FormID_Axis() {
@@ -1169,7 +1169,7 @@ class ConditionOption implements Serializable {
 
     public static class Cond_FormID_CrimeType extends ConditionOption {
 
-        FormID p1;
+        final FormID p1;
         CrimeType c;
 
         Cond_FormID_CrimeType() {
@@ -1245,7 +1245,7 @@ class ConditionOption implements Serializable {
 
     public static class Cond_FormID_Float extends ConditionOption {
 
-        FormID p1;
+        final FormID p1;
         float f;
 
         Cond_FormID_Float() {

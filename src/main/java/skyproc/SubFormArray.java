@@ -15,7 +15,7 @@ import java.util.zip.DataFormatException;
  */
 class SubFormArray extends SubRecordTyped implements Iterable<FormID> {
 
-    ArrayList<FormID> IDs;
+    final ArrayList<FormID> IDs;
 
     public SubFormArray(String type_, int size) {
         super(type_);

@@ -243,7 +243,7 @@ public class ALCH extends MagicItem {
         Medicine(16),
 
         Poison(17);
-        int value;
+        final int value;
 
         ALCHFlag(int in) {
             value = in;

@@ -235,7 +235,7 @@ public class INGR extends MagicItem {
         Food(1),
 
         ReferencesPersist(8);
-        int value;
+        final int value;
 
         INGRFlag(int value) {
             this.value = value;

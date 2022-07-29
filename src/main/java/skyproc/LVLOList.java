@@ -8,8 +8,8 @@ import java.util.HashMap;
  */
 public class LVLOList {
 
-    HashMap<LeveledEntry, LVLOCount> list = new HashMap<>();
-    ArrayList<LeveledEntry> listLVLO = new ArrayList<>();
+    final HashMap<LeveledEntry, LVLOCount> list = new HashMap<>();
+    final ArrayList<LeveledEntry> listLVLO = new ArrayList<>();
 
     LVLOList() {
     }

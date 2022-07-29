@@ -295,7 +295,7 @@ public class INFO extends MajorRecord {
 
         SpendsFavorPoints(14),
         ;
-        int value;
+        final int value;
 
         ResponseFlag(int val) {
             value = val;
@@ -382,9 +382,9 @@ public class INFO extends MajorRecord {
     static class ScriptFragments extends SubRecord {
 
         byte unknown = 0;
-        LFlags fragmentFlags = new LFlags(1);
-        StringNonNull fragmentFile = new StringNonNull();
-        ArrayList<ScriptFragment> fragments = new ArrayList<>();
+        final LFlags fragmentFlags = new LFlags(1);
+        final StringNonNull fragmentFile = new StringNonNull();
+        final ArrayList<ScriptFragment> fragments = new ArrayList<>();
         boolean valid = false;
 
         @Override
@@ -440,8 +440,8 @@ public class INFO extends MajorRecord {
     static class ScriptFragment {
 
         byte unknown = 0;
-        StringNonNull scriptName = new StringNonNull();
-        StringNonNull fragmentName = new StringNonNull();
+        final StringNonNull scriptName = new StringNonNull();
+        final StringNonNull fragmentName = new StringNonNull();
 
         void parseData(LImport in, Mod srcMod) {
             unknown = in.extract(1)[0];

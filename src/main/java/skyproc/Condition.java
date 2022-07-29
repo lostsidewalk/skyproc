@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class Condition extends SubShell {
 
-    static SubPrototype conditionProto = new SubPrototype() {
+    static final SubPrototype conditionProto = new SubPrototype() {
         @Override
         protected void addRecords() {
 
@@ -22,7 +22,7 @@ public class Condition extends SubShell {
             add(SubString.getNew("CIS2", true));
         }
     };
-    static Map<Integer, Enum> scriptMap = new HashMap<>();
+    static final Map<Integer, Enum> scriptMap = new HashMap<>();
 
     Condition() {
         super(conditionProto);
@@ -553,7 +553,7 @@ public class Condition extends SubShell {
          *
          */
         SwapSubjectAndTarget(4);
-        int value;
+        final int value;
 
         CondFlag(int value) {
             this.value = value;
@@ -682,7 +682,7 @@ public class Condition extends SubShell {
          *
          */
         GetPathingCurrentSpeedAngle(684);
-        int index;
+        final int index;
 
         P_Axis(int index) {
             this.index = index;
@@ -713,7 +713,7 @@ public class Condition extends SubShell {
          *
          */
         IsCurrentSpell(595);
-        int index;
+        final int index;
 
         P_FormID_CastingSource(int index) {
             this.index = index;
@@ -748,7 +748,7 @@ public class Condition extends SubShell {
          *
          */
         IsSceneActionComplete(550);
-        int index;
+        final int index;
 
         P_FormID_Int(int index) {
             this.index = index;
@@ -823,7 +823,7 @@ public class Condition extends SubShell {
          *
          */
         IsLinkedTo(650);
-        int index;
+        final int index;
 
         P_FormID_FormID(int index) {
             this.index = index;
@@ -854,7 +854,7 @@ public class Condition extends SubShell {
          *
          */
         SpellHasKeyword(596);
-        int index;
+        final int index;
 
         P_CastingSource_FormID(int index) {
             this.index = index;
@@ -1381,7 +1381,7 @@ public class Condition extends SubShell {
          *
          */
         WornApparelHasKeywordCount(722);
-        int index;
+        final int index;
 
         P_FormID(int index) {
             this.index = index;
@@ -1416,7 +1416,7 @@ public class Condition extends SubShell {
          *
          */
         GetPCIsSex(131);
-        int index;
+        final int index;
 
         P_Gender(int index) {
             this.index = index;
@@ -1467,7 +1467,7 @@ public class Condition extends SubShell {
          *
          */
         HasBoundWeaponEquipped(706);
-        int index;
+        final int index;
 
         P_CastingSource(int index) {
             this.index = index;
@@ -1498,7 +1498,7 @@ public class Condition extends SubShell {
          *
          */
         GetEventData(576);
-        int index;
+        final int index;
 
         P_Int_FormID_Int(int index) {
             this.index = index;
@@ -1557,7 +1557,7 @@ public class Condition extends SubShell {
          *
          */
         LocAliasHasKeyword(610);
-        int index;
+        final int index;
 
         P_Int_FormID(int index) {
             this.index = index;
@@ -1588,7 +1588,7 @@ public class Condition extends SubShell {
          *
          */
         IsWardState(602);
-        int index;
+        final int index;
 
         P_WardState(int index) {
             this.index = index;
@@ -1691,7 +1691,7 @@ public class Condition extends SubShell {
          *
          */
         EPModSkillUsage_IsAdvanceAction(692);
-        int index;
+        final int index;
 
         P_Int(int index) {
             this.index = index;
@@ -1734,7 +1734,7 @@ public class Condition extends SubShell {
          *
          */
         GetVMScriptVariable(630);
-        int index;
+        final int index;
 
         P_FormID_String(int index) {
             this.index = index;
@@ -1765,7 +1765,7 @@ public class Condition extends SubShell {
          *
          */
         GetRelativeAngle(584);
-        int index;
+        final int index;
 
         P_FormID_Axis(int index) {
             this.index = index;
@@ -1796,7 +1796,7 @@ public class Condition extends SubShell {
          *
          */
         GetCrime(122);
-        int index;
+        final int index;
 
         P_FormID_CrimeType(int index) {
             this.index = index;
@@ -1827,7 +1827,7 @@ public class Condition extends SubShell {
          *
          */
         GetWithinDistance(639);
-        int index;
+        final int index;
 
         P_FormID_Float(int index) {
             this.index = index;
@@ -1858,7 +1858,7 @@ public class Condition extends SubShell {
          *
          */
         GetPlayerControlsDisabled(98);
-        int index;
+        final int index;
 
         P_Int_Int(int index) {
             this.index = index;
@@ -1893,7 +1893,7 @@ public class Condition extends SubShell {
          *
          */
         GetGraphVariableInt(675);
-        int index;
+        final int index;
 
         P_String(int index) {
             this.index = index;
@@ -2708,7 +2708,7 @@ public class Condition extends SubShell {
          *
          */
         CanFlyHere(731);
-        int index;
+        final int index;
 
         P_NoParams(int index) {
             this.index = index;

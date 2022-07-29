@@ -712,8 +712,8 @@ public class WEAP extends MajorRecordDescription {
          */
         BoundWeapon(13, 1),
         ;
-        int value;
-        int flagSet;
+        final int value;
+        final int flagSet;
 
         WeaponFlag(int value, int flagSet) {
             this.value = value;

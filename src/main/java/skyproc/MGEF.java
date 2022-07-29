@@ -743,7 +743,7 @@ public class MGEF extends MajorRecordDescription {
          */
         Unknown_32(31);
 
-        int value;
+        final int value;
 
         SpellEffectFlag(int value) {
             this.value = value;
@@ -781,7 +781,7 @@ public class MGEF extends MajorRecordDescription {
 
     static class DATA extends SubRecord {
 
-        LFlags flags = new LFlags(4);
+        final LFlags flags = new LFlags(4);
         float baseCost = 0;
         FormID relatedID = new FormID();
         ActorValue skillType = ActorValue.NONE;

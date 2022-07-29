@@ -24,14 +24,14 @@ public class SPMainMenuPanel extends JPanel {
     /**
      * Reference to the left column main menu panel.
      */
-    protected LScrollPane menuScroll;
+    protected final LScrollPane menuScroll;
 
-    protected LPanel menuPanel = new LPanel(SUMGUI.leftDimensions);
+    protected final LPanel menuPanel = new LPanel(SUMGUI.leftDimensions);
     int yPlacement = 0;
     LImagePane customLogo;
     LLabel version;
-    Color color;
-    ArrayList<SPSettingPanel> panels = new ArrayList<>();
+    final Color color;
+    final ArrayList<SPSettingPanel> panels = new ArrayList<>();
     SPSettingPanel welcome = null;
     SPSettingPanel activePanel;
 

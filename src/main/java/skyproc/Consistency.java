@@ -18,12 +18,12 @@ import java.util.Map.Entry;
  */
 class Consistency {
 
-    static ConsistencyVersion consistency = new ConsistencyV3();
-    static String header = "Consistency";
-    static boolean automaticExport = true;
+    static final ConsistencyVersion consistency = new ConsistencyV3();
+    static final String header = "Consistency";
+    static final boolean automaticExport = true;
     static boolean imported = false;
-    static char[] badChars = {(char) 0x0D, (char) 0x0A};
-    static String debugFolder = "Consistency/";
+    static final char[] badChars = {(char) 0x0D, (char) 0x0A};
+    static final String debugFolder = "Consistency/";
     static private boolean cleaned = false;
 
     static FormID getOldForm(String edid) {
@@ -135,8 +135,8 @@ class Consistency {
 
     abstract static class ConsistencyVersion {
 
-        Set<FormID> set = new HashSet<>();
-        LMergeMap<FormID, String> conflicts = new LMergeMap<>(false);
+        final Set<FormID> set = new HashSet<>();
+        final LMergeMap<FormID, String> conflicts = new LMergeMap<>(false);
 
         abstract FormID getOldForm(String edid);
 
@@ -233,7 +233,7 @@ class Consistency {
 
     static class ConsistencyV2 extends ConsistencyVersion {
 
-        Map<ModListing, Map<String, FormID>> storage = new HashMap<>();
+        final Map<ModListing, Map<String, FormID>> storage = new HashMap<>();
 
         @Override
         FormID getOldForm(String edid) {
@@ -433,7 +433,7 @@ class Consistency {
 
     static class ConsistencyV3 extends ConsistencyVersion {
 
-        Map<String, FormID> storage = new TreeMap<>();
+        final Map<String, FormID> storage = new TreeMap<>();
 
         @Override
         FormID getOldForm(String edid) {

@@ -204,8 +204,8 @@ public class PERK extends MajorRecordDescription {
     static class PERKScriptFragments extends SubRecord {
 
         byte unknown = 0;
-        StringNonNull fragmentFile = new StringNonNull();
-        ArrayList<PERKScriptFragment> fragments = new ArrayList<>();
+        final StringNonNull fragmentFile = new StringNonNull();
+        final ArrayList<PERKScriptFragment> fragments = new ArrayList<>();
         boolean valid = false;
 
         @Override
@@ -262,8 +262,8 @@ public class PERK extends MajorRecordDescription {
 
         int index = 0;
         byte[] unknown = new byte[3];
-        StringNonNull scriptName = new StringNonNull();
-        StringNonNull fragmentName = new StringNonNull();
+        final StringNonNull scriptName = new StringNonNull();
+        final StringNonNull fragmentName = new StringNonNull();
 
         void parseData(LImport in, Mod srcMod) {
             index = in.extractInt(2);

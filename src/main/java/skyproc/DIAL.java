@@ -24,7 +24,7 @@ public class DIAL extends MajorRecord {
             add(new SubInt("TIFC"));
         }
     };
-    GRUP<INFO> grup = new GRUP<>(info);
+    final GRUP<INFO> grup = new GRUP<>(info);
     boolean gruped = false;
 
     DIAL() {

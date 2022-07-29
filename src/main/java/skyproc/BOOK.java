@@ -262,7 +262,7 @@ public class BOOK extends MajorRecordDescription {
     // Static prototypes and definitions
     static final class DATA extends SubRecord {
 
-        LFlags flags = new LFlags(4);
+        final LFlags flags = new LFlags(4);
         ActorValue teachesAV = ActorValue.AbsorbChance;
         FormID teachesSpell = new FormID();
         int value = 0;

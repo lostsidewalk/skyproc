@@ -14,7 +14,7 @@ import java.util.zip.DataFormatException;
  */
 public class DestructionData extends SubShell {
 
-    static SubPrototype destructionProto = new SubPrototype() {
+    static final SubPrototype destructionProto = new SubPrototype() {
 
         @Override
         protected void addRecords() {
@@ -51,10 +51,10 @@ public class DestructionData extends SubShell {
         byte healthPct = 0;
         byte index = 0;
         byte modelDmgStage = 0;
-        LFlags flags = new LFlags(1);
+        final LFlags flags = new LFlags(1);
         int selfDmgPerSec = 0;
-        FormID explosion = new FormID();
-        FormID debree = new FormID();
+        final FormID explosion = new FormID();
+        final FormID debree = new FormID();
         int debreeCount = 0;
 
         DSTD() {

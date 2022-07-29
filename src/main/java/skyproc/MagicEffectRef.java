@@ -16,7 +16,7 @@ import java.util.zip.DataFormatException;
  */
 public class MagicEffectRef extends SubShellBulkType {
 
-    static SubPrototype magicEffProto = new SubPrototype() {
+    static final SubPrototype magicEffProto = new SubPrototype() {
         @Override
         protected void addRecords() {
             add(new SubForm("EFID"));

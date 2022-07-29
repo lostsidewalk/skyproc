@@ -299,7 +299,7 @@ public class LIGH extends MajorRecordNamed {
         int blue = 0;
         int green = 0;
         int holder = 0;
-        LFlags flags = new LFlags(4);
+        final LFlags flags = new LFlags(4);
         float falloff = 0;
         float fov = 0;
         float nearclip;

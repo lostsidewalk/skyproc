@@ -24,11 +24,11 @@ public class SkyProcTester {
 
     static final boolean streaming = false;
 
-    ArrayList<GRUP_TYPE> skip = new ArrayList<>(List.of(GRUP_TYPE.BOOK));
+    final ArrayList<GRUP_TYPE> skip = new ArrayList<>(List.of(GRUP_TYPE.BOOK));
 
     private static class ModTestPackage {
-        ModListing main;
-        ModListing[] importList;
+        final ModListing main;
+        final ModListing[] importList;
 
         public ModTestPackage(String main, String... list) {
             this.main = new ModListing(main);
@@ -51,7 +51,7 @@ public class SkyProcTester {
         SPGlobal.testing = true;
     }
 
-    static String DASHED_LINE = "==========".repeat(10);
+    static final String DASHED_LINE = "==========".repeat(10);
 
     @BeforeEach
     void beforeEach() {
@@ -203,9 +203,8 @@ public class SkyProcTester {
         patch.setAuthor("Leviathan1753");
 
         for (GRUP<?> g : merger) {
-            for (Object o : g) {
-                MajorRecord m = (MajorRecord) o;
-                m.copyOf(patch);
+            for (MajorRecord o : g) {
+                o.copyOf(patch);
             }
         }
 

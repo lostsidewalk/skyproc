@@ -21,7 +21,7 @@ import java.util.TreeMap;
 public class NIF {
 
     private static final String header = "NIF";
-    String fileName;
+    final String fileName;
     int numBlocks;
     ArrayList<String> blockTypes;
     ArrayList<Node> nodes;
@@ -354,7 +354,7 @@ public class NIF {
         /**
          * Type of node.
          */
-        public NodeType type;
+        public final NodeType type;
         /**
          * Raw data contained in the node.
          */
@@ -383,9 +383,9 @@ public class NIF {
      */
     public static class TextureSet {
 
-        int index;
-        String name;
-        ArrayList<String> textures;
+        final int index;
+        final String name;
+        final ArrayList<String> textures;
 
         /**
          * @param i

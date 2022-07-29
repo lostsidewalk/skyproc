@@ -22,8 +22,8 @@ public class SPDatabase implements Iterable<Mod> {
      */
     static public final String dateDelim = "<--DATE-->";
     static ArrayList<ModListing> activePlugins = new ArrayList<>();
-    static ArrayList<ModListing> addedPlugins = new ArrayList<>();
-    static Map<ModListing, Mod> modLookup = new TreeMap<>();
+    static final ArrayList<ModListing> addedPlugins = new ArrayList<>();
+    static final Map<ModListing, Mod> modLookup = new TreeMap<>();
 
     /**
      * Creates a new SPDatabase container to load mods into.

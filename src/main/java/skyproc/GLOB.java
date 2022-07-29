@@ -136,7 +136,7 @@ public class GLOB extends MajorRecord {
 
         Float(0x66);
 
-        int value;
+        final int value;
 
         GLOBType(int value) {
             this.value = value;

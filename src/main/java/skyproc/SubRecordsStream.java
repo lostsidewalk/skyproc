@@ -19,7 +19,7 @@ import java.util.zip.DataFormatException;
  */
 class SubRecordsStream extends SubRecordsDerived {
 
-    protected Map<String, RecordLocation> pos = new HashMap<>(0);
+    protected final Map<String, RecordLocation> pos = new HashMap<>(0);
     MajorRecord major;
 
     SubRecordsStream(SubPrototype proto) {
@@ -157,7 +157,7 @@ class SubRecordsStream extends SubRecordsDerived {
 
     protected static class RecordLocation {
 
-        long pos;
+        final long pos;
         int num = 1;
 
         RecordLocation(long pos) {

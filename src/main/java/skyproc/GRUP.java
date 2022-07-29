@@ -24,10 +24,10 @@ public class GRUP<T extends MajorRecord> extends SubRecord<T> implements Iterabl
     byte[] grupType = new byte[4];
     byte[] dateStamp = new byte[4];
     byte[] version = new byte[4];
-    ArrayList<T> listRecords = new ArrayList<>();
-    Map<FormID, T> mapRecords = new HashMap<>();
-    Map<String, T> edidRecords = new HashMap<>();
-    T prototype;
+    final ArrayList<T> listRecords = new ArrayList<>();
+    final Map<FormID, T> mapRecords = new HashMap<>();
+    final Map<String, T> edidRecords = new HashMap<>();
+    final T prototype;
 
     GRUP(T prototype) {
         this.prototype = prototype;

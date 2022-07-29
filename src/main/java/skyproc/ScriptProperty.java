@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 class ScriptProperty extends Record implements Serializable {
 
-    StringNonNull name = new StringNonNull();
+    final StringNonNull name = new StringNonNull();
     int unknown = 1;
     ScriptData data;
 
@@ -249,7 +249,7 @@ class ScriptProperty extends Record implements Serializable {
         IntegerArr(13),
         FloatArr(14),
         BooleanArr(15);
-        int value;
+        final int value;
 
         ScriptPropertyType(int value) {
             this.value = value;

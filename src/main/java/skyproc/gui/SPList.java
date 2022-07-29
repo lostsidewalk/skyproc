@@ -14,8 +14,8 @@ import java.awt.event.MouseListener;
  */
 public class SPList<T> extends LList<T> {
 
-    LLabel titleLabel;
-    LButton remove;
+    final LLabel titleLabel;
+    final LButton remove;
     LButton accept;
 
     /**

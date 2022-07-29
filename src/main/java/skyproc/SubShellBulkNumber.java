@@ -7,7 +7,7 @@ import lev.LImport;
  */
 abstract class SubShellBulkNumber extends SubShell {
 
-    int numForced;
+    final int numForced;
 
     SubShellBulkNumber(SubPrototype proto, int numForced) {
         super(proto);

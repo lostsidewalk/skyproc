@@ -14,9 +14,9 @@ import java.util.zip.DataFormatException;
 class SubMarkerSet<T extends SubRecord> extends SubRecord {
 
     static String loadedMarker;
-    Map<String, T> set = new HashMap<>(2);
+    final Map<String, T> set = new HashMap<>(2);
     ArrayList<String> markers;
-    T prototype;
+    final T prototype;
     boolean forceMarkers = false;
 
     SubMarkerSet(T prototype) {

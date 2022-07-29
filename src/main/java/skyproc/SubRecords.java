@@ -17,7 +17,7 @@ import java.util.zip.DataFormatException;
  */
 abstract class SubRecords implements Serializable, Iterable<SubRecord> {
 
-    protected Map<String, SubRecord> map = new HashMap<>(0);
+    protected final Map<String, SubRecord> map = new HashMap<>(0);
 
     public SubRecords() {
     }

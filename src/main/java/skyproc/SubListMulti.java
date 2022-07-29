@@ -15,7 +15,7 @@ import java.util.zip.DataFormatException;
  */
 class SubListMulti<T extends SubRecord> extends SubList {
 
-    Map<String, SubRecord> prototypes = new HashMap<>(2);
+    final Map<String, SubRecord> prototypes = new HashMap<>(2);
 
     SubListMulti(SubRecord... prototypes) {
         super(prototypes[0]);

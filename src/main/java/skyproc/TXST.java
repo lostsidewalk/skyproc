@@ -26,7 +26,7 @@ public class TXST extends MajorRecord implements Iterable<String> {
             add(new SubFlag("DNAM", 2));
         }
     };
-    static int NUM_MAPS = 8;
+    static final int NUM_MAPS = 8;
 
     // Common Functions
 

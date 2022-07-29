@@ -14,7 +14,7 @@ import java.util.zip.DataFormatException;
  */
 class SubShell extends SubRecord<SubShell> {
 
-    SubRecordsDerived subRecords;
+    final SubRecordsDerived subRecords;
 
     SubShell(SubPrototype proto) {
         super();

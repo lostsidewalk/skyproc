@@ -8,10 +8,10 @@ import java.util.*;
  */
 abstract class SubPrototype implements Serializable {
 
-    protected ArrayList<String> listExport = new ArrayList<>();
-    protected Map<String, SubRecord> map = new HashMap<>(0);
-    protected ArrayList<String> listExtensive = new ArrayList<>();
-    protected Set<String> forceExport = new HashSet<>(0);
+    protected final ArrayList<String> listExport = new ArrayList<>();
+    protected final Map<String, SubRecord> map = new HashMap<>(0);
+    protected final ArrayList<String> listExtensive = new ArrayList<>();
+    protected final Set<String> forceExport = new HashSet<>(0);
 
     public SubPrototype() {
         addRecords();

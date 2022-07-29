@@ -1,7 +1,6 @@
 package skyproc;
 
 import lev.LImport;
-import lev.Ln;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -14,8 +13,8 @@ import java.util.zip.DataFormatException;
 public class KeywordSet extends SubRecord {
 
     private final static ArrayList<String> type = new ArrayList<>(Arrays.asList("KSIZ", "KWDA"));
-    SubData counter = new SubData("KSIZ", 0);
-    SubFormArray keywords = new SubFormArray("KWDA", 0);
+    final SubData counter = new SubData("KSIZ", 0);
+    final SubFormArray keywords = new SubFormArray("KWDA", 0);
 
     KeywordSet() {
         super();

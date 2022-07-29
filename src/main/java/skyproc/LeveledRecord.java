@@ -396,9 +396,9 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
     // Large LList splitting
     static class LListEntry {
 
-        FormID id;
-        int level;
-        int count;
+        final FormID id;
+        final int level;
+        final int count;
         int numEntries = 1;
 
         LListEntry(LeveledEntry e) {
@@ -437,7 +437,7 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
 
     static class LListSummary {
 
-        ArrayList<LListEntry> entries = new ArrayList<>();
+        final ArrayList<LListEntry> entries = new ArrayList<>();
 
         LListSummary(LeveledRecord in) {
             this(in.getEntries());

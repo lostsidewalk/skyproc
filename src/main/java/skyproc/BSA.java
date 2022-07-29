@@ -18,12 +18,12 @@ import java.util.*;
  * @author Justin Swanson
  */
 public class BSA {
-    static Map<String, BSA> bsaLookup = new TreeMap<>();
+    static final Map<String, BSA> bsaLookup = new TreeMap<>();
     static ArrayList<BSA> resourceLoadOrder;
-    static Map<ModListing, BSA> pluginLoadOrder = new TreeMap<>();
+    static final Map<ModListing, BSA> pluginLoadOrder = new TreeMap<>();
     static boolean pluginsLoaded = false;
     static boolean overlapDeleted = false;
-    static String header = "BSA";
+    static final String header = "BSA";
     String filePath;
     int offset;
     LFlags archiveFlags;
@@ -35,7 +35,7 @@ public class BSA {
     boolean loaded = false;
     boolean bad = false;
     Map<String, BSAFolder> folders;
-    LInChannel in = new LInChannel();
+    final LInChannel in = new LInChannel();
 
     BSA(File file, boolean load) throws BadParameter {
         this(file.getPath(), load);
@@ -880,7 +880,7 @@ public class BSA {
         Compressed(2),
 
         NamesInFileData(8);
-        int value;
+        final int value;
 
         BSAFlag(int val) {
             value = val;

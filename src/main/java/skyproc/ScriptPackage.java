@@ -18,7 +18,7 @@ public class ScriptPackage extends SubRecord implements Serializable {
 
     int version = 5;
     int unknown = 2;
-    ArrayList<ScriptRef> scripts = new ArrayList<>();
+    final ArrayList<ScriptRef> scripts = new ArrayList<>();
     SubRecord fragments;
 
     ScriptPackage() {

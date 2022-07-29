@@ -8,7 +8,7 @@ import skyproc.FormID;
  */
 class SaveFormList extends Setting<FormID[]> {
 
-    static String delimiter = "<#>";
+    static final String delimiter = "<#>";
 
     public SaveFormList(String title_, FormID[] data_, Boolean[] extraFlags) {
         super(title_, data_, extraFlags);

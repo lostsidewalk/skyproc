@@ -796,7 +796,7 @@ public class SPImporter {
     static class GRUPIterator implements Iterator<RecordShrinkArray> {
 
         LInChannel input;
-        ArrayList<String> targets;
+        final ArrayList<String> targets;
         String loading;
 
         GRUPIterator() {
@@ -920,7 +920,7 @@ public class SPImporter {
                     if (grups.contains(tmpMajorType)) {
                         input.skip(12);
                         majorRecordType = tmpMajorType;
-                    } else if (!tmpMajorType.matches("[a-zA-Z0-9_]*")) {
+                    } else if (!tmpMajorType.matches("\\w*")) {
                         input.skip(12);
                     } else {
                         input.skip(size - 12);

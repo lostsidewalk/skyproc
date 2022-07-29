@@ -5,7 +5,7 @@ package skyproc;
  */
 public class LVLOCount {
 
-    LeveledEntry lvlo;
+    final LeveledEntry lvlo;
     int count;
 
     LVLOCount(LeveledEntry in) {

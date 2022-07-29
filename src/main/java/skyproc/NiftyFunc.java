@@ -18,9 +18,9 @@ import java.util.Map;
  */
 public class NiftyFunc {
 
-    static String[] validationSkip = {"DIAL"};
-    static String recordLengths = "Record Lengths";
-    static Map<FormID, MajorRecord> deepSubrecordCopyDB = new HashMap<>();
+    static final String[] validationSkip = {"DIAL"};
+    static final String recordLengths = "Record Lengths";
+    static final Map<FormID, MajorRecord> deepSubrecordCopyDB = new HashMap<>();
 
     /**
      * A common way to attach scripts to NPCs that normally cannot have scripts
@@ -267,7 +267,6 @@ public class NiftyFunc {
         boolean correct = true;
         int numErrors = 0;
         ArrayList<String> skip = new ArrayList<>(Arrays.asList(validationSkip));
-        try {
         File file = new File(testFilePath);
         if (file.isFile()) {
             SPGlobal.log("Validate", "Target file exists: " + file);
@@ -343,14 +342,6 @@ public class NiftyFunc {
 
         input.close();
 
-        } catch (FileNotFoundException ex) {
-            SPGlobal.logError(recordLengths, "File could not be found.");
-            SPGlobal.logException(ex);
-        } catch (IOException ex) {
-            SPGlobal.logError(recordLengths, "File I/O error.");
-            SPGlobal.logException(ex);
-        }
-
         if (correct) {
             SPGlobal.log(recordLengths, "Validated test file path=" + testFilePath);
         } else {
@@ -359,7 +350,7 @@ public class NiftyFunc {
         return correct;
     }
 
-    static boolean testHeaderLength(LInChannel input) throws IOException {
+    static boolean testHeaderLength(LInChannel input) {
         // Check header
         String inputStr;
         boolean correct = true;

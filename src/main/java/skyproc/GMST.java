@@ -12323,8 +12323,8 @@ public class GMST extends MajorRecord {
 
     static final class DATA extends SubRecord {
 
-        SubData DATA = new SubData("DATA");
-        SubStringPointer DATAs = new SubStringPointer("DATA", SubStringPointer.Files.STRINGS);
+        final SubData DATA = new SubData("DATA");
+        final SubStringPointer DATAs = new SubStringPointer("DATA", SubStringPointer.Files.STRINGS);
         private GMSTType GMSTtype;
 
         DATA() {

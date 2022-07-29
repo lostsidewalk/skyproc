@@ -152,7 +152,7 @@ public class ECZN extends MajorRecord {
         MatchPCBelowMin(1),
 
         DisableCombatBoundary(2);
-        int value;
+        final int value;
 
         ECZNFlags(int value) {
             this.value = value;
@@ -161,7 +161,7 @@ public class ECZN extends MajorRecord {
 
     static final class DATA extends SubRecord implements Serializable {
 
-        LFlags flags = new LFlags(1);
+        final LFlags flags = new LFlags(1);
         private FormID owner = new FormID();
         private FormID location = new FormID();
         private int rank = 0;

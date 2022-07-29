@@ -19,7 +19,7 @@ import java.util.zip.DataFormatException;
 class ConditionBase extends SubRecord {
 
     Operator operator = Operator.EqualTo;
-    LFlags flags = new LFlags(1);
+    final LFlags flags = new LFlags(1);
     byte[] fluff = new byte[3];
     FormID comparisonValueForm = new FormID();
     float comparisonValueFloat = 0;

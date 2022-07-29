@@ -390,7 +390,7 @@ public class PROJ extends MajorRecordNamed {
         PassThroughSmallTransparent(9),
 
         DisableCombatAimCorrection(10);
-        int value;
+        final int value;
 
         ProjectileFlag(int val) {
             value = val;
@@ -451,8 +451,8 @@ public class PROJ extends MajorRecordNamed {
 
     static class DATA extends SubRecord {
 
-        LFlags flags = new LFlags(2);
-        LFlags projType = new LFlags(2);
+        final LFlags flags = new LFlags(2);
+        final LFlags projType = new LFlags(2);
         float gravity = 0;
         float speed = 0;
         float range = 0;   //1

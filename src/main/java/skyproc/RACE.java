@@ -1316,7 +1316,7 @@ public class RACE extends MajorRecordDescription {
          *
          */
         AllowMountedCombat(4);
-        int val;
+        final int val;
 
         RaceFlags2(int val) {
             this.val = val;
@@ -1346,8 +1346,8 @@ public class RACE extends MajorRecordDescription {
 
     static final class DATA extends SubRecord {
 
-        ArrayList<ActorValue> skillBoosts = new ArrayList<>(7);
-        ArrayList<Integer> skillBoostValues = new ArrayList<>(7);
+        final ArrayList<ActorValue> skillBoosts = new ArrayList<>(7);
+        final ArrayList<Integer> skillBoostValues = new ArrayList<>(7);
         float maleHeight = 0;
         float femaleHeight = 0;
         float maleWeight = 0;

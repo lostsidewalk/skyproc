@@ -108,7 +108,7 @@ public abstract class MagicItem extends MajorRecordDescription {
         NoAbsorbOrReflect(21),
 
         NoDualCastModification(23);
-        int value;
+        final int value;
 
         SPELFlag(int valuein) {
             value = valuein;

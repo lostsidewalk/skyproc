@@ -15,15 +15,15 @@ public abstract class SPSettingPanel extends LPanel {
     /**
      * Reference to the Main Menu parent GUI object
      */
-    protected SPMainMenuPanel parent;
+    protected final SPMainMenuPanel parent;
     /**
      * The top label
      */
-    protected LLabel header;
+    protected final LLabel header;
     /**
      * List of all the setting components added with AddSetting()
      */
-    protected ArrayList<LUserSetting> settings = new ArrayList<>();
+    protected final ArrayList<LUserSetting> settings = new ArrayList<>();
     /**
      * Reference to the panel in the center column
      */

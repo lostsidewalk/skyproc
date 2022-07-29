@@ -5,7 +5,7 @@ package skyproc;
  */
 public class ItemListing extends SubShell {
 
-    static SubPrototype itemListingProto = new SubPrototype() {
+    static final SubPrototype itemListingProto = new SubPrototype() {
 
         @Override
         protected void addRecords() {

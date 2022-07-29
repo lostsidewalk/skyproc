@@ -27,7 +27,7 @@ public class SPDefaultGUI extends JFrame {
     LLabel patching;
     LTextPane description;
     LImagePane skyprocLogo;
-    LProgressBar pbar;
+    final LProgressBar pbar;
 
     /**
      * Creates and displays the SkyProc default GUI.

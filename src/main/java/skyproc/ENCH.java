@@ -189,7 +189,7 @@ public class ENCH extends EnchantedItem {
          *
          */
         StaffEnchantment(12);
-        int value;
+        final int value;
 
         EnchantType(int value) {
             this.value = value;
@@ -216,7 +216,7 @@ public class ENCH extends EnchantedItem {
          *
          */
         ExtendDurationOnRecast(3);
-        int value;
+        final int value;
 
         ENCHFlag(int in) {
             value = in;

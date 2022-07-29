@@ -11,7 +11,7 @@ import java.util.Set;
  */
 class SubShellBulkType extends SubShell {
 
-    boolean includeFirst;
+    final boolean includeFirst;
 
     SubShellBulkType(SubPrototype proto, boolean includeFirst) {
         super(proto);

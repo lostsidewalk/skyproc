@@ -1571,7 +1571,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
          *
          */
         USE_KEYWORDS(12);
-        int value;
+        final int value;
 
         TemplateFlag(int in) {
             value = in;
@@ -1715,7 +1715,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
          *
          */
         AggroRadiusBehavior(-1);
-        int value;
+        final int value;
 
         NPCFlag(int value) {
             this.value = value;
@@ -1925,7 +1925,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
      */
     public static class SoundPackage extends SubShell implements Serializable {
 
-        static SubPrototype soundPackageProto = new SubPrototype() {
+        static final SubPrototype soundPackageProto = new SubPrototype() {
             @Override
             protected void addRecords() {
                 add(new SubInt("CSDT"));
@@ -2004,7 +2004,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
      */
     public static class SoundPair extends SubShell {
 
-        static SubPrototype soundPairProto = new SubPrototype() {
+        static final SubPrototype soundPairProto = new SubPrototype() {
             @Override
             protected void addRecords() {
                 add(new SubForm("CSDI"));
@@ -2070,7 +2070,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
 
     public static class TintLayer extends SubShell implements Serializable {
 
-        static SubPrototype tintPrototype = new SubPrototype() {
+        static final SubPrototype tintPrototype = new SubPrototype() {
             @Override
             protected void addRecords() {
                 add(new SubInt("TINI", 2));
@@ -2487,7 +2487,7 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
 
     public static class AttackPackage extends SubShell implements Serializable {
 
-        static SubPrototype attackPackageProto = new SubPrototype() {
+        static final SubPrototype attackPackageProto = new SubPrototype() {
             @Override
             protected void addRecords() {
                 add(new ATKD());
@@ -2525,12 +2525,12 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
 
         float damageMult;
         float attackChance;
-        FormID attackSpell = new FormID();
-        LFlags flags = new LFlags(4);
+        final FormID attackSpell = new FormID();
+        final LFlags flags = new LFlags(4);
         float attackAngle;
         float strikeAngle;
         float stagger;
-        FormID attackType = new FormID();
+        final FormID attackType = new FormID();
         float knockdown;
         float recovery;
         float staminaMult;

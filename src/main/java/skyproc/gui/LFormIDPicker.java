@@ -17,12 +17,12 @@ import java.util.Map;
  */
 public class LFormIDPicker extends LUserSetting<FormID[]> {
 
-    LButton add;
-    LButton remove;
-    JComboBox addPicker;
+    final LButton add;
+    final LButton remove;
+    final JComboBox addPicker;
     DefaultListModel model;
     JList addedList;
-    JScrollPane scroll;
+    final JScrollPane scroll;
 
     /**
      * @param title

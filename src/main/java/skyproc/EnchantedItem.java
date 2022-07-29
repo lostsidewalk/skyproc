@@ -105,7 +105,7 @@ public abstract class EnchantedItem extends MajorRecordDescription {
          *
          */
         NoDualCastModification(23);
-        int value;
+        final int value;
 
         SPELFlag(int valuein) {
             value = valuein;
@@ -123,7 +123,7 @@ public abstract class EnchantedItem extends MajorRecordDescription {
         float castDuration = 0;
         float range = 0;
         boolean valid = true;
-        FormID perkType = new FormID();
+        final FormID perkType = new FormID();
 
         SPIT() {
             super();

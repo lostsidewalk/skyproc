@@ -22,7 +22,7 @@ public class FormID implements Comparable, Serializable {
      * FormID to compare to when determining NULL formIDs.
      */
     public static final FormID NULL = new FormID();
-    static ArrayList<FormID> allIDs = new ArrayList<>();
+    static final ArrayList<FormID> allIDs = new ArrayList<>();
     byte[] form = new byte[4];
     ModListing master = null;
 

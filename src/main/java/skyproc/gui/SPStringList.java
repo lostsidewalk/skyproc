@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class SPStringList extends SPList<String> {
 
-    LTextField adder;
+    final LTextField adder;
 
     /**
      * @param title

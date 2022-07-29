@@ -18,14 +18,14 @@ public class SPSettingDefaultsPanel extends SPSettingPanel {
      * the settings list and revert them to the default settings of the savefile
      * field.
      */
-    protected LButton defaults = new LButton("Set to Default");
+    protected final LButton defaults = new LButton("Set to Default");
     /**
      * Button at the bottom center column that will iterate over each item in
      * the settings list and revert them to the last saved settings of the
      * savefile field.
      */
-    protected LButton save = new LButton("Revert to Saved");
-    LSaveFile saveFile;
+    protected final LButton save = new LButton("Revert to Saved");
+    final LSaveFile saveFile;
 
     /**
      * @param title

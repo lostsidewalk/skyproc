@@ -17,9 +17,9 @@ import java.util.zip.DataFormatException;
 class SubStringPointer extends SubRecordTyped {
 
     static boolean shortNull = true;
-    SubData data;
-    SubString text;
-    SubStringPointer.Files file;
+    final SubData data;
+    final SubString text;
+    final SubStringPointer.Files file;
     boolean forceExport = false;
 
     SubStringPointer(String type, SubStringPointer.Files file) {

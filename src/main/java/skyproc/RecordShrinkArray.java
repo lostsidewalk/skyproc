@@ -11,7 +11,7 @@ import lev.LShrinkArray;
  */
 public class RecordShrinkArray extends LShrinkArray {
 
-    int offset;
+    final int offset;
 
     /**
      * @param rhs

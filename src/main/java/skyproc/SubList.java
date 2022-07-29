@@ -19,7 +19,7 @@ import java.util.zip.DataFormatException;
 class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> implements Iterable<S> {
 
     ArrayList<T> collection = new ArrayList<>();
-    S prototype;
+    final S prototype;
     S last;
     boolean unique = false;
 
@@ -567,10 +567,10 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
      */
     static class SubFormIntStorage {
 
-        ArrayList<SubFormInt> sfi = new ArrayList<>();
-        ArrayList<FormID> id = new ArrayList<>();
-        ArrayList<Integer> i = new ArrayList<>();
-        HashMap<FormID, Integer> map = new HashMap<>();
+        final ArrayList<SubFormInt> sfi = new ArrayList<>();
+        final ArrayList<FormID> id = new ArrayList<>();
+        final ArrayList<Integer> i = new ArrayList<>();
+        final HashMap<FormID, Integer> map = new HashMap<>();
         int size = 0;
 
         SubFormIntStorage(SubList list) {

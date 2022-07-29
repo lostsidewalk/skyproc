@@ -14,8 +14,8 @@ import java.util.zip.DataFormatException;
  */
 class Owner extends SubRecordTyped {
 
-    FormID owner = new FormID();
-    FormID global = new FormID();
+    final FormID owner = new FormID();
+    final FormID global = new FormID();
     int reqRank = 0;
     float itemCondition = 0;
 

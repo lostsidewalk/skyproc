@@ -32,17 +32,17 @@ public class SPGlobal {
     // TODO: make this externally configurable
 //    public static final String pathToData = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\";
     public static final String pathToData = Ln.getMyDocuments().getPath() + "/.steam/debian-installation/steamapps/common/Skyrim Special Edition/Data/";
-    public static String pathToDataFixed = pathToData; // (pathToData.endsWith("\\") ? pathToData : pathToData + "\\");
+    public static final String pathToDataFixed = pathToData; // (pathToData.endsWith("\\") ? pathToData : pathToData + "\\");
     /**
      *
      */
-    public static String pathToPatchers = Ln.getMyDocuments().getPath() + "//SkyProc Patchers//";
+    public static final String pathToPatchers = Ln.getMyDocuments().getPath() + "//SkyProc Patchers//";
     /**
      * A default path to "internal files". This is currently only used for
      * saving custom path information for Skyrim.ini and plugins.txt. This can
      * also be used to store your own internal files.
      */
-    public static String pathToInternalFiles = "Files/";
+    public static final String pathToInternalFiles = "Files/";
     /**
      * Skyproc will import and embed the language given by SPGlobal.language
      * every time a patch is created. To offer multi-language support, simply
@@ -52,7 +52,7 @@ public class SPGlobal {
     /**
      * Turns off messages about which record is currently being streamed.
      */
-    public static boolean debugStream = true;
+    public static final boolean debugStream = true;
     /**
      * Displays information about BSA importing
      */
@@ -65,7 +65,7 @@ public class SPGlobal {
      * Prints messages about records pairing strings with external STRINGS
      * files.<br> Prints to the sync log<br>
      */
-    public static boolean debugStringPairing = true;
+    public static final boolean debugStringPairing = true;
     /**
      * Print messages concerning the merging of two plugins.<br> Prints to the
      * sync log<br>
@@ -76,27 +76,27 @@ public class SPGlobal {
      * Switches MajorRecord with flag DELETED to print full contents.
      * Needed because TesVEdit now removes all subrecords of DELETED majorRecords.
      */
-    public static boolean forceValidateMode = false;
-    static String header = "SPGlobal";
-    static String gameName = "Skyrim";
+    public static final boolean forceValidateMode = false;
+    static final String header = "SPGlobal";
+    static final String gameName = "Skyrim";
 
     /*
      * Customizable Strings
      */
     static Mod globalPatchOut;
-    static SPDatabase globalDatabase = new SPDatabase();
+    static final SPDatabase globalDatabase = new SPDatabase();
     public static boolean testing = false;
     public static boolean streamMode = true;
-    static boolean deleteAfterExport = true;
+    static final boolean deleteAfterExport = true;
     static boolean mergeMode = false;
     static boolean noModsAfter = true;
     static boolean checkMissingMasters = true;
     static MajorRecord lastStreamed;
     static File skyProcDocuments;
-    static ArrayList<ModListing> modsToSkip = new ArrayList<>();
-    static ArrayList<String> modsToSkipStr = new ArrayList<>();
-    static ArrayList<ModListing> modsWhiteList = new ArrayList<>();
-    static ArrayList<String> modsWhiteListStr = new ArrayList<>();
+    static final ArrayList<ModListing> modsToSkip = new ArrayList<>();
+    static final ArrayList<String> modsToSkipStr = new ArrayList<>();
+    static final ArrayList<ModListing> modsWhiteList = new ArrayList<>();
+    static final ArrayList<String> modsWhiteListStr = new ArrayList<>();
     static String appDataFolder;
     private static boolean allModsAsMasters = false;
 

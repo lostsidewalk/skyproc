@@ -86,7 +86,7 @@ class SubRecordsDerived extends SubRecords {
 
     class DerivedIterator implements Iterator<SubRecord> {
 
-        Iterator<String> list;
+        final Iterator<String> list;
 
         DerivedIterator() {
             list = prototype.listExport.iterator();

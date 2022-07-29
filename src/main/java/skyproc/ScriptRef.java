@@ -18,9 +18,9 @@ import java.util.zip.DataFormatException;
  */
 public class ScriptRef extends Record implements Iterable<String> {
 
-    StringNonNull name = new StringNonNull();
+    final StringNonNull name = new StringNonNull();
     int unknown = 0;
-    ArrayList<ScriptProperty> properties = new ArrayList<>();
+    final ArrayList<ScriptProperty> properties = new ArrayList<>();
 
     ScriptRef() {
     }
@@ -42,11 +42,11 @@ public class ScriptRef extends Record implements Iterable<String> {
     }
 
     @Override
-    final void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+    final void parseData(LImport in, Mod srcMod) {
         name.set(in.extractString(in.extractInt(2)));
         unknown = in.extractInt(1);
         int propertyCount = in.extractInt(2);
-        logMod(srcMod, "VMAD", "  Script " + name.toString() + " with " + propertyCount + " properties. Unknown: " + unknown);
+        logMod(srcMod, "VMAD", "  Script " + name + " with " + propertyCount + " properties. Unknown: " + unknown);
         for (int i = 0; i < propertyCount; i++) {
             properties.add(new ScriptProperty(in, srcMod));
         }

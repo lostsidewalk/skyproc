@@ -520,7 +520,7 @@ public abstract class MajorRecord extends Record implements Serializable {
          * REFR: MultiBound
          */
         MultiBound(31);
-        int value;
+        final int value;
 
         MajorFlags(int value) {
             this.value = value;

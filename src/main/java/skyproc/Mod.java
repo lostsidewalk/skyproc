@@ -27,14 +27,14 @@ import static skyproc.SPImporter.extractHeaderInfo;
  */
 public class Mod implements Comparable, Iterable<GRUP> {
 
-    TES4 tes = new TES4();
+    final TES4 tes = new TES4();
     ModListing modInfo;
-    Map<GRUP_TYPE, GRUP> GRUPs = new EnumMap<>(GRUP_TYPE.class);
+    final Map<GRUP_TYPE, GRUP> GRUPs = new EnumMap<>(GRUP_TYPE.class);
     LInChannel input;
     Language language = Language.English;
-    Map<ModListing, Integer> masterMap = new HashMap<>();
-    Map<SubStringPointer.Files, Map<Integer, Integer>> stringLocations = new EnumMap<>(SubStringPointer.Files.class);
-    Map<SubStringPointer.Files, LImport> stringStreams = new EnumMap<>(SubStringPointer.Files.class);
+    final Map<ModListing, Integer> masterMap = new HashMap<>();
+    final Map<SubStringPointer.Files, Map<Integer, Integer>> stringLocations = new EnumMap<>(SubStringPointer.Files.class);
+    final Map<SubStringPointer.Files, LImport> stringStreams = new EnumMap<>(SubStringPointer.Files.class);
     private final ArrayList<String> outStrings = new ArrayList<>();
     private final ArrayList<String> outDLStrings = new ArrayList<>();
     private final ArrayList<String> outILStrings = new ArrayList<>();
@@ -1407,7 +1407,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
          * @see SPGlobal
          */
         STRING_TABLED(7);
-        int value;
+        final int value;
 
         Mod_Flags(int in) {
             value = in;
@@ -1431,7 +1431,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
             }
         };
         private final static byte[] defaultINTV = Ln.parseHexString("C5 26 01 00", 4);
-        SubRecordsDerived subRecords = new SubRecordsDerived(TES4proto);
+        final SubRecordsDerived subRecords = new SubRecordsDerived(TES4proto);
         private final LFlags flags = new LFlags(4);
         private int fluff1 = 0;
         private int fluff2 = 0;
@@ -1548,7 +1548,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
 
     static class HEDR extends SubRecord<HEDR> {
 
-        static int firstAvailableID = 0xD62;  // first available ID on empty CS plugins
+        static final int firstAvailableID = 0xD62;  // first available ID on empty CS plugins
         byte[] version;
         int numRecords;
         int nextID;

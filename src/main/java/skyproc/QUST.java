@@ -392,7 +392,7 @@ public class QUST extends MajorRecordNamed {
          *
          */
         WarnOnAliasFillFailure(6);
-        int value;
+        final int value;
 
         QuestFlags(int val) {
             value = val;
@@ -609,7 +609,7 @@ public class QUST extends MajorRecordNamed {
 
     static class DNAM extends SubRecord {
 
-        LFlags flags = new LFlags(2);
+        final LFlags flags = new LFlags(2);
         byte priority = 0;
         byte unknown = 0;
         int unknown2 = 0;
@@ -658,7 +658,7 @@ public class QUST extends MajorRecordNamed {
     static class INDX extends SubRecord {
 
         int index = 0;
-        LFlags flags = new LFlags(2);
+        final LFlags flags = new LFlags(2);
 
         INDX() {
             super();
@@ -918,7 +918,7 @@ public class QUST extends MajorRecordNamed {
     static class QuestTargetData extends SubRecord {
 
         int targetAlias = 0;
-        LFlags flags = new LFlags(4);
+        final LFlags flags = new LFlags(4);
 
         QuestTargetData() {
             super();
@@ -1036,9 +1036,9 @@ public class QUST extends MajorRecordNamed {
     static class QUSTScriptFragments extends SubRecord {
 
         byte unknown = 0;
-        StringNonNull fragmentFile = new StringNonNull();
-        ArrayList<QUSTScriptFragment> questFragments = new ArrayList<>();
-        ArrayList<AliasScriptFragment> aliasFragments = new ArrayList<>();
+        final StringNonNull fragmentFile = new StringNonNull();
+        final ArrayList<QUSTScriptFragment> questFragments = new ArrayList<>();
+        final ArrayList<AliasScriptFragment> aliasFragments = new ArrayList<>();
         boolean valid = false;
 
         @Override
@@ -1111,8 +1111,8 @@ public class QUST extends MajorRecordNamed {
         int unknown1;
         int questStageIndex;
         int unknown2;
-        StringNonNull scriptName = new StringNonNull();
-        StringNonNull fragmentName = new StringNonNull();
+        final StringNonNull scriptName = new StringNonNull();
+        final StringNonNull fragmentName = new StringNonNull();
 
         void parseData(LImport in, Mod srcMod) {
             questStage = in.extractInt(2);
@@ -1147,7 +1147,7 @@ public class QUST extends MajorRecordNamed {
         int version; // int16
         int format; // int16
         int scriptCount; // uint16
-        ArrayList<ScriptRef> scripts = new ArrayList<>(); // scriptCount of VMAD scripts section
+        final ArrayList<ScriptRef> scripts = new ArrayList<>(); // scriptCount of VMAD scripts section
 
         void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
             object = in.extract(8);

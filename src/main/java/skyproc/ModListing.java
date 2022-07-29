@@ -19,10 +19,10 @@ import java.util.zip.DataFormatException;
 public class ModListing extends SubRecord<ModListing> implements Comparable<ModListing> {
 
     private final static ArrayList<String> type = new ArrayList<>(Arrays.asList("MAST", "DATA"));
-    static ModListing skyrim = new ModListing("Skyrim.esm");
-    static ModListing update = new ModListing("Update.esm");
+    static final ModListing skyrim = new ModListing("Skyrim.esm");
+    static final ModListing update = new ModListing("Update.esm");
 
-    SubString mast = SubString.getNew("MAST", true);
+    final SubString mast = SubString.getNew("MAST", true);
     boolean master = false;
     // hack to allow esp files with the master flag set in their header
     boolean falseMaster = false;

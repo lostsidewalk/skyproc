@@ -243,7 +243,7 @@ public class SPEL extends MagicItem {
         Voice(11),
 
         UNKNOWN(-1);
-        int value;
+        final int value;
 
         SPELType(int valuein) {
             value = valuein;

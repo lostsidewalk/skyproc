@@ -27,21 +27,21 @@ import static skyproc.SPImporter.importActiveMods;
  */
 public class SUMprogram implements SUM {
 
-    String version = "1.3.3";
-    ArrayList<String> exclude = new ArrayList<>(2);
-    ArrayList<PatcherLink> links = new ArrayList<>();
-    ArrayList<File> blockedLinks = new ArrayList<>();
+    final String version = "1.3.3";
+    final ArrayList<String> exclude = new ArrayList<>(2);
+    final ArrayList<PatcherLink> links = new ArrayList<>();
+    final ArrayList<File> blockedLinks = new ArrayList<>();
     // GUI
     SPMainMenuPanel mmenu;
     HookMenu hookMenu;
     OptionsMenu optionsMenu;
     LScrollPane hookMenuScroll;
-    LSaveFile SUMsave = new SUMsave();
-    Color teal = new Color(75, 164, 134);
-    Color green = new Color(54, 154, 31);
-    Color grey = new Color(230, 230, 230);
-    Font settingFont = SUMGUI.SUMmainFont.deriveFont((float) 15);
-    int scrollOffset = 100;
+    final LSaveFile SUMsave = new SUMsave();
+    final Color teal = new Color(75, 164, 134);
+    final Color green = new Color(54, 154, 31);
+    final Color grey = new Color(230, 230, 230);
+    final Font settingFont = SUMGUI.SUMmainFont.deriveFont((float) 15);
+    final int scrollOffset = 100;
     int patcherNumber = 0;
     BufferedImage collapsedSetting;
     BufferedImage openSetting;
@@ -832,8 +832,8 @@ public class SUMprogram implements SUM {
         LImagePane logo;
         LLabel title;
         JCheckBox cbox;
-        SUM hook;
-        File path;
+        final SUM hook;
+        final File path;
         JPanel menu;
         LImagePane setting;
 

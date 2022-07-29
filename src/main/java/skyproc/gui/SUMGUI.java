@@ -61,7 +61,7 @@ public class SUMGUI extends JFrame {
     /**
      * Help panel on the right column of the GUI.
      */
-    static public LHelpPanel helpPanel = new LHelpPanel(rightDimensions, new Font("Serif", Font.BOLD, 25), light, lightGray, LImages.arrow(true, false), 10);
+    static public final LHelpPanel helpPanel = new LHelpPanel(rightDimensions, new Font("Serif", Font.BOLD, 25), light, lightGray, LImages.arrow(true, false), 10);
     /**
      * Bounds of the two left columns
      */
@@ -74,7 +74,7 @@ public class SUMGUI extends JFrame {
     /**
      * Progress bar frame that pops up at the end when creating the patch.
      */
-    static public SPProgressBarFrame progress = new SPProgressBarFrame(
+    static public final SPProgressBarFrame progress = new SPProgressBarFrame(
             new Font("SansSerif", Font.PLAIN, 12), Color.lightGray,
             new Font("SansSerif", Font.PLAIN, 10), Color.lightGray);
     static JFrame singleton = null;
@@ -94,9 +94,9 @@ public class SUMGUI extends JFrame {
     static LLabel versionNum;
     static LButton cancelPatch;
     static LButton startPatch;
-    static SUMGUISave save = new SUMGUISave();
+    static final SUMGUISave save = new SUMGUISave();
     static Font SUMmainFont = LFonts.MyriadProBold(30);
-    static Font SUMSmallFont = new Font("SansSerif", Font.PLAIN, 10);
+    static final Font SUMSmallFont = new Font("SansSerif", Font.PLAIN, 10);
     static String errorMessage = "Please contact the author.";
 
     /**
@@ -527,7 +527,6 @@ public class SUMGUI extends JFrame {
 
         // If imported, check master lists
         if (imported) {
-            try {
             // Compile old and new Master lists
             ArrayList<String> oldMasterList = save.getStrings(SUMGUISettings.LastMasterlist);
 
@@ -586,13 +585,6 @@ public class SUMGUI extends JFrame {
                 }
             }
 
-            } catch (IOException ex) {
-                SPGlobal.logException(ex);
-                if (SPGlobal.logging()) {
-                    SPGlobal.logMain(header, "Patch needed because exception was thrown in patch sensing code.");
-                }
-                return true;
-            }
         }
 
         //Don't need a patch, check for custom hook coding
@@ -602,7 +594,7 @@ public class SUMGUI extends JFrame {
         return SUMGUI.hook.needsPatching();
     }
 
-    static ArrayList<String> getChangedMods(boolean changed) throws IOException {
+    static ArrayList<String> getChangedMods(boolean changed) {
         //Compile old modlist and dates
         ArrayList<String> oldModListRaw = save.getStrings(SUMGUISettings.LastModlist);
         ArrayList<String> oldModList = new ArrayList<>(oldModListRaw.size());
@@ -998,7 +990,7 @@ public class SUMGUI extends JFrame {
 
     static class ProcessingThread implements Runnable {
 
-        public Set<Runnable> afterImporting = new HashSet<>();
+        public final Set<Runnable> afterImporting = new HashSet<>();
 
         @Override
         public void run() {

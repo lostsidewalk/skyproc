@@ -18,7 +18,7 @@ import java.util.zip.DataFormatException;
  */
 public class BodyTemplate extends SubShell {
 
-    static SubPrototype BODTproto = new SubPrototype() {
+    static final SubPrototype BODTproto = new SubPrototype() {
         @Override
         protected void addRecords() {
             add(new BodyTemplateMain("BODT"));
@@ -139,7 +139,7 @@ public class BodyTemplate extends SubShell {
         ModulatesVoice(0),
 
         NonPlayable(4);
-        int value;
+        final int value;
 
         GeneralFlags(int val) {
             value = val;
@@ -153,7 +153,7 @@ public class BodyTemplate extends SubShell {
         Normal("BODT"),
 
         Biped("BOD2");
-        String type;
+        final String type;
 
         BodyTemplateType(String in) {
             type = in;

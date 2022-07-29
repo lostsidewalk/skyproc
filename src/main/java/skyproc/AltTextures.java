@@ -16,7 +16,7 @@ import java.util.zip.DataFormatException;
  */
 public class AltTextures extends SubRecordTyped {
 
-    ArrayList<AltTexture> altTextures = new ArrayList<>();
+    final ArrayList<AltTexture> altTextures = new ArrayList<>();
 
     AltTextures(String t) {
         super(t);

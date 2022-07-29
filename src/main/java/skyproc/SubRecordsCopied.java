@@ -11,7 +11,7 @@ import java.util.Iterator;
  */
 class SubRecordsCopied extends SubRecords {
 
-    SubRecords orig;
+    final SubRecords orig;
 
     SubRecordsCopied(SubRecords rhs) {
         super();

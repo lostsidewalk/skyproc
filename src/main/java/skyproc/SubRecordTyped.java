@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 abstract class SubRecordTyped<T> extends SubRecord<T> {
 
-    ArrayList<String> types;
+    final ArrayList<String> types;
 
     SubRecordTyped(String t) {
         types = Record.getTypeList(t);
