@@ -400,33 +400,19 @@ public class PROJ extends MajorRecordNamed {
 
     public enum ProjectileType {
 
-        /**
-         *
-         */
+
         Missile, //1
-        /**
-         *
-         */
+
         Lobber, //2
-        /**
-         *
-         */
+
         Beam, //4
-        /**
-         *
-         */
+
         Flame, //8
-        /**
-         *
-         */
+
         Cone, //10
-        /**
-         *
-         */
+
         Barrier, //20
-        /**
-         *
-         */
+
         Arrow; //40
 
         static ProjectileType get(int value) {

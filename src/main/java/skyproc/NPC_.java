@@ -1483,37 +1483,21 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
 
     public enum SoundLocation {
 
-        /**
-         *
-         */
+
         Idle,
-        /**
-         *
-         */
+
         Aware,
-        /**
-         *
-         */
+
         Attack,
-        /**
-         *
-         */
+
         Hit,
-        /**
-         *
-         */
+
         Death,
-        /**
-         *
-         */
+
         Weapon,
-        /**
-         *
-         */
+
         MovementLoop,
-        /**
-         *
-         */
+
         ConsciousLoop
     }
 
@@ -1527,49 +1511,27 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
          * Flag to use the traits page of its template.
          */
         USE_TRAITS(0),
-        /**
-         *
-         */
+
         USE_STATS(1),
-        /**
-         *
-         */
+
         USE_FACTIONS(2),
-        /**
-         *
-         */
+
         USE_SPELL_LIST(3),
-        /**
-         *
-         */
+
         USE_AI_DATA(4),
-        /**
-         *
-         */
+
         USE_AI_PACKAGES(5),
-        /**
-         *
-         */
+
         USE_BASE_DATA(7),
-        /**
-         *
-         */
+
         USE_INVENTORY(8),
-        /**
-         *
-         */
+
         USE_SCRIPTS(9),
-        /**
-         *
-         */
+
         USE_DEF_PACK_LIST(10),
-        /**
-         *
-         */
+
         USE_ATTACK_DATA(11),
-        /**
-         *
-         */
+
         USE_KEYWORDS(12);
         final int value;
 
@@ -1583,137 +1545,71 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
      */
     public enum NPCFlag {
 
-        /**
-         *
-         */
+
         Female(0),
-        /**
-         *
-         */
+
         Essential(1),
-        /**
-         *
-         */
+
         IsCharGenFacePreset(2),
-        /**
-         *
-         */
+
         Respawn(3),
-        /**
-         *
-         */
+
         AutoCalcStats(4),
-        /**
-         *
-         */
+
         Unique(5),
-        /**
-         *
-         */
+
         DoesntAffectStealthMeter(6),
-        /**
-         *
-         */
+
         PCLevelMult(7),
-        /**
-         *
-         */
+
         UseTemplate(8),
-        /**
-         *
-         */
+
         Unknown_9(9),
-        /**
-         *
-         */
+
         Unknown_10(10),
-        /**
-         *
-         */
+
         Protected(11),
-        /**
-         *
-         */
+
         Unknown_12(12),
-        /**
-         *
-         */
+
         Unknown_13(13),
-        /**
-         *
-         */
+
         Summonable(14),
-        /**
-         *
-         */
+
         Unknown_15(15),
-        /**
-         *
-         */
+
         DoesntBleed(16),
-        /**
-         *
-         */
+
         Unknown_17(17),
-        /**
-         *
-         */
+
         BleedoutOverride(18),
-        /**
-         *
-         */
+
         OppositeGenderAnims(19),
-        /**
-         *
-         */
+
         SimpleActor(20),
-        /**
-         *
-         */
+
         LoopedScript(21),
-        /**
-         *
-         */
+
         Unknown_22(22),
-        /**
-         *
-         */
+
         Unknown_23(23),
-        /**
-         *
-         */
+
         Unknown_24(24),
-        /**
-         *
-         */
+
         Unknown_25(25),
-        /**
-         *
-         */
+
         Unknown_26(26),
-        /**
-         *
-         */
+
         Unknown_27(27),
-        /**
-         *
-         */
+
         LoopedAudio(28),
-        /**
-         *
-         */
+
         IsGhost(29),
-        /**
-         *
-         */
+
         Unknown_30(30),
-        /**
-         *
-         */
+
         Invulnerable(31),
-        /**
-         *
-         */
+
         AggroRadiusBehavior(-1);
         final int value;
 
@@ -1725,198 +1621,114 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
 
     public enum Aggression {
 
-        /**
-         *
-         */
+
         Unaggressive,
-        /**
-         *
-         */
+
         Aggressive,
-        /**
-         *
-         */
+
         VeryAggressive,
-        /**
-         *
-         */
+
         Frenzied
     }
 
 
     public enum Assistance {
 
-        /**
-         *
-         */
+
         HelpsNobody,
-        /**
-         *
-         */
+
         HelpsAllies,
-        /**
-         *
-         */
+
         HelpsFriends
     }
 
 
     public enum Morality {
 
-        /**
-         *
-         */
+
         AnyCrime,
-        /**
-         *
-         */
+
         ViolenceAgainstEnemies,
-        /**
-         *
-         */
+
         PropertyCrimeOnly,
-        /**
-         *
-         */
+
         NoCrime
     }
 
 
     public enum Confidence {
 
-        /**
-         *
-         */
+
         Cowardly,
-        /**
-         *
-         */
+
         Cautious,
-        /**
-         *
-         */
+
         Average,
-        /**
-         *
-         */
+
         Brave,
-        /**
-         *
-         */
+
         Foolhardy
     }
 
 
     public enum Mood {
 
-        /**
-         *
-         */
+
         Neutral,
-        /**
-         *
-         */
+
         Angry,
-        /**
-         *
-         */
+
         Fear,
-        /**
-         *
-         */
+
         Happy,
-        /**
-         *
-         */
+
         Sad,
-        /**
-         *
-         */
+
         Surprised,
-        /**
-         *
-         */
+
         Puzzled,
-        /**
-         *
-         */
+
         Disgusted,
     }
 
 
     public enum FacePart {
 
-        /**
-         *
-         */
+
         NoseLongShort,
-        /**
-         *
-         */
+
         NoseUpDown,
-        /**
-         *
-         */
+
         JawUpDown,
-        /**
-         *
-         */
+
         JawNarrowWide,
-        /**
-         *
-         */
+
         JawForwardBack,
-        /**
-         *
-         */
+
         CheeksUpDown,
-        /**
-         *
-         */
+
         CheeksForwardBack,
-        /**
-         *
-         */
+
         EyesUpDown,
-        /**
-         *
-         */
+
         EyesInOut,
-        /**
-         *
-         */
+
         BrowsUpDown,
-        /**
-         *
-         */
+
         BrowsInOut,
-        /**
-         *
-         */
+
         BrowsForwardBack,
-        /**
-         *
-         */
+
         LipsUpDown,
-        /**
-         *
-         */
+
         LipsInOut,
-        /**
-         *
-         */
+
         ChinThinWide,
-        /**
-         *
-         */
+
         ChinUpDown,
-        /**
-         *
-         */
+
         ChinOverbite,
-        /**
-         *
-         */
+
         EyesForwardBack
     }
 

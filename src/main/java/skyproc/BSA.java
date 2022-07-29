@@ -7,7 +7,10 @@ import lev.LShrinkArray;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.util.*;
 
@@ -73,7 +76,7 @@ public class BSA {
 
     /**
      * @param filePath Filepath to load BSA data from.
-     * @throws BadParameter          If the BSA is malformed (by SkyProc standards)
+     * @throws BadParameter If the BSA is malformed (by SkyProc standards)
      */
     public BSA(String filePath) throws BadParameter {
         this(filePath, true);

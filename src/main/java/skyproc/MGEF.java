@@ -614,133 +614,71 @@ public class MGEF extends MajorRecordDescription {
 
     public enum SpellEffectFlag {
 
-        /**
-         *
-         */
+
         Hostile(0),
-        /**
-         *
-         */
+
         Recover(1),
-        /**
-         *
-         */
+
         Detrimental(2),
-        /**
-         *
-         */
+
         SnapToNavmesh(3),
-        /**
-         *
-         */
+
         NoHitEvent(4),
-        /**
-         *
-         */
+
         Unknown_6(5),
-        /**
-         *
-         */
+
         Unknown_7(6),
-        /**
-         *
-         */
+
         Unknown_8(7),
-        /**
-         *
-         */
+
         DispellEffects(8),
-        /**
-         *
-         */
+
         NoDuration(9),
-        /**
-         *
-         */
+
         NoMagnitude(10),
-        /**
-         *
-         */
+
         NoArea(11),
-        /**
-         *
-         */
+
         FXPersist(12),
-        /**
-         *
-         */
+
         Unknown_14(13),
-        /**
-         *
-         */
+
         GoryVisual(14),
-        /**
-         *
-         */
+
         HideInUI(15),
-        /**
-         *
-         */
+
         Unknown_17(16),
-        /**
-         *
-         */
+
         NoRecast(17),
-        /**
-         *
-         */
+
         Unknown_19(18),
-        /**
-         *
-         */
+
         Unknown_20(19),
-        /**
-         *
-         */
+
         Unknown_21(20),
-        /**
-         *
-         */
+
         PowerAffectsMagnitude(21),
-        /**
-         *
-         */
+
         PowerAffectsDuration(22),
-        /**
-         *
-         */
+
         Unknown_24(23),
-        /**
-         *
-         */
+
         Unknown_25(24),
-        /**
-         *
-         */
+
         Unknown_26(25),
-        /**
-         *
-         */
+
         Painless(26),
-        /**
-         *
-         */
+
         NoHitEffect(27),
-        /**
-         *
-         */
+
         NoDeathDispel(28),
         /*
          *
          */
         Unknown_30(29),
-        /**
-         *
-         */
+
         Unknown_31(30),
-        /**
-         *
-         */
+
         Unknown_32(31);
 
         final int value;
@@ -753,29 +691,17 @@ public class MGEF extends MajorRecordDescription {
 
     public enum SoundData {
 
-        /**
-         *
-         */
+
         SheathDraw,
-        /**
-         *
-         */
+
         Charge,
-        /**
-         *
-         */
+
         Ready,
-        /**
-         *
-         */
+
         Release,
-        /**
-         *
-         */
+
         ConcentrationCastLoop,
-        /**
-         *
-         */
+
         OnHit
     }
 

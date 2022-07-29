@@ -1,7 +1,10 @@
 package skyproc;
 
 import lev.Ln;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import skyproc.exceptions.BadRecord;
 
 import java.io.File;
@@ -15,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SkyProcTester {
 
     static final ArrayList<FormID> badIDs;
+
     static {
         badIDs = new ArrayList<>();
         ModListing skyrim = new ModListing("Skyrim.esm");

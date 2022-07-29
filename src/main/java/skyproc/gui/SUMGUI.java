@@ -438,46 +438,46 @@ public class SUMGUI extends JFrame {
             return true;
         }
         try {
-        // See if imported mods and last mod list are the same
-        ArrayList<String> oldList = save.getStrings(SUMGUISettings.LastModlist);
-        for (int i = 0; i < oldList.size(); i++) {
-            String oldString = oldList.get(i);
-            if (oldString.contains(SPDatabase.dateDelim)) {
-                oldList.set(i, oldString.substring(0, oldString.indexOf(SPDatabase.dateDelim)));
+            // See if imported mods and last mod list are the same
+            ArrayList<String> oldList = save.getStrings(SUMGUISettings.LastModlist);
+            for (int i = 0; i < oldList.size(); i++) {
+                String oldString = oldList.get(i);
+                if (oldString.contains(SPDatabase.dateDelim)) {
+                    oldList.set(i, oldString.substring(0, oldString.indexOf(SPDatabase.dateDelim)));
+                }
             }
-        }
-        ArrayList<ModListing> curList = new ArrayList<>(SPImporter.getActiveModList());
-        curList.remove(hook.getListing());
-        ArrayList<ModListing> curListTmp = new ArrayList<>(curList);
+            ArrayList<ModListing> curList = new ArrayList<>(SPImporter.getActiveModList());
+            curList.remove(hook.getListing());
+            ArrayList<ModListing> curListTmp = new ArrayList<>(curList);
 
-        if (curList.size() != oldList.size()) {
-            if (SPGlobal.logging()) {
-                SPGlobal.logMain("Needs Importing", "Needs importing because last Modlist isn't the same size as current.");
-            }
-            return true;
-        }
-
-        for (int i = 0; i < curList.size(); i++) {
-            ModListing m = curListTmp.get(i);
-            if (!oldList.get(i).equals(m.print().toUpperCase())) {
+            if (curList.size() != oldList.size()) {
                 if (SPGlobal.logging()) {
-                    SPGlobal.logMain("Needs Importing", "Needs importing because " + oldList.get(i) + " doesn't match " + m.print() + " at index " + i);
+                    SPGlobal.logMain("Needs Importing", "Needs importing because last Modlist isn't the same size as current.");
                 }
                 return true;
             }
-        }
 
-        // Check dates
-        ArrayList<String> changedMods = getChangedMods(true);
-        if (changedMods.size() > 0) {
-            if (SPGlobal.logging()) {
-                SPGlobal.logMain("Needs Importing", "Needs importing because " + changedMods.get(0) + " had its date changed.");
+            for (int i = 0; i < curList.size(); i++) {
+                ModListing m = curListTmp.get(i);
+                if (!oldList.get(i).equals(m.print().toUpperCase())) {
+                    if (SPGlobal.logging()) {
+                        SPGlobal.logMain("Needs Importing", "Needs importing because " + oldList.get(i) + " doesn't match " + m.print() + " at index " + i);
+                    }
+                    return true;
+                }
             }
-            return true;
-        }
 
-        //Don't need a patch, check for custom hook coding
-        return SUMGUI.hook.needsPatching();
+            // Check dates
+            ArrayList<String> changedMods = getChangedMods(true);
+            if (changedMods.size() > 0) {
+                if (SPGlobal.logging()) {
+                    SPGlobal.logMain("Needs Importing", "Needs importing because " + changedMods.get(0) + " had its date changed.");
+                }
+                return true;
+            }
+
+            //Don't need a patch, check for custom hook coding
+            return SUMGUI.hook.needsPatching();
 
         } catch (IOException ex) {
             SPGlobal.logException(ex);
@@ -1171,9 +1171,7 @@ public class SUMGUI extends JFrame {
             return progress.paused();
         }
 
-        /**
-         *
-         */
+
         @Override
         public void done() {
             progress.done();

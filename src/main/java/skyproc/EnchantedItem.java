@@ -89,21 +89,13 @@ public abstract class EnchantedItem extends MajorRecordDescription {
         ManualCostCalculation(0),
 
         PCStartSpell(17),
-        /**
-         *
-         */
+
         AreaEffectIgnoresLOS(19),
-        /**
-         *
-         */
+
         IgnoreResistance(20),
-        /**
-         *
-         */
+
         NoAbsorbOrReflect(21),
-        /**
-         *
-         */
+
         NoDualCastModification(23);
         final int value;
 

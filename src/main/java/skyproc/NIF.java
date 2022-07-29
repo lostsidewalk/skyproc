@@ -324,13 +324,9 @@ public class NIF {
         BSEFFECTSHADERPROPERTY,
 
         BSSHADERTEXTURESET,
-        /**
-         *
-         */
+
         NIALPHAPROPERTY,
-        /**
-         *
-         */
+
         UNKNOWN;
 
         static NodeType SPvalueOf(String in) {

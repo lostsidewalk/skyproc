@@ -375,21 +375,13 @@ abstract public class LeveledRecord extends MajorRecord implements Iterable<Leve
      */
     public enum LVLFlag {
 
-        /**
-         *
-         */
+
         CalcAllLevelsEqualOrBelowPC,
-        /**
-         *
-         */
+
         CalcForEachItemInCount,
-        /**
-         *
-         */
+
         UseAll,
-        /**
-         *
-         */
+
         SpecialLoot
     }
 

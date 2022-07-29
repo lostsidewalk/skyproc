@@ -359,38 +359,24 @@ public class QUST extends MajorRecordNamed {
 
 
         CompleteQuest,
-        /**
-         *
-         */
+
         FailQuest
     }
 
 
     public enum QuestFlags {
 
-        /**
-         *
-         */
+
         StartGameEnabled(0),
-        /**
-         *
-         */
+
         WildernessEncounter(2),
-        /**
-         *
-         */
+
         AllowRepeatedStages(3),
-        /**
-         *
-         */
+
         RunOnce(4),
-        /**
-         *
-         */
+
         ExcludeFromDialogueExport(5),
-        /**
-         *
-         */
+
         WarnOnAliasFillFailure(6);
         final int value;
 
@@ -402,53 +388,29 @@ public class QUST extends MajorRecordNamed {
 
     public enum QuestType {
 
-        /**
-         *
-         */
+
         None,
-        /**
-         *
-         */
+
         MainQuest,
-        /**
-         *
-         */
+
         MageGuild,
-        /**
-         *
-         */
+
         ThievesGuild,
-        /**
-         *
-         */
+
         DarkBrotherhood,
-        /**
-         *
-         */
+
         Companion,
-        /**
-         *
-         */
+
         Misc,
-        /**
-         *
-         */
+
         Daedric,
-        /**
-         *
-         */
+
         Side,
-        /**
-         *
-         */
+
         CivilWar,
-        /**
-         *
-         */
+
         Vampire,
-        /**
-         *
-         */
+
         Dragonborn
     }
 
@@ -697,9 +659,7 @@ public class QUST extends MajorRecordNamed {
 
     public static class QuestStage extends SubShellBulkType {
 
-        /**
-         *
-         */
+
         public QuestStage() {
             super(questStageProto, false);
         }
@@ -758,9 +718,7 @@ public class QUST extends MajorRecordNamed {
 
     public static class QuestLogEntry extends SubShell {
 
-        /**
-         *
-         */
+
         public QuestLogEntry() {
             super(questLogEntryProto);
         }
@@ -1133,8 +1091,7 @@ public class QUST extends MajorRecordNamed {
         }
 
         int getContentLength(boolean isStringTabled) {
-            return 9 + scriptName.getTotalLength(isStringTabled)
-                    + fragmentName.getTotalLength(isStringTabled);
+            return 9 + scriptName.getTotalLength(isStringTabled) + fragmentName.getTotalLength(isStringTabled);
         }
     }
 

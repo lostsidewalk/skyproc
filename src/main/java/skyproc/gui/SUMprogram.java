@@ -116,7 +116,6 @@ public class SUMprogram implements SUM {
     /**
      * @return Path to the text document containing the most recent list of
      * executed SkyProc patchers.
-     *
      * @throws IOException when something horrible happens
      */
     public static String getSUMPatchList() throws IOException {
@@ -866,7 +865,8 @@ public class SUMprogram implements SUM {
                 URL logoImage = null;
                 try {
                     logoImage = hook.getLogo();
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
                 logoImage = logoImage == null ? getDefaultLogoImage() : logoImage;
                 logo = new LImagePane(logoImage);
                 if (logo.getWidth() + width > desiredWidth) {

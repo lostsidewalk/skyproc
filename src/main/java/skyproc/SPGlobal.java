@@ -452,41 +452,23 @@ public class SPGlobal {
 
     public enum Language {
 
-        /**
-         *
-         */
+
         English,
-        /**
-         *
-         */
+
         Spanish,
-        /**
-         *
-         */
+
         Italian,
-        /**
-         *
-         */
+
         French,
-        /**
-         *
-         */
+
         German,
-        /**
-         *
-         */
+
         Russian,
-        /**
-         *
-         */
+
         Czech,
-        /**
-         *
-         */
+
         Polish,
-        /**
-         *
-         */
+
         Japanes
     }
 

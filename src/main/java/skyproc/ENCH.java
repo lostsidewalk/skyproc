@@ -185,9 +185,7 @@ public class ENCH extends EnchantedItem {
 
 
         Enchantment(6),
-        /**
-         *
-         */
+
         StaffEnchantment(12);
         final int value;
 
@@ -208,13 +206,9 @@ public class ENCH extends EnchantedItem {
 
     public enum ENCHFlag {
 
-        /**
-         *
-         */
+
         ManualCalc(0),
-        /**
-         *
-         */
+
         ExtendDurationOnRecast(3);
         final int value;
 

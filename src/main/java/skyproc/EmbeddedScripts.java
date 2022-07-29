@@ -9,13 +9,13 @@ import java.util.Scanner;
 /**
  * This class has functions that deal with parsing hardcoded Embedded Script info, and generating
  * the corresponding Java code which is used by SkyProc.
- *
+ * <p>
  * Validation Files/EmbeddedScriptSource.txt
- *  - basic function list, parsed by parseScriptData
- *
+ * - basic function list, parsed by parseScriptData
+ * <p>
  * Validation Files/EmbeddedScriptSourceGib.txt
- *  - function list taken from mod.gib.me/skyrim/functions.html
- *  - parsed by parseScriptDataGibMe
+ * - function list taken from mod.gib.me/skyrim/functions.html
+ * - parsed by parseScriptDataGibMe
  *
  * @author Justin Swanson
  */
@@ -283,64 +283,39 @@ public class EmbeddedScripts {
 
     public enum ParamType {
 
-        /**
-         *
-         */
+
         FormID,
-        /**
-         *
-         */
+
         Int,
-        /**
-         *
-         */
+
         String,
-        /**
-         *
-         */
+
         Axis,
-        /**
-         *
-         */
+
         Gender,
-        /**
-         *
-         */
+
         CrimeType,
-        /**
-         *
-         */
+
         CastingSource,
-        /**
-         *
-         */
+
         WardState,
-        /**
-         *
-         */
+
         Float,
-        /**
-         *
-         */
+
         NULL
     }
 
 
     public enum Param {
 
-        /**
-         *
-         */
+
         One,
-        /**
-         *
-         */
+
         Two,
-        /**
-         *
-         */
+
         Three
     }
+
     //
     // Note: see EmbeddedScriptsSources.txt
     //

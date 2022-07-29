@@ -1171,150 +1171,80 @@ public class RACE extends MajorRecordDescription {
 
     public enum RACEFlags {
 
-        /**
-         *
-         */
+
         Playable,
-        /**
-         *
-         */
+
         FaceGenHead,
-        /**
-         *
-         */
+
         Child,
-        /**
-         *
-         */
+
         TiltFrontBack,
-        /**
-         *
-         */
+
         TiltLeftRight,
-        /**
-         *
-         */
+
         NoShadow,
-        /**
-         *
-         */
+
         Swims,
-        /**
-         *
-         */
+
         Flies,
-        /**
-         *
-         */
+
         Walks,
-        /**
-         *
-         */
+
         Immobile,
-        /**
-         *
-         */
+
         NotPushable,
-        /**
-         *
-         */
+
         NoCombatInWater,
-        /**
-         *
-         */
+
         NoRotatingToHeadTrack,
-        /**
-         *
-         */
+
         DontShowBloodSpray,
-        /**
-         *
-         */
+
         DontShowBloodDecal,
-        /**
-         *
-         */
+
         UsesHeadTrackAnims,
-        /**
-         *
-         */
+
         SpellsAlignWithMagicNode,
-        /**
-         *
-         */
+
         UseWorldRaycastsForFootIK,
-        /**
-         *
-         */
+
         AllowRagdollCollision,
-        /**
-         *
-         */
+
         RegenHPInCombat,
-        /**
-         *
-         */
+
         CantOpenDoors,
-        /**
-         *
-         */
+
         AllowPCDialogue,
-        /**
-         *
-         */
+
         NoKnockdowns,
-        /**
-         *
-         */
+
         AllowPickpocket,
-        /**
-         *
-         */
+
         AlwaysUseProxyController,
-        /**
-         *
-         */
+
         DontShowWeaponBlood,
-        /**
-         *
-         */
+
         OverlayHeadPartList,
-        /**
-         *
-         */
+
         OverrideHeadPartList,
-        /**
-         *
-         */
+
         CanPickupItems,
-        /**
-         *
-         */
+
         AllowMultipleMembraneShaders,
-        /**
-         *
-         */
+
         CanDualWeild,
-        /**
-         *
-         */
+
         AvoidsRoads
     }
 
 
     public enum RaceFlags2 {
 
-        /**
-         *
-         */
+
         UseAdvancedAvoidance(0),
-        /**
-         *
-         */
+
         NonHostile(1),
-        /**
-         *
-         */
+
         AllowMountedCombat(4);
         final int val;
 
@@ -1326,21 +1256,13 @@ public class RACE extends MajorRecordDescription {
 
     public enum Size {
 
-        /**
-         *
-         */
+
         SMALL,
-        /**
-         *
-         */
+
         MEDIUM,
-        /**
-         *
-         */
+
         LARGE,
-        /**
-         *
-         */
+
         EXTRALARGE
     }
 

@@ -622,94 +622,52 @@ public class WEAP extends MajorRecordDescription {
      */
     public enum WeaponType {
 
-        /**
-         *
-         */
+
         HandToHandMelee,
-        /**
-         *
-         */
+
         OneHSword,
-        /**
-         *
-         */
+
         Dagger,
-        /**
-         *
-         */
+
         OneHAxe,
-        /**
-         *
-         */
+
         OneHBlunt,
-        /**
-         *
-         */
+
         TwoHSword,
-        /**
-         *
-         */
+
         TwoHBluntAxe,
-        /**
-         *
-         */
+
         Bow,
-        /**
-         *
-         */
+
         Staff,
-        /**
-         *
-         */
+
         Crossbow
     }
 
 
     public enum WeaponFlag {
 
-        /**
-         *
-         */
+
         IgnoresNormalWeaponResistance(1, 0),
-        /**
-         *
-         */
+
         HideBackpack(4, 0),
-        /**
-         *
-         */
+
         NonPlayable(7, 0),
-        /**
-         *
-         */
+
         CantDrop(3, 0),
-        /**
-         *
-         */
+
         PlayerOnly(0, 1),
-        /**
-         *
-         */
+
         NPCsUseAmmo(1, 1),
-        /**
-         *
-         */
+
         NoJamAfterReload(3, 1),
-        /**
-         *
-         */
+
         MinorCrime(4, 1),
-        /**
-         *
-         */
+
         NotUsedInNormalCombat(6, 1),
-        /**
-         *
-         */
+
         NonHostile(8, 1),
-        /**
-         *
-         */
+
         BoundWeapon(13, 1),
         ;
         final int value;

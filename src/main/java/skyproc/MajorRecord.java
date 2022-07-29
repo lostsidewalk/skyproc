@@ -380,21 +380,15 @@ public abstract class MajorRecord extends Record implements Serializable {
          * TES4: is esm
          */
         ESM(0),
-        /**
-         *
-         */
+
         Unknown2(1),
         /**
          * ARMO: non-playable
          */
         NonPlayable(2),
-        /**
-         *
-         */
+
         Unknown4(3),
-        /**
-         *
-         */
+
         Unknown5(4),
         /**
          * Record is deleted; User Deleted Record, a dirty edit
@@ -429,21 +423,13 @@ public abstract class MajorRecord extends Record implements Serializable {
          * LSCR: Displays in Main Menu
          */
         QuestItemPersistentRef(10),
-        /**
-         *
-         */
+
         InitiallyDisabled(11),
-        /**
-         *
-         */
+
         Ignored(12),
-        /**
-         *
-         */
+
         ActorChanged(13),
-        /**
-         *
-         */
+
         Unknown15(14),
         /**
          * STAT: Has Distant LOD
@@ -461,9 +447,7 @@ public abstract class MajorRecord extends Record implements Serializable {
          * STAT: Use High-Detail LOD Texture
          */
         DangerousOffLimits(17),
-        /**
-         *
-         */
+
         Compressed(18),
         /**
          * STAT: Has Currents
@@ -473,13 +457,9 @@ public abstract class MajorRecord extends Record implements Serializable {
          * ACTI: Ignore Object Interaction
          */
         IgnoreObjectInteraction(20),
-        /**
-         *
-         */
+
         UsedinMemoryChangedForm(21),
-        /**
-         *
-         */
+
         Unknown23(22),
         /**
          * ACTI: Is Marker
