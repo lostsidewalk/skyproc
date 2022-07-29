@@ -436,9 +436,7 @@ public class SPGlobal {
     }
 
     static void reset() {
-        SPDatabase.activePlugins.clear();
-        SPDatabase.addedPlugins.clear();
-        SPDatabase.modLookup.clear();
+        SPDatabase.clear();
         FormID.allIDs.clear();
         Consistency.clear();
     }

@@ -526,7 +526,6 @@ public class SPImporter {
             if (SPGlobal.checkMissingMasters) {
                 checkMissingMasters(plugin);
             }
-            plugin.input = input;
             if (SPGlobal.streamMode) {
                 plugin.input = input;
             }
@@ -558,7 +557,7 @@ public class SPImporter {
             throw m;
         } catch (Exception e) {
 
-            SPGlobal.logError(header, "Exception occured while importing mod : " + path);
+            SPGlobal.logError(header, "Exception occurred while importing mod : " + path);
             SPGlobal.logError(header, "  Message: " + e);
             SPGlobal.logError(header, "  Stack: ");
             for (StackTraceElement s : e.getStackTrace()) {

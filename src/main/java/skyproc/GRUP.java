@@ -2,12 +2,14 @@ package skyproc;
 
 import lev.LImport;
 import lev.Ln;
-import lombok.extern.slf4j.Slf4j;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.zip.DataFormatException;
 
 /**
@@ -16,7 +18,7 @@ import java.util.zip.DataFormatException;
  * @param <T> The type of Major Record a GRUP contains.
  * @author Justin Swanson
  */
-public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T> {
+public class GRUP<T extends MajorRecord> extends SubRecord<T> implements Iterable<T> {
 
     byte[] contained;
     byte[] grupType = new byte[4];
