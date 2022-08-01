@@ -57,9 +57,8 @@ public class SUMprogram implements SUM {
     /**
      * Main function that starts the program and GUI.
      *
-     * @param args "-test" Opens up the SkyProc tester program instead of SUM
+     * @param args
      */
-//    @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch", "UseSpecificCatch"})
     public static void main(String[] args) {
         SpringApplicationBuilder builder = new SpringApplicationBuilder(SUMprogram.class);
         builder.headless(false);
