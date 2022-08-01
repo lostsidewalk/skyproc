@@ -87,7 +87,6 @@ public class SUMGUI extends JFrame {
     static boolean needsPatching = false;
     static boolean justPatching = false;
     static boolean justSettings = false;
-    static boolean boss = true;
     static LCheckBox forcePatch;
     static LImagePane skyProcLogo;
     static JTextArea statusUpdate;
@@ -158,8 +157,8 @@ public class SUMGUI extends JFrame {
      * @param hook     Program to open and hook to
      * @param mainArgs Pass the main String args from your main function here
      */
-    public static void open(final SUM hook, String[] mainArgs) {
-        handleArgs(mainArgs);
+    public static void open(final SPGlobal spGlobal, final SUM hook, String[] mainArgs) {
+        handleArgs(spGlobal, mainArgs);
 
         loadBlockedMods("Files/BlockList.txt");
 
@@ -275,7 +274,7 @@ public class SUMGUI extends JFrame {
         } */
     }
 
-    static void handleArgs(String[] args) {
+    static void handleArgs(SPGlobal spGlobal, String[] args) {
         final ArrayList<String> arguments = Ln.toUpper(new ArrayList<>(Arrays.asList(args)));
 
         if (SPGlobal.logging()) {
@@ -314,7 +313,7 @@ public class SUMGUI extends JFrame {
 
         if (arguments.contains("-SUMBLOCK")) {
             try {
-                loadBlockedMods(SPGlobal.getSkyProcDocuments() + "\\SUM Mod Blocklist.txt");
+                loadBlockedMods(spGlobal.getSkyProcDocuments() + "\\SUM Mod Blocklist.txt");
             } catch (IOException ex) {
                 SPGlobal.logException(ex);
             }
@@ -325,9 +324,6 @@ public class SUMGUI extends JFrame {
         }
 
         SPGlobal.setStreamMode(!arguments.contains("-NOSTREAM"));
-
-//	boss = !arguments.contains("-NOBOSS");
-        boss = arguments.contains("-BOSS");
 
         if (arguments.contains("-ALLMODSASMASTERS")) {
             SPGlobal.setAllModsAsMasters(true);
@@ -704,31 +700,11 @@ public class SUMGUI extends JFrame {
         }
     }
 
-    static void bossWarning() {
-        if (save.getBool(SUMGUISettings.BOSSWarning)) {
-            String message = "<html>This patcher is going to run BOSS first to standardize ordering.<br><br>"
-                    + "To turn BOSS execution off, download <a href=\"http://skyrim.nexusmods.com/mods/29865\">SUM</a> and adjust its settings.<br>"
-                    + "However, running BOSS is recommended.  "
-                    + "<a href=\"http://afterimagemetal.com/SkyProc/SUM%20Readme.html#BOSS\">Read this article why.</a><br><br>"
-                    + "Do you want to continue patching?</html>";
-            int response = JOptionPane.showConfirmDialog(null, Lg.getQuickHTMLPane(message), "Running BOSS", JOptionPane.YES_NO_OPTION);
-            if (response == JOptionPane.YES_OPTION) {
-                response = JOptionPane.showConfirmDialog(null, "Do you want to see this warning next time?", "Running BOSS", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.NO_OPTION) {
-                    save.setBool(SUMGUISettings.BOSSWarning, false);
-                }
-            } else {
-                SUMGUI.exitProgram(false, true);
-            }
-        }
-    }
-
     static void lootWarning() {
         if (save.getBool(SUMGUISettings.LOOTWarning)) {
             String message = "<html>This patcher is going to run LOOT first to standardize ordering.<br><br>"
                     + "To turn LOOT execution off, download <a href=\"http://skyrim.nexusmods.com/mods/29865\">SUM</a> and adjust its settings.<br>"
                     + "However, running LOOT is recommended.  "
-                    + "<a href=\"http://afterimagemetal.com/SkyProc/SUM%20Readme.html#BOSS\">Read this article why.</a><br><br>"
                     + "Do you want to continue patching?</html>";
             int response = JOptionPane.showConfirmDialog(null, Lg.getQuickHTMLPane(message), "Running LOOT", JOptionPane.YES_NO_OPTION);
             if (response == JOptionPane.YES_OPTION) {
@@ -984,7 +960,6 @@ public class SUMGUI extends JFrame {
         LastModlist,
         PrevVersion,
         CrashState,
-        BOSSWarning,
         LOOTWarning
     }
 
@@ -997,12 +972,6 @@ public class SUMGUI extends JFrame {
             SPGlobal.logMain("START IMPORT THREAD", "Starting of process thread.");
             try {
                 if (!imported) {
-                    if (boss) {
-                        bossWarning();
-                        NiftyFunc.setupMissingPatchFiles(SPGlobal.getGlobalPatch());
-                        NiftyFunc.modifyPluginsTxt(SPGlobal.getGlobalPatch());
-                        NiftyFunc.runBOSS(true);
-                    }
                     SPImporter.importActiveMods(hook.importRequests());
                     imported();
                     imported = true;
@@ -1190,7 +1159,6 @@ public class SUMGUI extends JFrame {
             Add(SUMGUISettings.LastMasterlist, new ArrayList<>(), false);
             Add(SUMGUISettings.LastModlist, new ArrayList<>(), false);
             Add(SUMGUISettings.CrashState, false, false);
-            Add(SUMGUISettings.BOSSWarning, true, false);
             Add(SUMGUISettings.LOOTWarning, true, false);
         }
 

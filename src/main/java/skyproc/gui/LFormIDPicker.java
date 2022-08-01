@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * @author Justin Swanson
  */
+@SuppressWarnings("unused")
 public class LFormIDPicker extends LUserSetting<FormID[]> {
 
     final LButton add;
@@ -85,7 +86,7 @@ public class LFormIDPicker extends LUserSetting<FormID[]> {
     }
 
     @Override
-    public boolean revertTo(Map<Enum, Setting> m) {
+    public boolean revertTo(Map<Enum<?>, Setting<?>> m) {
         if (isTied()) {
             FormID[] list = (FormID[]) m.get(saveTie).getData();
             model.removeAllElements();

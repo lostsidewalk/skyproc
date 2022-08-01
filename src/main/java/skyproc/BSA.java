@@ -82,52 +82,52 @@ public class BSA {
         this(filePath, true);
     }
 
-    static String getUsedFilename(String filePath) {
-        String tmp, out = "";
-        File file = new File(filePath);
-        if (!(file = Ln.getFilepathCaseInsensitive(file)).getPath().equals("")) {
-            return file.getName();
-        }
-        Iterator<BSA> bsas = BSA.iterator();
-        while (bsas.hasNext()) {
-            tmp = bsas.next().getFilename(filePath);
-            if (!tmp.equals("")) {
-                out = tmp;
-            }
-        }
-        return out;
-    }
+//    static String getUsedFilename(String filePath) {
+//        String tmp, out = "";
+//        File file = new File(filePath);
+//        if (!(file = Ln.getFilepathCaseInsensitive(file)).getPath().equals("")) {
+//            return file.getName();
+//        }
+//        Iterator<BSA> bsas = BSA.iterator();
+//        while (bsas.hasNext()) {
+//            tmp = bsas.next().getFilename(filePath);
+//            if (!tmp.equals("")) {
+//                out = tmp;
+//            }
+//        }
+//        return out;
+//    }
 
-    /**
-     * @param filePath File to query for.
-     * @return The used file, which prioritizes loose files first, and then
-     * BSAs.<br> NOTE: Not fully sophisticated yet for prioritizing between
-     * BSAs.
-     * @throws IOException
-     */
-    static public LShrinkArray getUsedFile(String filePath) throws IOException {
-        File outsideBSA = new File(SPGlobal.pathToDataFixed + filePath);
-        if (outsideBSA.isFile()) {
-            SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded from loose files: " + outsideBSA.getPath());
-            return new LShrinkArray(outsideBSA);
-        } else {
-            Iterator<BSA> bsas = BSA.iterator();
-            BSA tmp, bsa = null;
-            while (bsas.hasNext()) {
-                tmp = bsas.next();
-                if (tmp.hasFile(filePath)) {
-                    bsa = tmp;
-                }
-            }
-            if (bsa != null) {
-                if (SPGlobal.logging()) {
-                    SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded from BSA " + bsa.getFilePath() + ": " + filePath);
-                }
-                return bsa.getFile(filePath);
-            }
-        }
-        return null;
-    }
+//    /**
+//     * @param filePath File to query for.
+//     * @return The used file, which prioritizes loose files first, and then
+//     * BSAs.<br> NOTE: Not fully sophisticated yet for prioritizing between
+//     * BSAs.
+//     * @throws IOException
+//     */
+//    static public LShrinkArray getUsedFile(String filePath) throws IOException {
+//        File outsideBSA = new File(SPGlobal.pathToDataFixed + filePath);
+//        if (outsideBSA.isFile()) {
+//            SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded from loose files: " + outsideBSA.getPath());
+//            return new LShrinkArray(outsideBSA);
+//        } else {
+//            Iterator<BSA> bsas = BSA.iterator();
+//            BSA tmp, bsa = null;
+//            while (bsas.hasNext()) {
+//                tmp = bsas.next();
+//                if (tmp.hasFile(filePath)) {
+//                    bsa = tmp;
+//                }
+//            }
+//            if (bsa != null) {
+//                if (SPGlobal.logging()) {
+//                    SPGlobal.logSpecial(LogTypes.BSA, header, "Loaded from BSA " + bsa.getFilePath() + ": " + filePath);
+//                }
+//                return bsa.getFile(filePath);
+//            }
+//        }
+//        return null;
+//    }
 
     static void loadPluginLoadOrder() {
         if (pluginsLoaded) {
@@ -351,27 +351,27 @@ public class BSA {
         return out;
     }
 
-    /**
-     * @param types Types to load in.
-     * @return List of all BSA files that contain any of the filetypes.
-     */
-    public static ArrayList<BSA> loadInBSAs(FileType... types) {
-        ArrayList<BSA> out = new ArrayList<>();
-        Iterator<BSA> bsas = iterator();
-        while (bsas.hasNext()) {
-            BSA tmp = bsas.next();
-            try {
-                if (!tmp.bad && tmp.containsAny(types)) {
-                    tmp.loadFolders();
-                    out.add(tmp);
-                }
-            } catch (Exception e) {
-                SPGlobal.logException(e);
-                SPGlobal.logError("BSA", "Skipped BSA " + tmp);
-            }
-        }
-        return out;
-    }
+//    /**
+//     * @param types Types to load in.
+//     * @return List of all BSA files that contain any of the filetypes.
+//     */
+//    public static ArrayList<BSA> loadInBSAs(FileType... types) {
+//        ArrayList<BSA> out = new ArrayList<>();
+//        Iterator<BSA> bsas = iterator();
+//        while (bsas.hasNext()) {
+//            BSA tmp = bsas.next();
+//            try {
+//                if (!tmp.bad && tmp.containsAny(types)) {
+//                    tmp.loadFolders();
+//                    out.add(tmp);
+//                }
+//            } catch (Exception e) {
+//                SPGlobal.logException(e);
+//                SPGlobal.logError("BSA", "Skipped BSA " + tmp);
+//            }
+//        }
+//        return out;
+//    }
 
     static void deleteOverlap() {
         if (!overlapDeleted) {

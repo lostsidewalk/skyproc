@@ -4,8 +4,11 @@ import lev.Ln;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import skyproc.gui.SUMGUI;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
@@ -19,23 +22,27 @@ import java.util.function.Consumer;
  */
 @SuppressWarnings("unused")
 @Slf4j
+@Component
 public class SPGlobal {
 
     private static final String FS_DELIMITER = FileSystems.getDefault().getSeparator();
 
     /**
-     * Path to the Data/ folder to look for plugins to import/export.<br><br> By
-     * default, this is set to "../../", meaning the patch has to be in a
-     * subfolder of "Data/". (ex "Data/SkyProc Patchers/My SkyProc Patcher/My
-     * Patcher.jar")
+     * Path to the Data/ folder to look for plugins to import/export.
      */
-    // TODO: make this externally configurable
-//    public static final String pathToData = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Skyrim Special Edition\\Data\\";
-    public static final String pathToData = Ln.getMyDocuments().getPath() + "/.steam/debian-installation/steamapps/common/Skyrim Special Edition/Data/";
-    public static final String pathToDataFixed = pathToData; // (pathToData.endsWith("\\") ? pathToData : pathToData + "\\");
-    /**
-     *
-     */
+    public static String pathToData;
+    public static String pathToDataFixed;
+
+    @Value("${sp.global.path.to.data}")
+    String spGlobalPathToData;
+
+    @PostConstruct
+    public void postConstruct() {
+        SPGlobal.pathToData = spGlobalPathToData;
+        SPGlobal.pathToDataFixed = pathToData;
+        log.info("SPGlobal post-init: pathToData={}", pathToData);
+    }
+
     public static final String pathToPatchers = Ln.getMyDocuments().getPath() + "//SkyProc Patchers//";
     /**
      * A default path to "internal files". This is currently only used for
@@ -105,8 +112,8 @@ public class SPGlobal {
      */
     public static File getSkyProcDocuments() throws IOException {
         if (skyProcDocuments == null) {
-            File myDocs = SPGlobal.getMyDocumentsSkyrimFolder();
-            skyProcDocuments = new File(myDocs.getPath() + "\\SkyProc\\");
+            File myDocs = getMyDocumentsSkyrimFolder();
+            skyProcDocuments = new File(myDocs.getPath() + File.separator + "SkyProc" + File.separator);
             //noinspection ResultOfMethodCallIgnored
             skyProcDocuments.mkdirs();
         }
@@ -241,16 +248,19 @@ public class SPGlobal {
     /**
      * Returns the My Documents Skyrim folder where the ini's are located.
      */
-    static public File getMyDocumentsSkyrimFolder() throws IOException {
+    public static File getMyDocumentsSkyrimFolder() throws IOException {
         return getSkyrimINI().getParentFile();
     }
+
+    private static final String SP_GLOBAL_PATH_TO_INI = "SP_GLOBAL_PATH_TO_INI";
 
     /**
      * Returns the Skyrim.ini file in the My Documents folder.
      */
-    static public File getSkyrimINI() throws IOException {
+    public static File getSkyrimINI() throws IOException {
         File myDocuments = Ln.getMyDocuments();
-        File ini = new File(myDocuments.getPath() + "/.steam/debian-installation/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My Games/Skyrim Special Edition/Skyrim.ini");
+        String pathToIni = System.getenv(SP_GLOBAL_PATH_TO_INI);
+        File ini = new File(pathToIni);
 
         // See if there's a manual override
         File override = new File(SPGlobal.pathToInternalFiles + "Skyrim-INI-Location.txt");
@@ -292,10 +302,10 @@ public class SPGlobal {
 
                 if (appDataFolder == null) {
 //                    SPGlobal.logError(header, "Can't locate local app data folder.");
-                    appDataFolder = Ln.manualFindFile("""
-                            your Plugins.txt file.
-                            This is usually found in your Local Application Data folder.
-                            You may need to turn on hidden folders to see it.""", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
+                    appDataFolder = Ln.manualFindFile(
+                            "your Plugins.txt file.\n" +
+                            "This is usually found in your Local Application Data folder.\n" +
+                            "You may need to turn on hidden folders to see it.", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
                     SPGlobal.logMain(header, "Plugin.txt returned: ", appDataFolder, "     Shaving off the \\Plugins.txt.");
                     appDataFolder = appDataFolder.substring(0, appDataFolder.lastIndexOf(FS_DELIMITER));
                 } else {
@@ -317,13 +327,15 @@ public class SPGlobal {
     static public String getPluginsTxt() throws IOException {
         String pluginsFile = getSkyrimAppData() + FS_DELIMITER + "plugins.txt";
         File pluginListPath = new File(pluginsFile);
+        SPGlobal.logMain(header, SPGlobal.gameName + " Attempting to locate Plugins.txt in path=" + pluginListPath.getAbsolutePath());
         if (!pluginListPath.exists()) {
             SPGlobal.logMain(header, SPGlobal.gameName + " Plugin file location wrong. Locating manually.");
-            pluginsFile = Ln.manualFindFile("""
-                    your Plugins.txt file.
-                    This is usually found in your Local Application Data folder.
-                    You may need to turn on hidden folders to see it.""", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
+            pluginsFile = Ln.manualFindFile(
+                    "your Plugins.txt file.\n" +
+                    "This is usually found in your Local Application Data folder.\n" +
+                    "You may need to turn on hidden folders to see it.", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
         }
+
         return pluginsFile;
     }
 
@@ -449,27 +461,15 @@ public class SPGlobal {
         allModsAsMasters = b;
     }
 
-
     public enum Language {
-
-
         English,
-
         Spanish,
-
         Italian,
-
         French,
-
         German,
-
         Russian,
-
         Czech,
-
         Polish,
-
         Japanes
     }
-
 }

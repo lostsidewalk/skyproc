@@ -4,10 +4,13 @@ plugins {
     id 'application'
     id 'java-library'
     id 'maven-publish'
+    id 'org.springframework.boot' version '2.7.2'
 }
 
 group = 'com.lostsidewalk'
 version = '0.4-dev2'
+sourceCompatibility = "11"
+targetCompatibility = "11"
 
 repositories {
     mavenLocal()
@@ -22,9 +25,9 @@ dependencies {
 
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha6'
 
-    api group: 'com.lostsidewalk', name: 'lev', version: '1.2'
+    api group: 'com.lostsidewalk', name: 'lev', version: '1.3'
 
-    implementation 'org.springframework.boot:spring-boot-starter:2.7.0'
+    api 'org.springframework.boot:spring-boot-starter:2.7.0'
 
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
@@ -40,7 +43,23 @@ dependencies {
 }
 
 application {
-    mainClassName = 'skyproc.App'
+    mainClassName = 'skyproc.gui.SUMprogram'
+}
+
+task copyJarToBin {
+    copy {
+        from "build/libs/"
+        include "skyproc-${project.version}.jar"
+        into file('Files/')
+    }
+}
+
+task renameSUMJar (type: Copy) {
+    dependsOn copyJarToBin
+    from ('Files/')
+    include "skyproc-${project.version}.jar"
+    destinationDir file('Files/')
+    rename "skyproc-${project.version}.jar", "SUM.jar"
 }
 
 test {
@@ -48,6 +67,7 @@ test {
     systemProperty "junit.jupiter.execution.parallel.enabled", false
     systemProperty "junit.jupiter.execution.mode.default", "same_thread"
     systemProperty "junit.jupiter.execution.mode.classes.default", "same_thread"
+    exclude 'skyproc/SkyProcTester.class'
 }
 
 

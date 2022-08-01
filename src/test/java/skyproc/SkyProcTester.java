@@ -52,6 +52,10 @@ public class SkyProcTester {
     public static void beforeAll() {
         SPGlobal.streamMode = streaming;
         SPGlobal.setGlobalPatch(new Mod(new ModListing("Test", false)));
+        SPGlobal.pathToData = "/home/me/.steam/debian-installation/steamapps/common/Skyrim Special Edition/Data/";
+        // set via env var
+        // SPGlobal.pathToIni = "/home/me/.steam/debian-installation/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My Games/Skyrim Special Edition/Skyrim.ini";
+        SPGlobal.pathToDataFixed = SPGlobal.pathToData;
         SPGlobal.testing = true;
     }
 

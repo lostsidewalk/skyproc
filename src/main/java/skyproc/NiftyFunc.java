@@ -385,6 +385,8 @@ public class NiftyFunc {
     static public boolean startProcess(File directory, String... args) {
         try {
             ProcessBuilder proc = new ProcessBuilder(args);
+            proc.environment().put("SP_GLOBAL_PATH_TO_INI", System.getenv("SP_GLOBAL_PATH_TO_INI"));
+            proc.environment().put("LOCALAPPDATA", System.getenv("LOCALAPPDATA"));
             if (directory != null) {
                 proc.directory(directory);
             }
@@ -574,52 +576,6 @@ public class NiftyFunc {
         ArrayList<Mod> addL = new ArrayList<>(1);
         addL.add(add);
         modifyPluginsTxt(addL, null);
-    }
-
-    /**
-     * Runs BOSS and sorts the load order. Does not update BOSS before running
-     * it.
-     *
-     * @param errorMessages
-     */
-    public static void runBOSS(boolean errorMessages) {
-        SwingUtilities.invokeLater(() -> SUMGUI.progress.setStatusNumbered("Running BOSS"));
-        // Find BOSS
-        SPGlobal.logMain("BOSS", "Looking for BOSS.");
-        int response = JOptionPane.YES_OPTION;
-        String bossPath = "boss"; // WinRegistry.WinRegistry.getRegistryEntry("BOSS", "Installed Path");
-        File bossExe = new File(".");
-        if (bossPath != null) {
-            bossExe = new File(bossPath + "\\BOSS.exe");
-        }
-        if (!bossExe.isFile()) {
-            try {
-                bossExe = Ln.manualFindFile("BOSS.exe", new File(SPGlobal.pathToInternalFiles + "BOSS location"));
-            } catch (IOException ex) {
-                SPGlobal.logException(ex);
-            }
-        }
-
-        // Run BOSS
-        if (bossExe != null && bossExe.isFile()) {
-            SPGlobal.logMain("BOSS", "Running BOSS.");
-            if (!NiftyFunc.startProcess(bossExe.getParentFile(), bossExe.getPath(), "-s", "-U", "-g", "Skyrim")) {
-                SPGlobal.logMain("BOSS", "BOSS failed to run.");
-                if (errorMessages) {
-                    response = JOptionPane.showConfirmDialog(null, "BOSS failed to run. Do you want to continue?", "BOSS failed", JOptionPane.YES_NO_OPTION);
-                }
-            }
-        } else if (errorMessages) {
-            SPGlobal.logMain("BOSS", "BOSS could not be found.");
-            response = JOptionPane.showConfirmDialog(null, "BOSS could not be located.\n"
-                    + "It is highly recommended you download BOSS so that it can be used.\n\n"
-                    + "Do you want to continue patching without BOSS?", "Cannot locate BOSS", JOptionPane.YES_NO_OPTION);
-        }
-        if (response == JOptionPane.NO_OPTION) {
-            SPGlobal.logMain("BOSS", "Exiting program due to BOSS failure.");
-            SUMGUI.exitProgram(false, true);
-        }
-        SPGlobal.logMain("BOSS", "BOSS complete.");
     }
 
     /**
