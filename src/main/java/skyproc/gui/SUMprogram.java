@@ -526,7 +526,8 @@ public class SUMprogram implements SUM {
     void runLOOT() {
         if (SUMsave.getBool(SUMSettings.RUN_LOOT)) {
             SUMGUI.lootWarning();
-            NiftyFunc.runLOOT(true);
+            // confirmOnError = true => confirmation dialog when LOOT cannot be found, etc.; otherwise quietly carry on
+            NiftyFunc.runLOOT(System.getenv("LOOT_PATH"), false);
             SUMGUI.progress.incrementBar();
         }
     }

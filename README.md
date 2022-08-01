@@ -34,6 +34,10 @@ Examples (from my Linux host using MO2 w/default profile):
 
    SP_GLOBAL_PATH_TO_INI=/home/me/.steam/debian-installation/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My Games/Skyrim Special Edition/Skyrim.ini
 
+If you want to run LOOT (recommended), then define an environment variable called LOOT_PATH, e.g.: 
+
+   LOOT_PATH=/usr/bin/loot 
+
 Configuration properties (application.properties):
 
 The following configuration properties are required: 

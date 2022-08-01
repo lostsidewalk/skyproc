@@ -2,14 +2,12 @@ package skyproc;
 
 import lev.LInChannel;
 import lev.Ln;
+import org.apache.commons.lang3.StringUtils;
 import skyproc.gui.SUMGUI;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A class to hold many common/useful functions.
@@ -385,8 +383,10 @@ public class NiftyFunc {
     static public boolean startProcess(File directory, String... args) {
         try {
             ProcessBuilder proc = new ProcessBuilder(args);
-            proc.environment().put("SP_GLOBAL_PATH_TO_INI", System.getenv("SP_GLOBAL_PATH_TO_INI"));
-            proc.environment().put("LOCALAPPDATA", System.getenv("LOCALAPPDATA"));
+            Map<String, String> env = proc.environment();
+            addPropertyToEnv("SP_GLOBAL_PATH_TO_INI", env);
+            addPropertyToEnv("LOCALAPPDATA", env);
+            addPropertyToEnv("LOOT_PATH", env);
             if (directory != null) {
                 proc.directory(directory);
             }
@@ -408,6 +408,12 @@ public class NiftyFunc {
             return false;
         }
         return true;
+    }
+
+    private static void addPropertyToEnv(String propName, Map<String, String> env) {
+        Optional.ofNullable(System.getenv(propName))
+                .filter(StringUtils::isNotBlank)
+                .ifPresent(s -> env.put(propName, s));
     }
 
     /**
@@ -582,19 +588,18 @@ public class NiftyFunc {
      * Runs LOOT and sorts the load order. Does not update LOOT before running
      * it.
      *
-     * @param errorMessages
+     * @param confirmOnError
      */
-    public static void runLOOT(boolean errorMessages) {
+    public static void runLOOT(String lootPath, boolean confirmOnError) {
         SwingUtilities.invokeLater(() -> SUMGUI.progress.setStatusNumbered("Running LOOT"));
         // Find LOOT
         SPGlobal.logMain("LOOT", "Looking for LOOT.");
         int response = JOptionPane.YES_OPTION;
-        String lootPath = "loot"; // WinRegistry.WinRegistry.getRegistryEntry("LOOT", "Installed Path");
         File lootExe = new File(".");
         if (lootPath != null) {
-            lootExe = new File(lootPath + "\\LOOT.exe");
+            lootExe = new File(lootPath);
         }
-        if (!lootExe.isFile()) {
+        if (!lootExe.isFile() && confirmOnError) {
             try {
                 lootExe = Ln.manualFindFile("LOOT.exe", new File(SPGlobal.pathToInternalFiles + "LOOT location"));
             } catch (IOException ex) {
@@ -603,15 +608,18 @@ public class NiftyFunc {
         }
 
         // Run LOOT
+        boolean lootSuccess = false;
         if (lootExe != null && lootExe.isFile()) {
             SPGlobal.logMain("LOOT", "Running LOOT.");
             if (!NiftyFunc.startProcess(lootExe.getParentFile(), lootExe.getPath(), "--game=Skyrim")) {
                 SPGlobal.logMain("LOOT", "LOOT failed to run.");
-                if (errorMessages) {
+                if (confirmOnError) {
                     response = JOptionPane.showConfirmDialog(null, "LOOT failed to run. Do you want to continue?", "LOOT failed", JOptionPane.YES_NO_OPTION);
                 }
+            } else {
+                lootSuccess = true;
             }
-        } else if (errorMessages) {
+        } else if (confirmOnError) {
             SPGlobal.logMain("LOOT", "LOOT could not be found.");
             response = JOptionPane.showConfirmDialog(null, "LOOT could not be located.\n"
                     + "It is highly recommended you download LOOT so that it can be used.\n\n"
@@ -621,7 +629,7 @@ public class NiftyFunc {
             SPGlobal.logMain("LOOT", "Exiting program due to LOOT failure.");
             SUMGUI.exitProgram(false, true);
         }
-        SPGlobal.logMain("LOOT", "LOOT complete.");
+        SPGlobal.logMain("LOOT", "LOOT attempt complete, success=" + lootSuccess);
     }
 
     /**
