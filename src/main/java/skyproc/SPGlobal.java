@@ -4,7 +4,6 @@ import lev.Ln;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import skyproc.gui.SUMGUI;
 
@@ -27,18 +26,19 @@ public class SPGlobal {
 
     private static final String FS_DELIMITER = FileSystems.getDefault().getSeparator();
 
+    private static final String SP_GLOBAL_PATH_TO_DATA = "SP_GLOBAL_PATH_TO_DATA";
+
+    private static final String SP_GLOBAL_PATH_TO_INI = "SP_GLOBAL_PATH_TO_INI";
+
     /**
      * Path to the Data/ folder to look for plugins to import/export.
      */
     public static String pathToData;
     public static String pathToDataFixed;
 
-    @Value("${sp.global.path.to.data}")
-    String spGlobalPathToData;
-
     @PostConstruct
     public void postConstruct() {
-        SPGlobal.pathToData = spGlobalPathToData;
+        SPGlobal.pathToData = System.getenv(SP_GLOBAL_PATH_TO_DATA);
         SPGlobal.pathToDataFixed = pathToData;
         log.info("SPGlobal post-init: pathToData={}", pathToData);
     }
@@ -106,6 +106,34 @@ public class SPGlobal {
     static final ArrayList<String> modsWhiteListStr = new ArrayList<>();
     static String appDataFolder;
     private static boolean allModsAsMasters = false;
+
+    /**
+     * Fetch the language of the game from the Skyrim.ini.
+     * Any exceptions encountered while reading the config-file are logged in
+     * the debug logs and not passed to the caller.
+     * @return the fetched language or the previously defined one (defaults to
+     * English)
+     */
+    public static Language getLanguageFromSkyrimIni() {
+        try (FileReader fstream = new FileReader(SPGlobal.getSkyrimINI());
+             BufferedReader reader = new BufferedReader(fstream)) {
+            String line = reader.readLine();
+            while (line != null) {
+                if (line.contains("sLanguage")) {
+                    String iniLanguage = line.substring(line.indexOf("=") + 1);
+                    for (SPGlobal.Language lang : SPGlobal.Language.values()) {
+                        if (lang.name().equalsIgnoreCase(iniLanguage)) {
+                            return lang;
+                        }
+                    }
+                }
+                line = reader.readLine();
+            }
+        } catch (IOException ex) {
+            SPGlobal.logException(ex);
+        }
+        return language;
+    }
 
     /**
      * @return a File path to the SkyProc Documents folder.
@@ -252,8 +280,6 @@ public class SPGlobal {
         return getSkyrimINI().getParentFile();
     }
 
-    private static final String SP_GLOBAL_PATH_TO_INI = "SP_GLOBAL_PATH_TO_INI";
-
     /**
      * Returns the Skyrim.ini file in the My Documents folder.
      */
@@ -344,7 +370,7 @@ public class SPGlobal {
      * @return The loadorder.txt file that contains all load order information.
      */
     static public String getLoadOrderTxt() throws IOException {
-        String loadorderFile = getSkyrimAppData() + "\\loadorder.txt";
+        String loadorderFile = getSkyrimAppData() + File.separator + "loadorder.txt";
         File loadorderPath = new File(loadorderFile);
         if (!loadorderPath.exists()) {
             throw new FileNotFoundException("Load Order Text file does not exist at: " + loadorderFile);

@@ -839,7 +839,7 @@ public class SUMprogram implements SUM {
                     args.add(path.getPath());
                     args.add("-NONEW");
                     args.add("-JUSTSETTINGS");
-                    NiftyFunc.startProcess(new File(path.getParentFile().getPath() + "\\"), args.toArray(new String[0]));
+                    NiftyFunc.startProcess(new File(path.getParentFile().getPath() + File.separator), args.toArray(new String[0]));
                 }
 
                 @Override

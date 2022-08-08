@@ -300,6 +300,7 @@ public class SUMGUI extends JFrame {
 
         justSettings = arguments.contains("-JUSTSETTINGS");
 
+        SPGlobal.language = SPGlobal.getLanguageFromSkyrimIni();
         index = arguments.indexOf("-LANGUAGE");
         if (index != -1) {
             String lang = arguments.get(index + 1);
@@ -310,10 +311,11 @@ public class SUMGUI extends JFrame {
                 }
             }
         }
+        SPGlobal.logMain("Language", "Language set to " + SPGlobal.language);
 
         if (arguments.contains("-SUMBLOCK")) {
             try {
-                loadBlockedMods(spGlobal.getSkyProcDocuments() + "\\SUM Mod Blocklist.txt");
+                loadBlockedMods(spGlobal.getSkyProcDocuments() + File.separator + "SUM Mod Blocklist.txt");
             } catch (IOException ex) {
                 SPGlobal.logException(ex);
             }

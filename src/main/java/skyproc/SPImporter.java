@@ -221,9 +221,10 @@ public class SPImporter {
      *
      * @return A set of Mods with all their data imported and ready to be
      * manipulated.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
+     * @throws BadMod if the plugin could not be parsed
      */
-    static public Set<Mod> importAllMods() throws MissingMaster {
+    static public Set<Mod> importAllMods() throws MissingMaster, BadMod {
         return importAllMods(GRUP_TYPE.values());
     }
 
@@ -238,10 +239,11 @@ public class SPImporter {
      *                     you wish to import.
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
+     * @throws BadMod if the plugin could not be parsed
      * @see SPGlobal
      */
-    static public Set<Mod> importAllMods(GRUP_TYPE... grup_targets) throws MissingMaster {
+    static public Set<Mod> importAllMods(GRUP_TYPE... grup_targets) throws MissingMaster, BadMod {
         return importMods(getModList(), SPGlobal.pathToDataFixed, grup_targets);
     }
 
@@ -256,10 +258,11 @@ public class SPImporter {
      *                     import
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
+     * @throws BadMod if the plugin could not be parsed
      * @see SPGlobal
      */
-    static public Set<Mod> importAllMods(ArrayList<GRUP_TYPE> grup_targets) throws MissingMaster {
+    static public Set<Mod> importAllMods(ArrayList<GRUP_TYPE> grup_targets) throws MissingMaster, BadMod {
         GRUP_TYPE[] tmp = new GRUP_TYPE[0];
         return importMods(getModList(), SPGlobal.pathToDataFixed, grup_targets.toArray(tmp));
     }
@@ -280,10 +283,10 @@ public class SPImporter {
      * @return A set of Mods with all their data imported and ready to be
      * manipulated.
      * @throws IOException
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
      * @see SPGlobal
      */
-    static public Set<Mod> importActiveMods() throws IOException, MissingMaster {
+    static public Set<Mod> importActiveMods() throws IOException, MissingMaster, BadMod {
         return importActiveMods(GRUP_TYPE.values());
     }
 
@@ -303,10 +306,10 @@ public class SPImporter {
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws IOException
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
      * @see SPGlobal
      */
-    static public Set<Mod> importActiveMods(GRUP_TYPE... grup_targets) throws IOException, MissingMaster {
+    static public Set<Mod> importActiveMods(GRUP_TYPE... grup_targets) throws IOException, MissingMaster, BadMod {
         return importMods(getActiveModList(), SPGlobal.pathToDataFixed, grup_targets);
     }
 
@@ -326,10 +329,10 @@ public class SPImporter {
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
      * @throws IOException
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
      * @see SPGlobal
      */
-    static public Set<Mod> importActiveMods(ArrayList<GRUP_TYPE> grup_targets) throws IOException, MissingMaster {
+    static public Set<Mod> importActiveMods(ArrayList<GRUP_TYPE> grup_targets) throws IOException, MissingMaster, BadMod {
         GRUP_TYPE[] tmp = new GRUP_TYPE[0];
         return importMods(getActiveModList(), SPGlobal.pathToDataFixed, grup_targets.toArray(tmp));
     }
@@ -345,10 +348,10 @@ public class SPImporter {
      *                     you wish to import.
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
      * @see SPGlobal
      */
-    static public Set<Mod> importMods(ArrayList<ModListing> mods, GRUP_TYPE... grup_targets) throws MissingMaster {
+    static public Set<Mod> importMods(ArrayList<ModListing> mods, GRUP_TYPE... grup_targets) throws MissingMaster, BadMod {
         return importMods(mods, SPGlobal.pathToDataFixed, grup_targets);
     }
 
@@ -363,10 +366,11 @@ public class SPImporter {
      *                     import
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
+     * @throws BadMod if the plugin could not be parsed
      * @see SPGlobal
      */
-    static public Set<Mod> importMods(ArrayList<ModListing> mods, ArrayList<GRUP_TYPE> grup_targets) throws MissingMaster {
+    static public Set<Mod> importMods(ArrayList<ModListing> mods, ArrayList<GRUP_TYPE> grup_targets) throws MissingMaster, BadMod {
         GRUP_TYPE[] tmp = new GRUP_TYPE[0];
         return importMods(mods, SPGlobal.pathToDataFixed, grup_targets.toArray(tmp));
     }
@@ -381,10 +385,10 @@ public class SPImporter {
      * @param mods ModListings to look for and import from the data folder.
      * @return A set of Mods with all GRUPs imported and ready to be
      * manipulated.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
      * @see SPGlobal
      */
-    static public Set<Mod> importMods(ArrayList<ModListing> mods) throws MissingMaster {
+    static public Set<Mod> importMods(ArrayList<ModListing> mods) throws MissingMaster, BadMod {
         return importMods(mods, SPGlobal.pathToDataFixed, GRUP_TYPE.values());
     }
 
@@ -399,9 +403,9 @@ public class SPImporter {
      * @param path Path from patch location to where to load mods from.
      * @return A set of Mods with all GRUPs imported and ready to be
      * manipulated.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
      */
-    static public Set<Mod> importMods(ArrayList<ModListing> mods, String path) throws MissingMaster {
+    static public Set<Mod> importMods(ArrayList<ModListing> mods, String path) throws MissingMaster, BadMod {
         return importMods(mods, path, GRUP_TYPE.values());
     }
 
@@ -416,9 +420,10 @@ public class SPImporter {
      *                     you wish to import.
      * @return A set of Mods with specified GRUPs imported and ready to be
      * manipulated.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
+     * @throws BadMod if the plugin could not be parsed
      */
-    static public Set<Mod> importMods(final ArrayList<ModListing> mods, String path, GRUP_TYPE... grup_targets) throws MissingMaster {
+    static public Set<Mod> importMods(final ArrayList<ModListing> mods, String path, GRUP_TYPE... grup_targets) throws MissingMaster, BadMod {
 
         if (grup_targets.length == 0) {
             SPGlobal.logMain(header, "Skipping import because requests were empty.");
@@ -448,25 +453,7 @@ public class SPImporter {
             String mod = mods.get(i).print();
             SPProgressBarPlug.setStatusNumbered(genStatus(mods.get(i)));
             if (!SPGlobal.modsToSkip.contains(new ModListing(mod))) {
-                try {
-                    outSet.add(importMod(new ModListing(mod), i, path, true, grup_targets));
-                } catch (BadMod ex) {
-                    SPGlobal.logError(header, "Exception occured while importing mod : " + mod);
-                    SPGlobal.logError(header, "  Message: " + ex);
-                    SPGlobal.logError(header, "  Stack: ");
-                    for (StackTraceElement s : ex.getStackTrace()) {
-                        SPGlobal.logError(header, "  " + s.toString());
-                    }
-                    SPGlobal.logError(header, "Skipping a bad mod: " + mod);
-                    SPGlobal.logError(header, "  " + ex);
-                } //catch (Exception e) {
-//                    SPGlobal.logError(header, "Exception occured while importing mod : " + mod);
-//                    SPGlobal.logError(header, "  Message: " + e);
-//                    SPGlobal.logError(header, "  Stack: ");
-//                    for (StackTraceElement s : e.getStackTrace()) {
-//                        SPGlobal.logError(header, "  " + s.toString());
-//                    }
-//                }
+                outSet.add(importMod(new ModListing(mod), i, path, true, grup_targets));
             } else {
                 SPProgressBarPlug.setStatusNumbered(genStatus(mods.get(i)) + ": Skipped!");
             }
@@ -492,7 +479,7 @@ public class SPImporter {
      * manipulated.
      * @throws BadMod        If SkyProc runs into any unexpected data structures, or
      *                       has any error importing a mod at all.
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
      */
     static public Mod importMod(ModListing listing, String path, GRUP_TYPE... grup_targets) throws BadMod, MissingMaster {
         return importMod(listing, 1000, path, true, grup_targets);
@@ -556,7 +543,6 @@ public class SPImporter {
         } catch (MissingMaster m) {
             throw m;
         } catch (Exception e) {
-
             SPGlobal.logError(header, "Exception occurred while importing mod : " + path);
             SPGlobal.logError(header, "  Message: " + e);
             SPGlobal.logError(header, "  Stack: ");
@@ -565,7 +551,7 @@ public class SPImporter {
             }
 
             SPGlobal.logException(e);
-            throw new BadMod("Ran into an exception, check SPGlobal.logs for more details.");
+            throw new BadMod("Ran into an exception, check SPGlobal.logs for more details.", e, listing);
         }
     }
 
@@ -584,32 +570,40 @@ public class SPImporter {
      *                       ArrayList<GRUP_TYPE> grup_targets) throws BadMod { GRUP_static Type[]
      *                       types = new GRUP_TYPE[grup_targets.size()]; types =
      *                       grup_targets.toArray(types); return importMod(listing, path, types);
-     * @throws MissingMaster
+     * @throws MissingMaster if the plugin's master files are not imported
      */
     public static Mod importMod(ModListing listing, GRUP_TYPE... grup_targets) throws BadMod, MissingMaster {
         return importMod(listing, SPGlobal.pathToDataFixed, grup_targets);
     }
 
-    static void checkMissingMasters(Mod plugin) throws MissingMaster {
-        ArrayList<ModListing> missingMasters = new ArrayList<>();
+    static void checkMissingMasters(Mod plugin) throws MissingMaster, IOException {
+        ArrayList<ModListing> notInstalled = new ArrayList<>();
+        ArrayList<ModListing> inactive = new ArrayList<>();
+        ArrayList<ModListing> loadedAfter = new ArrayList<>();
+        int failedMasters = 0;
         for (ModListing master : plugin.getMasters()) {
+            Mod masterMod;
             try {
                 RecordFileChannel input = new RecordFileChannel(SPGlobal.pathToDataFixed + master.print());
                 ModListing tempListing = new ModListing(master.print());
-                Mod masterMod = new Mod(tempListing, extractHeaderInfo(input));
-                if (SPDatabase.getMod(tempListing) == null && SPGlobal.shouldImport(master)) {
-                    missingMasters.add(master);
-                }
+                // we need to fetch the header bc ModListing comparisons include both file name
+                // and the master-flag, but the masters-list of a plugin only includes the name
+                masterMod = new Mod(tempListing, extractHeaderInfo(input));
             } catch (Exception exception) {
-                missingMasters.add(master);
+                notInstalled.add(master);
+                failedMasters += 1;
+                continue;
+            }
+            if (!getActiveModList().contains(masterMod.modInfo)) {
+                inactive.add(master);
+                failedMasters += 1;
+            } else if (SPDatabase.getMod(masterMod.getInfo()) == null) {
+                loadedAfter.add(master);
+                failedMasters += 1;
             }
         }
-        if (!missingMasters.isEmpty()) {
-            StringBuilder error = new StringBuilder("\n" + plugin + " has some missing masters:");
-            for (ModListing m : missingMasters) {
-                error.append("\n  - ").append(m.toString());
-            }
-            throw new MissingMaster(error.toString());
+        if (failedMasters > 0) {
+            throw new MissingMaster(plugin.getName(), notInstalled, inactive, loadedAfter);
         }
     }
 

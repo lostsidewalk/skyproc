@@ -243,7 +243,7 @@ class Consistency {
         @Override
         String getConsistencyFile() throws IOException {
             File myDocs = SPGlobal.getSkyProcDocuments();
-            return myDocs.getPath() + "\\Consistency";
+            return myDocs.getPath() + File.separator + "Consistency";
         }
 
         @Override
@@ -443,7 +443,7 @@ class Consistency {
         @Override
         String getConsistencyFile() throws IOException {
             File myDocs = SPGlobal.getSkyProcDocuments();
-            return myDocs.getPath() + "\\ConsistencyV3\\" + SPGlobal.getGlobalPatch().getName() + "_Consistency";
+            return myDocs.getPath() + File.separator + "ConsistencyV3" + File.separator + SPGlobal.getGlobalPatch().getName() + "_Consistency";
         }
 
         @Override

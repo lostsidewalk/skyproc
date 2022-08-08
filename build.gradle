@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.lostsidewalk'
-version = '0.4-dev3'
+version = '0.4-dev4'
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
