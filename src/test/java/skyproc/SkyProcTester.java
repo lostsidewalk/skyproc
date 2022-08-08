@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -28,7 +28,7 @@ public class SkyProcTester {
 
     static final boolean streaming = false;
 
-    final ArrayList<GRUP_TYPE> skip = new ArrayList<>(List.of(GRUP_TYPE.BOOK));
+    final ArrayList<GRUP_TYPE> skip = new ArrayList<>(Collections.singletonList(GRUP_TYPE.BOOK));
 
     private static class ModTestPackage {
         final ModListing main;
@@ -59,7 +59,14 @@ public class SkyProcTester {
         SPGlobal.testing = true;
     }
 
-    static final String DASHED_LINE = "==========".repeat(10);
+    static String DASHED_LINE;
+    static {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            sb.append("==========");
+        }
+        DASHED_LINE = sb.toString();
+    }
 
     @BeforeEach
     void beforeEach() {

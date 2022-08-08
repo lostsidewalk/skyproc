@@ -750,7 +750,6 @@ public class SUMGUI extends JFrame {
 
     final void addComponents() {
         try {
-
             backgroundPanel = new LImagePane(new ClassPathResource("background.jpg").getURL());
             super.add(backgroundPanel);
 

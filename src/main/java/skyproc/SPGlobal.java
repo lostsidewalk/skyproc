@@ -295,11 +295,11 @@ public class SPGlobal {
     static public String getSkyrimAppData() throws IOException {
         if (appDataFolder == null) {
             appDataFolder = System.getenv("LOCALAPPDATA");
-
+            SPGlobal.logMain(header, SPGlobal.gameName + " LOCALAPPDATA=" + appDataFolder);
             if (appDataFolder == null) {
 //                SPGlobal.logError(header, "Can't locate local app data folder directly.");
                 appDataFolder = System.getenv("APPDATA");
-
+                SPGlobal.logMain(header, SPGlobal.gameName + " APPDATA=" + appDataFolder);
                 if (appDataFolder == null) {
 //                    SPGlobal.logError(header, "Can't locate local app data folder.");
                     appDataFolder = Ln.manualFindFile(
@@ -326,8 +326,9 @@ public class SPGlobal {
      */
     static public String getPluginsTxt() throws IOException {
         String pluginsFile = getSkyrimAppData() + FS_DELIMITER + "plugins.txt";
+        SPGlobal.logMain(header, SPGlobal.gameName + " pluginsFile=" + pluginsFile);
         File pluginListPath = new File(pluginsFile);
-        SPGlobal.logMain(header, SPGlobal.gameName + " Attempting to locate Plugins.txt in path=" + pluginListPath.getAbsolutePath());
+        SPGlobal.logMain(header, SPGlobal.gameName + " Attempting to locate Plugins.txt in path=" + pluginListPath.getPath());
         if (!pluginListPath.exists()) {
             SPGlobal.logMain(header, SPGlobal.gameName + " Plugin file location wrong. Locating manually.");
             pluginsFile = Ln.manualFindFile(
@@ -382,7 +383,7 @@ public class SPGlobal {
     }
 
     private static void withGlobalLogger(Consumer<Logger> logConsumer) {
-        optLog().ifPresentOrElse(logConsumer, () -> slf4j.warn("No global logger defined"));
+        optLog().ifPresent(logConsumer);
     }
 
     static void logSync(String header, String... print) {

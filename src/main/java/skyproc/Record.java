@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.zip.DataFormatException;
 
 /**
@@ -29,7 +29,7 @@ public abstract class Record implements Serializable {
     }
 
     static ArrayList<String> getTypeList(String t) {
-        return typeLists.computeIfAbsent(t, t1 -> new ArrayList<>(List.of(t1)));
+        return typeLists.computeIfAbsent(t, t1 -> new ArrayList<>(Collections.singletonList(t1)));
     }
 
     /**
