@@ -23,7 +23,7 @@ public class PERK extends MajorRecordDescription {
         protected void addRecords() {
             after(new ScriptPackage(new PERKScriptFragments()), "EDID");
             add(new SubList<>(new Condition()));
-            add(new SubData("DATA"));
+            add(new DATA());
             add(new SubForm("NNAM"));
             add(SubString.getNew("ICON", true));
             add(new SubList<>(new PRKEPackage(new SubPrototype() {
@@ -100,6 +100,104 @@ public class PERK extends MajorRecordDescription {
 
     public FormID getNextPerk() {
         return subRecords.getSubForm("NNAM").getForm();
+    }
+
+    static class DATA extends SubRecord {
+
+        boolean trait;
+        int level;
+        int ranks;
+        boolean playable;
+        boolean hidden;
+
+        DATA() {
+            super();
+        }
+
+        @Override
+        void export(ModExporter out) throws IOException {
+            super.export(out);
+            out.write(trait, 1);
+            out.write(level, 1);
+            out.write(ranks, 1);
+            out.write(playable, 1);
+            out.write(hidden, 1);
+        }
+
+        @Override
+        void parseData(LImport in, Mod srcMod) throws BadRecord, DataFormatException, BadParameter {
+            super.parseData(in, srcMod);
+            trait = in.extractBool(1);
+            level = in.extractInt(1);
+            ranks = in.extractInt(1);
+            playable = in.extractBool(1);
+            hidden = in.extractBool(1);
+            logMod(srcMod, "", "Trait: " + trait + ", level: " + level + ", ranks: " + ranks + ", playable: " + playable + ", hidden: " + hidden);
+        }
+
+        @Override
+        SubRecord getNew(String type) {
+            return new DATA();
+        }
+
+        @Override
+        boolean isValid() {
+            return true;
+        }
+
+        @Override
+        int getContentLength(boolean isStringTabled) {
+            return 5;
+        }
+
+        @Override
+        ArrayList<String> getTypes() {
+            return Record.getTypeList("DATA");
+        }
+    }
+
+    DATA getDATA() {
+        return (DATA) subRecords.get("DATA");
+    }
+
+    public void setTrait(boolean trait) {
+        getDATA().trait = trait;
+    }
+
+    public boolean getTrait() {
+        return getDATA().trait;
+    }
+
+    public void setLevel(int level) {
+        getDATA().level = level;
+    }
+
+    public int getLevel() {
+        return getDATA().level;
+    }
+
+    public void setRanks(int ranks) {
+        getDATA().ranks = ranks;
+    }
+
+    public int getRanks() {
+        return getDATA().ranks;
+    }
+
+    public void setPlayable(boolean playable) {
+        getDATA().playable = playable;
+    }
+
+    public boolean getPlayable() {
+        return getDATA().playable;
+    }
+
+    public void setHidden(boolean hidden) {
+        getDATA().hidden = hidden;
+    }
+
+    public boolean getHidden() {
+        return getDATA().hidden;
     }
 
     // Get/Set

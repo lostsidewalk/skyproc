@@ -1170,6 +1170,9 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
             case BrowsUpDown:
                 getNAM9().browUp = value;
                 break;
+            case BrowsInOut:
+                getNAM9().browIn = value;
+                break;
             case BrowsForwardBack:
                 getNAM9().browForward = value;
                 break;
@@ -1221,6 +1224,8 @@ public class NPC_ extends MajorRecordNamed implements Serializable {
                 return getNAM9().eyeIn;
             case BrowsUpDown:
                 return getNAM9().browUp;
+            case BrowsInOut:
+                return getNAM9().browIn;
             case BrowsForwardBack:
                 return getNAM9().browForward;
             case LipsUpDown:

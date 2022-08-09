@@ -807,7 +807,15 @@ public class RACE extends MajorRecordDescription {
      * @deprecated use getPhysicsModel()
      */
     public String getPhysicsModels(Gender gender) {
-        return getPhysicsModel(gender).getFileName();
+        SubShell behaviorGraph = getBehaviorGraph(gender);
+        if (behaviorGraph == null) {
+            return null;
+        }
+        SubRecordsDerived subRecords = behaviorGraph.subRecords;
+        if (subRecords == null) {
+            return null;
+        }
+        return subRecords.getModel().getFileName();
     }
 
     /**

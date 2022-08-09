@@ -3,6 +3,7 @@ package skyproc;
 import lev.LInChannel;
 import lev.Ln;
 import org.apache.commons.lang3.StringUtils;
+import skyproc.exceptions.BadRecord;
 import skyproc.gui.SUMGUI;
 
 import javax.swing.*;
@@ -513,24 +514,23 @@ public class NiftyFunc {
      * @param mods
      * @throws IOException
      */
-    public static void setupMissingPatchFiles(ArrayList<Mod> mods) throws IOException {
+    public static void setupMissingPatchFiles(ArrayList<Mod> mods) throws IOException, BadRecord {
         setupMissingPatchFiles(mods.toArray(new Mod[0]));
     }
 
     /**
-     * Creates empty files for non existent mods.
+     * Creates empty files for nonexistent mods.
      *
      * @param mods
      * @throws IOException
      */
-    public static void setupMissingPatchFiles(Mod... mods) throws IOException {
+    public static void setupMissingPatchFiles(Mod... mods) throws IOException, BadRecord {
         // Handle non-existant patchers
         for (Mod newPatcher : mods) {
             File path = new File(SPGlobal.pathToDataFixed + newPatcher.getName());
             // Export tmp patch as a placeholder
             if (!path.isFile()) {
-                BufferedWriter placeholder = new BufferedWriter(new FileWriter(SPGlobal.pathToDataFixed + newPatcher.getName()));
-                placeholder.close();
+                newPatcher.export(path);
             }
         }
     }

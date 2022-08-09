@@ -160,7 +160,7 @@ public class SUMGUI extends JFrame {
     public static void open(final SPGlobal spGlobal, final SUM hook, String[] mainArgs) {
         handleArgs(spGlobal, mainArgs);
 
-        loadBlockedMods("Files/BlockList.txt");
+        loadBlockedMods("Files" + File.separator + "BlockList.txt");
 
         clean();
 
@@ -315,7 +315,7 @@ public class SUMGUI extends JFrame {
 
         if (arguments.contains("-SUMBLOCK")) {
             try {
-                loadBlockedMods(spGlobal.getSkyProcDocuments() + File.separator + "SUM Mod Blocklist.txt");
+                loadBlockedMods(spGlobal.getSkyProcDocuments() + File.separator + "SUM Mod BlockList.txt");
             } catch (IOException ex) {
                 SPGlobal.logException(ex);
             }

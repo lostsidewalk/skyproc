@@ -43,7 +43,7 @@ public class SPGlobal {
         log.info("SPGlobal post-init: pathToData={}", pathToData);
     }
 
-    public static final String pathToPatchers = Ln.getMyDocuments().getPath() + "//SkyProc Patchers//";
+    public static final String pathToPatchers = Ln.getMyDocuments().getPath() + File.separator + "SkyProc Patchers" + File.separator;
     /**
      * A default path to "internal files". This is currently only used for
      * saving custom path information for Skyrim.ini and plugins.txt. This can
@@ -332,7 +332,7 @@ public class SPGlobal {
                             "your Plugins.txt file.\n" +
                             "This is usually found in your Local Application Data folder.\n" +
                             "You may need to turn on hidden folders to see it.", new File(SPGlobal.pathToInternalFiles + "PluginsListLocation.txt")).getPath();
-                    SPGlobal.logMain(header, "Plugin.txt returned: ", appDataFolder, "     Shaving off the \\Plugins.txt.");
+                    SPGlobal.logMain(header, "Plugin.txt returned: ", appDataFolder, "     Shaving off the " + File.separator + "Plugins.txt.");
                     appDataFolder = appDataFolder.substring(0, appDataFolder.lastIndexOf(FS_DELIMITER));
                 } else {
                     SPGlobal.logMain(header, "APPDATA returned: ", appDataFolder, "     Shaving off the \\Application Data.");

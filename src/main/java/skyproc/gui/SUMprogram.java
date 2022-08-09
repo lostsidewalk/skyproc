@@ -443,10 +443,10 @@ public class SUMprogram implements SUM {
         }
         SUMsave.setStrings(SUMSettings.DISABLED, disabledLinks);
 
-        // Delete unused blocklist file
-        File blocklist = new File("Files\\Blocklist.txt");
-        if (blocklist.isFile()) {
-            blocklist.delete();
+        // Delete unused BlockList.txt file
+        File blockList = new File("Files" + File.separator + "BlockList.txt");
+        if (blockList.isFile()) {
+            blockList.delete();
         }
     }
 
