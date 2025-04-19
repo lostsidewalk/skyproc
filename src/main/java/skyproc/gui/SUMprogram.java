@@ -489,7 +489,7 @@ public class SUMprogram implements SUM {
             args.add("java");
             args.add("-jar");
             args.add("-Xms200m");
-            args.add("-Xmx" + SUMsave.getInt(SUMSettings.MAX_MEM) + "m");
+//            args.add("-Xmx" + SUMsave.getInt(SUMSettings.MAX_MEM) + "m");
             args.add(f.getPath());
             boolean pass = NiftyFunc.startProcess(null, args.toArray(new String[0]));
             if (!pass) {

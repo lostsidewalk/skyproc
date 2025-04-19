@@ -19,11 +19,14 @@ public class SkyProcTester {
 
     static final ArrayList<FormID> badIDs;
 
+    static final String testOutputPath = "testout/";
+
     static {
         badIDs = new ArrayList<>();
         ModListing skyrim = new ModListing("Skyrim.esm");
         badIDs.add(new FormID("018A45", skyrim));  //RiverwoodZone
         badIDs.add(new FormID("00001E", skyrim));  //NoZoneZone
+        new File(testOutputPath).mkdir();
     }
 
     static final boolean streaming = false;
@@ -52,7 +55,7 @@ public class SkyProcTester {
     public static void beforeAll() {
         SPGlobal.streamMode = streaming;
         SPGlobal.setGlobalPatch(new Mod(new ModListing("Test", false)));
-        SPGlobal.pathToData = "/home/me/.steam/debian-installation/steamapps/common/Skyrim Special Edition/Data/";
+        SPGlobal.pathToData = System.getenv("SP_GLOBAL_PATH_TO_DATA");
         // set via env var
         // SPGlobal.pathToIni = "/home/me/.steam/debian-installation/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My Games/Skyrim Special Edition/Skyrim.ini";
         SPGlobal.pathToDataFixed = SPGlobal.pathToData;
@@ -119,10 +122,10 @@ public class SkyProcTester {
             }
             try {
                 String testModName = doExport(g, p.main, p.importList);
-                boolean passed = NiftyFunc.validateRecordLengths(SPGlobal.pathToDataFixed + testModName, 10);
-                File validF = new File("Validation Files/" + g + "_" + p.main.printNoSuffix() + ".esp");
+                boolean passed = NiftyFunc.validateRecordLengths(testModName, 10);
+                File validF = new File("Validation Files/" + g + "_" + p.main);
                 if (validF.isFile()) {
-                    passed = Ln.validateCompare(SPGlobal.pathToDataFixed + testModName, validF.getPath(), 0) && passed;
+                    passed = Ln.validateCompare(testModName, validF.getPath(), 0) && passed;
                 } else {
                     debug("No source file to validate GRUP={}, expected={}", g, validF.getName());
                     return null; // skipped
@@ -132,9 +135,9 @@ public class SkyProcTester {
 
                 if (!passed) {
                     exportPass = false;
-                    warn("Validation failed for testFile={}, keyFile={}", SPGlobal.pathToDataFixed + testModName, validF.getPath());
+                    warn("Validation failed for testFile={}, keyFile={}", testModName, validF.getPath());
                 } else {
-                    info("Validation succeeded for testFile={}, keyFile={}", SPGlobal.pathToDataFixed + testModName, validF.getPath());
+                    info("Validation succeeded for testFile={}, keyFile={}", testModName, validF.getPath());
                 }
             } catch (Exception e) {
                 Assertions.fail(e.getMessage());
@@ -156,7 +159,7 @@ public class SkyProcTester {
     private String doExport(GRUP_TYPE type, ModListing main, ModListing[] importList) throws IOException {
         info("Testing {} in {}", type, main);
 
-        String testModName = String.format("%s_Test.esp", type);
+        String testModName = String.format("%s_%s", type, main);
         Mod patch = new Mod(new ModListing(testModName));
         patch.setFlag(Mod.Mod_Flags.STRING_TABLED, false);
         patch.addAsOverrides(SPDatabase.getMod(main), type);
@@ -179,14 +182,15 @@ public class SkyProcTester {
         for (ModListing depend : importList) {
             patch.addMaster(depend);
         }
+        String testPatchName = testOutputPath + patch.getName();
         try {
-            patch.export(new File(SPGlobal.pathToDataFixed + patch.getName()));
+            patch.export(new File(testPatchName));
         } catch (BadRecord ex) {
             SPGlobal.logException(ex);
             error("Records lengths were off for type={}", type);
         }
 
-        return testModName;
+        return testPatchName;
     }
 
     @Test

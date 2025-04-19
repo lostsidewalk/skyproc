@@ -69,7 +69,6 @@ test {
     systemProperty "junit.jupiter.execution.parallel.enabled", false
     systemProperty "junit.jupiter.execution.mode.default", "same_thread"
     systemProperty "junit.jupiter.execution.mode.classes.default", "same_thread"
-    exclude 'skyproc/SkyProcTester.class'
 }
 
 

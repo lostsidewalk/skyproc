@@ -34,9 +34,9 @@ Examples (from my Linux host using MO2 w/default profile):
 
    LOCALAPPDATA=/home/me/Games/mod-organizer-2-skyrimspecialedition/modorganizer2/profiles/Default
 
-   SP_GLOBAL_PATH_TO_INI=/home/me/.steam/debian-installation/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My Games/Skyrim Special Edition/Skyrim.ini
+   SP_GLOBAL_PATH_TO_INI=/home/me/snap/steam/common/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/Documents/My\ Games/Skyrim\ Special\ Edition/Skyrim.ini
 
-   SP_GLOBAL_PATH_TO_DATA=/home/me/.steam/debian-installation/steamapps/common/Skyrim Special Edition/Data/
+   SP_GLOBAL_PATH_TO_DATA=/home/me/snap/steam/common/.local/share/Steam/steamapps/common/Skyrim\ Special\ Edition/Data/
 
 If you want to run LOOT (recommended), then define an environment variable called LOOT_PATH, e.g.: 
 
