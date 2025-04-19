@@ -9,6 +9,8 @@ plugins {
 
 group = 'com.lostsidewalk'
 version = '0.4-dev5'
+sourceCompatibility = "18"
+targetCompatibility = "18"
 
 repositories {
     mavenLocal()
